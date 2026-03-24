@@ -1,6 +1,4 @@
-/**
- * Ponto de entrada público do pacote (componentes, tokens, utilitários).
- * Preencher exports conforme os módulos forem adicionados.
- */
-
-export {}
+export * from './tokens'
+export { cn } from './lib/cn'
+export * from './components/ui'
+export { FipsLogo } from './components/brand/FipsLogo'
