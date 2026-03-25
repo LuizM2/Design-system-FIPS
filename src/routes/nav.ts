@@ -19,6 +19,7 @@ import {
   SwatchBook,
   TableProperties,
   Type,
+  MonitorSmartphone,
 } from 'lucide-react'
 
 export type NavItem = {
@@ -53,6 +54,7 @@ export const navGroups: NavGroup[] = [
       { label: 'Data Listing', to: '/docs/patterns/data-listing', icon: TableProperties },
       { label: 'Form Workspace', to: '/docs/patterns/form-workspace', icon: FormInput },
       { label: 'Modal Workflow', to: '/docs/patterns/modal-workflow', icon: ScanText },
+      { label: 'Hero Header', to: '/docs/patterns/hero-header', icon: MonitorSmartphone },
     ],
   },
   {

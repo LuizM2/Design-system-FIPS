@@ -179,21 +179,17 @@ function SidebarContent({
         )}
       >
         {collapsed ? (
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white p-0.5">
-            <FipsLogo variant="symbol" inverted={false} className="[&_img]:h-6 [&_img]:w-6" />
-          </div>
+          <FipsLogo />
         ) : (
-          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white p-0.5">
-              <FipsLogo variant="symbol" inverted={false} className="[&_img]:h-6 [&_img]:w-6" />
-            </div>
+          <div className="flex flex-1 items-center gap-2 overflow-hidden">
+            <FipsLogo />
             <span className="text-lg text-white/50">|</span>
-            <span className="truncate text-lg font-semibold text-white">Design System</span>
+            <span className="truncate font-semibold text-lg text-white">Design System</span>
           </div>
         )}
       </div>
 
-      <nav className="min-h-0 flex-1 overflow-y-auto px-2 py-3" aria-label="Documentação">
+      <nav className="sidebar-scroll min-h-0 flex-1 overflow-y-auto px-2 py-3" aria-label="Documentação">
         <div className="space-y-0.5">
           {navGroups.map((group) => renderGroup(group))}
         </div>

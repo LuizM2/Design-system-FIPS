@@ -136,6 +136,20 @@ Campos e botões: `rounded-lg`. Cards e modais: `rounded-xl` / `rounded-2xl`.
 
 Replicar em outros apps: manter **contraste mínimo WCAG AA** para texto sobre `--color-primary` e sobre `--color-accent`.
 
+### 5.1 Hero de módulo (`PageHero`)
+
+- **Home:** header glass sobre imagem + gradiente (padrão documentado em *Hero Header* na doc do DS).  
+- **Todas as outras páginas de produto (Produção, Governança, etc.):** usar o composite **`PageHero`** — faixa com degradê azul institucional e **trem/trilhos sutis** à direita (arte padrão: `/backgrounds/app-shell-home-trains.png`; constante `PAGE_HERO_DEFAULT_DECORATION` no pacote `ds-fips`).
+- Sem foto: `decorationSrc={null}` e, se quiser reforço leve, `showTrainSilhouette` (SVG em `/brand/hero-train-silhouette.svg`).
+
+```tsx
+import { PageHero } from 'ds-fips'
+
+<PageHero>
+  <div className="px-8 py-10">{/* título, badge, KPIs sobrepostos, botão Atualizar… */}</div>
+</PageHero>
+```
+
 ---
 
 ## 6. Componentes (API resumida)
@@ -166,7 +180,7 @@ Variantes CVA: `button-variants.ts`, `badge-variants.ts`.
 
 Inspirados nos prints em `Referencias/`:
 
-1. **Dashboard** — hero com gradiente azul institucional, KPIs em cards com barra superior colorida, etapas numeradas com círculo amarelo ouro.  
+1. **Dashboard / módulos** — `PageHero` (gradiente azul + trem sutil), KPIs em cards com barra superior colorida, etapas numeradas com círculo amarelo ouro.  
 2. **Tabela de certificados** — faixa de filtros, chips de status, linhas com realce semântico (ex.: vencido em vermelho claro).  
 3. **Modal de formulário** — abas superiores, formulário em duas colunas no desktop, prioridade como grupo de botões, área de anexo tracejada.
 

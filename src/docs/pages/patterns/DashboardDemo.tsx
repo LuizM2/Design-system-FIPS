@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { DocPage, DemoSection } from '../../components/DocPage'
 import { PatternGuidelines } from '../../components/PatternGuidelines'
+import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from '../../../composites/PageHero'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent } from '../../../components/ui/card'
@@ -34,22 +35,23 @@ export default function DashboardDemo() {
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`/* Hero institucional */
-className="bg-gradient-to-b from-[var(--color-fips-blue-900)] to-[var(--color-fips-blue-400)] text-white"
+        reference={`import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from 'ds-fips'
 
-/* Destaque em amarelo ouro */
-className="text-[var(--color-accent)]"
+/* Hero padrão FIPS: gradiente + trem sutil (imagem em ${PAGE_HERO_DEFAULT_DECORATION}) */
+<PageHero>
+  <div className="px-8 py-10">...</div>
+</PageHero>
 
-/* KPI: barra superior */
-className="h-1 w-full bg-[var(--color-fips-blue-900)]" /* variar cor por métrica */
+/* Só gradiente + silhueta SVG (sem foto) */
+<PageHero decorationSrc={null} showTrainSilhouette />
 
-/* Passo numerado */
-className="rounded-full bg-[var(--color-accent)] text-[var(--color-fips-gray-900)]"`}
-        referenceLabel="Classes Tailwind (resumo)"
+/* Destaque no título */
+className="text-[var(--color-accent)]"`}
+        referenceLabel="PageHero + tokens"
       >
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
-          <div className="relative overflow-hidden bg-gradient-to-b from-[var(--color-fips-blue-900)] to-[var(--color-fips-blue-400)] px-8 py-10 text-white">
-            <div className="relative z-10 mx-auto max-w-5xl space-y-4">
+          <PageHero>
+            <div className="mx-auto max-w-5xl space-y-4 px-8 py-10">
               <Badge variant="warning" className="border-0 bg-white/15 text-white">
                 Sistema de governança
               </Badge>
@@ -73,7 +75,7 @@ className="rounded-full bg-[var(--color-accent)] text-[var(--color-fips-gray-900
                 </Button>
               </div>
             </div>
-          </div>
+          </PageHero>
 
           <div className="mx-auto max-w-5xl space-y-8 px-6 py-8">
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -129,12 +131,14 @@ className="rounded-full bg-[var(--color-accent)] text-[var(--color-fips-gray-900
 
       <PatternGuidelines
         rules={[
+          'Use sempre o componente PageHero na faixa azul do cabeçalho do módulo (gradiente + trem sutil).',
           'A primeira dobra precisa comunicar propósito, contexto e próxima ação.',
           'KPIs devem ficar imediatamente abaixo do hero para leitura rápida.',
           'A trilha de processo funciona como orientação e não como diagrama técnico complexo.',
           'CTAs principais e secundárias devem aparecer no hero, nunca escondidas no rodapé.',
         ]}
         required={[
+          'PageHero com arte padrão em /backgrounds/app-shell-home-trains.png (ou decorationSrc equivalente).',
           'Hero com gradiente institucional e destaque em amarelo/laranja.',
           'KPIs com métrica grande, rótulo curto e ícone em superfície suave.',
           'Seção “Como funciona” com passos numerados e muito espaço em branco.',

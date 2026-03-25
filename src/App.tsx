@@ -25,6 +25,7 @@ import DashboardDemo from './docs/pages/patterns/DashboardDemo'
 import DataListingDemo from './docs/pages/patterns/DataListingDemo'
 import FormWorkspaceDemo from './docs/pages/patterns/FormWorkspaceDemo'
 import ModalWorkflowDemo from './docs/pages/patterns/ModalWorkflowDemo'
+import HeroHeaderDoc from './docs/pages/patterns/HeroHeaderDoc'
 
 export default function App() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="patterns/data-listing" element={<DataListingDemo />} />
         <Route path="patterns/form-workspace" element={<FormWorkspaceDemo />} />
         <Route path="patterns/modal-workflow" element={<ModalWorkflowDemo />} />
+        <Route path="patterns/hero-header" element={<HeroHeaderDoc />} />
         <Route path="patterns/certificados" element={<Navigate to="/docs/patterns/data-listing" replace />} />
         <Route path="patterns/modal-form" element={<Navigate to="/docs/patterns/modal-workflow" replace />} />
         <Route path="changelog" element={<ChangelogPage />} />

@@ -1,11 +1,16 @@
 import {
   AlertTriangle,
+  ArrowUp,
+  ArrowUpDown,
   CheckCircle2,
-  Clock3,
   Download,
   FileSpreadsheet,
+  FileText,
+  Plus,
   Search,
+  Shield,
   ShieldCheck,
+  XCircle,
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { PatternGuidelines } from '../../components/PatternGuidelines'
@@ -17,36 +22,44 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 
 const kpis = [
   {
-    label: 'Total de certificados',
+    label: 'Total de Empresas',
     value: '345',
     helper: 'Ativas e novas',
     icon: ShieldCheck,
-    borderClass: 'border-l-[var(--color-fips-blue-900)]',
-    iconClass: 'bg-[var(--color-fips-blue-200)]/55 text-[var(--color-fips-blue-900)]',
+    borderClass: 'border-l-[#2f7df6]',
+    iconClass: 'bg-[#e8f1ff] text-[#2f7df6]',
   },
   {
     label: 'Válidos',
     value: '127',
     helper: 'Dentro da validade',
     icon: CheckCircle2,
-    borderClass: 'border-l-[var(--color-success)]',
-    iconClass: 'bg-[var(--color-success)]/12 text-[var(--color-success-strong)]',
+    borderClass: 'border-l-[#00c853]',
+    iconClass: 'bg-[#e6fbef] text-[#00a94f]',
   },
   {
     label: 'Vencendo',
     value: '19',
     helper: 'Próximos 60 dias',
     icon: AlertTriangle,
-    borderClass: 'border-l-[var(--color-accent-strong)]',
-    iconClass: 'bg-[var(--color-fips-orange-100)] text-[var(--color-accent-strong)]',
+    borderClass: 'border-l-[#ffb100]',
+    iconClass: 'bg-[#fff6dc] text-[#f39a00]',
   },
   {
     label: 'Vencidos',
     value: '29',
     helper: 'Fora da validade',
-    icon: Clock3,
-    borderClass: 'border-l-[var(--color-danger)]',
-    iconClass: 'bg-[var(--color-fips-red-100)] text-[var(--color-danger)]',
+    icon: XCircle,
+    borderClass: 'border-l-[#ff4343]',
+    iconClass: 'bg-[#ffe8e8] text-[#ff2f2f]',
+  },
+  {
+    label: 'Pendentes',
+    value: '170',
+    helper: 'Sem certificado',
+    icon: Shield,
+    borderClass: 'border-l-[#aab4c3]',
+    iconClass: 'bg-[#f2f4f7] text-[#7f8b99]',
   },
 ]
 
@@ -55,89 +68,128 @@ const rows = [
     id: '#270',
     company: 'Dolabel Villela Comércio',
     initials: 'DC',
-    avatar: 'bg-[var(--color-fips-blue-200)] text-[var(--color-fips-blue-900)]',
-    contact: 'Eliane',
-    phone: '11-987640432',
+    avatar: 'bg-[#cff6ff] text-[#0b83b7]',
+    client: 'Eliane',
+    contact: '11-987640432',
     type: 'A1',
     days: 'Vencido há 830 dias',
+    daysClass: 'text-[#ff3a3a]',
     status: 'Vencido',
     variant: 'danger' as const,
-    alert: true,
+    observation: '-',
+    highlightClass: 'bg-[#fff8f8] hover:!bg-[#fff1f1]',
   },
   {
     id: '#284',
     company: 'ALE87 Comércio e Serviços',
     initials: 'AS',
-    avatar: 'bg-[var(--color-fips-yellow-100)] text-[var(--color-fips-gray-900)]',
-    contact: 'Deodato',
-    phone: '11-967411953',
+    avatar: 'bg-[#d9fbff] text-[#138bb8]',
+    client: 'Deodato',
+    contact: '11-967411953',
     type: 'A1',
     days: 'Vencido há 684 dias',
+    daysClass: 'text-[#ff3a3a]',
     status: 'Vencido',
     variant: 'danger' as const,
-    alert: true,
+    observation: '-',
+    highlightClass: 'bg-[#fff8f8] hover:!bg-[#fff1f1]',
   },
   {
     id: '#301',
     company: 'Operadora Porto Sul',
     initials: 'PS',
-    avatar: 'bg-[var(--color-success)]/12 text-[var(--color-success-strong)]',
-    contact: 'Camila',
-    phone: '11-994110004',
+    avatar: 'bg-[#e6fbef] text-[#00a94f]',
+    client: 'Camila',
+    contact: '11-994110004',
     type: 'A3',
     days: 'Renovar em 17 dias',
+    daysClass: 'text-[#f39a00]',
     status: 'Vencendo',
     variant: 'warning' as const,
-    alert: false,
+    observation: 'Renovação agendada',
+  },
+  {
+    id: '#318',
+    company: 'Centro Atlas Digital',
+    initials: 'CA',
+    avatar: 'bg-[#edf3ff] text-[#2f7df6]',
+    client: 'Rafael',
+    contact: '11-998001210',
+    type: 'A1',
+    days: 'Validade em 120 dias',
+    daysClass: 'text-[#6b7784]',
+    status: 'Válido',
+    variant: 'success' as const,
+    observation: 'Em conformidade',
   },
 ]
+
+function SortLabel({ label, active = false }: { label: string; active?: boolean }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+      <span className={active ? 'text-[var(--color-secondary)]' : undefined}>{label}</span>
+      {active ? (
+        <ArrowUp className="h-3.5 w-3.5 text-[var(--color-secondary)]" aria-hidden />
+      ) : (
+        <ArrowUpDown className="h-3.5 w-3.5 text-[var(--color-border-strong)]" aria-hidden />
+      )}
+    </span>
+  )
+}
 
 export default function DataListingDemo() {
   return (
     <DocPage
       title="Padrão: Data Listing"
-      description="Página operacional de listagem com KPIs, toolbar de filtros, CTA principal, tabela desktop e fallback mobile em cards. Inspirado diretamente na referência aprovada de certificados."
+      description="Página operacional de listagem com KPIs mais refinados, toolbar branca de filtros e uma tabela com acabamento mais próximo das referências aprovadas."
     >
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`<div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
+        reference={`<div className="space-y-6 bg-[linear-gradient(180deg,#f9fbff_0%,#f4f8fd_100%)] p-6">
   {/* heading + CTA */}
-  {/* KPI cards com borda lateral e ícone circular */}
-  {/* toolbar branca com busca + pills + botões de exportação */}
-  {/* card com header e tabela desktop; no mobile, cards empilhados */}
+  {/* cinco KPI cards com borda lateral e ícone em disco suave */}
+  {/* toolbar branca com busca dominante, segmentação e exportações */}
+  {/* card de tabela com header editorial e fallback mobile em cards */}
 </div>`}
         referenceLabel="Estrutura do padrão de listagem"
       >
-        <div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="space-y-6 bg-[linear-gradient(180deg,#f9fbff_0%,#f4f8fd_100%)] p-4 sm:p-6 lg:p-7">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
             <div>
-              <h2 className="font-heading text-3xl font-semibold text-[var(--color-fg)]">
+              <h2 className="font-heading text-[2.2rem] leading-[1.02] font-semibold text-[#132446] sm:text-[2.7rem]">
                 Gestão de Certificados
               </h2>
-              <p className="mt-2 text-base text-[var(--color-fg-muted)]">
+              <p className="mt-2 max-w-3xl text-base text-[#72839a] sm:text-[1.05rem]">
                 Controle de certificados digitais, vencimentos e renovações.
               </p>
             </div>
-            <Button className="gap-2 shadow-[var(--shadow-card)]">
-              + Novo Certificado
+
+            <Button className="h-[54px] rounded-[16px] px-6 text-base shadow-[0_8px_18px_rgba(0,144,208,0.24)]">
+              <Plus className="h-5 w-5" aria-hidden />
+              Novo Certificado
             </Button>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-5">
             {kpis.map((item) => {
               const Icon = item.icon
 
               return (
-                <Card key={item.label} className={`border-l-4 ${item.borderClass}`}>
-                  <CardContent className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-medium text-[var(--color-fg-muted)]">{item.label}</p>
-                      <p className="mt-1 font-heading text-4xl font-semibold text-[var(--color-fg)]">{item.value}</p>
-                      <p className="mt-1 text-sm text-[var(--color-fg-muted)]">{item.helper}</p>
+                <Card
+                  key={item.label}
+                  className={`border-l-[5px] ${item.borderClass} rounded-[22px] border-[#dce6ef] bg-white`}
+                >
+                  <CardContent className="flex items-center justify-between gap-4 !p-6">
+                    <div className="min-w-0">
+                      <p className="text-[1.02rem] font-semibold text-[#6d7f96]">{item.label}</p>
+                      <p className="mt-1 text-[3rem] leading-none font-semibold text-[#132446]">{item.value}</p>
+                      <p className="mt-2 text-[1.02rem] text-[#7a8aa0]">{item.helper}</p>
                     </div>
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-full ${item.iconClass}`}>
-                      <Icon className="h-6 w-6" aria-hidden />
+                    <div
+                      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full ${item.iconClass}`}
+                    >
+                      <Icon className="h-7 w-7" aria-hidden />
                     </div>
                   </CardContent>
                 </Card>
@@ -145,183 +197,207 @@ export default function DataListingDemo() {
             })}
           </div>
 
-          <Card>
-            <CardContent className="flex flex-col gap-3 lg:flex-row lg:items-center">
-              <div className="flex-1">
+          <Card className="rounded-[24px] border-[#dce6ef] bg-white">
+            <CardContent className="flex flex-col gap-4 !p-4 md:!p-5 xl:flex-row xl:items-center">
+              <div className="min-w-0 flex-1">
                 <Input
                   type="search"
-                  placeholder="Buscar por ID, empresa, nome cliente, CNPJ ou responsável..."
-                  leftIcon={<Search className="h-4 w-4" aria-hidden />}
+                  placeholder="Buscar por ID, Empresa, Nome Cliente, CNPJ ou Responsável..."
+                  leftIcon={<Search className="h-5 w-5" aria-hidden />}
                   aria-label="Buscar certificados"
+                  className="h-[54px] rounded-[16px] border-[#dce6ef] bg-white pl-12 text-[1.02rem] shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
                 />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {['Todos', 'Válidos', 'Vencendo', 'Vencidos', 'Pendentes'].map((filter, index) => (
+
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-1.5 rounded-[18px] bg-[var(--color-surface-muted)] p-1.5">
+                  {['Todos', 'Válidos', 'Vencendo', 'Vencidos', 'Pendentes'].map((filter, index) => (
+                    <button
+                      key={filter}
+                      type="button"
+                      className={[
+                        'rounded-[14px] px-4 py-2.5 text-sm font-semibold transition-colors',
+                        index === 0
+                          ? 'bg-white text-[#132446] shadow-[0_1px_3px_rgba(15,23,42,0.08)]'
+                          : 'text-[#6d7f96] hover:bg-white/80',
+                      ].join(' ')}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
                   <Button
-                    key={filter}
-                    size="sm"
-                    variant={index === 0 ? 'secondary' : 'ghost'}
-                    className={index === 0 ? 'bg-[var(--color-surface-muted)]' : ''}
+                    size="icon"
+                    variant="secondary"
+                    aria-label="Exportar PDF"
+                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
                   >
-                    {filter}
+                    <FileText className="h-5 w-5 text-[#7d8aa0]" />
                   </Button>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <Button size="icon" variant="secondary" aria-label="Exportar PDF">
-                  <Download className="h-4 w-4 text-red-600" />
-                </Button>
-                <Button size="icon" variant="secondary" aria-label="Exportar Excel">
-                  <FileSpreadsheet className="h-4 w-4 text-green-600" />
-                </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    aria-label="Exportar Excel"
+                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
+                  >
+                    <FileSpreadsheet className="h-5 w-5 text-[#00b455]" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    aria-label="Baixar lista"
+                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
+                  >
+                    <Download className="h-5 w-5 text-[#ff4a4a]" />
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_360px]">
-            <Card>
-              <CardHeader className="flex-row items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
-                <div>
-                  <CardTitle>Carteira de Certificados</CardTitle>
-                  <CardDescription>Lista completa de certificados digitais cadastrados.</CardDescription>
-                </div>
-                <p className="text-sm text-[var(--color-fg-muted)]">Mostrando 1-20 de 345 certificados</p>
-              </CardHeader>
-              <CardContent className="px-0 pb-2">
-                <div className="hidden md:block">
-                  <Table framed={false}>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Empresa</TableHead>
-                        <TableHead>Nome Cliente</TableHead>
-                        <TableHead>Contato</TableHead>
-                        <TableHead>Tipo</TableHead>
-                        <TableHead>Dias a Vencer</TableHead>
-                        <TableHead>Status</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow key={row.id} className={row.alert ? 'bg-red-50/70 hover:bg-red-50' : undefined}>
-                          <TableCell className="font-mono text-xs text-[var(--color-fg-muted)]">{row.id}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-3">
-                              <span className={`flex h-10 w-10 items-center justify-center rounded-full text-xs font-semibold ${row.avatar}`}>
-                                {row.initials}
-                              </span>
-                              <span className="text-sm font-semibold text-[var(--color-fg)]">{row.company}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell>{row.contact}</TableCell>
-                          <TableCell>{row.phone}</TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{row.type}</Badge>
-                          </TableCell>
-                          <TableCell className={row.alert ? 'font-semibold text-[var(--color-danger)]' : 'font-medium text-[var(--color-accent-strong)]'}>
-                            {row.days}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={row.variant} dot>
-                              {row.status}
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
+          <Card className="overflow-hidden rounded-[26px] border-[#dce6ef] bg-white">
+            <CardHeader className="flex-col gap-3 border-b border-[#e7edf4] pb-5 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <CardTitle className="text-[1.9rem] text-[#132446]">Carteira de Certificados</CardTitle>
+                <CardDescription className="mt-1 text-base text-[#72839a]">
+                  Lista completa de certificados digitais cadastrados.
+                </CardDescription>
+              </div>
+              <p className="pt-1 text-sm font-medium text-[#7a8aa0]">
+                Mostrando 1-20 de 345 certificados
+              </p>
+            </CardHeader>
 
-                <div className="space-y-3 px-4 md:hidden">
-                  {rows.slice(0, 2).map((row) => (
-                    <div key={row.id} className="rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <span className={`flex h-10 w-10 items-center justify-center rounded-full text-xs font-semibold ${row.avatar}`}>
-                            {row.initials}
-                          </span>
-                          <div>
-                            <p className="text-sm font-semibold text-[var(--color-fg)]">{row.company}</p>
-                            <p className="text-xs text-[var(--color-fg-muted)]">{row.id}</p>
+            <CardContent className="px-0 pb-3 pt-0">
+              <div className="hidden md:block">
+                <Table framed={false} className="min-w-[980px] lg:min-w-0">
+                  <TableHeader className="bg-white">
+                    <TableRow className="hover:bg-white">
+                      <TableHead className="px-5">
+                        <SortLabel label="ID" />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Empresa" />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Nome Cliente" />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Contato" />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Tipo" />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Dias a Vencer" active />
+                      </TableHead>
+                      <TableHead>
+                        <SortLabel label="Status" />
+                      </TableHead>
+                      <TableHead className="pr-5">
+                        <SortLabel label="Observação" />
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {rows.map((row) => (
+                      <TableRow key={row.id} className={row.highlightClass}>
+                        <TableCell className="px-5 font-semibold text-[#7a8aa0]">{row.id}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <span
+                              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${row.avatar}`}
+                            >
+                              {row.initials}
+                            </span>
+                            <span className="text-[1.05rem] font-semibold text-[#132446]">{row.company}</span>
                           </div>
-                        </div>
-                        <Badge variant={row.variant} dot>
-                          {row.status}
-                        </Badge>
-                      </div>
-                      <div className="mt-4 grid gap-2 text-sm text-[var(--color-fg-muted)]">
-                        <p>Cliente: {row.contact}</p>
-                        <p>Contato: {row.phone}</p>
-                        <p className={row.alert ? 'font-semibold text-[var(--color-danger)]' : undefined}>{row.days}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                        </TableCell>
+                        <TableCell className="text-[1.02rem] text-[#2c3d57]">{row.client}</TableCell>
+                        <TableCell className="text-[1.02rem] text-[#6d7f96]">{row.contact}</TableCell>
+                        <TableCell>
+                          <Badge variant="info" className="px-3 py-1.5 text-sm">
+                            {row.type}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className={`text-[1.05rem] font-semibold ${row.daysClass}`}>
+                          {row.days}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={row.variant} dot className="px-3 py-1.5 text-sm">
+                            {row.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="pr-5 text-[1.02rem] text-[#8a96a7]">{row.observation}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
 
-            <div className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Fallback mobile</CardTitle>
-                  <CardDescription>
-                    Use cards empilhados quando a tabela perder legibilidade.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {rows.slice(0, 2).map((row) => (
-                    <div key={row.id} className="rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-                      <div className="flex items-start justify-between gap-3">
+              <div className="space-y-3 px-4 pt-4 md:hidden">
+                {rows.map((row) => (
+                  <div
+                    key={row.id}
+                    className="rounded-[20px] border border-[#e2e8f0] bg-[#fbfdff] p-4 shadow-[0_2px_6px_rgba(15,23,42,0.03)]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${row.avatar}`}
+                        >
+                          {row.initials}
+                        </span>
                         <div>
-                          <p className="text-sm font-semibold text-[var(--color-fg)]">{row.company}</p>
-                          <p className="text-xs text-[var(--color-fg-muted)]">{row.id}</p>
+                          <p className="text-sm font-semibold text-[#132446]">{row.company}</p>
+                          <p className="mt-1 text-xs text-[#7a8aa0]">{row.id}</p>
                         </div>
-                        <Badge variant={row.variant} dot>
-                          {row.status}
-                        </Badge>
                       </div>
-                      <p className="mt-3 text-sm text-[var(--color-fg-muted)]">{row.days}</p>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Toolbar obrigatória</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm text-[var(--color-fg-muted)]">
-                  <p>Busca ampla, filtros rápidos em pills e ações de exportação à direita.</p>
-                  <p>O CTA principal fica fora da toolbar, no topo da página.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                      <Badge variant={row.variant} dot className="px-3 py-1.5">
+                        {row.status}
+                      </Badge>
+                    </div>
+
+                    <div className="mt-4 grid gap-2 text-sm">
+                      <p className="text-[#6d7f96]">Cliente: {row.client}</p>
+                      <p className="text-[#6d7f96]">Contato: {row.contact}</p>
+                      <p className={`font-semibold ${row.daysClass}`}>{row.days}</p>
+                      <p className="text-[#8a96a7]">Observação: {row.observation}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </DemoSection>
 
       <PatternGuidelines
         rules={[
-          'KPIs no topo com leitura instantânea e sem competir com a tabela.',
-          'Toolbar de filtros sempre em card branco separado do card da tabela.',
-          'A tabela desktop deve conviver com uma versão mobile em cards empilhados.',
-          'Ações de exportação e CTA principal não podem brigar visualmente.',
+          'Cards KPI precisam ter volume visual suave, borda lateral evidente e ícone em disco claro.',
+          'Toolbar deve parecer uma superfície branca premium, não um agrupamento solto de controles.',
+          'Tabela operacional precisa de header respirado, tipografia legível e hierarquia clara entre dado primário e secundário.',
+          'Registros críticos podem receber fundo rosado muito sutil para orientar o olhar sem poluir a listagem.',
         ]}
         required={[
-          'Busca horizontal dominante antes dos filtros rápidos.',
-          'Header do card de listagem com título, descrição e metadado de paginação.',
-          'Status usando badges semânticas e alertas de vencimento em cor de apoio.',
-          'Linhas críticas podem receber fundo suave, nunca um vermelho agressivo chapado.',
+          'Cinco KPIs quando a visão superior resumir estado geral da listagem.',
+          'Busca dominante antes da segmentação por status e das ações de exportação.',
+          'Card principal da tabela com título, descrição e metadado de paginação no cabeçalho.',
+          'Fallback mobile em cards empilhados quando a tabela perder legibilidade.',
         ]}
         optional={[
-          'Avatares com iniciais por empresa/responsável.',
-          'KPI cards com ícone circular no canto direito.',
-          'Ações de exportação como botões ícone em círculo/superfície branca.',
+          'Avatares com iniciais por empresa ou cliente.',
+          'Ordenação destacada com seta colorida na coluna prioritária.',
+          'Ações de exportação em botões ícone neutros na mesma linha da toolbar.',
         ]}
         avoid={[
-          'Usar tabela comprimida no mobile sem fallback.',
-          'Misturar CTA principal dentro da toolbar.',
-          'Criar filtros com alturas diferentes da busca principal.',
+          'Usar cards excessivamente arredondados ou com sombra pesada demais.',
+          'Misturar CTA principal dentro da toolbar e competir com a busca.',
+          'Deixar o cabeçalho da tabela em uppercase quando o padrão pede leitura mais editorial.',
         ]}
       />
     </DocPage>
