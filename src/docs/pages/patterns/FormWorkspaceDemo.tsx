@@ -12,6 +12,7 @@ import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
 import { Input } from '../../../components/ui/input'
+import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
 import { Textarea } from '../../../components/ui/textarea'
 
@@ -22,12 +23,7 @@ function MiniProgress({ value }: { value: number }) {
         <span className="font-medium text-[var(--color-fg)]">Progresso</span>
         <span className="font-semibold text-[var(--color-fg-muted)]">{value}%</span>
       </div>
-      <div className="h-3 overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]"
-          style={{ width: `${value}%` }}
-        />
-      </div>
+      <Progress value={value} />
     </div>
   )
 }

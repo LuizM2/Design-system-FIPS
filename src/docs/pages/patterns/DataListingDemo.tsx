@@ -1,195 +1,266 @@
+import { useState } from 'react'
 import {
-  AlertTriangle,
-  ArrowUp,
-  ArrowUpDown,
+  Building2,
+  CalendarDays,
   CheckCircle2,
+  ChevronRight,
   Download,
   FileSpreadsheet,
-  FileText,
+  Filter,
   Plus,
   Search,
-  Shield,
+  Settings2,
   ShieldCheck,
-  XCircle,
+  UserRound,
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { PatternGuidelines } from '../../components/PatternGuidelines'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../../../components/ui/dialog'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+} from '../../../components/ui/drawer'
 import { Input } from '../../../components/ui/input'
+import { Progress } from '../../../components/ui/progress'
+import { Select } from '../../../components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
+
+const pageSource = `import { useState } from 'react'
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, Drawer, DrawerContent, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from 'ds-fips'
+
+export function DataListingPattern() {
+  const [filterModalOpen, setFilterModalOpen] = useState(false)
+
+  return (
+    <div className="space-y-6">
+      {/* KPIs + toolbar */}
+      <Card className="overflow-hidden">
+        <CardHeader>
+          <CardTitle>Carteira de Clientes</CardTitle>
+        </CardHeader>
+        <CardContent className="!p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Empresa</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>{/* linhas */}</TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Dialog open={filterModalOpen} onOpenChange={setFilterModalOpen}>
+        <DialogContent>{/* filtro avançado */}</DialogContent>
+      </Dialog>
+    </div>
+  )
+}`
 
 const kpis = [
   {
     label: 'Total de Empresas',
-    value: '345',
-    helper: 'Ativas e novas',
-    icon: ShieldCheck,
+    value: '341',
+    helper: 'Cadastradas no sistema',
     borderClass: 'border-l-[#2f7df6]',
     iconClass: 'bg-[#e8f1ff] text-[#2f7df6]',
+    icon: ShieldCheck,
   },
   {
-    label: 'Válidos',
-    value: '127',
-    helper: 'Dentro da validade',
+    label: 'Ativas',
+    value: '296',
+    helper: '87% do total',
+    borderClass: 'border-l-[#00c64c]',
+    iconClass: 'bg-[#e8fbef] text-[#00a843]',
     icon: CheckCircle2,
-    borderClass: 'border-l-[#00c853]',
-    iconClass: 'bg-[#e6fbef] text-[#00a94f]',
   },
   {
-    label: 'Vencendo',
-    value: '19',
-    helper: 'Próximos 60 dias',
-    icon: AlertTriangle,
-    borderClass: 'border-l-[#ffb100]',
-    iconClass: 'bg-[#fff6dc] text-[#f39a00]',
+    label: 'Novas',
+    value: '45',
+    helper: 'Adicionadas recentemente',
+    borderClass: 'border-l-[#00b8ff]',
+    iconClass: 'bg-[#ebf7ff] text-[#00a4ea]',
+    icon: Building2,
   },
   {
-    label: 'Vencidos',
-    value: '29',
-    helper: 'Fora da validade',
-    icon: XCircle,
-    borderClass: 'border-l-[#ff4343]',
-    iconClass: 'bg-[#ffe8e8] text-[#ff2f2f]',
-  },
-  {
-    label: 'Pendentes',
-    value: '170',
-    helper: 'Sem certificado',
-    icon: Shield,
-    borderClass: 'border-l-[#aab4c3]',
-    iconClass: 'bg-[#f2f4f7] text-[#7f8b99]',
+    label: 'Inativas',
+    value: '38',
+    helper: 'Sem movimentação',
+    borderClass: 'border-l-[#c0ccd2]',
+    iconClass: 'bg-[#f4f7f9] text-[#8a99a6]',
+    icon: UserRound,
   },
 ]
 
 const rows = [
   {
-    id: '#270',
-    company: 'Dolabel Villela Comércio',
-    initials: 'DC',
-    avatar: 'bg-[#cff6ff] text-[#0b83b7]',
-    client: 'Eliane',
-    contact: '11-987640432',
-    type: 'A1',
-    days: 'Vencido há 830 dias',
-    daysClass: 'text-[#ff3a3a]',
-    status: 'Vencido',
-    variant: 'danger' as const,
-    observation: '-',
-    highlightClass: 'bg-[#fff8f8] hover:!bg-[#fff1f1]',
+    id: '#508',
+    initials: 'BC',
+    company: 'Black Ice Confecções e Comércio',
+    cnpj: '65.728.689/0001-10',
+    owner: 'Ronaldo',
+    fiscal: 'Fábio',
+    status: 'Novo',
+    statusVariant: 'secondary' as const,
+    progress: 42,
   },
   {
-    id: '#284',
-    company: 'ALE87 Comércio e Serviços',
-    initials: 'AS',
-    avatar: 'bg-[#d9fbff] text-[#138bb8]',
-    client: 'Deodato',
-    contact: '11-967411953',
-    type: 'A1',
-    days: 'Vencido há 684 dias',
-    daysClass: 'text-[#ff3a3a]',
-    status: 'Vencido',
-    variant: 'danger' as const,
-    observation: '-',
-    highlightClass: 'bg-[#fff8f8] hover:!bg-[#fff1f1]',
+    id: '#507',
+    initials: 'HR',
+    company: 'HRB Gestão Integrada LTDA',
+    cnpj: '65.597.871/0001-88',
+    owner: 'Heloísa',
+    fiscal: 'Fábio',
+    status: 'Ativo',
+    statusVariant: 'success' as const,
+    progress: 82,
   },
   {
-    id: '#301',
-    company: 'Operadora Porto Sul',
-    initials: 'PS',
-    avatar: 'bg-[#e6fbef] text-[#00a94f]',
-    client: 'Camila',
-    contact: '11-994110004',
-    type: 'A3',
-    days: 'Renovar em 17 dias',
-    daysClass: 'text-[#f39a00]',
-    status: 'Vencendo',
-    variant: 'warning' as const,
-    observation: 'Renovação agendada',
-  },
-  {
-    id: '#318',
-    company: 'Centro Atlas Digital',
-    initials: 'CA',
-    avatar: 'bg-[#edf3ff] text-[#2f7df6]',
-    client: 'Rafael',
-    contact: '11-998001210',
-    type: 'A1',
-    days: 'Validade em 120 dias',
-    daysClass: 'text-[#6b7784]',
-    status: 'Válido',
-    variant: 'success' as const,
-    observation: 'Em conformidade',
+    id: '#506',
+    initials: 'EC',
+    company: 'Erivan Cx & C5 Consultoria',
+    cnpj: '65.519.974/0001-21',
+    owner: 'Erivan',
+    fiscal: 'Fábio',
+    status: 'Ativo',
+    statusVariant: 'success' as const,
+    progress: 71,
   },
 ]
 
-function SortLabel({ label, active = false }: { label: string; active?: boolean }) {
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
+}
+
+function AdvancedFiltersFields({ compact = false }: { compact?: boolean }) {
+  const inputClassName = compact ? 'h-9 rounded-xl border-[var(--color-border)]/60 shadow-none' : undefined
+
   return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-      <span className={active ? 'text-[var(--color-secondary)]' : undefined}>{label}</span>
-      {active ? (
-        <ArrowUp className="h-3.5 w-3.5 text-[var(--color-secondary)]" aria-hidden />
-      ) : (
-        <ArrowUpDown className="h-3.5 w-3.5 text-[var(--color-border-strong)]" aria-hidden />
-      )}
-    </span>
+    <div className={`grid gap-4 ${compact ? '' : 'md:grid-cols-2'}`}>
+      <FieldLabel>
+        Razão social
+        <Input placeholder="Nome da empresa" leftIcon={<Search className="h-4 w-4" aria-hidden />} className={inputClassName} />
+      </FieldLabel>
+      <FieldLabel>
+        Nome fantasia
+        <Input placeholder="Nome fantasia" leftIcon={<Building2 className="h-4 w-4" aria-hidden />} className={inputClassName} />
+      </FieldLabel>
+      <FieldLabel>
+        CNPJ
+        <Input placeholder="00.000.000/0000-00" className={inputClassName} />
+      </FieldLabel>
+      <FieldLabel>
+        ID do cliente
+        <Input placeholder="Ex: 1234" className={inputClassName} />
+      </FieldLabel>
+      <FieldLabel>
+        Status
+        <Select aria-label="Status" className={inputClassName}>
+          <option value="">Selecione</option>
+          <option value="ativo">Ativo</option>
+          <option value="novo">Novo</option>
+          <option value="inativo">Inativo</option>
+        </Select>
+      </FieldLabel>
+      <FieldLabel>
+        Segmento
+        <Select aria-label="Segmento" className={inputClassName}>
+          <option value="">Selecione</option>
+          <option value="comercio">Comércio</option>
+          <option value="servico">Serviço</option>
+        </Select>
+      </FieldLabel>
+      <FieldLabel>
+        Responsável fiscal
+        <Select aria-label="Responsável fiscal" className={inputClassName}>
+          <option value="">Selecione o colaborador</option>
+          <option value="fabio">Fábio</option>
+          <option value="bruno">Bruno</option>
+        </Select>
+      </FieldLabel>
+      <FieldLabel>
+        Vencimento até
+        <Input type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} className={inputClassName} />
+      </FieldLabel>
+    </div>
   )
 }
 
 export default function DataListingDemo() {
+  const [filterModalOpen, setFilterModalOpen] = useState(false)
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
+  const [detailsOpen, setDetailsOpen] = useState(false)
+  const [columnPanelOpen, setColumnPanelOpen] = useState(false)
+  const [selectedRow, setSelectedRow] = useState(rows[0])
+
+  function openDetails(row: (typeof rows)[number]) {
+    setSelectedRow(row)
+    setDetailsOpen(true)
+  }
+
   return (
     <DocPage
       title="Padrão: Data Listing"
-      description="Página operacional de listagem com KPIs mais refinados, toolbar branca de filtros e uma tabela com acabamento mais próximo das referências aprovadas."
+      description="Listagem operacional alinhada às referências do CONTPIX: KPI cards, busca dominante, configuração de colunas, data table densa e dois caminhos oficiais para filtro avançado."
+      pageSource={pageSource}
+      pageDownloadName="DataListingPattern.tsx"
     >
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`<div className="space-y-6 bg-[linear-gradient(180deg,#f9fbff_0%,#f4f8fd_100%)] p-6">
-  {/* heading + CTA */}
-  {/* cinco KPI cards com borda lateral e ícone em disco suave */}
-  {/* toolbar branca com busca dominante, segmentação e exportações */}
-  {/* card de tabela com header editorial e fallback mobile em cards */}
+        reference={`<div className="space-y-6 bg-[linear-gradient(180deg,#f8fbff_0%,#f4f8fd_100%)] p-6">
+  {/* KPIs + busca + filtros rápidos + configuração */}
+  {/* card de tabela */}
+  {/* filtro avançado em modal e em drawer */}
 </div>`}
-        referenceLabel="Estrutura do padrão de listagem"
+        referenceLabel="Estrutura do padrão"
       >
-        <div className="space-y-6 bg-[linear-gradient(180deg,#f9fbff_0%,#f4f8fd_100%)] p-4 sm:p-6 lg:p-7">
+        <div className="space-y-6 bg-[linear-gradient(180deg,#f8fbff_0%,#f4f8fd_100%)] p-4 sm:p-6 lg:p-7">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
             <div>
               <h2 className="font-heading text-[2.2rem] leading-[1.02] font-semibold text-[#132446] sm:text-[2.7rem]">
-                Gestão de Certificados
+                Gestão de Empresas
               </h2>
               <p className="mt-2 max-w-3xl text-base text-[#72839a] sm:text-[1.05rem]">
-                Controle de certificados digitais, vencimentos e renovações.
+                Gerencie sua carteira de clientes, status e pendências com a mesma linguagem de listagem aprovada no CONTPIX.
               </p>
             </div>
 
-            <Button className="h-[54px] rounded-[16px] px-6 text-base shadow-[0_8px_18px_rgba(0,144,208,0.24)]">
-              <Plus className="h-5 w-5" aria-hidden />
-              Novo Certificado
+            <Button className="h-[48px] rounded-[14px] px-5 text-sm shadow-[0_10px_20px_rgba(0,144,208,0.2)]">
+              <Plus className="h-4 w-4" aria-hidden />
+              Nova empresa
             </Button>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
             {kpis.map((item) => {
               const Icon = item.icon
 
               return (
-                <Card
-                  key={item.label}
-                  className={`border-l-[5px] ${item.borderClass} rounded-[22px] border-[#dce6ef] bg-white`}
-                >
-                  <CardContent className="flex items-center justify-between gap-4 !p-6">
-                    <div className="min-w-0">
-                      <p className="text-[1.02rem] font-semibold text-[#6d7f96]">{item.label}</p>
-                      <p className="mt-1 text-[3rem] leading-none font-semibold text-[#132446]">{item.value}</p>
-                      <p className="mt-2 text-[1.02rem] text-[#7a8aa0]">{item.helper}</p>
+                <Card key={item.label} className={`border-l-[4px] ${item.borderClass} rounded-[22px] border-[#dce6ef] bg-white`}>
+                  <CardContent className="flex items-center justify-between gap-4 !p-5">
+                    <div>
+                      <p className="text-sm font-semibold text-[#6d7f96]">{item.label}</p>
+                      <p className="mt-1 text-[2.2rem] leading-none font-semibold text-[#132446]">{item.value}</p>
+                      <p className="mt-2 text-sm text-[#7a8aa0]">{item.helper}</p>
                     </div>
-                    <div
-                      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full ${item.iconClass}`}
-                    >
-                      <Icon className="h-7 w-7" aria-hidden />
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-full ${item.iconClass}`}>
+                      <Icon className="h-5 w-5" aria-hidden />
                     </div>
                   </CardContent>
                 </Card>
@@ -198,206 +269,239 @@ export default function DataListingDemo() {
           </div>
 
           <Card className="rounded-[24px] border-[#dce6ef] bg-white">
-            <CardContent className="flex flex-col gap-4 !p-4 md:!p-5 xl:flex-row xl:items-center">
-              <div className="min-w-0 flex-1">
-                <Input
-                  type="search"
-                  placeholder="Buscar por ID, Empresa, Nome Cliente, CNPJ ou Responsável..."
-                  leftIcon={<Search className="h-5 w-5" aria-hidden />}
-                  aria-label="Buscar certificados"
-                  className="h-[54px] rounded-[16px] border-[#dce6ef] bg-white pl-12 text-[1.02rem] shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
-                />
+            <CardContent className="flex flex-col gap-4 !p-4 md:!p-5">
+              <div className="flex flex-col gap-3 xl:flex-row xl:items-center">
+                <div className="min-w-0 flex-1">
+                  <Input
+                    type="search"
+                    placeholder="Buscar por ID Cliente, Razão Social, CNPJ ou Responsável..."
+                    leftIcon={<Search className="h-4 w-4" aria-hidden />}
+                  />
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">Ativas</Badge>
+                  <Badge variant="secondary">Lixeira</Badge>
+                  <Badge variant="secondary">Arquivo morto</Badge>
+                </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                <div className="flex flex-wrap items-center gap-1.5 rounded-[18px] bg-[var(--color-surface-muted)] p-1.5">
-                  {['Todos', 'Válidos', 'Vencendo', 'Vencidos', 'Pendentes'].map((filter, index) => (
-                    <button
-                      key={filter}
-                      type="button"
-                      className={[
-                        'rounded-[14px] px-4 py-2.5 text-sm font-semibold transition-colors',
-                        index === 0
-                          ? 'bg-white text-[#132446] shadow-[0_1px_3px_rgba(15,23,42,0.08)]'
-                          : 'text-[#6d7f96] hover:bg-white/80',
-                      ].join(' ')}
-                    >
-                      {filter}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    aria-label="Exportar PDF"
-                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
-                  >
-                    <FileText className="h-5 w-5 text-[#7d8aa0]" />
-                  </Button>
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    aria-label="Exportar Excel"
-                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
-                  >
-                    <FileSpreadsheet className="h-5 w-5 text-[#00b455]" />
-                  </Button>
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    aria-label="Baixar lista"
-                    className="h-12 w-12 rounded-[18px] border-[#e2e8f0] bg-[var(--color-surface-soft)]"
-                  >
-                    <Download className="h-5 w-5 text-[#ff4a4a]" />
-                  </Button>
-                </div>
+                <Button size="sm" variant="secondary" onClick={() => setFilterModalOpen(true)}>
+                  <Filter className="h-4 w-4" aria-hidden />
+                  Filtro modal
+                </Button>
+                <Button size="sm" variant="secondary" onClick={() => setFilterDrawerOpen(true)}>
+                  <Filter className="h-4 w-4" aria-hidden />
+                  Filtro drawer
+                </Button>
+                <Button size="sm" variant="secondary" onClick={() => setColumnPanelOpen((value) => !value)}>
+                  <Settings2 className="h-4 w-4" aria-hidden />
+                  Colunas
+                </Button>
+                <Button size="icon" variant="secondary" aria-label="Exportar Excel">
+                  <FileSpreadsheet className="h-4 w-4 text-[var(--color-success)]" aria-hidden />
+                </Button>
+                <Button size="icon" variant="secondary" aria-label="Baixar relatório">
+                  <Download className="h-4 w-4" aria-hidden />
+                </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="overflow-hidden rounded-[26px] border-[#dce6ef] bg-white">
-            <CardHeader className="flex-col gap-3 border-b border-[#e7edf4] pb-5 lg:flex-row lg:items-start lg:justify-between">
-              <div>
-                <CardTitle className="text-[1.9rem] text-[#132446]">Carteira de Certificados</CardTitle>
-                <CardDescription className="mt-1 text-base text-[#72839a]">
-                  Lista completa de certificados digitais cadastrados.
-                </CardDescription>
+          <Card className="relative overflow-hidden rounded-[26px] border-[#dce6ef] bg-white">
+            <CardHeader className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <CardTitle className="text-lg">Carteira de Clientes</CardTitle>
+                  <CardDescription>Lista completa de empresas cadastradas.</CardDescription>
+                </div>
+                <p className="text-sm text-[var(--color-fg-muted)]">Mostrando 1-20 de 379 empresas</p>
               </div>
-              <p className="pt-1 text-sm font-medium text-[#7a8aa0]">
-                Mostrando 1-20 de 345 certificados
-              </p>
             </CardHeader>
 
-            <CardContent className="px-0 pb-3 pt-0">
-              <div className="hidden md:block">
-                <Table framed={false} className="min-w-[980px] lg:min-w-0">
-                  <TableHeader className="bg-white">
-                    <TableRow className="hover:bg-white">
-                      <TableHead className="px-5">
-                        <SortLabel label="ID" />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Empresa" />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Nome Cliente" />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Contato" />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Tipo" />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Dias a Vencer" active />
-                      </TableHead>
-                      <TableHead>
-                        <SortLabel label="Status" />
-                      </TableHead>
-                      <TableHead className="pr-5">
-                        <SortLabel label="Observação" />
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.id} className={row.highlightClass}>
-                        <TableCell className="px-5 font-semibold text-[#7a8aa0]">{row.id}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-3">
-                            <span
-                              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${row.avatar}`}
-                            >
-                              {row.initials}
-                            </span>
-                            <span className="text-[1.05rem] font-semibold text-[#132446]">{row.company}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-[1.02rem] text-[#2c3d57]">{row.client}</TableCell>
-                        <TableCell className="text-[1.02rem] text-[#6d7f96]">{row.contact}</TableCell>
-                        <TableCell>
-                          <Badge variant="info" className="px-3 py-1.5 text-sm">
-                            {row.type}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className={`text-[1.05rem] font-semibold ${row.daysClass}`}>
-                          {row.days}
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={row.variant} dot className="px-3 py-1.5 text-sm">
-                            {row.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="pr-5 text-[1.02rem] text-[#8a96a7]">{row.observation}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+            {columnPanelOpen ? (
+              <div className="absolute top-[88px] right-6 z-20 w-[250px] rounded-[22px] border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-float)]">
+                <p className="text-sm font-semibold text-[var(--color-fg)]">Arraste para ordenar</p>
+                <div className="mt-3 space-y-2 text-sm text-[var(--color-fg-muted)]">
+                  {['ID', 'Razão Social', 'CNPJ', 'Responsável', 'Resp. Fiscal', 'Status'].map((column) => (
+                    <label key={column} className="flex items-center gap-2">
+                      <input type="checkbox" defaultChecked className="accent-[var(--color-secondary)]" />
+                      <span>{column}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
+            ) : null}
 
-              <div className="space-y-3 px-4 pt-4 md:hidden">
-                {rows.map((row) => (
-                  <div
-                    key={row.id}
-                    className="rounded-[20px] border border-[#e2e8f0] bg-[#fbfdff] p-4 shadow-[0_2px_6px_rgba(15,23,42,0.03)]"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3">
-                        <span
-                          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${row.avatar}`}
-                        >
-                          {row.initials}
-                        </span>
-                        <div>
-                          <p className="text-sm font-semibold text-[#132446]">{row.company}</p>
-                          <p className="mt-1 text-xs text-[#7a8aa0]">{row.id}</p>
+            <CardContent className="!p-0">
+              <Table framed={false} className="min-w-[980px]">
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead>ID</TableHead>
+                    <TableHead>Razão Social</TableHead>
+                    <TableHead>CNPJ</TableHead>
+                    <TableHead>Responsável</TableHead>
+                    <TableHead>Resp. Fiscal</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow key={row.id} className="cursor-pointer" onClick={() => openDetails(row)}>
+                      <TableCell className="text-xs font-medium text-[var(--color-fg-muted)]">{row.id}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-fips-neutral-100)] text-xs font-semibold text-[var(--color-secondary)]">
+                            {row.initials}
+                          </div>
+                          <span className="max-w-[220px] truncate font-medium text-[var(--color-fg)]">{row.company}</span>
                         </div>
-                      </div>
+                      </TableCell>
+                      <TableCell className="text-sm text-[var(--color-fg-muted)]">{row.cnpj}</TableCell>
+                      <TableCell>{row.owner}</TableCell>
+                      <TableCell>{row.fiscal}</TableCell>
+                      <TableCell>
+                        <Badge variant={row.statusVariant}>{row.status}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" size="sm">
+                          Ver detalhe
+                          <ChevronRight className="h-4 w-4" aria-hidden />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
 
-                      <Badge variant={row.variant} dot className="px-3 py-1.5">
-                        {row.status}
-                      </Badge>
-                    </div>
-
-                    <div className="mt-4 grid gap-2 text-sm">
-                      <p className="text-[#6d7f96]">Cliente: {row.client}</p>
-                      <p className="text-[#6d7f96]">Contato: {row.contact}</p>
-                      <p className={`font-semibold ${row.daysClass}`}>{row.days}</p>
-                      <p className="text-[#8a96a7]">Observação: {row.observation}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-3 border-t border-[var(--color-border)] px-6 py-4 text-sm text-[var(--color-fg-muted)] lg:flex-row lg:items-center lg:justify-between">
+                <p>Itens por página: 20</p>
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="secondary">Anterior</Button>
+                  <Badge variant="secondary">1 / 19</Badge>
+                  <Button size="sm" variant="secondary">Próxima</Button>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
+
+        <Dialog open={filterModalOpen} onOpenChange={setFilterModalOpen}>
+          <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+            <DialogHeader className="border-b border-[var(--color-border)] pb-5">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-fips-blue-200)]/55 text-[var(--color-secondary)]">
+                  <Filter className="h-5 w-5" aria-hidden />
+                </div>
+                <div>
+                  <DialogTitle>Filtros avançados em modal</DialogTitle>
+                  <DialogDescription>
+                    Variante inspirada no `CompanyList` para cenários em que o filtro detalhado pode ocupar o centro da tela.
+                  </DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+            <AdvancedFiltersFields />
+            <DialogFooter className="sm:justify-between">
+              <Button variant="secondary">Limpar filtros</Button>
+              <Button>Aplicar filtros</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
+          <DrawerContent className="max-w-[440px]">
+            <DrawerHeader>
+              <DrawerTitle>Filtros avançados em drawer</DrawerTitle>
+              <DrawerDescription>
+                Variante lateral para quando a pessoa precisa preservar mais contexto da tabela durante a filtragem.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="space-y-4">
+              <AdvancedFiltersFields compact />
+            </div>
+            <div className="mt-auto flex flex-wrap gap-2 border-t border-[var(--color-border)] pt-4">
+              <Button variant="secondary" className="flex-1">Limpar</Button>
+              <Button className="flex-1">Aplicar</Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        <Drawer open={detailsOpen} onOpenChange={setDetailsOpen}>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>{selectedRow.company}</DrawerTitle>
+              <DrawerDescription>Detalhe rápido de registro inspirado no fluxo lateral do CONTPIX.</DrawerDescription>
+            </DrawerHeader>
+            <div className="space-y-5">
+              <div className="flex items-center gap-2">
+                <Badge variant={selectedRow.statusVariant} dot>
+                  {selectedRow.status}
+                </Badge>
+                <Badge variant="secondary">Em revisão</Badge>
+              </div>
+
+              <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+                <div className="flex items-center justify-between gap-3 text-sm">
+                  <span className="font-semibold text-[var(--color-fg)]">Saúde do cadastro</span>
+                  <span className="text-[var(--color-fg-muted)]">{selectedRow.progress}%</span>
+                </div>
+                <div className="mt-3">
+                  <Progress value={selectedRow.progress} />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  ['ID', selectedRow.id],
+                  ['CNPJ', selectedRow.cnpj],
+                  ['Responsável', selectedRow.owner],
+                  ['Resp. Fiscal', selectedRow.fiscal],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-secondary)]">
+                      <Building2 className="h-4 w-4" aria-hidden />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[var(--color-fg-muted)]">{label}</p>
+                      <p className="text-sm font-medium text-[var(--color-fg)]">{value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-auto flex flex-col gap-2 border-t border-[var(--color-border)] pt-4">
+              <Button>Editar registro</Button>
+              <Button variant="secondary">Ir para a página completa</Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
       </DemoSection>
 
       <PatternGuidelines
         rules={[
-          'Cards KPI precisam ter volume visual suave, borda lateral evidente e ícone em disco claro.',
-          'Toolbar deve parecer uma superfície branca premium, não um agrupamento solto de controles.',
-          'Tabela operacional precisa de header respirado, tipografia legível e hierarquia clara entre dado primário e secundário.',
-          'Registros críticos podem receber fundo rosado muito sutil para orientar o olhar sem poluir a listagem.',
+          'A listagem deve combinar cards KPI, busca dominante e data table densa na mesma hierarquia.',
+          'Filtro avançado pode existir em modal ou drawer; os dois padrões são oficiais.',
+          'Configuração de colunas fica como ação secundária perto do título da tabela.',
+          'Clique na linha pode abrir detalhe lateral sem tirar a pessoa do contexto.',
         ]}
         required={[
-          'Cinco KPIs quando a visão superior resumir estado geral da listagem.',
-          'Busca dominante antes da segmentação por status e das ações de exportação.',
-          'Card principal da tabela com título, descrição e metadado de paginação no cabeçalho.',
-          'Fallback mobile em cards empilhados quando a tabela perder legibilidade.',
+          'Header com título, subtítulo e CTA principal.',
+          'Toolbar com busca simples, filtros rápidos e exportações.',
+          'Tabela dentro de card próprio, com paginação no rodapé.',
+          'Variação documentada para filtro avançado em modal e em drawer.',
         ]}
         optional={[
-          'Avatares com iniciais por empresa ou cliente.',
-          'Ordenação destacada com seta colorida na coluna prioritária.',
-          'Ações de exportação em botões ícone neutros na mesma linha da toolbar.',
+          'Painel de colunas configuráveis.',
+          'Drawer de detalhe com progresso e ações contextuais.',
+          'Badges rápidos para status e estados da listagem.',
         ]}
         avoid={[
-          'Usar cards excessivamente arredondados ou com sombra pesada demais.',
-          'Misturar CTA principal dentro da toolbar e competir com a busca.',
-          'Deixar o cabeçalho da tabela em uppercase quando o padrão pede leitura mais editorial.',
+          'Esconder os filtros avançados sem oferecer busca simples visível.',
+          'Misturar regras de negócio com a definição visual da listagem.',
+          'Criar uma tabela genérica demais, sem exemplos operacionais reais.',
         ]}
       />
     </DocPage>

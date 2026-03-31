@@ -696,7 +696,7 @@ export default function ApplicationShellDemo() {
   return (
     <DocPage
       title="Padrão: Application Shell"
-      description="Shell base para produtos FIPS com foco em impacto visual: fundo institucional contínuo atrás do cabeçalho, textos genéricos, sidebar aprovada e família completa de mockups responsivos."
+      description="Shell base para produtos FIPS com foco em impacto visual: fundo institucional contínuo atrás do cabeçalho, textos genéricos, sidebar aprovada e família completa de mockups responsivos. O recolhimento manual continua sendo o padrão documentado."
     >
       <DemoSection
         title="Preview interativo"
@@ -716,7 +716,7 @@ export default function ApplicationShellDemo() {
           <div className="max-w-2xl">
             <p className="text-sm font-semibold text-[var(--color-fg)]">Família responsiva com mockups</p>
             <p className="mt-1 text-sm text-[var(--color-fg-muted)]">
-              A demo agora usa textos neutros, fundo institucional contínuo atrás do cabeçalho e visualizações separadas para desktop, tablet e celular.
+              A demo usa textos neutros, fundo institucional contínuo atrás do cabeçalho e visualizações separadas para desktop, tablet e celular. O recolhimento manual é a referência principal; automações de fechamento ficam só como comportamento opcional fora deste padrão.
             </p>
           </div>
 
@@ -799,6 +799,7 @@ export default function ApplicationShellDemo() {
         rules={[
           'No padrão Home, a arte institucional continua visível atrás do cabeçalho e das abas.',
           'A documentação usa nomenclatura neutra: Aplicativo FIPS, Home, Menu 1, Menu 2 e assim por diante.',
+          'O recolhimento manual da sidebar é o comportamento padrão documentado.',
           'Desktop, tablet e celular devem aparecer em mockups dedicados, não apenas em um toggle abstrato.',
           'Todo texto sobre o topo azul usa contraste claro; evitar preto ou cinza escuro sobre a imagem.',
         ]}
@@ -811,6 +812,7 @@ export default function ApplicationShellDemo() {
         optional={[
           'Drawer aberto no celular para revisão do menu.',
           'Rail compacta no tablet para manter navegação sempre visível.',
+          'Comportamento automático de fechamento apenas como referência opcional fora do padrão principal.',
           'Blocos secundários de conteúdo para demonstrar profundidade visual.',
         ]}
         avoid={[

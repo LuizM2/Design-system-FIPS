@@ -34,6 +34,7 @@ export {
   DrawerTrigger,
 } from './drawer'
 export { Input, type InputProps } from './input'
+export { Progress, type ProgressProps } from './progress'
 export { Select, type SelectProps } from './select'
 export { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow } from './table'
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'

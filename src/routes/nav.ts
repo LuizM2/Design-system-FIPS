@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react'
 import {
+  Gauge,
   AppWindow,
   Blocks,
   BookOpen,
@@ -77,6 +78,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { label: 'Button', to: '/docs/components/button', icon: Component },
       { label: 'Input', to: '/docs/components/input', icon: FormInput },
+      { label: 'Progress', to: '/docs/components/progress', icon: Gauge },
       { label: 'Select', to: '/docs/components/select', icon: SearchCheck },
       { label: 'Textarea', to: '/docs/components/textarea', icon: AppWindow },
       { label: 'Badge', to: '/docs/components/badge', icon: Blocks },
