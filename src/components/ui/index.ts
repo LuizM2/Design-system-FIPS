@@ -57,6 +57,14 @@ export {
   DrawerTrigger,
 } from './drawer'
 export { Input, type InputProps } from './input'
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+} from './input-group'
 export { Progress, type ProgressProps } from './progress'
 export { Select, type SelectProps } from './select'
 export { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow } from './table'

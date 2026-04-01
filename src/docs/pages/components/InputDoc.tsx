@@ -1,15 +1,23 @@
-import { CalendarDays, ChevronsUpDown, Mail, Search, ShieldCheck, UserRound } from 'lucide-react'
+import { CalendarDays, ChevronsUpDown, Copy, Eye, Hash, Link2, Mail, Search, ShieldCheck, UserRound } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { Field, FieldHint, FieldLabel } from '../../../components/ui/field'
 import { FieldTrigger } from '../../../components/ui/field-trigger'
 import { Input } from '../../../components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from '../../../components/ui/input-group'
 import { Select } from '../../../components/ui/select'
 
 export default function InputDoc() {
   return (
     <DocPage
       title="Input"
-      description="Primitiva de campo de texto com ícone opcional. O uso oficial é sempre via `Field`, mantendo o alinhamento entre label, placeholder e densidade de forma reutilizável."
+      description="Primitiva de campo de texto com ícone opcional. O uso oficial é sempre via `Field`, mantendo o alinhamento entre label, placeholder e densidade de forma reutilizável. Para composições avançadas com addons, use `InputGroup`."
     >
       <DemoSection
         title="Formulário padrão"
@@ -36,6 +44,94 @@ export default function InputDoc() {
               leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
               defaultValue="30/03/2026"
             />
+          </Field>
+        </div>
+      </DemoSection>
+
+      <DemoSection title="InputGroup — composição agrupada">
+        <p className="mb-4 text-sm text-[var(--color-fg-muted)]">
+          O <code className="rounded bg-[var(--color-surface-muted)] px-1.5 py-0.5 text-xs font-semibold">InputGroup</code> permite
+          compor inputs com ícones, textos auxiliares, botões e addons em qualquer posição — padrão inspirado pelo CONTPIX e adaptado aos tokens FIPS.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Ícone à esquerda */}
+          <Field>
+            <FieldLabel>Busca com ícone</FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <Search className="h-4 w-4" aria-hidden />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Buscar empresa, CNPJ..." />
+            </InputGroup>
+          </Field>
+
+          {/* Ícone + botão à direita */}
+          <Field>
+            <FieldLabel>Senha</FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <ShieldCheck className="h-4 w-4" aria-hidden />
+              </InputGroupAddon>
+              <InputGroupInput type="password" placeholder="Senha do certificado" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton size="icon-sm" aria-label="Mostrar senha">
+                  <Eye className="h-4 w-4" />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </Field>
+
+          {/* Prefixo de texto */}
+          <Field>
+            <FieldLabel>URL do sistema</FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <InputGroupText>https://</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput placeholder="app.fips.com.br" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton size="icon-sm" aria-label="Copiar link">
+                  <Copy className="h-3.5 w-3.5" />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </Field>
+
+          {/* Sufixo de unidade */}
+          <Field>
+            <FieldLabel>Valor da nota</FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <InputGroupText>R$</InputGroupText>
+              </InputGroupAddon>
+              <InputGroupInput type="text" inputMode="decimal" placeholder="0,00" defaultValue="1.250,00" />
+            </InputGroup>
+          </Field>
+        </div>
+      </DemoSection>
+
+      <DemoSection title="InputGroup — label superior (block-start)">
+        <div className="max-w-md">
+          <InputGroup>
+            <InputGroupAddon align="block-start">
+              <Link2 className="h-4 w-4" aria-hidden />
+              <InputGroupText>Código de rastreio</InputGroupText>
+            </InputGroupAddon>
+            <InputGroupInput placeholder="Ex: BR123456789" />
+          </InputGroup>
+        </div>
+      </DemoSection>
+
+      <DemoSection title="InputGroup — textarea">
+        <div className="max-w-lg">
+          <Field>
+            <FieldLabel>Observação</FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start" className="self-start pt-3">
+                <Hash className="h-4 w-4" aria-hidden />
+              </InputGroupAddon>
+              <InputGroupTextarea placeholder="Contexto adicional para triagem, filtros e apoio operacional..." rows={3} />
+            </InputGroup>
           </Field>
         </div>
       </DemoSection>
