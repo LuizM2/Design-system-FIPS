@@ -42,7 +42,22 @@
   --shadow-float: 0 12px 36px rgb(15 23 42 / 0.12);
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 @layer utilities {
+  .btn-shimmer:hover {
+    background-image: linear-gradient(
+      110deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
   .font-heading {
     font-family: var(--font-heading);
   }

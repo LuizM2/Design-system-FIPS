@@ -13,11 +13,13 @@ export const buttonVariants = cva(
           'border border-[var(--color-primary)]/20 bg-transparent text-[var(--color-primary)] hover:bg-[var(--color-primary)]/6 hover:border-[var(--color-primary)]/35',
         ghost: 'text-[var(--color-primary)] hover:bg-[var(--color-primary)]/8',
         accent:
-          'bg-[var(--color-accent-strong)] text-white shadow-[var(--shadow-card)] hover:bg-[var(--color-warning)]/90',
+          'bg-[var(--color-accent-strong)] text-white shadow-[var(--shadow-card)] hover:bg-[var(--color-warning)]/90 btn-shimmer',
         inverseOutline:
           'border border-white/60 bg-white/[0.06] text-white hover:border-white/70 hover:bg-white/[0.12]',
         success:
           'bg-[var(--color-success)] text-white shadow-[var(--shadow-card)] hover:bg-[var(--color-success-strong)] hover:shadow-[var(--shadow-card-hover)] active:translate-y-px',
+        ouro:
+          'bg-[var(--color-accent)] text-[var(--color-primary-hover)] shadow-[var(--shadow-card)] hover:bg-[var(--color-accent-strong)] btn-shimmer',
         danger: 'bg-[var(--color-danger)] text-white shadow-[var(--shadow-card)] hover:bg-red-700',
         link: 'text-[var(--color-primary)] underline-offset-4 hover:underline',
       },

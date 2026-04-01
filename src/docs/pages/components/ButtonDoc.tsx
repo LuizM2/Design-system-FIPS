@@ -91,6 +91,11 @@ function DSButton({ variant = "primary", size = "medium", disabled = false, load
     letterSpacing: "0.01em", whiteSpace: "nowrap", outline: "none",
     boxShadow: hovered && !disabled && !loading && variant !== "ghost" && variant !== "link"
       ? "0 2px 8px rgba(0,75,155,0.18)" : "none",
+    ...(hovered && !disabled && !loading && (variant === "accent" || variant === "ouro") ? {
+      backgroundImage: "linear-gradient(110deg, transparent 25%, rgba(255,255,255,0.3) 50%, transparent 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s ease-in-out infinite",
+    } : {}),
   };
 
   return (
@@ -241,6 +246,7 @@ export default function DSFIPSButtons() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         @keyframes dsSpin { to { transform: rotate(360deg); } }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
       `}</style>
 
       {/* HEADER */}
@@ -396,7 +402,7 @@ export default function DSFIPSButtons() {
               </div>
               <div style={guideBody}>
                 <div style={guideLabel}>Significado</div>
-                <p style={guideText}>Ação que exige atenção especial ou representa um passo de escalação. Cor quente que atrai o olhar sem significar "sucesso".</p>
+                <p style={guideText}>Ação que exige atenção especial ou representa um passo de escalação. Cor quente que atrai o olhar sem significar "sucesso". Possui efeito shimmer no hover para reforçar destaque visual.</p>
                 <div style={guideLabel}>Quando usar</div>
                 <p style={guideText}>Para fluxos de escalação, envio, ou ações que mudam o status sem confirmar sucesso. "Enviar para aprovação", "Escalar", "Notificar gestor", "Reabrir".</p>
                 <div style={guideLabel}>Quando NÃO usar</div>
@@ -414,7 +420,7 @@ export default function DSFIPSButtons() {
               </div>
               <div style={guideBody}>
                 <div style={guideLabel}>Significado</div>
-                <p style={guideText}>Destaque informativo ou promocional. Cor quente e suave que chama atenção sem transmitir urgência nem sucesso.</p>
+                <p style={guideText}>Destaque informativo ou promocional. Cor quente e suave que chama atenção sem transmitir urgência nem sucesso. Possui efeito shimmer no hover para reforçar destaque visual.</p>
                 <div style={guideLabel}>Quando usar</div>
                 <p style={guideText}>Para realçar informações, badges de conquista, ações promocionais, upgrades ou destaques visuais. "Ver benefícios", "Resgatar", "Destacar", "Premium".</p>
                 <div style={guideLabel}>Exemplo FIPS</div>
