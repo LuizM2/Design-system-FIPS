@@ -106,7 +106,11 @@ export default function FormWorkspaceDemo() {
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                   <WorkspaceField label="Data de emissão" inset="icon">
-                    <Input type="date" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
+                    <Input
+                      inputMode="numeric"
+                      placeholder="dd/mm/aaaa"
+                      leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
+                    />
                   </WorkspaceField>
                   <WorkspaceField label="Nome do solicitante" inset="icon">
                     <Input placeholder="Nome completo" leftIcon={<UserRound className="h-4 w-4" aria-hidden />} />

@@ -54,7 +54,7 @@ export default function FieldDoc() {
               <FieldLabel>Email do Cliente</FieldLabel>
               <Input defaultValue="multiH6Ew@test.com" />
             </Field>
-            <Field className="md:col-span-3">
+            <Field className="md:col-span-3" inset="icon">
               <FieldLabel>Segmento</FieldLabel>
               <Select aria-label="Segmento" leftIcon={<Building2 className="h-4 w-4" aria-hidden />}>
                 <option value="">Selecione</option>
@@ -62,7 +62,7 @@ export default function FieldDoc() {
                 <option value="juridico">Jurídico</option>
               </Select>
             </Field>
-            <Field className="md:col-span-3">
+            <Field className="md:col-span-3" inset="icon">
               <FieldLabel>Contato Telefone</FieldLabel>
               <Input defaultValue="11999999999" leftIcon={<Phone className="h-4 w-4" aria-hidden />} />
             </Field>

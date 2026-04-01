@@ -48,18 +48,17 @@ export default function TextareaDoc() {
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Obrigatório</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel required>Descrição</FieldLabel>
-              <Textarea density="compact" defaultValue="Detalhes principais do atendimento e pontos de atenção." />
+              <Textarea defaultValue="Detalhes principais do atendimento e pontos de atenção." />
             </Field>
           </div>
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">Selecionado / em foco</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel>Descrição</FieldLabel>
               <Textarea
-                density="compact"
                 data-state-preview="focused"
                 defaultValue="Campo ativo para edição de contexto e observações."
               />
@@ -68,10 +67,9 @@ export default function TextareaDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-danger)]">Erro</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel required>Descrição</FieldLabel>
               <Textarea
-                density="compact"
                 aria-invalid="true"
                 data-state-preview="focused"
                 defaultValue="Texto sem informação mínima necessária."
@@ -81,10 +79,9 @@ export default function TextareaDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Bloqueado</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel>Descrição</FieldLabel>
               <Textarea
-                density="compact"
                 disabled
                 defaultValue="Conteúdo indisponível para edição neste estágio."
               />

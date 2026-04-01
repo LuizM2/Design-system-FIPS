@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   CalendarDays,
+  ChevronsUpDown,
   Check,
   Paperclip,
   Search,
@@ -22,6 +23,7 @@ import {
   DialogTrigger,
 } from '../../../components/ui/dialog'
 import { Field, FieldLabel } from '../../../components/ui/field'
+import { FieldTrigger } from '../../../components/ui/field-trigger'
 import { Input } from '../../../components/ui/input'
 import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
@@ -99,10 +101,11 @@ export default function ModalWorkflowDemo() {
                       <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_116px]">
                         <Field density="compact" inset="icon">
                           <FieldLabel>Cliente</FieldLabel>
-                          <Input
+                          <FieldTrigger
                             density="compact"
                             placeholder="Buscar empresa..."
                             leftIcon={<Search className="h-4 w-4" aria-hidden />}
+                            rightIcon={<ChevronsUpDown className="h-4 w-4 opacity-50" aria-hidden />}
                           />
                         </Field>
                         <Field density="compact" inset="control">
@@ -141,8 +144,9 @@ export default function ModalWorkflowDemo() {
                           <FieldLabel>Data início</FieldLabel>
                           <Input
                             density="compact"
-                            type="date"
-                            defaultValue="2026-03-30"
+                            inputMode="numeric"
+                            placeholder="dd/mm/aaaa"
+                            defaultValue="30/03/2026"
                             leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                           />
                         </Field>
@@ -150,7 +154,8 @@ export default function ModalWorkflowDemo() {
                           <FieldLabel>Fim do prazo</FieldLabel>
                           <Input
                             density="compact"
-                            type="date"
+                            inputMode="numeric"
+                            placeholder="dd/mm/aaaa"
                             leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                           />
                         </Field>

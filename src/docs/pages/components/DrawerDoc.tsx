@@ -82,7 +82,13 @@ export default function DrawerDoc() {
               </Field>
               <Field density="compact" inset="icon">
                 <FieldLabel>Vencimento até</FieldLabel>
-                <Input density="compact" type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
+                <Input
+                  density="compact"
+                  inputMode="numeric"
+                  placeholder="dd/mm/aaaa"
+                  defaultValue="30/03/2026"
+                  leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
+                />
               </Field>
             </div>
 

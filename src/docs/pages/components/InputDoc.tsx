@@ -1,7 +1,9 @@
-import { CalendarDays, Mail, Search, ShieldCheck, UserRound } from 'lucide-react'
+import { CalendarDays, ChevronsUpDown, Mail, Search, ShieldCheck, UserRound } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { Field, FieldHint, FieldLabel } from '../../../components/ui/field'
+import { FieldTrigger } from '../../../components/ui/field-trigger'
 import { Input } from '../../../components/ui/input'
+import { Select } from '../../../components/ui/select'
 
 export default function InputDoc() {
   return (
@@ -28,7 +30,12 @@ export default function InputDoc() {
           </Field>
           <Field inset="icon">
             <FieldLabel>Data de vencimento</FieldLabel>
-            <Input type="date" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} defaultValue="2026-03-30" />
+            <Input
+              inputMode="numeric"
+              placeholder="dd/mm/aaaa"
+              leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
+              defaultValue="30/03/2026"
+            />
           </Field>
         </div>
       </DemoSection>
@@ -37,7 +44,7 @@ export default function InputDoc() {
         title="Modo compacto de modal"
       >
         <div className="max-w-2xl rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_100px]">
             <Field density="compact" inset="icon">
               <FieldLabel required>Senha</FieldLabel>
               <Input
@@ -46,12 +53,23 @@ export default function InputDoc() {
                 leftIcon={<ShieldCheck className="h-4 w-4" aria-hidden />}
               />
             </Field>
+            <Field density="compact" inset="control">
+              <FieldLabel>Tipo</FieldLabel>
+              <Select density="compact" aria-label="Tipo" defaultValue="interno">
+                <option value="interno">Interno</option>
+                <option value="externo">Externo</option>
+              </Select>
+            </Field>
+          </div>
+          <div className="mt-3">
             <Field density="compact" inset="icon">
-              <FieldLabel>Buscar empresa</FieldLabel>
-              <Input
+              <FieldLabel>Cliente</FieldLabel>
+              <FieldTrigger
                 density="compact"
                 placeholder="Buscar empresa..."
                 leftIcon={<Search className="h-4 w-4" aria-hidden />}
+                rightIcon={<ChevronsUpDown className="h-4 w-4 opacity-50" aria-hidden />}
+                aria-label="Buscar empresa"
               />
             </Field>
           </div>
@@ -62,10 +80,9 @@ export default function InputDoc() {
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Obrigatório</p>
-            <Field density="compact" inset="icon">
+            <Field inset="icon">
               <FieldLabel required>Título</FieldLabel>
               <Input
-                density="compact"
                 defaultValue="Ex: Consultoria Fiscal"
                 leftIcon={<ShieldCheck className="h-4 w-4" aria-hidden />}
               />
@@ -75,10 +92,9 @@ export default function InputDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">Selecionado / em foco</p>
-            <Field density="compact" inset="icon">
+            <Field inset="icon">
               <FieldLabel>Título</FieldLabel>
               <Input
-                density="compact"
                 data-state-preview="focused"
                 defaultValue="Ex: Consultoria Fiscal"
                 leftIcon={<ShieldCheck className="h-4 w-4" aria-hidden />}
@@ -89,10 +105,9 @@ export default function InputDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-danger)]">Erro</p>
-            <Field density="compact" inset="icon">
+            <Field inset="icon">
               <FieldLabel required>Email</FieldLabel>
               <Input
-                density="compact"
                 aria-invalid="true"
                 data-state-preview="focused"
                 defaultValue="consultoriafiscal"
@@ -104,10 +119,9 @@ export default function InputDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Bloqueado</p>
-            <Field density="compact" inset="icon">
+            <Field inset="icon">
               <FieldLabel>Busca</FieldLabel>
               <Input
-                density="compact"
                 disabled
                 defaultValue="Campo indisponível"
                 leftIcon={<Search className="h-4 w-4" aria-hidden />}

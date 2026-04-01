@@ -82,9 +82,9 @@ export default function SelectDoc() {
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Obrigatório</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel required>Status</FieldLabel>
-              <Select density="compact" aria-label="Status obrigatório" defaultValue="ativo">
+              <Select aria-label="Status obrigatório" defaultValue="ativo">
                 <option value="">Selecione</option>
                 <option value="ativo">Ativo</option>
                 <option value="novo">Novo</option>
@@ -95,9 +95,9 @@ export default function SelectDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">Selecionado / em foco</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel>Status</FieldLabel>
-              <Select density="compact" aria-label="Status em foco" data-state-preview="focused" defaultValue="novo">
+              <Select aria-label="Status em foco" data-state-preview="focused" defaultValue="novo">
                 <option value="">Selecione</option>
                 <option value="ativo">Ativo</option>
                 <option value="novo">Novo</option>
@@ -108,9 +108,9 @@ export default function SelectDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-danger)]">Erro</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel required>Status</FieldLabel>
-              <Select density="compact" aria-label="Status inválido" aria-invalid="true" data-state-preview="focused" defaultValue="">
+              <Select aria-label="Status inválido" aria-invalid="true" data-state-preview="focused" defaultValue="">
                 <option value="">Selecione</option>
                 <option value="ativo">Ativo</option>
                 <option value="novo">Novo</option>
@@ -121,9 +121,9 @@ export default function SelectDoc() {
 
           <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Bloqueado</p>
-            <Field density="compact" inset="control">
+            <Field inset="control">
               <FieldLabel>Status</FieldLabel>
-              <Select density="compact" aria-label="Status bloqueado" disabled defaultValue="ativo">
+              <Select aria-label="Status bloqueado" disabled defaultValue="ativo">
                 <option value="ativo">Ativo</option>
                 <option value="novo">Novo</option>
               </Select>

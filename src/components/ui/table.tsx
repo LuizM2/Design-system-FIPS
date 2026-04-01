@@ -3,26 +3,36 @@ import { cn } from '../../lib/cn'
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   framed?: boolean
+  density?: 'default' | 'dense'
 }
 
+const TableDensityContext = React.createContext<'default' | 'dense'>('default')
+
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ className, framed = true, ...props }, ref) => {
+  ({ className, framed = true, density = 'default', ...props }, ref) => {
     const table = (
       <table
         ref={ref}
         className={cn('w-full caption-bottom text-sm', className)}
+        data-density={density}
         {...props}
       />
     )
 
     if (!framed) {
-      return <div className="relative w-full overflow-auto">{table}</div>
+      return (
+        <TableDensityContext.Provider value={density}>
+          <div className="relative w-full overflow-auto">{table}</div>
+        </TableDensityContext.Provider>
+      )
     }
 
     return (
-      <div className="relative w-full overflow-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-card)]">
-        {table}
-      </div>
+      <TableDensityContext.Provider value={density}>
+        <div className="relative w-full overflow-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-card)]">
+          {table}
+        </div>
+      </TableDensityContext.Provider>
     )
   },
 )
@@ -65,24 +75,43 @@ TableRow.displayName = 'TableRow'
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      'h-14 px-4 text-left align-middle text-sm font-semibold text-[var(--color-fg-muted)]',
-      className,
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const density = React.useContext(TableDensityContext)
+
+  return (
+    <th
+      ref={ref}
+      className={cn(
+        density === 'dense'
+          ? 'h-10 px-2 text-left align-middle text-[13px] font-medium text-[var(--color-fg-muted)]'
+          : 'h-14 px-4 text-left align-middle text-sm font-semibold text-[var(--color-fg-muted)]',
+        className,
+      )}
+      {...props}
+    />
+  )
+})
 TableHead.displayName = 'TableHead'
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td ref={ref} className={cn('px-4 py-5 align-middle text-[15px] text-[var(--color-fg)]', className)} {...props} />
-))
+>(({ className, ...props }, ref) => {
+  const density = React.useContext(TableDensityContext)
+
+  return (
+    <td
+      ref={ref}
+      className={cn(
+        density === 'dense'
+          ? 'px-2 py-2.5 align-middle text-[13.5px] text-[var(--color-fg)]'
+          : 'px-4 py-5 align-middle text-[15px] text-[var(--color-fg)]',
+        className,
+      )}
+      {...props}
+    />
+  )
+})
 TableCell.displayName = 'TableCell'
 
 interface TableEmptyProps extends React.HTMLAttributes<HTMLTableRowElement> {

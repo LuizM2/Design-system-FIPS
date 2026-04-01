@@ -19,14 +19,15 @@ import { Textarea } from '../../../components/ui/textarea'
 
 type ModalFieldProps = {
   label: React.ReactNode
+  required?: boolean
   inset?: FieldInset
   children: React.ReactNode
 }
 
-function ModalField({ label, inset = 'control', children }: ModalFieldProps) {
+function ModalField({ label, required = false, inset = 'control', children }: ModalFieldProps) {
   return (
     <Field density="compact" inset={inset}>
-      <FieldLabel>{label}</FieldLabel>
+      <FieldLabel required={required}>{label}</FieldLabel>
       {children}
     </Field>
   )
@@ -73,7 +74,7 @@ export default function ModalFormDemo() {
               <TabsContent value="atendimento" className="space-y-4 border-0 p-0 pt-4 shadow-none">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-4">
-                    <ModalField label={<>Título <span className="text-red-600">*</span></>} inset="icon">
+                    <ModalField label="Título" required inset="icon">
                       <Input
                         density="compact"
                         placeholder="Ex.: Ajuste de integração EDI"
@@ -118,14 +119,16 @@ export default function ModalFormDemo() {
                       <ModalField label="Início" inset="icon">
                         <Input
                           density="compact"
-                          type="date"
+                          inputMode="numeric"
+                          placeholder="dd/mm/aaaa"
                           leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                         />
                       </ModalField>
                       <ModalField label="Prazo" inset="icon">
                         <Input
                           density="compact"
-                          type="date"
+                          inputMode="numeric"
+                          placeholder="dd/mm/aaaa"
                           leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                         />
                       </ModalField>
