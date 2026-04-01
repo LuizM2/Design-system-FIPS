@@ -48,18 +48,6 @@ export default function CertificadosDemo() {
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`/* Fundo de página */
-className="bg-[var(--color-surface-muted)]"
-
-/* Card KPI com borda lateral */
-className="border-l-4 border-l-[var(--color-fips-green-500)]"
-
-/* Botão ação (azul céu profundo) */
-className="bg-[var(--color-secondary)]"
-
-/* Linha de tabela alerta */
-className="bg-red-50/80"`}
-        referenceLabel="Padrão certificados — classes"
       >
         <div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -69,7 +57,7 @@ className="bg-red-50/80"`}
                 Controle de validade, alertas e exportação.
               </p>
             </div>
-            <Button className="gap-2 bg-[var(--color-secondary)] hover:opacity-95">
+            <Button className="gap-2">
               + Novo certificado
             </Button>
           </div>
@@ -104,7 +92,6 @@ className="bg-red-50/80"`}
                     type="button"
                     size="sm"
                     variant={i === 0 ? 'secondary' : 'ghost'}
-                    className={i === 0 ? 'bg-[var(--color-surface-muted)]' : ''}
                   >
                     {f}
                   </Button>

@@ -3,6 +3,18 @@ export { buttonVariants, type ButtonVariantProps } from './button-variants'
 export { Badge, type BadgeProps } from './badge'
 export { Button, type ButtonProps } from './button'
 export {
+  Field,
+  FieldHint,
+  FieldLabel,
+  FieldMessage,
+  type FieldDensity,
+  type FieldInset,
+  type FieldProps,
+  type FieldHintProps,
+  type FieldLabelProps,
+  type FieldMessageProps,
+} from './field'
+export {
   Card,
   CardContent,
   CardDescription,

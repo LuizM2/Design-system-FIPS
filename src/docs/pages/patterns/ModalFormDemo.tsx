@@ -11,10 +11,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../../../components/ui/dialog'
+import { Field, FieldLabel, type FieldInset } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Select } from '../../../components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs'
 import { Textarea } from '../../../components/ui/textarea'
+
+type ModalFieldProps = {
+  label: React.ReactNode
+  inset?: FieldInset
+  children: React.ReactNode
+}
+
+function ModalField({ label, inset = 'control', children }: ModalFieldProps) {
+  return (
+    <Field density="compact" inset={inset}>
+      <FieldLabel>{label}</FieldLabel>
+      {children}
+    </Field>
+  )
+}
 
 export default function ModalFormDemo() {
   const [open, setOpen] = useState(false)
@@ -23,23 +39,10 @@ export default function ModalFormDemo() {
   return (
     <DocPage
       title="Padrão: Modal de formulário"
-      description="Formulário em duas colunas com abas superiores, campos com ícones e ações primárias — referência para fluxos de criação."
+      description="Formulário em duas colunas com abas superiores, campos com ícones e ações primárias — referência para fluxos de criação montados apenas com composições oficiais do DS."
     >
       <DemoSection
         title="Interativo"
-        reference={`/* Modal largo */
-<DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-
-/* Abas + grid formulário */
-<Tabs defaultValue="...">
-  <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4" />
-</Tabs>
-<div className="grid gap-4 md:grid-cols-2">...</div>
-
-/* Prioridade = grupo de Button variant outline/secondary */
-/* Área de anexo */
-className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4"`}
-        referenceLabel="Modal formulário — estrutura"
       >
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -70,33 +73,32 @@ className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(
               <TabsContent value="atendimento" className="space-y-4 border-0 p-0 pt-4 shadow-none">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-4">
-                    <label className="block space-y-1.5 text-sm font-medium">
-                      Título <span className="text-red-600">*</span>
+                    <ModalField label={<>Título <span className="text-red-600">*</span></>} inset="icon">
                       <Input
+                        density="compact"
                         placeholder="Ex.: Ajuste de integração EDI"
                         leftIcon={<Zap className="h-4 w-4" aria-hidden />}
                       />
-                    </label>
+                    </ModalField>
                     <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Cliente
+                      <ModalField label="Cliente" inset="icon">
                         <Input
+                          density="compact"
                           placeholder="Buscar cliente…"
                           leftIcon={<UserRound className="h-4 w-4" aria-hidden />}
                         />
-                      </label>
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Tipo
-                        <Select aria-label="Tipo de cliente" defaultValue="interno">
+                      </ModalField>
+                      <ModalField label="Tipo">
+                        <Select density="compact" aria-label="Tipo de cliente" defaultValue="interno">
                           <option value="interno">Interno</option>
                           <option value="externo">Externo</option>
                         </Select>
-                      </label>
+                      </ModalField>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2">
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Departamento
+                      <ModalField label="Departamento" inset="icon">
                         <Select
+                          density="compact"
                           aria-label="Departamento"
                           leftIcon={<Building2 className="h-4 w-4" aria-hidden />}
                           defaultValue="ti"
@@ -104,38 +106,36 @@ className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(
                           <option value="ti">TI</option>
                           <option value="ops">Operações</option>
                         </Select>
-                      </label>
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Responsável
-                        <Select aria-label="Responsável" defaultValue="ana">
+                      </ModalField>
+                      <ModalField label="Responsável">
+                        <Select density="compact" aria-label="Responsável" defaultValue="ana">
                           <option value="ana">Ana Costa</option>
                           <option value="bruno">Bruno Lima</option>
                         </Select>
-                      </label>
+                      </ModalField>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2">
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Início
+                      <ModalField label="Início" inset="icon">
                         <Input
+                          density="compact"
                           type="date"
                           leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                         />
-                      </label>
-                      <label className="block space-y-1.5 text-sm font-medium">
-                        Prazo
+                      </ModalField>
+                      <ModalField label="Prazo" inset="icon">
                         <Input
+                          density="compact"
                           type="date"
                           leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                         />
-                      </label>
+                      </ModalField>
                     </div>
-                    <label className="block space-y-1.5 text-sm font-medium">
-                      Status
-                      <Select aria-label="Status" defaultValue="aberto">
+                    <ModalField label="Status">
+                      <Select density="compact" aria-label="Status" defaultValue="aberto">
                         <option value="aberto">Aberto</option>
                         <option value="triagem">Em triagem</option>
                       </Select>
-                    </label>
+                    </ModalField>
                   </div>
 
                   <div className="space-y-4">
@@ -154,12 +154,7 @@ className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(
                             key={key}
                             type="button"
                             size="sm"
-                            variant={priority === key ? 'outline' : 'secondary'}
-                            className={
-                              priority === key
-                                ? 'border-[var(--color-secondary)] text-[var(--color-secondary)]'
-                                : ''
-                            }
+                            variant={priority === key ? 'primary' : 'secondary'}
                             onClick={() => setPriority(key)}
                           >
                             {label}
@@ -167,10 +162,9 @@ className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(
                         ))}
                       </div>
                     </div>
-                    <label className="block space-y-1.5 text-sm font-medium">
-                      Descrição
-                      <Textarea placeholder="Detalhe o escopo e critérios de aceite…" />
-                    </label>
+                    <ModalField label="Descrição">
+                      <Textarea density="compact" placeholder="Detalhe o escopo e critérios de aceite…" />
+                    </ModalField>
                     <div className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2 text-sm text-[var(--color-fg-muted)]">
@@ -202,7 +196,7 @@ className="rounded-xl border border-dashed border-[var(--color-border)] bg-[var(
                 <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
                   Cancelar
                 </Button>
-                <Button type="button" className="gap-2 bg-[var(--color-secondary)] hover:opacity-95">
+                <Button type="button" variant="success" className="gap-2">
                   <Check className="h-4 w-4" aria-hidden />
                   Salvar
                 </Button>

@@ -9,13 +9,6 @@ export default function BadgeDoc() {
     >
       <DemoSection
         title="Variantes"
-        reference={`import { Badge } from 'ds-fips'
-
-<Badge variant="default">Default</Badge>
-<Badge variant="success">Sucesso</Badge>
-<Badge variant="warning">Atenção</Badge>
-<Badge variant="danger">Crítico</Badge>`}
-        referenceLabel="Badge"
       >
         <div className="flex flex-wrap gap-2">
           <Badge>Default</Badge>

@@ -18,6 +18,7 @@ import {
   SearchCheck,
   Sparkles,
   SwatchBook,
+  ShieldCheck,
   TableProperties,
   Type,
   MonitorSmartphone,
@@ -43,7 +44,10 @@ export const navGroups: NavGroup[] = [
     label: 'Início',
     icon: Home,
     collapsible: false,
-    items: [{ label: 'Visão geral', to: '/docs', icon: Sparkles }],
+    items: [
+      { label: 'Visão geral', to: '/docs', icon: Sparkles },
+      { label: 'Governança', to: '/docs/governance', icon: ShieldCheck },
+    ],
   },
   {
     id: 'patterns',
@@ -77,6 +81,7 @@ export const navGroups: NavGroup[] = [
     icon: Component,
     items: [
       { label: 'Button', to: '/docs/components/button', icon: Component },
+      { label: 'Field', to: '/docs/components/field', icon: FormInput },
       { label: 'Input', to: '/docs/components/input', icon: FormInput },
       { label: 'Progress', to: '/docs/components/progress', icon: Gauge },
       { label: 'Select', to: '/docs/components/select', icon: SearchCheck },

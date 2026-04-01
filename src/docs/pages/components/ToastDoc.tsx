@@ -10,16 +10,6 @@ export default function ToastDoc() {
     >
       <DemoSection
         title="Disparar exemplos"
-        reference={`import { Toaster } from 'sonner'
-import { toast } from 'sonner'
-
-// Raiz do app:
-<Toaster richColors position="top-right" />
-
-toast('Mensagem')
-toast.success('OK')
-toast.error('Erro')`}
-        referenceLabel="Sonner"
       >
         <div className="flex flex-wrap gap-3">
           <Button type="button" variant="secondary" onClick={() => toast('Operação registrada.')}>

@@ -2,12 +2,20 @@ import { DocPage, DemoSection } from '../components/DocPage'
 
 const entries = [
   {
+    version: '0.2.1',
+    date: '2026-03-31',
+    items: [
+      'Documentação reposicionada como catálogo visual interno, sem blocos de código copiável nem ações de download/cópia por página.',
+      'Nova variante success para Button, usando o verde semântico do tema FIPS como padrão de salvar e gravar.',
+      'Catálogo de botões reorganizado com composições reais de negócio, incluindo rodapé de modal e barra de ação.',
+    ],
+  },
+  {
     version: '0.2.0',
     date: '2026-03-24',
     items: [
       'Logotipo FIPS: símbolo (junção de vias) + wordmark “Design System FIPS” e subtítulo institucional; SVG em /brand/fips-symbol.svg.',
       'Guia Markdown para implementação pixel perfect: /guias/guia-design-system-fips.md (download na visão geral).',
-      'Bloco “Referência para copiar” em fundamentos, componentes e padrões.',
       'Ajustes de cor (--color-fg-muted), sidebar com gradiente e sombra.',
     ],
   },
@@ -33,8 +41,6 @@ export default function ChangelogPage() {
         <DemoSection
           key={e.version}
           title={`${e.version} · ${e.date}`}
-          reference={e.items.map((item) => `- ${item}`).join('\n')}
-          referenceLabel="Itens (Markdown) — copiar para release notes"
         >
           <ul className="list-inside list-disc space-y-2 text-sm text-[var(--color-fg-muted)]">
             {e.items.map((item) => (

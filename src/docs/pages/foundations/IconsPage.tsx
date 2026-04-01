@@ -27,12 +27,6 @@ export default function IconsPage() {
     >
       <DemoSection
         title="Conjunto sugerido"
-        reference={`npm install lucide-react
-
-import { Home, LayoutDashboard } from 'lucide-react'
-
-<Home className="h-5 w-5 text-[var(--color-primary)]" aria-hidden />`}
-        referenceLabel="Lucide React"
       >
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {set.map(({ icon: Icon, label }) => (

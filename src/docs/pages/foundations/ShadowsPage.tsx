@@ -8,14 +8,6 @@ export default function ShadowsPage() {
     >
       <DemoSection
         title="Tokens"
-        reference={`/* globals.css @theme */
---shadow-card: 0 2px 10px rgb(0 0 0 / 0.06);
---shadow-elevated: 0 10px 40px rgb(0 75 155 / 0.12);
-
-/* Uso */
-class="shadow-[var(--shadow-card)]"
-class="shadow-[var(--shadow-elevated)]"`}
-        referenceLabel="Sombras (CSS)"
       >
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-xl bg-[var(--color-surface)] p-6 shadow-[var(--shadow-card)]">

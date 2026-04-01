@@ -6,36 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Input } from '../../../components/ui/input'
 import { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 
-const tablePageSource = `import { Badge, Card, CardContent, CardHeader, CardTitle, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from 'ds-fips'
-
-export function AdvancedListing() {
-  return (
-    <Card className="overflow-hidden">
-      <CardHeader className="border-b border-[var(--color-border)]">
-        <CardTitle>Carteira de Clientes</CardTitle>
-      </CardHeader>
-      <CardContent className="!p-0">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Empresa</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>#508</TableCell>
-              <TableCell>Black Ice Confecções</TableCell>
-              <TableCell><Badge variant="secondary">Novo</Badge></TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
-  )
-}`
-
 const rows = [
   {
     id: '#508',
@@ -84,24 +54,9 @@ export default function TableDoc() {
     <DocPage
       title="Table"
       description="Estrutura base para data tables e listagens operacionais. O componente continua simples, e a riqueza visual fica na composição com cards, filtros e paginação."
-      pageSource={tablePageSource}
-      pageDownloadName="TableListingExample.tsx"
     >
       <DemoSection
         title="Estrutura básica"
-        reference={`<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Coluna</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>Célula</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>`}
-        referenceLabel="Table base"
       >
         <Table>
           <TableHeader>
@@ -135,12 +90,6 @@ export default function TableDoc() {
 
       <DemoSection
         title="Listagem operacional"
-        reference={`<Card className="overflow-hidden">
-  {/* header com título, busca, exportação e configuração */}
-  <Table>{/* cabeçalho ordenável + linhas densas */}</Table>
-  {/* paginação no rodapé */}
-</Card>`}
-        referenceLabel="Table em contexto real"
       >
         <Card className="overflow-hidden">
           <CardHeader className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
@@ -230,10 +179,6 @@ export default function TableDoc() {
 
       <DemoSection
         title="Estado vazio"
-        reference={`<TableBody>
-  <TableEmpty colSpan={4} title="Nenhum registro encontrado" />
-</TableBody>`}
-        referenceLabel="TableEmpty"
       >
         <Table>
           <TableHeader>

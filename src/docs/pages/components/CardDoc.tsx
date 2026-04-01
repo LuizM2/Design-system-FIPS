@@ -18,27 +18,6 @@ import {
   CardTitle,
 } from '../../../components/ui/card'
 
-const cardPageSource = `import { CheckCircle2, ShieldCheck } from 'lucide-react'
-import { Card, CardContent } from 'ds-fips'
-
-export function KpiCards() {
-  return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      <Card className="border-l-[4px] border-l-[#2f7df6]">
-        <CardContent className="flex items-center justify-between gap-4 !p-6">
-          <div>
-            <p className="text-sm font-semibold text-[var(--color-fg-muted)]">Total de Empresas</p>
-            <p className="mt-1 text-4xl font-semibold text-[var(--color-fg)]">341</p>
-          </div>
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e8f1ff] text-[#2f7df6]">
-            <ShieldCheck className="h-6 w-6" aria-hidden />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}`
-
 const kpiCards = [
   {
     label: 'Total de Empresas',
@@ -79,15 +58,9 @@ export default function CardDoc() {
     <DocPage
       title="Card"
       description="Container base para agrupar informações, métricas e ações. Esta página reúne as famílias de card que hoje fazem mais sentido para validação com o Diogo."
-      pageSource={cardPageSource}
-      pageDownloadName="CardExamples.tsx"
     >
       <DemoSection
         title="Cards KPI / stat"
-        reference={`<Card className="border-l-[4px] border-l-[#2f7df6]">
-  <CardContent className="flex items-center justify-between gap-4 !p-6">...</CardContent>
-</Card>`}
-        referenceLabel="Card KPI"
       >
         <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
           {kpiCards.map((item) => {
@@ -113,14 +86,6 @@ export default function CardDoc() {
 
       <DemoSection
         title="Cards de resumo e informação"
-        reference={`<Card>
-  <CardHeader>
-    <CardTitle>Resumo operacional</CardTitle>
-    <CardDescription>Contexto curto do bloco.</CardDescription>
-  </CardHeader>
-  <CardContent>...</CardContent>
-</Card>`}
-        referenceLabel="Card de informação"
       >
         <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
           <Card>
@@ -129,7 +94,7 @@ export default function CardDoc() {
               <CardDescription>Use para introduzir o contexto da tela com texto curto e hierarquia clara.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
+              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
                 A estrutura pode combinar resumo textual, chips de status e indicadores de execução no mesmo container.
               </div>
               <div className="flex flex-wrap gap-2">
@@ -149,10 +114,10 @@ export default function CardDoc() {
               <CardDescription>Bom para saúde da tela, checklist ou notas curtas.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="rounded-[18px] bg-white/90 px-4 py-3 text-sm text-[var(--color-fg-muted)]">
+              <div className="rounded-xl bg-white/90 px-4 py-3 text-sm text-[var(--color-fg-muted)]">
                 Verificar contraste e consistência entre os estados do fluxo.
               </div>
-              <div className="rounded-[18px] bg-white/90 px-4 py-3 text-sm text-[var(--color-fg-muted)]">
+              <div className="rounded-xl bg-white/90 px-4 py-3 text-sm text-[var(--color-fg-muted)]">
                 Confirmar quais cards o Diogo quer manter depois da revisão.
               </div>
             </CardContent>
@@ -162,11 +127,6 @@ export default function CardDoc() {
 
       <DemoSection
         title="Card de ação"
-        reference={`<Card>
-  <CardHeader>...</CardHeader>
-  <CardFooter className="justify-between">...</CardFooter>
-</Card>`}
-        referenceLabel="Card com CTA"
       >
         <div className="max-w-lg">
           <Card>
@@ -175,7 +135,7 @@ export default function CardDoc() {
               <CardDescription>Card com CTA principal, secundário e indicação de urgência.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="rounded-[20px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
+              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
                 Revisar os componentes individuais antes de fechar padrões completos de dashboard e regras de negócio.
               </div>
               <Badge variant="warning" dot>
@@ -195,11 +155,6 @@ export default function CardDoc() {
 
       <DemoSection
         title="Container de tabela"
-        reference={`<Card className="overflow-hidden">
-  <CardHeader className="border-b border-[var(--color-border)]">...</CardHeader>
-  <CardContent className="!p-0">...</CardContent>
-</Card>`}
-        referenceLabel="Card para data table"
       >
         <Card className="overflow-hidden">
           <CardHeader className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">

@@ -9,18 +9,6 @@ export default function TypographyPage() {
     >
       <DemoSection
         title="Famílias"
-        reference={`/* Google Fonts (index.html) */
-Saira Expanded — títulos / destaques
-Open Sans — corpo / UI
-
-/* CSS */
---font-heading: 'Saira Expanded', 'Open Sans', ui-sans-serif, system-ui, sans-serif;
---font-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
-
-/* Tailwind */
-class="font-heading"  /* títulos */
-/* corpo: herdado de html/body */`}
-        referenceLabel="Fontes + variáveis"
       >
         <dl className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -40,15 +28,6 @@ class="font-heading"  /* títulos */
 
       <DemoSection
         title="Escala sugerida"
-        reference={`display:  ${typeScale.display}
-h1:       ${typeScale.h1}
-h2:       ${typeScale.h2}
-h3:       ${typeScale.h3}
-lead:     ${typeScale.lead}
-body:     ${typeScale.body}
-small:    ${typeScale.small}
-caption:  ${typeScale.caption}`}
-        referenceLabel="Classes Tailwind da escala (src/tokens/typography.ts)"
       >
         <div className="space-y-6">
           <p className={typeScale.display}>Display — Ferrovia Interna do Porto de Santos</p>

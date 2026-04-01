@@ -1,114 +1,133 @@
 import { Building2, FolderTree, UserRound } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
+import { Field, FieldLabel } from '../../../components/ui/field'
 import { Select } from '../../../components/ui/select'
-
-const selectPageSource = `import { Building2 } from 'lucide-react'
-import { Select } from 'ds-fips'
-
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
-
-export function ExampleSelects() {
-  return (
-    <FieldLabel>
-      Departamento
-      <Select aria-label="Departamento" leftIcon={<Building2 className="h-4 w-4" aria-hidden />}>
-        <option value="">Selecione</option>
-        <option value="tecnologia">Tecnologia</option>
-      </Select>
-    </FieldLabel>
-  )
-}`
-
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
 
 export default function SelectDoc() {
   return (
     <DocPage
       title="Select"
-      description="Lista nativa estilizada, documentada como composição com label acima. O padrão cobre uso padrão de formulário e uso compacto em modal."
-      pageSource={selectPageSource}
-      pageDownloadName="SelectFieldExample.tsx"
+      description="Lista nativa estilizada, documentada via `Field` para manter o mesmo alinhamento e a mesma régua visual dos demais campos. O padrão cobre uso completo e densidade `compact`."
     >
       <DemoSection
         title="Formulário padrão"
-        reference={`<Select aria-label="Departamento" leftIcon={<Building2 className="h-4 w-4" aria-hidden />}>
-  <option value="">Selecione</option>
-</Select>`}
-        referenceLabel="Select com label"
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <FieldLabel>
-            Departamento
+          <Field inset="icon">
+            <FieldLabel required>Departamento</FieldLabel>
             <Select aria-label="Departamento" leftIcon={<Building2 className="h-4 w-4" aria-hidden />}>
               <option value="">Selecione o departamento</option>
               <option value="tecnologia">Tecnologia</option>
               <option value="operacoes">Operações</option>
               <option value="comercial">Comercial</option>
             </Select>
-          </FieldLabel>
-          <FieldLabel>
-            Responsável
+          </Field>
+          <Field inset="icon">
+            <FieldLabel>Responsável</FieldLabel>
             <Select aria-label="Responsável" leftIcon={<UserRound className="h-4 w-4" aria-hidden />}>
               <option value="">Selecione o colaborador</option>
               <option value="diogo">Diogo Henrique Paiva</option>
               <option value="luiz">Luiz Claudio</option>
             </Select>
-          </FieldLabel>
-          <FieldLabel>
-            Segmento
+          </Field>
+          <Field inset="icon">
+            <FieldLabel>Segmento</FieldLabel>
             <Select aria-label="Segmento" leftIcon={<FolderTree className="h-4 w-4" aria-hidden />}>
               <option value="">Selecione o segmento</option>
               <option value="comercio">Comércio</option>
               <option value="servico">Serviço</option>
               <option value="industria">Indústria</option>
             </Select>
-          </FieldLabel>
-          <FieldLabel>
-            Status
+          </Field>
+          <Field inset="control">
+            <FieldLabel>Status</FieldLabel>
             <Select aria-label="Status" defaultValue="ativo">
               <option value="ativo">Ativo</option>
               <option value="novo">Novo</option>
               <option value="inativo">Inativo</option>
             </Select>
-          </FieldLabel>
+          </Field>
         </div>
       </DemoSection>
 
       <DemoSection
         title="Modo compacto de modal"
-        reference={`<Select
-  aria-label="Responsável"
-  className="h-9 rounded-xl border-[var(--color-border)]/60 text-sm shadow-none"
->
-  <option>Diogo Henrique Paiva</option>
-</Select>`}
-        referenceLabel="Select compacto"
       >
-        <div className="max-w-2xl rounded-[26px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+        <div className="max-w-2xl rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
           <div className="grid gap-3 sm:grid-cols-2">
-            <FieldLabel>
-              Responsável
+            <Field density="compact" inset="icon">
+              <FieldLabel required>Responsável</FieldLabel>
               <Select
+                density="compact"
                 aria-label="Responsável"
                 leftIcon={<UserRound className="h-4 w-4" aria-hidden />}
-                className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                 defaultValue="diogo"
               >
                 <option value="diogo">Diogo Henrique Paiva</option>
                 <option value="luiz">Luiz Claudio</option>
               </Select>
-            </FieldLabel>
-            <FieldLabel>
-              Tipo
-              <Select aria-label="Tipo" className="h-9 rounded-xl border-[var(--color-border)]/60 text-sm shadow-none" defaultValue="interno">
+            </Field>
+            <Field density="compact" inset="control">
+              <FieldLabel>Tipo</FieldLabel>
+              <Select density="compact" aria-label="Tipo" defaultValue="interno">
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </Select>
-            </FieldLabel>
+            </Field>
+          </div>
+        </div>
+      </DemoSection>
+
+      <DemoSection title="Obrigatório e estados">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Obrigatório</p>
+            <Field density="compact" inset="control">
+              <FieldLabel required>Status</FieldLabel>
+              <Select density="compact" aria-label="Status obrigatório" defaultValue="ativo">
+                <option value="">Selecione</option>
+                <option value="ativo">Ativo</option>
+                <option value="novo">Novo</option>
+                <option value="inativo">Inativo</option>
+              </Select>
+            </Field>
+          </div>
+
+          <div className="space-y-3 rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-surface-soft)] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">Selecionado / em foco</p>
+            <Field density="compact" inset="control">
+              <FieldLabel>Status</FieldLabel>
+              <Select density="compact" aria-label="Status em foco" data-state-preview="focused" defaultValue="novo">
+                <option value="">Selecione</option>
+                <option value="ativo">Ativo</option>
+                <option value="novo">Novo</option>
+                <option value="inativo">Inativo</option>
+              </Select>
+            </Field>
+          </div>
+
+          <div className="space-y-3 rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-surface-soft)] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-danger)]">Erro</p>
+            <Field density="compact" inset="control">
+              <FieldLabel required>Status</FieldLabel>
+              <Select density="compact" aria-label="Status inválido" aria-invalid="true" data-state-preview="focused" defaultValue="">
+                <option value="">Selecione</option>
+                <option value="ativo">Ativo</option>
+                <option value="novo">Novo</option>
+                <option value="inativo">Inativo</option>
+              </Select>
+            </Field>
+          </div>
+
+          <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-fg-muted)]">Bloqueado</p>
+            <Field density="compact" inset="control">
+              <FieldLabel>Status</FieldLabel>
+              <Select density="compact" aria-label="Status bloqueado" disabled defaultValue="ativo">
+                <option value="ativo">Ativo</option>
+                <option value="novo">Novo</option>
+              </Select>
+            </Field>
           </div>
         </div>
       </DemoSection>

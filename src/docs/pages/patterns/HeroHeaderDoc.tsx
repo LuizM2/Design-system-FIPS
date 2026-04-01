@@ -57,8 +57,8 @@ function HeroHeaderDemo() {
                 Role a página para ver o cabeçalho transicionar de vidro para branco.
               </p>
               <div className="mt-6 flex gap-3 justify-center">
-                <Button variant="accent" size="sm" className="rounded-xl">Ação Primária</Button>
-                <Button variant="outline" size="sm" className="rounded-xl border-white/60 bg-white/[0.06] text-white hover:bg-white/[0.12]">
+                <Button variant="accent" size="sm">Ação Primária</Button>
+                <Button variant="inverseOutline" size="sm">
                   Secundária
                 </Button>
               </div>
@@ -168,49 +168,6 @@ function StateCard({
 
 // ─── Código de referência ────────────────────────────────────────────────────
 
-const codeRef = `// App.tsx — Detecção de scroll no <main>
-const [headerScrolled, setHeaderScrolled] = useState(false);
-const mainRef = useRef<HTMLElement>(null);
-const isHome = location.pathname === '/';
-
-useEffect(() => { setHeaderScrolled(false); }, [location.pathname]);
-
-useEffect(() => {
-  const el = mainRef.current;
-  if (!el) return;
-  const onScroll = () => setHeaderScrolled(el.scrollTop > 60);
-  el.addEventListener('scroll', onScroll, { passive: true });
-  return () => el.removeEventListener('scroll', onScroll);
-}, []);
-
-// Classes do header — hero glass → branco ao rolar
-const glass = isHome && !headerScrolled;
-const headerCls = [
-  'h-14 flex items-center justify-between px-4',
-  'transition-all duration-300',
-  isHome ? 'absolute inset-x-0 top-0 z-50' : 'flex-shrink-0',
-  glass
-    ? 'bg-white/[0.07] backdrop-blur-md border-b border-white/[0.14]'
-    : 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm',
-].join(' ');
-
-// No <main> do App
-<main ref={mainRef} className="flex-1 overflow-auto">
-
-// No Home.tsx — padding-top compensa o header absolute
-<section className="relative overflow-hidden">
-  {/* fundo: imagem + gradiente */}
-  <div className="relative z-10 pt-28 pb-14 ...">
-    {/* conteúdo hero */}
-  </div>
-</section>
-
-// Tokens usados
-// glass ativo:   bg-white/[0.07]  backdrop-blur-md  border-white/[0.14]
-// glass rolado:  bg-white/95      backdrop-blur-sm  border-gray-200  shadow-sm
-// threshold:     60px (scrollTop do <main>)
-// transição:     duration-300 ease-in-out em todas as propriedades`
-
 // ─── Página ──────────────────────────────────────────────────────────────────
 
 export default function HeroHeaderDoc() {
@@ -242,13 +199,6 @@ export default function HeroHeaderDoc() {
 
       <DemoSection
         title="PageHero — faixa de módulo (não é este padrão)"
-        reference={`import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from 'ds-fips'
-
-// Hero fixo abaixo do header branco: gradiente + ${PAGE_HERO_DEFAULT_DECORATION}
-<PageHero>
-  <div className="px-8 py-10">título, badge, ações…</div>
-</PageHero>`}
-        referenceLabel="PageHero (copiar)"
       >
         <p className="mb-4 text-sm text-[var(--color-fg-muted)]">
           Produção, Governança e demais telas internas usam esta faixa azul padrão — não o header glass da
@@ -288,8 +238,6 @@ export default function HeroHeaderDoc() {
 
       <DemoSection
         title="Implementação"
-        reference={codeRef}
-        referenceLabel="Copiar código de referência"
       >
         <p className="text-sm text-[var(--color-fg-muted)]">
           O padrão está implementado no <strong>fips-suprimentos</strong> (App.tsx + Home.tsx)

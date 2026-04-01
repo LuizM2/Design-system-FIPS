@@ -33,44 +33,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '../../../components/ui/drawer'
+import { Field, FieldLabel } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
-
-const pageSource = `import { useState } from 'react'
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, Drawer, DrawerContent, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from 'ds-fips'
-
-export function DataListingPattern() {
-  const [filterModalOpen, setFilterModalOpen] = useState(false)
-
-  return (
-    <div className="space-y-6">
-      {/* KPIs + toolbar */}
-      <Card className="overflow-hidden">
-        <CardHeader>
-          <CardTitle>Carteira de Clientes</CardTitle>
-        </CardHeader>
-        <CardContent className="!p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Empresa</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>{/* linhas */}</TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-
-      <Dialog open={filterModalOpen} onOpenChange={setFilterModalOpen}>
-        <DialogContent>{/* filtro avançado */}</DialogContent>
-      </Dialog>
-    </div>
-  )
-}`
 
 const kpis = [
   {
@@ -143,60 +110,56 @@ const rows = [
   },
 ]
 
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
-
 function AdvancedFiltersFields({ compact = false }: { compact?: boolean }) {
-  const inputClassName = compact ? 'h-9 rounded-xl border-[var(--color-border)]/60 shadow-none' : undefined
+  const density = compact ? 'compact' : 'default'
 
   return (
     <div className={`grid gap-4 ${compact ? '' : 'md:grid-cols-2'}`}>
-      <FieldLabel>
-        Razão social
-        <Input placeholder="Nome da empresa" leftIcon={<Search className="h-4 w-4" aria-hidden />} className={inputClassName} />
-      </FieldLabel>
-      <FieldLabel>
-        Nome fantasia
-        <Input placeholder="Nome fantasia" leftIcon={<Building2 className="h-4 w-4" aria-hidden />} className={inputClassName} />
-      </FieldLabel>
-      <FieldLabel>
-        CNPJ
-        <Input placeholder="00.000.000/0000-00" className={inputClassName} />
-      </FieldLabel>
-      <FieldLabel>
-        ID do cliente
-        <Input placeholder="Ex: 1234" className={inputClassName} />
-      </FieldLabel>
-      <FieldLabel>
-        Status
-        <Select aria-label="Status" className={inputClassName}>
+      <Field density={density} inset="icon">
+        <FieldLabel>Razão social</FieldLabel>
+        <Input density={density} placeholder="Nome da empresa" leftIcon={<Search className="h-4 w-4" aria-hidden />} />
+      </Field>
+      <Field density={density} inset="icon">
+        <FieldLabel>Nome fantasia</FieldLabel>
+        <Input density={density} placeholder="Nome fantasia" leftIcon={<Building2 className="h-4 w-4" aria-hidden />} />
+      </Field>
+      <Field density={density} inset="control">
+        <FieldLabel>CNPJ</FieldLabel>
+        <Input density={density} placeholder="00.000.000/0000-00" />
+      </Field>
+      <Field density={density} inset="control">
+        <FieldLabel>ID do cliente</FieldLabel>
+        <Input density={density} placeholder="Ex: 1234" />
+      </Field>
+      <Field density={density} inset="control">
+        <FieldLabel>Status</FieldLabel>
+        <Select density={density} aria-label="Status">
           <option value="">Selecione</option>
           <option value="ativo">Ativo</option>
           <option value="novo">Novo</option>
           <option value="inativo">Inativo</option>
         </Select>
-      </FieldLabel>
-      <FieldLabel>
-        Segmento
-        <Select aria-label="Segmento" className={inputClassName}>
+      </Field>
+      <Field density={density} inset="control">
+        <FieldLabel>Segmento</FieldLabel>
+        <Select density={density} aria-label="Segmento">
           <option value="">Selecione</option>
           <option value="comercio">Comércio</option>
           <option value="servico">Serviço</option>
         </Select>
-      </FieldLabel>
-      <FieldLabel>
-        Responsável fiscal
-        <Select aria-label="Responsável fiscal" className={inputClassName}>
+      </Field>
+      <Field density={density} inset="control">
+        <FieldLabel>Responsável fiscal</FieldLabel>
+        <Select density={density} aria-label="Responsável fiscal">
           <option value="">Selecione o colaborador</option>
           <option value="fabio">Fábio</option>
           <option value="bruno">Bruno</option>
         </Select>
-      </FieldLabel>
-      <FieldLabel>
-        Vencimento até
-        <Input type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} className={inputClassName} />
-      </FieldLabel>
+      </Field>
+      <Field density={density} inset="icon">
+        <FieldLabel>Vencimento até</FieldLabel>
+        <Input density={density} type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
+      </Field>
     </div>
   )
 }
@@ -216,19 +179,11 @@ export default function DataListingDemo() {
   return (
     <DocPage
       title="Padrão: Data Listing"
-      description="Listagem operacional alinhada às referências do CONTPIX: KPI cards, busca dominante, configuração de colunas, data table densa e dois caminhos oficiais para filtro avançado."
-      pageSource={pageSource}
-      pageDownloadName="DataListingPattern.tsx"
+      description="Listagem operacional alinhada às referências do CONTPIX: KPI cards, busca dominante, configuração de colunas, data table densa e dois caminhos oficiais para filtro avançado. Todos os campos reaproveitam a composição pública `Field`."
     >
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`<div className="space-y-6 bg-[linear-gradient(180deg,#f8fbff_0%,#f4f8fd_100%)] p-6">
-  {/* KPIs + busca + filtros rápidos + configuração */}
-  {/* card de tabela */}
-  {/* filtro avançado em modal e em drawer */}
-</div>`}
-        referenceLabel="Estrutura do padrão"
       >
         <div className="space-y-6 bg-[linear-gradient(180deg,#f8fbff_0%,#f4f8fd_100%)] p-4 sm:p-6 lg:p-7">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
@@ -241,7 +196,7 @@ export default function DataListingDemo() {
               </p>
             </div>
 
-            <Button className="h-[48px] rounded-[14px] px-5 text-sm shadow-[0_10px_20px_rgba(0,144,208,0.2)]">
+            <Button size="lg">
               <Plus className="h-4 w-4" aria-hidden />
               Nova empresa
             </Button>
@@ -252,7 +207,7 @@ export default function DataListingDemo() {
               const Icon = item.icon
 
               return (
-                <Card key={item.label} className={`border-l-[4px] ${item.borderClass} rounded-[22px] border-[#dce6ef] bg-white`}>
+                <Card key={item.label} className={`border-l-[4px] ${item.borderClass} rounded-2xl border-[#dce6ef] bg-white`}>
                   <CardContent className="flex items-center justify-between gap-4 !p-5">
                     <div>
                       <p className="text-sm font-semibold text-[#6d7f96]">{item.label}</p>
@@ -268,7 +223,7 @@ export default function DataListingDemo() {
             })}
           </div>
 
-          <Card className="rounded-[24px] border-[#dce6ef] bg-white">
+          <Card className="rounded-2xl border-[#dce6ef] bg-white">
             <CardContent className="flex flex-col gap-4 !p-4 md:!p-5">
               <div className="flex flex-col gap-3 xl:flex-row xl:items-center">
                 <div className="min-w-0 flex-1">
@@ -309,7 +264,7 @@ export default function DataListingDemo() {
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden rounded-[26px] border-[#dce6ef] bg-white">
+          <Card className="relative overflow-hidden rounded-2xl border-[#dce6ef] bg-white">
             <CardHeader className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div>
@@ -321,7 +276,7 @@ export default function DataListingDemo() {
             </CardHeader>
 
             {columnPanelOpen ? (
-              <div className="absolute top-[88px] right-6 z-20 w-[250px] rounded-[22px] border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-float)]">
+              <div className="absolute top-[88px] right-6 z-20 w-[250px] rounded-2xl border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-float)]">
                 <p className="text-sm font-semibold text-[var(--color-fg)]">Arraste para ordenar</p>
                 <div className="mt-3 space-y-2 text-sm text-[var(--color-fg-muted)]">
                   {['ID', 'Razão Social', 'CNPJ', 'Responsável', 'Resp. Fiscal', 'Status'].map((column) => (
@@ -443,7 +398,7 @@ export default function DataListingDemo() {
                 <Badge variant="secondary">Em revisão</Badge>
               </div>
 
-              <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                 <div className="flex items-center justify-between gap-3 text-sm">
                   <span className="font-semibold text-[var(--color-fg)]">Saúde do cadastro</span>
                   <span className="text-[var(--color-fg-muted)]">{selectedRow.progress}%</span>

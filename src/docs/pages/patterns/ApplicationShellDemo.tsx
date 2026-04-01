@@ -566,16 +566,10 @@ function ShellCanvas({
               </p>
 
               <div className={cn('mt-7 flex gap-3', isMobile ? 'flex-col' : 'justify-center')}>
-                <Button
-                  variant="accent"
-                  className="h-12 rounded-2xl px-6 shadow-[0_18px_40px_rgba(246,146,30,0.24)]"
-                >
+                <Button variant="accent" size="lg">
                   Ação Primária
                 </Button>
-                <Button
-                  variant="outline"
-                  className="h-12 rounded-2xl border-white/[0.7] bg-white/[0.06] px-6 text-white hover:bg-white/[0.12]"
-                >
+                <Button variant="inverseOutline" size="lg">
                   Ação Secundária
                 </Button>
               </div>
@@ -606,7 +600,7 @@ function ShellCanvas({
                   {contentHighlights.map((item) => (
                     <div
                       key={item}
-                      className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4 text-sm font-medium text-[var(--color-fg)]"
+                      className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4 text-sm font-medium text-[var(--color-fg)]"
                     >
                       {item}
                     </div>
@@ -614,7 +608,7 @@ function ShellCanvas({
                 </div>
 
                 <div className={cn('grid gap-3', isMobile ? 'grid-cols-1' : 'sm:grid-cols-2')}>
-                  <div className="rounded-[24px] bg-[linear-gradient(135deg,rgba(0,75,155,0.92),rgba(0,144,208,0.82))] p-5 text-white shadow-[0_18px_36px_rgba(0,75,155,0.22)]">
+                  <div className="rounded-2xl bg-[linear-gradient(135deg,rgba(0,75,155,0.92),rgba(0,144,208,0.82))] p-5 text-white shadow-[0_18px_36px_rgba(0,75,155,0.22)]">
                     <p className="text-xs font-semibold tracking-[0.14em] text-white/[0.66] uppercase">
                       Destaque
                     </p>
@@ -624,7 +618,7 @@ function ShellCanvas({
                     </p>
                   </div>
 
-                  <div className="rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                  <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
                     <p className="text-xs font-semibold tracking-[0.14em] text-[var(--color-fg-muted)] uppercase">
                       Complemento
                     </p>
@@ -646,7 +640,7 @@ function ShellCanvas({
                 {secondaryNotes.map((item) => (
                   <div
                     key={item}
-                    className="rounded-[20px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm leading-6 text-[var(--color-fg-muted)]"
+                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm leading-6 text-[var(--color-fg-muted)]"
                   >
                     {item}
                   </div>
@@ -701,16 +695,6 @@ export default function ApplicationShellDemo() {
       <DemoSection
         title="Preview interativo"
         className="!p-0 overflow-hidden"
-        reference={`<div className="relative overflow-hidden">
-  <img src="/backgrounds/app-shell-home-trains.png" alt="" />
-  <div className="absolute inset-0 bg-[linear-gradient(118deg,rgba(0,19,56,0.92),rgba(0,63,138,0.82),rgba(0,144,208,0.58))]" />
-  <header className="relative z-10 bg-white/[0.10] backdrop-blur-md text-white" />
-  <nav className="relative z-10 bg-white/[0.06] backdrop-blur-sm text-white/[0.72]" />
-  <section className="relative z-10 text-white">
-    {/* Home do Aplicativo FIPS + CTAs + indicadores */}
-  </section>
-</div>`}
-        referenceLabel="Estrutura do topo com arte no fundo"
       >
         <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] px-5 py-4">
           <div className="max-w-2xl">

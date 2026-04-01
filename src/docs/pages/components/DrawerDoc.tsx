@@ -20,31 +20,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../../../components/ui/drawer'
+import { Field, FieldLabel } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
-
-const drawerPageSource = `import { Button, Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from 'ds-fips'
-
-export function FilterDrawer() {
-  return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="secondary">Abrir drawer</Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Filtros avançados</DrawerTitle>
-          <DrawerDescription>Refine a listagem.</DrawerDescription>
-        </DrawerHeader>
-      </DrawerContent>
-    </Drawer>
-  )
-}`
-
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
 
 export default function DrawerDoc() {
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
@@ -53,17 +32,10 @@ export default function DrawerDoc() {
   return (
     <DocPage
       title="Drawer"
-      description="Painel lateral para filtros, detalhes rápidos ou formulários auxiliares. A documentação cobre os dois usos aprovados: filtro avançado e detalhe de registro."
-      pageSource={drawerPageSource}
-      pageDownloadName="DrawerExamples.tsx"
+      description="Painel lateral para filtros, detalhes rápidos ou formulários auxiliares. O filtro lateral reaproveita a mesma composição `Field` e a mesma densidade compacta do restante do sistema."
     >
       <DemoSection
         title="Filtro avançado em drawer"
-        reference={`<DrawerContent>
-  <DrawerHeader>...</DrawerHeader>
-  {/* filtros em pilha */}
-</DrawerContent>`}
-        referenceLabel="Drawer de filtro"
       >
         <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
           <DrawerTrigger asChild>
@@ -81,37 +53,37 @@ export default function DrawerDoc() {
             </DrawerHeader>
 
             <div className="space-y-4">
-              <FieldLabel>
-                Busca rápida
-                <Input placeholder="Empresa, CNPJ ou responsável..." leftIcon={<Search className="h-4 w-4" aria-hidden />} />
-              </FieldLabel>
-              <FieldLabel>
-                Status
-                <Select aria-label="Status">
+              <Field density="compact" inset="icon">
+                <FieldLabel>Busca rápida</FieldLabel>
+                <Input density="compact" placeholder="Empresa, CNPJ ou responsável..." leftIcon={<Search className="h-4 w-4" aria-hidden />} />
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Status</FieldLabel>
+                <Select density="compact" aria-label="Status">
                   <option value="">Selecione</option>
                   <option value="ativo">Ativo</option>
                   <option value="novo">Novo</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Segmento
-                <Select aria-label="Segmento">
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Segmento</FieldLabel>
+                <Select density="compact" aria-label="Segmento">
                   <option value="">Selecione</option>
                   <option value="comercio">Comércio</option>
                   <option value="servico">Serviço</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Responsável fiscal
-                <Select aria-label="Responsável fiscal">
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Responsável fiscal</FieldLabel>
+                <Select density="compact" aria-label="Responsável fiscal">
                   <option value="">Selecione o colaborador</option>
                   <option value="fabio">Fábio</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Vencimento até
-                <Input type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
-              </FieldLabel>
+              </Field>
+              <Field density="compact" inset="icon">
+                <FieldLabel>Vencimento até</FieldLabel>
+                <Input density="compact" type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
+              </Field>
             </div>
 
             <div className="mt-auto flex flex-wrap gap-2 border-t border-[var(--color-border)] pt-4">
@@ -128,11 +100,6 @@ export default function DrawerDoc() {
 
       <DemoSection
         title="Detalhe de registro"
-        reference={`<DrawerContent>
-  <DrawerHeader>...</DrawerHeader>
-  {/* blocos de detalhe + ações */}
-</DrawerContent>`}
-        referenceLabel="Drawer de detalhe"
       >
         <Drawer open={detailsDrawerOpen} onOpenChange={setDetailsDrawerOpen}>
           <DrawerTrigger asChild>
@@ -162,7 +129,7 @@ export default function DrawerDoc() {
                 <Badge variant="secondary">A1</Badge>
               </div>
 
-              <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-fg-muted)]">Progresso de renovação</p>
                 <div className="mt-3 space-y-2">
                   <div className="flex items-center justify-between text-sm">

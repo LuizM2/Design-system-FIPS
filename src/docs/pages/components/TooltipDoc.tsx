@@ -10,15 +10,6 @@ export default function TooltipDoc() {
     >
       <DemoSection
         title="Exemplo"
-        reference={`import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from 'ds-fips'
-
-<TooltipProvider>
-  <Tooltip>
-    <TooltipTrigger asChild><button type="button">Hover</button></TooltipTrigger>
-    <TooltipContent>Dica</TooltipContent>
-  </Tooltip>
-</TooltipProvider>`}
-        referenceLabel="Tooltip"
       >
         <Tooltip>
           <TooltipTrigger asChild>

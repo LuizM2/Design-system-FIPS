@@ -12,34 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../../../components/ui/dialog'
+import { Field, FieldLabel } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Select } from '../../../components/ui/select'
-
-const dialogPageSource = `import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from 'ds-fips'
-
-export function ConfirmationDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Abrir modal</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Confirmar ação</DialogTitle>
-          <DialogDescription>Deseja continuar?</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="secondary">Cancelar</Button>
-          <Button>Confirmar</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}`
-
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
 
 export default function DialogDoc() {
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -48,17 +23,10 @@ export default function DialogDoc() {
   return (
     <DocPage
       title="Modal (Dialog)"
-      description="Sobreposição modal para confirmação, filtros avançados e tarefas contextuais. A documentação cobre um modal enxuto de confirmação e um modal operacional de filtros."
-      pageSource={dialogPageSource}
-      pageDownloadName="DialogExamples.tsx"
+      description="Sobreposição modal para confirmação, filtros avançados e tarefas contextuais. Os campos do modal seguem exatamente a mesma composição oficial `Field + density` usada no restante do sistema."
     >
       <DemoSection
         title="Confirmação"
-        reference={`<DialogContent>
-  <DialogHeader>...</DialogHeader>
-  <DialogFooter>...</DialogFooter>
-</DialogContent>`}
-        referenceLabel="Modal de confirmação"
       >
         <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
           <DialogTrigger asChild>
@@ -94,12 +62,6 @@ export default function DialogDoc() {
 
       <DemoSection
         title="Filtro avançado em modal"
-        reference={`<DialogContent className="max-w-4xl">
-  {/* cabeçalho */}
-  {/* grid de filtros */}
-  <DialogFooter>...</DialogFooter>
-</DialogContent>`}
-        referenceLabel="Modal de filtro avançado"
       >
         <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
           <DialogTrigger asChild>
@@ -124,50 +86,50 @@ export default function DialogDoc() {
             </DialogHeader>
 
             <div className="grid gap-4 py-1 md:grid-cols-2">
-              <FieldLabel>
-                Razão social
-                <Input placeholder="Nome da empresa" leftIcon={<Search className="h-4 w-4" aria-hidden />} />
-              </FieldLabel>
-              <FieldLabel>
-                Nome fantasia
-                <Input placeholder="Nome fantasia" leftIcon={<Building2 className="h-4 w-4" aria-hidden />} />
-              </FieldLabel>
-              <FieldLabel>
-                CNPJ
-                <Input placeholder="00.000.000/0000-00" />
-              </FieldLabel>
-              <FieldLabel>
-                ID do cliente
-                <Input placeholder="Ex: 1234" />
-              </FieldLabel>
-              <FieldLabel>
-                Segmento
-                <Select aria-label="Segmento">
+              <Field density="compact" inset="icon">
+                <FieldLabel>Razão social</FieldLabel>
+                <Input density="compact" placeholder="Nome da empresa" leftIcon={<Search className="h-4 w-4" aria-hidden />} />
+              </Field>
+              <Field density="compact" inset="icon">
+                <FieldLabel>Nome fantasia</FieldLabel>
+                <Input density="compact" placeholder="Nome fantasia" leftIcon={<Building2 className="h-4 w-4" aria-hidden />} />
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>CNPJ</FieldLabel>
+                <Input density="compact" placeholder="00.000.000/0000-00" />
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>ID do cliente</FieldLabel>
+                <Input density="compact" placeholder="Ex: 1234" />
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Segmento</FieldLabel>
+                <Select density="compact" aria-label="Segmento">
                   <option value="">Selecione</option>
                   <option value="comercio">Comércio</option>
                   <option value="servico">Serviço</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Regime atual
-                <Select aria-label="Regime atual">
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Regime atual</FieldLabel>
+                <Select density="compact" aria-label="Regime atual">
                   <option value="">Selecione</option>
                   <option value="sn">SN</option>
                   <option value="lr">LR</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Responsável fiscal
-                <Select aria-label="Responsável fiscal">
+              </Field>
+              <Field density="compact" inset="control">
+                <FieldLabel>Responsável fiscal</FieldLabel>
+                <Select density="compact" aria-label="Responsável fiscal">
                   <option value="">Selecione o colaborador</option>
                   <option value="fabio">Fábio</option>
                   <option value="bruno">Bruno</option>
                 </Select>
-              </FieldLabel>
-              <FieldLabel>
-                Vencimento até
-                <Input type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
-              </FieldLabel>
+              </Field>
+              <Field density="compact" inset="icon">
+                <FieldLabel>Vencimento até</FieldLabel>
+                <Input density="compact" type="date" defaultValue="2026-03-30" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
+              </Field>
             </div>
 
             <DialogFooter className="sm:justify-between">

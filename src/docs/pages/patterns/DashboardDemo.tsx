@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import { DocPage, DemoSection } from '../../components/DocPage'
 import { PatternGuidelines } from '../../components/PatternGuidelines'
-import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from '../../../composites/PageHero'
+import { PageHero } from '../../../composites/PageHero'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent } from '../../../components/ui/card'
@@ -35,19 +35,6 @@ export default function DashboardDemo() {
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from 'ds-fips'
-
-/* Hero padrão FIPS: gradiente + trem sutil (imagem em ${PAGE_HERO_DEFAULT_DECORATION}) */
-<PageHero>
-  <div className="px-8 py-10">...</div>
-</PageHero>
-
-/* Só gradiente + silhueta SVG (sem foto) */
-<PageHero decorationSrc={null} showTrainSilhouette />
-
-/* Destaque no título */
-className="text-[var(--color-accent)]"`}
-        referenceLabel="PageHero + tokens"
       >
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
           <PageHero>
@@ -63,14 +50,11 @@ className="text-[var(--color-accent)]"`}
                 FIPS aplicada a componentes reutilizáveis.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
-                <Button variant="accent" className="gap-2 shadow-md">
+                <Button variant="accent" className="gap-2">
                   <Plus className="h-4 w-4" aria-hidden />
                   Nova solicitação
                 </Button>
-                <Button
-                  variant="outline"
-                  className="border-white/60 bg-transparent text-white hover:bg-white/10"
-                >
+                <Button variant="inverseOutline">
                   Ver meus projetos
                 </Button>
               </div>
@@ -120,7 +104,7 @@ className="text-[var(--color-accent)]"`}
             </div>
 
             <div className="flex justify-center pb-4">
-              <Button variant="ghost" className="gap-2 text-[var(--color-primary)]">
+              <Button variant="ghost" className="gap-2">
                 Ver documentação de tabelas
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Button>

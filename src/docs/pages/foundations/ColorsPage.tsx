@@ -5,8 +5,6 @@ const swatches = Object.entries(fipsPalette) as [keyof typeof fipsPalette, strin
 
 const semantic = Object.entries(semanticColors) as [keyof typeof semanticColors, string][]
 
-const paletteJson = JSON.stringify(fipsPalette, null, 2)
-const semanticJson = JSON.stringify(semanticColors, null, 2)
 
 export default function ColorsPage() {
   return (
@@ -16,8 +14,6 @@ export default function ColorsPage() {
     >
       <DemoSection
         title="Paleta principal"
-        reference={paletteJson}
-        referenceLabel="JSON — fipsPalette (TypeScript)"
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {swatches.map(([name, hex]) => (
@@ -39,18 +35,6 @@ export default function ColorsPage() {
 
       <DemoSection
         title="Tokens semânticos (UI)"
-        reference={`${semanticJson}
-
-/* Variáveis globais (globals.css :root) */
---color-primary: ${semanticColors.primary};
---color-primary-hover: ${semanticColors.primaryHover};
---color-secondary: ${semanticColors.secondary};
---color-accent: ${semanticColors.accent};
---color-accent-strong: ${semanticColors.accentStrong};
---color-success: ${semanticColors.success};
---color-fg: ${semanticColors.foreground};
---color-border: ${semanticColors.border};`}
-        referenceLabel="JSON + trecho CSS"
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {semantic.map(([name, hex]) => (

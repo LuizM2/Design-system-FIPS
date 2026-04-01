@@ -9,14 +9,6 @@ export default function SpacingPage() {
     >
       <DemoSection
         title="Escala (Tailwind: espaço = n × 4px)"
-        reference={`/* Escala base (px) = step × 4 */
-0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96
-
-/* Exemplos Tailwind */
-class="p-4"   /* 16px */
-class="gap-6" /* 24px */
-class="mt-8"  /* 32px */`}
-        referenceLabel="Espaçamento"
       >
         <div className="space-y-3">
           {spacingScale.map((n) => (

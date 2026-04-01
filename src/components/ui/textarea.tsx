@@ -1,14 +1,20 @@
 import * as React from 'react'
 import { cn } from '../../lib/cn'
+import type { FieldDensity } from './field'
 
-export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  density?: FieldDensity
+}
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, density = 'default', ...props }, ref) => {
     return (
       <textarea
         className={cn(
-          'flex min-h-[124px] w-full resize-y rounded-xl border border-[var(--color-border)]/90 bg-[var(--color-surface)] px-3.5 py-3 text-sm text-[var(--color-fg)] shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 placeholder:text-[var(--color-fg-muted)] placeholder:opacity-90 hover:border-[var(--color-border-strong)]/90 focus-visible:border-[var(--color-secondary)] focus-visible:ring-[3px] focus-visible:ring-[var(--color-ring)]/14 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-[var(--color-surface-muted)] disabled:text-[var(--color-fg-muted)] disabled:opacity-70 aria-[invalid=true]:border-red-300 aria-[invalid=true]:focus-visible:border-red-400 aria-[invalid=true]:focus-visible:ring-red-200/80',
+          'flex w-full resize-y rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)] text-[var(--color-fg)] transition-all duration-200 placeholder:text-[var(--color-fg-muted)] placeholder:opacity-100 hover:border-[var(--color-border)]/80 focus-visible:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:outline-none data-[state-preview=focused]:border-[var(--color-primary)] data-[state-preview=focused]:ring-2 data-[state-preview=focused]:ring-[var(--color-primary)]/20 data-[state-preview=focused]:outline-none disabled:cursor-not-allowed disabled:bg-[var(--color-surface-muted)] disabled:text-[var(--color-fg-muted)] disabled:opacity-70 aria-[invalid=true]:border-[var(--color-danger)]/70 aria-[invalid=true]:focus-visible:border-[var(--color-danger)] aria-[invalid=true]:focus-visible:ring-2 aria-[invalid=true]:focus-visible:ring-[var(--color-danger)]/20 aria-[invalid=true]:data-[state-preview=focused]:border-[var(--color-danger)] aria-[invalid=true]:data-[state-preview=focused]:ring-2 aria-[invalid=true]:data-[state-preview=focused]:ring-[var(--color-danger)]/20',
+          density === 'compact'
+            ? 'min-h-[92px] px-3 py-2 text-sm shadow-sm'
+            : 'min-h-[132px] px-4 py-3 text-[1.02rem] shadow-sm',
           className,
         )}
         ref={ref}

@@ -21,6 +21,12 @@ const highlights = [
     icon: TableProperties,
   },
   {
+    title: 'Governança',
+    description: 'Regra oficial de reutilização: padrões devem nascer dos componentes públicos do DS.',
+    to: '/docs/governance',
+    icon: Sparkles,
+  },
+  {
     title: 'Fundamentos',
     description: 'Cores, tipografia e espaçamento alinhados ao Brandbook FIPS.',
     to: '/docs/foundations/colors',
@@ -28,29 +34,11 @@ const highlights = [
   },
 ]
 
-const overviewReference = `Design System FIPS — referência rápida
-
-Nome do produto: Design System FIPS (não usar "DS FIPS").
-Marca: Ferrovia Interna do Porto de Santos (FIPS).
-
-Guia pixel perfect (baixar ou servir em produção):
-/guias/guia-design-system-fips.md
-
-Símbolo vetorial (Azul Profundo #004B9B):
-/brand/fips-symbol.svg
-
-Tokens CSS principais:
---color-primary: #004B9B
---color-accent: #FDC24E
---font-heading: Saira Expanded
---font-sans: Open Sans
-`
-
 export default function OverviewPage() {
   return (
     <DocPage
       title="Design System FIPS"
-      description="Base visual, biblioteca e catálogo de padrões para produtos digitais da Ferrovia Interna do Porto de Santos. O foco desta versão é aprovação de cliente em cima de padrões completos, não apenas componentes isolados."
+      description="Base visual, biblioteca e catálogo de padrões para produtos digitais da Ferrovia Interna do Porto de Santos. Esta documentação valida o visual aprovado e também define como todos os projetos devem reutilizar os componentes oficiais do DS-FIPS."
     >
       <DemoSection title="Guia para outros projetos">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -78,11 +66,13 @@ export default function OverviewPage() {
           'Comece pela camada de padrões para revisar a experiência completa.',
           'Use foundations para tokens e componentes para implementação detalhada.',
           'Valide shell, listagem, formulário e modal antes de portar para outros produtos.',
+          'Consulte a página de governança antes de criar qualquer variação visual fora do componente base.',
         ]}
         required={[
           'Application Shell como base oficial de menu, header e navegação.',
           'Data Listing e Form Workspace como referência para fluxos operacionais.',
           'Fundamentos visuais alinhados ao Brandbook e aos prints aprovados.',
+          'Governança aplicada: telas montadas devem nascer das APIs públicas do DS.',
         ]}
         optional={[
           'Consultar páginas isoladas de componentes para ergonomia de implementação.',
@@ -90,21 +80,17 @@ export default function OverviewPage() {
         ]}
       />
 
-      <DemoSection
-        title="Referência institucional (copiar)"
-        reference={overviewReference.trim()}
-        referenceLabel="Resumo + URLs do guia e do símbolo"
-      >
-        <p className="text-sm text-[var(--color-fg-muted)]">
-          Use o bloco abaixo para colar em README, Notion ou briefing de implementação.
-        </p>
+      <DemoSection title="Governança de uso">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-5 text-sm text-[var(--color-fg-muted)]">
+          Padrões montados não podem maquiar `Input`, `Select`, `Textarea`, `Button` ou `Tabs` com styling local. Se o projeto precisar de um comportamento novo, a evolução acontece primeiro no design system e só depois nas telas consumidoras.
+        </div>
       </DemoSection>
 
       <DemoSection title="Começar">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[var(--color-fg-muted)]">
             A navegação foi reorganizada para destacar os padrões completos primeiro. Cada página
-            inclui preview funcional, referência copiável e regras de uso.
+            mostra preview funcional, regras de uso e o caminho oficial de reutilização para outros produtos.
           </p>
           <Button asChild>
             <Link to="/docs/patterns/application-shell" className="inline-flex items-center gap-2">
@@ -115,7 +101,7 @@ export default function OverviewPage() {
         </div>
       </DemoSection>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {highlights.map((item) => (
           <Card key={item.to} className="border-[var(--color-border)] shadow-[var(--shadow-card)]">
             <CardHeader>

@@ -21,38 +21,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../../../components/ui/dialog'
+import { Field, FieldLabel } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs'
 import { Textarea } from '../../../components/ui/textarea'
 
-const pageSource = `import { useState } from 'react'
-import { Check, Video, Wrench, Zap } from 'lucide-react'
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Input, Progress, Select, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from 'ds-fips'
-
-export function WorkflowModal() {
-  const [priority, setPriority] = useState<'baixa' | 'media' | 'alta' | 'urgente'>('media')
-
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Abrir modal</Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-4xl">{/* layout completo */}</DialogContent>
-    </Dialog>
-  )
-}`
-
 const tabs = [
   { value: 'atendimento', label: 'Atendimento', icon: Zap },
   { value: 'tarefa', label: 'Tarefa', icon: Wrench },
   { value: 'reuniao', label: 'Reunião', icon: Video },
 ] as const
-
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
-}
 
 export default function ModalWorkflowDemo() {
   const [open, setOpen] = useState(false)
@@ -61,27 +41,16 @@ export default function ModalWorkflowDemo() {
   return (
     <DocPage
       title="Padrão: Modal Workflow"
-      description="Modal operacional inspirado no print aprovado: tabs no topo, grid de campos compacto, prioridade segmentada, progresso contextual e área de anexos."
-      pageSource={pageSource}
-      pageDownloadName="ModalWorkflowPattern.tsx"
+      description="Modal operacional inspirado no print aprovado: tabs no topo, grid de campos compacto, prioridade segmentada, progresso contextual e área de anexos. O formulário usa apenas composições oficiais do DS-FIPS."
     >
       <DemoSection
         title="Interativo"
-        reference={`<DialogContent className="max-w-4xl rounded-[30px]">
-  <DialogHeader>{/* ícone + título + descrição */}</DialogHeader>
-  <Tabs defaultValue="atendimento">
-    <TabsList className="grid w-full grid-cols-3 gap-2" />
-    <TabsContent value="atendimento">{/* formulário */}</TabsContent>
-  </Tabs>
-  <DialogFooter>{/* cancelar + salvar */}</DialogFooter>
-</DialogContent>`}
-        referenceLabel="Estrutura do modal"
       >
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button className="shadow-[var(--shadow-card)]">Abrir padrão “Novo Item”</Button>
+            <Button>Abrir padrão “Novo Item”</Button>
           </DialogTrigger>
-          <DialogContent className="max-h-[92vh] max-w-4xl overflow-y-auto rounded-[30px] border-[var(--color-border)]/90 p-0">
+          <DialogContent className="max-h-[92vh] max-w-4xl overflow-y-auto border-[var(--color-border)]/90 p-0">
             <DialogHeader className="border-b border-[var(--color-border)] px-5 pt-4 pb-4 sm:px-6">
               <div className="flex items-start gap-4 pr-8">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-fips-blue-200)]/55 text-[var(--color-secondary)]">
@@ -98,7 +67,7 @@ export default function ModalWorkflowDemo() {
 
             <div className="space-y-5 px-5 py-4 sm:px-6">
               <Tabs defaultValue="atendimento" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 gap-2 rounded-[18px] border-[var(--color-border)]/80 bg-[var(--color-surface-soft)] p-1.5 shadow-none">
+                <TabsList className="grid w-full grid-cols-3">
                   {tabs.map((tab) => {
                     const Icon = tab.icon
 
@@ -106,7 +75,7 @@ export default function ModalWorkflowDemo() {
                       <TabsTrigger
                         key={tab.value}
                         value={tab.value}
-                        className="justify-center rounded-[14px] px-3 py-2 text-sm data-[state=active]:shadow-none"
+                        className="gap-2"
                       >
                         <Icon className="h-4 w-4" aria-hidden />
                         {tab.label}
@@ -118,83 +87,83 @@ export default function ModalWorkflowDemo() {
                 <TabsContent value="atendimento" className="border-0 bg-transparent p-0 pt-5 shadow-none">
                   <div className="grid gap-5 lg:grid-cols-[1.08fr_0.92fr]">
                     <div className="space-y-3.5">
-                      <FieldLabel>
-                        Título
+                      <Field density="compact" inset="icon">
+                        <FieldLabel>Título</FieldLabel>
                         <Input
+                          density="compact"
                           placeholder="Ex: Consultoria Fiscal"
                           leftIcon={<Zap className="h-4 w-4" aria-hidden />}
-                          className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                         />
-                      </FieldLabel>
+                      </Field>
 
                       <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_116px]">
-                        <FieldLabel>
-                          Cliente
+                        <Field density="compact" inset="icon">
+                          <FieldLabel>Cliente</FieldLabel>
                           <Input
+                            density="compact"
                             placeholder="Buscar empresa..."
                             leftIcon={<Search className="h-4 w-4" aria-hidden />}
-                            className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                           />
-                        </FieldLabel>
-                        <FieldLabel>
-                          Tipo
-                          <Select aria-label="Tipo" defaultValue="interno" className="h-9 rounded-xl border-[var(--color-border)]/60 text-sm shadow-none">
+                        </Field>
+                        <Field density="compact" inset="control">
+                          <FieldLabel>Tipo</FieldLabel>
+                          <Select density="compact" aria-label="Tipo" defaultValue="interno">
                             <option value="interno">Interno</option>
                             <option value="externo">Externo</option>
                           </Select>
-                        </FieldLabel>
+                        </Field>
                       </div>
 
                       <div className="grid gap-3 sm:grid-cols-2">
-                        <FieldLabel>
-                          Departamento
-                          <Select aria-label="Departamento" defaultValue="tecnologia" className="h-9 rounded-xl border-[var(--color-border)]/60 text-sm shadow-none">
+                        <Field density="compact" inset="control">
+                          <FieldLabel>Departamento</FieldLabel>
+                          <Select density="compact" aria-label="Departamento" defaultValue="tecnologia">
                             <option value="tecnologia">Tecnologia</option>
                             <option value="operacoes">Operações</option>
                           </Select>
-                        </FieldLabel>
-                        <FieldLabel>
-                          Responsável
+                        </Field>
+                        <Field density="compact" inset="icon">
+                          <FieldLabel>Responsável</FieldLabel>
                           <Select
+                            density="compact"
                             aria-label="Responsável"
                             defaultValue="diogo"
                             leftIcon={<UserRound className="h-4 w-4" aria-hidden />}
-                            className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                           >
                             <option value="diogo">Diogo Henrique Paiva</option>
                             <option value="luiz">Luiz Claudio</option>
                           </Select>
-                        </FieldLabel>
+                        </Field>
                       </div>
 
                       <div className="grid gap-3 sm:grid-cols-2">
-                        <FieldLabel>
-                          Data início
+                        <Field density="compact" inset="icon">
+                          <FieldLabel>Data início</FieldLabel>
                           <Input
+                            density="compact"
                             type="date"
                             defaultValue="2026-03-30"
                             leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
-                            className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                           />
-                        </FieldLabel>
-                        <FieldLabel>
-                          Fim do prazo
+                        </Field>
+                        <Field density="compact" inset="icon">
+                          <FieldLabel>Fim do prazo</FieldLabel>
                           <Input
+                            density="compact"
                             type="date"
                             leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
-                            className="h-9 rounded-xl border-[var(--color-border)]/60 pl-9 text-sm shadow-none"
                           />
-                        </FieldLabel>
+                        </Field>
                       </div>
 
-                      <FieldLabel>
-                        Status
-                        <Select aria-label="Status" defaultValue="backlog" className="h-9 rounded-xl border-[var(--color-border)]/60 text-sm shadow-none">
+                      <Field density="compact" inset="control">
+                        <FieldLabel>Status</FieldLabel>
+                        <Select density="compact" aria-label="Status" defaultValue="backlog">
                           <option value="backlog">Backlog</option>
                           <option value="triagem">Em triagem</option>
                           <option value="execucao">Em execução</option>
                         </Select>
-                      </FieldLabel>
+                      </Field>
                     </div>
 
                     <div className="space-y-4">
@@ -212,8 +181,8 @@ export default function ModalWorkflowDemo() {
                             <Button
                               key={value}
                               type="button"
-                              variant={priority === value ? 'outline' : 'secondary'}
-                              className={`h-8 rounded-xl text-xs ${priority === value ? 'border-[var(--color-secondary)] text-[var(--color-secondary)]' : 'shadow-none'}`}
+                              size="sm"
+                              variant={priority === value ? 'primary' : 'secondary'}
                               onClick={() => setPriority(value)}
                             >
                               {label}
@@ -230,21 +199,21 @@ export default function ModalWorkflowDemo() {
                         <Progress value={0} />
                       </div>
 
-                      <FieldLabel>
-                        Descrição
+                      <Field density="compact" inset="control">
+                        <FieldLabel>Descrição</FieldLabel>
                         <Textarea
+                          density="compact"
                           placeholder="Detalhes, contexto, links..."
-                          className="min-h-[88px] rounded-xl border-[var(--color-border)]/60 text-sm shadow-none"
                         />
-                      </FieldLabel>
+                      </Field>
 
-                      <div className="rounded-[20px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+                      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-fg)]">
                             <Paperclip className="h-4 w-4 text-[var(--color-fg-muted)]" aria-hidden />
                             Documentos
                           </div>
-                          <Button type="button" size="sm" variant="secondary" className="h-8 rounded-xl px-3 shadow-none">
+                          <Button type="button" size="sm" variant="secondary">
                             Anexar
                           </Button>
                         </div>
@@ -264,7 +233,7 @@ export default function ModalWorkflowDemo() {
                       value={tab.value}
                       className="border-0 bg-transparent p-0 pt-5 shadow-none"
                     >
-                      <div className="rounded-[20px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-5 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-5 text-sm leading-relaxed text-[var(--color-fg-muted)]">
                         Conteúdo de apoio para a aba <strong className="text-[var(--color-fg)]">{tab.label}</strong>. O padrão preserva header, tabs, rodapé e densidade visual do formulário.
                       </div>
                     </TabsContent>
@@ -278,7 +247,7 @@ export default function ModalWorkflowDemo() {
                 <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
                   Cancelar
                 </Button>
-                <Button type="button">
+                <Button type="button" variant="success">
                   <Check className="h-4 w-4" aria-hidden />
                   Salvar
                 </Button>

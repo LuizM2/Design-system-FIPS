@@ -20,7 +20,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
     }
 
     return (
-      <div className="relative w-full overflow-auto rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-card)]">
+      <div className="relative w-full overflow-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-card)]">
         {table}
       </div>
     )

@@ -11,6 +11,7 @@ import { PatternGuidelines } from '../../components/PatternGuidelines'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import { Field, FieldLabel, type FieldInset } from '../../../components/ui/field'
 import { Input } from '../../../components/ui/input'
 import { Progress } from '../../../components/ui/progress'
 import { Select } from '../../../components/ui/select'
@@ -28,27 +29,30 @@ function MiniProgress({ value }: { value: number }) {
   )
 }
 
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="block space-y-2 text-sm font-semibold text-[var(--color-fg)]">{children}</label>
+type WorkspaceFieldProps = {
+  label: string
+  inset?: FieldInset
+  children: React.ReactNode
+}
+
+function WorkspaceField({ label, inset = 'control', children }: WorkspaceFieldProps) {
+  return (
+    <Field inset={inset}>
+      <FieldLabel>{label}</FieldLabel>
+      {children}
+    </Field>
+  )
 }
 
 export default function FormWorkspaceDemo() {
   return (
     <DocPage
       title="Padrão: Form Workspace"
-      description="Workspace de formulário para fluxos densos: resumo no topo, seções claras, grid principal + painel contextual lateral. Baseado na estrutura aprovada dos formulários operacionais."
+      description="Workspace de formulário para fluxos densos: resumo no topo, seções claras, grid principal + painel contextual lateral. Todos os campos seguem a composição oficial `Field + controle base`, sem styling local de componente."
     >
       <DemoSection
         title="Preview"
         className="!p-0 overflow-hidden"
-        reference={`<div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
-  <Card>{/* header do workspace + resumo + progresso */}</Card>
-  <div className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_360px]">
-    <div className="space-y-6">{/* seções do formulário */}</div>
-    <aside className="space-y-4">{/* navegação, checklist e saúde */}</aside>
-  </div>
-</div>`}
-        referenceLabel="Estrutura do workspace"
       >
         <div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
           <Card className="overflow-hidden">
@@ -70,7 +74,7 @@ export default function FormWorkspaceDemo() {
                     ['Cadeia', 'Pronta', 'aprovador de área definido'],
                     ['RC SAP', 'Depois', 'informado após a criação'],
                   ].map(([label, value, helper]) => (
-                    <div key={label} className="rounded-[24px] border border-[var(--color-border)] bg-white/90 p-4 shadow-[var(--shadow-field)]">
+                    <div key={label} className="rounded-2xl border border-[var(--color-border)] bg-white/90 p-4 shadow-[var(--shadow-field)]">
                       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-fg-muted)]">{label}</p>
                       <p className="mt-2 font-heading text-2xl font-semibold text-[var(--color-fg)]">{value}</p>
                       <p className="mt-1 text-sm text-[var(--color-fg-muted)]">{helper}</p>
@@ -81,7 +85,7 @@ export default function FormWorkspaceDemo() {
             </div>
             <CardContent className="space-y-5">
               <MiniProgress value={82} />
-              <div className="rounded-[24px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                 <p className="text-sm font-semibold text-[var(--color-fg)]">Direção de preenchimento</p>
                 <div className="mt-3 grid gap-2 text-sm text-[var(--color-fg-muted)] md:grid-cols-2">
                   <p>1. Identifique o solicitante e o escopo.</p>
@@ -101,18 +105,15 @@ export default function FormWorkspaceDemo() {
                   <CardDescription>Quem está abrindo a demanda e qual escopo será tratado.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <FieldLabel>
-                    Data de emissão
+                  <WorkspaceField label="Data de emissão" inset="icon">
                     <Input type="date" leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />} />
-                  </FieldLabel>
-                  <FieldLabel>
-                    Nome do solicitante
+                  </WorkspaceField>
+                  <WorkspaceField label="Nome do solicitante" inset="icon">
                     <Input placeholder="Nome completo" leftIcon={<UserRound className="h-4 w-4" aria-hidden />} />
-                  </FieldLabel>
-                  <FieldLabel>
-                    Nome do escopo
+                  </WorkspaceField>
+                  <WorkspaceField label="Nome do escopo" inset="icon">
                     <Input placeholder="Ex.: Contratação de manutenção" leftIcon={<FolderKanban className="h-4 w-4" aria-hidden />} />
-                  </FieldLabel>
+                  </WorkspaceField>
                 </CardContent>
               </Card>
 
@@ -122,28 +123,24 @@ export default function FormWorkspaceDemo() {
                   <CardDescription>Área responsável, localização e contexto organizacional.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2">
-                  <FieldLabel>
-                    Área processo
+                  <WorkspaceField label="Área processo">
                     <Select aria-label="Área processo" defaultValue="tecnologia">
                       <option value="tecnologia">Tecnologia</option>
                       <option value="operacoes">Operações</option>
                     </Select>
-                  </FieldLabel>
-                  <FieldLabel>
-                    Subprocesso
+                  </WorkspaceField>
+                  <WorkspaceField label="Subprocesso">
                     <Select aria-label="Subprocesso" defaultValue="suporte">
                       <option value="suporte">Suporte</option>
                       <option value="infra">Infraestrutura</option>
                     </Select>
-                  </FieldLabel>
-                  <FieldLabel>
-                    Local de execução
+                  </WorkspaceField>
+                  <WorkspaceField label="Local de execução" inset="icon">
                     <Input placeholder="Ex.: Terminal 1" leftIcon={<MapPin className="h-4 w-4" aria-hidden />} />
-                  </FieldLabel>
-                  <FieldLabel>
-                    Sublocal
+                  </WorkspaceField>
+                  <WorkspaceField label="Sublocal" inset="icon">
                     <Input placeholder="Ex.: Casa de força" leftIcon={<MapPin className="h-4 w-4" aria-hidden />} />
-                  </FieldLabel>
+                  </WorkspaceField>
                 </CardContent>
               </Card>
 
@@ -154,26 +151,22 @@ export default function FormWorkspaceDemo() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid gap-4 md:grid-cols-3">
-                    <FieldLabel>
-                      Centro de custo
+                    <WorkspaceField label="Centro de custo" inset="icon">
                       <Input placeholder="CC 3010" leftIcon={<BadgeDollarSign className="h-4 w-4" aria-hidden />} />
-                    </FieldLabel>
-                    <FieldLabel>
-                      Contato rápido
+                    </WorkspaceField>
+                    <WorkspaceField label="Contato rápido" inset="icon">
                       <Input placeholder="(11) 99999-9999" leftIcon={<Phone className="h-4 w-4" aria-hidden />} />
-                    </FieldLabel>
-                    <FieldLabel>
-                      Categoria
+                    </WorkspaceField>
+                    <WorkspaceField label="Categoria">
                       <Select aria-label="Categoria" defaultValue="servico">
                         <option value="servico">Serviço</option>
                         <option value="material">Material</option>
                       </Select>
-                    </FieldLabel>
+                    </WorkspaceField>
                   </div>
-                  <FieldLabel>
-                    Observação
+                  <WorkspaceField label="Observação">
                     <Textarea placeholder="Detalhe contexto, premissas, restrições e informações úteis para análise..." />
-                  </FieldLabel>
+                  </WorkspaceField>
                 </CardContent>
               </Card>
             </div>
@@ -193,7 +186,7 @@ export default function FormWorkspaceDemo() {
                     <button
                       key={title}
                       type="button"
-                      className="w-full rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-left transition-colors hover:bg-white"
+                      className="w-full rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-left transition-colors hover:bg-white"
                     >
                       <div className="flex items-start gap-3">
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent-strong)] text-xs font-semibold text-white">
@@ -215,10 +208,10 @@ export default function FormWorkspaceDemo() {
                   <CardDescription>O que ainda bloqueia o fluxo.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="rounded-[22px] border border-[var(--color-fips-orange-100)] bg-[var(--color-fips-orange-100)]/55 px-4 py-3 text-sm text-[var(--color-accent-strong)]">
+                  <div className="rounded-2xl border border-[var(--color-fips-orange-100)] bg-[var(--color-fips-orange-100)]/55 px-4 py-3 text-sm text-[var(--color-accent-strong)]">
                     Confirmar centro de custo antes de enviar para aprovação.
                   </div>
-                  <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
+                  <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 text-sm text-[var(--color-fg-muted)]">
                     Revisar observação final e anexos.
                   </div>
                 </CardContent>
@@ -230,7 +223,7 @@ export default function FormWorkspaceDemo() {
                   <CardDescription>Status operacional do workspace.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+                  <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-fg-muted)]">Cadeia de aprovação</p>
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <p className="text-sm font-semibold text-[var(--color-fg)]">Fluxo calculado</p>
@@ -240,7 +233,7 @@ export default function FormWorkspaceDemo() {
                     </div>
                     <p className="mt-1 text-xs text-[var(--color-fg-muted)]">Aprovador da área identificado com base no valor informado.</p>
                   </div>
-                  <div className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
+                  <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
                     <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-fg-muted)]">Salvamento</p>
                     <p className="mt-2 text-sm font-semibold text-[var(--color-fg)]">Rascunho salvo há 2 min</p>
                     <p className="mt-1 text-xs text-[var(--color-fg-muted)]">Última atualização automática às 18:43.</p>
@@ -259,7 +252,7 @@ export default function FormWorkspaceDemo() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button variant="secondary">Salvar rascunho</Button>
+                <Button variant="success">Salvar rascunho</Button>
                 <Button variant="outline">Gerar prévia</Button>
                 <Button variant="accent">Enviar para aprovação</Button>
               </div>

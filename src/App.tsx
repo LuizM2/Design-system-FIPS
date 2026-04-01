@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { DocLayout } from './app/DocLayout'
 
 const OverviewPage = lazy(() => import('./docs/pages/Overview'))
+const GovernancePage = lazy(() => import('./docs/pages/GovernancePage'))
 const ChangelogPage = lazy(() => import('./docs/pages/ChangelogPage'))
 const ColorsPage = lazy(() => import('./docs/pages/foundations/ColorsPage'))
 const TypographyPage = lazy(() => import('./docs/pages/foundations/TypographyPage'))
@@ -11,6 +12,7 @@ const RadiusPage = lazy(() => import('./docs/pages/foundations/RadiusPage'))
 const ShadowsPage = lazy(() => import('./docs/pages/foundations/ShadowsPage'))
 const IconsPage = lazy(() => import('./docs/pages/foundations/IconsPage'))
 const ButtonDoc = lazy(() => import('./docs/pages/components/ButtonDoc'))
+const FieldDoc = lazy(() => import('./docs/pages/components/FieldDoc'))
 const InputDoc = lazy(() => import('./docs/pages/components/InputDoc'))
 const ProgressDoc = lazy(() => import('./docs/pages/components/ProgressDoc'))
 const SelectDoc = lazy(() => import('./docs/pages/components/SelectDoc'))
@@ -48,6 +50,7 @@ export default function App() {
       <Route path="/" element={<Navigate to="/docs" replace />} />
       <Route path="/docs" element={<DocLayout />}>
         <Route index element={renderLazyRoute(<OverviewPage />)} />
+        <Route path="governance" element={renderLazyRoute(<GovernancePage />)} />
         <Route path="foundations/colors" element={renderLazyRoute(<ColorsPage />)} />
         <Route path="foundations/typography" element={renderLazyRoute(<TypographyPage />)} />
         <Route path="foundations/spacing" element={renderLazyRoute(<SpacingPage />)} />
@@ -55,6 +58,7 @@ export default function App() {
         <Route path="foundations/shadows" element={renderLazyRoute(<ShadowsPage />)} />
         <Route path="foundations/icons" element={renderLazyRoute(<IconsPage />)} />
         <Route path="components/button" element={renderLazyRoute(<ButtonDoc />)} />
+        <Route path="components/field" element={renderLazyRoute(<FieldDoc />)} />
         <Route path="components/input" element={renderLazyRoute(<InputDoc />)} />
         <Route path="components/progress" element={renderLazyRoute(<ProgressDoc />)} />
         <Route path="components/select" element={renderLazyRoute(<SelectDoc />)} />
