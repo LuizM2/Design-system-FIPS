@@ -9,7 +9,6 @@ import {
   Columns3,
   Headphones,
   Paperclip,
-  Search,
   Upload,
   UserRound,
   Users,
