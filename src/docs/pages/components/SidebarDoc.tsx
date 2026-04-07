@@ -928,7 +928,7 @@ export default function SidebarDoc() {
 
   const [demoPath, setDemoPath] = useState('/')
   const [collapsed, setCollapsed] = useState(false)
-  const [autoCollapse, setAutoCollapse] = useState(true)
+  const [autoCollapse, setAutoCollapse] = useState(false)
   const [collapseSeconds, setCollapseSeconds] = useState(3)
   const [menuBehaviorOpen, setMenuBehaviorOpen] = useState(false)
   const collapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -944,12 +944,10 @@ export default function SidebarDoc() {
   }, [])
 
   /** Não usar `collapsed` aqui: após expandir, pointerleave pode rodar antes do re-render e abortava o timer. */
+  /** Só recolhe após sair do painel se “Fechar automaticamente” estiver ligado (com o atraso em segundos). */
   const scheduleLeaveCollapse = useCallback(() => {
     clearCollapseTimer()
-    if (!autoCollapse) {
-      setCollapsed(true)
-      return
-    }
+    if (!autoCollapse) return
     collapseTimer.current = setTimeout(() => {
       setCollapsed(true)
     }, collapseSeconds * 1000)
@@ -995,6 +993,10 @@ export default function SidebarDoc() {
   }, [collapseSeconds, autoCollapse, menuBehaviorOpen, clearCollapseTimer, scheduleLeaveCollapse])
 
   useEffect(() => () => clearCollapseTimer(), [clearCollapseTimer])
+
+  useEffect(() => {
+    if (!autoCollapse) clearCollapseTimer()
+  }, [autoCollapse, clearCollapseTimer])
 
   return (
     <div
@@ -1171,10 +1173,10 @@ export default function SidebarDoc() {
                     original <code style={gk}>useSidebarBadges.ts</code>.
                   </p>
                   <p style={{ margin: '12px 0 0', fontSize: 12, color: C.textMuted, lineHeight: 1.5 }}>
-                    Para testar o tempo: em Menu automático, ajuste os segundos, feche o modal e <strong>mova o ponteiro para a área de
-                    conteúdo ao lado</strong> (sair do painel azul). O atraso conta a partir desse momento. Com “Fechar automaticamente”
-                    desligado, o menu recolhe assim que o ponteiro sai. Com o modal aberto, o timer não dispara ao sair da sidebar até você
-                    fechar o Dialog.
+                    A demo <strong>começa com o menu expandido</strong>. “Fechar automaticamente” inicia <strong>desligado</strong>: com o
+                    switch desligado, o painel <strong>não recolhe</strong> ao você sair com o ponteiro. Para colapsar com atraso, abra Menu
+                    automático, <strong>ative o switch</strong>, escolha os segundos, feche o modal e saia do painel azul; o tempo conta a
+                    partir daí. Com o modal aberto, o timer não dispara ao sair da sidebar até fechar o Dialog.
                   </p>
                 </div>
               </div>
@@ -1276,7 +1278,10 @@ export default function SidebarDoc() {
                 <div style={gl}>4) Hover = affordance visual</div>
                 <p style={gt}>No hover: fundo laranja 3D + shimmer branco + elevação + borda laranja. Não altera estado ativo.</p>
                 <div style={gl}>5) Auto-colapso</div>
-                <p style={gt}>Sidebar expande no pointerenter e recolhe no pointerleave (imediato ou com timer 1–30s). Configuração via Dialog padrão DS.</p>
+                <p style={gt}>
+                  Sidebar nasce expandida. Só recolhe após pointerleave se o usuário ligar “Fechar automaticamente” e definir 1–30s no modal;
+                  com o switch desligado, permanece expandida ao sair do painel. Configuração via Dialog padrão DS.
+                </p>
                 <div style={gl}>6) Telemetria</div>
                 <p style={gt}>Emitir eventos de clique, abertura de submenu, abertura de Dialog e alteração de auto-close.</p>
               </div>
@@ -1307,8 +1312,8 @@ export default function SidebarDoc() {
                 <p style={gt}>- Hover: fundo laranja + shimmer branco + elevação. Remove ao sair.</p>
                 <p style={gt}>- Colapsado preserva navegação por teclado e tooltip de label.</p>
                 <p style={gt}>
-                  - Auto-close: o timer só inicia ao sair do painel (pointer leave) ou ao fechar o Dialog se o ponteiro estiver fora; valor do
-                  slider reaplica o atraso; switch off recolhe na hora ao sair.
+                  - Auto-close: com o switch ligado, o timer inicia ao sair do painel ou ao fechar o Dialog com o ponteiro fora; slider
+                  reaplica o atraso; com o switch desligado, não há recolha ao sair.
                 </p>
                 <p style={gt}>- Badges atualizam sem salto de layout e sem perda de clique no item.</p>
               </div>
