@@ -659,22 +659,67 @@ function SidebarDemo({
         fontFamily: F.body,
       }}
     >
-      <div className="flex items-center justify-center overflow-hidden px-4" style={{ borderBottom: `1px solid ${theme.border}`, height: 56 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+      <div
+        className="flex items-center justify-center overflow-hidden px-4"
+        style={{
+          borderBottom: `1px solid ${theme.border}`,
+          height: collapsed ? 56 : 68,
+          paddingLeft: collapsed ? 12 : 16,
+          paddingRight: collapsed ? 12 : 16,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            gap: collapsed ? 0 : 14,
+            minWidth: 0,
+            width: collapsed ? 'auto' : '100%',
+          }}
+        >
           <img
-            src="/appfips-logo.png"
+            src={collapsed ? '/appfips-mark-collapsed.png' : '/appfips-logo.png'}
             alt="App FIPS"
-            style={{
-              width: 36,
-              height: 36,
-              objectFit: 'contain',
-              backgroundColor: 'transparent',
-              background: 'none',
-              display: 'block',
-            }}
+            style={
+              collapsed
+                ? {
+                    width: 36,
+                    height: 36,
+                    objectFit: 'contain',
+                    flexShrink: 0,
+                    backgroundColor: 'transparent',
+                    background: 'none',
+                    display: 'block',
+                  }
+                : {
+                    height: 52,
+                    width: 'auto',
+                    maxWidth: 148,
+                    minWidth: 72,
+                    objectFit: 'contain',
+                    objectPosition: 'left center',
+                    flexShrink: 0,
+                    backgroundColor: 'transparent',
+                    background: 'none',
+                    display: 'block',
+                  }
+            }
           />
           {!collapsed ? (
-            <span style={{ fontFamily: F.title, fontWeight: 700, fontSize: 15, color: theme.textActive, letterSpacing: '0.04em' }}>
+            <span
+              style={{
+                fontFamily: F.title,
+                fontWeight: 700,
+                fontSize: 16,
+                lineHeight: 1.2,
+                color: theme.textActive,
+                letterSpacing: '0.03em',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
               Design System
             </span>
           ) : null}
@@ -1156,7 +1201,10 @@ export default function SidebarDoc() {
                 <div style={gl}>Camada 3 — SidebarNeuIcon36</div>
                 <p style={gt}>Componente visual reutilizado por todos os itens e pelo trigger do Menu automático. Gerencia gradiente 3D, specular highlight e shimmer via props (isActive, hovered, shimmerLoop).</p>
                 <div style={gl}>Camada 4 — Integração app</div>
-                <p style={gt}>Conecta roteador, permissões e telemetria (analytics/eventos) sem acoplar regra de negócio ao JSX do item.</p>
+                <p style={gt}>
+                  Conecta roteador, permissões e telemetria (analytics/eventos) sem acoplar regra de negócio ao JSX do item. O header da
+                  sidebar trata marca e título como lockup separado dos tiles 36×36 dos itens (wordmark expandido vs símbolo colapsado).
+                </p>
               </div>
             </div>
 
@@ -1270,6 +1318,10 @@ export default function SidebarDoc() {
                 <p style={gt}>- Tile 36×36 com gradiente 3D, specular e shimmer branco idêntico em todos os itens e no Menu automático.</p>
                 <p style={gt}>- Dialog de Menu automático usa max-w-lg, rounded-2xl, overlay, botão X (padrão DS).</p>
                 <p style={gt}>- Sem overflow horizontal no container principal e no nav rolável.</p>
+                <p style={gt}>
+                  - Marca no header: wordmark legível expandido (altura ~52px, largura proporcional); ícone compacto colapsado (36×36),
+                  fundos PNG transparentes.
+                </p>
               </div>
             </div>
           </Card>
@@ -1348,7 +1400,10 @@ export default function SidebarDoc() {
               </span>
               <TokenRow label="Expanded width" value="256px" />
               <TokenRow label="Collapsed width" value="68px" />
-              <TokenRow label="Header height" value="56px" />
+              <TokenRow label="Header height" value="68px exp. · 56px col." />
+              <TokenRow label="Header wordmark (exp.)" value="PNG alt. 52px · max-w 148px" />
+              <TokenRow label="Header mark (col.)" value="PNG 36×36 (appfips-mark-collapsed.png)" />
+              <TokenRow label="Header title" value="Saira Expanded 16px 700" />
               <TokenRow label="Icon block" value="36×36 · radius 10" />
               <TokenRow label="Row radius" value="8px" />
               <TokenRow label="Row padding" value="6px 12px" />
