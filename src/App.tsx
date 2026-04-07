@@ -23,6 +23,7 @@ const TabsDoc = lazy(() => import('./docs/pages/components/TabsDoc'))
 const TableDoc = lazy(() => import('./docs/pages/components/TableDoc'))
 const DialogDoc = lazy(() => import('./docs/pages/components/DialogDoc'))
 const DrawerDoc = lazy(() => import('./docs/pages/components/DrawerDoc'))
+const SidebarDoc = lazy(() => import('./docs/pages/components/SidebarDoc'))
 const ToastDoc = lazy(() => import('./docs/pages/components/ToastDoc'))
 const TooltipDoc = lazy(() => import('./docs/pages/components/TooltipDoc'))
 const ApplicationShellDemo = lazy(() => import('./docs/pages/patterns/ApplicationShellDemo'))
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="components/table" element={renderLazyRoute(<TableDoc />)} />
         <Route path="components/dialog" element={renderLazyRoute(<DialogDoc />)} />
         <Route path="components/drawer" element={renderLazyRoute(<DrawerDoc />)} />
+        <Route path="components/sidebar" element={renderLazyRoute(<SidebarDoc />)} />
         <Route path="components/toast" element={renderLazyRoute(<ToastDoc />)} />
         <Route path="components/tooltip" element={renderLazyRoute(<TooltipDoc />)} />
         <Route path="patterns/application-shell" element={renderLazyRoute(<ApplicationShellDemo />)} />

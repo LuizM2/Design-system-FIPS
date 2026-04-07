@@ -92,6 +92,7 @@ export const navGroups: NavGroup[] = [
       { label: 'Table', to: '/docs/components/table', icon: TableProperties },
       { label: 'Modal (Dialog)', to: '/docs/components/dialog', icon: ScanText },
       { label: 'Drawer', to: '/docs/components/drawer', icon: PanelLeft },
+      { label: 'Sidebar', to: '/docs/components/sidebar', icon: PanelLeft },
       { label: 'Toast', to: '/docs/components/toast', icon: Sparkles },
       { label: 'Tooltip', to: '/docs/components/tooltip', icon: MousePointer2 },
     ],
