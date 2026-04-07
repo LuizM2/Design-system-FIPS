@@ -1,167 +1,137 @@
+// @ts-nocheck
 import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C = {
-  azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",
-  cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",
-  azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",
-  amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",
-  verdeFloresta:"#00C64C",verdeEscuro:"#00904C",
-  danger:"#DC3545",
-  neutro:"#E8EBFF",branco:"#FFFFFF",
-  bg:"#F2F4F8",cardBg:"#FFFFFF",cardBorder:"#E2E8F0",
-  textMuted:"#64748B",textLight:"#94A3B8",
-  inputBorder:"#CBD5E1",
-};
-const F={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"#E8EBFF",branco:"#FFFFFF",bg:"#F2F4F8",cardBg:"#FFFFFF",cardBorder:"#E2E8F0",textMuted:"#64748B",textLight:"#94A3B8",inputBorder:"#CBD5E1"};
+const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
-/* ═══════════════════════════════════════════ ICONS (mini) ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
 const Ic={
+  x:(s=18,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
   grid:(s=14,c=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
-  x:(s=16,c=C.cinzaEscuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
-  filter:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 4h16M5 10h10M8 16h4" stroke={c} strokeWidth="1.6" strokeLinecap="round"/></svg>,
-  search:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke={c} strokeWidth="1.5"/><path d="M13.5 13.5L17 17" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  building:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="2" stroke={c} strokeWidth="1.5"/><path d="M7 6h2M11 6h2M7 10h2M11 10h2M7 14h6" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
-  shield:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5.5v5c0 4 3 6.5 7 7.5 4-1 7-3.5 7-7.5v-5L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M7 10l2 2 4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  user:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke={c} strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  calendar:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2.5 8h15M7 2v3M13 2v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  doc:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 2v5h5M8 11h4M8 14h6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  save:(s=14,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M13 1H3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V4l-2-3z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M5 1v4h6V1" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><rect x="4" y="9" width="8" height="4" rx=".5" stroke={c} strokeWidth="1.5"/></svg>,
-  check:(s=12,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  check:(s=16,c=C.verdeFloresta)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke={c} strokeWidth="1.5"/><path d="M7 10l2 2 4-4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   alert:(s=16,c=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L1.5 17h17L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 8v4M10 14v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  panelRight:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M13 3v14" stroke={c} strokeWidth="1.5"/></svg>,
-  dropdown:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  hardhat:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M4 14h12M3 14a7 7 0 0114 0" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><path d="M7 14V9M13 14V9" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
+  fire:(s=16,c=C.danger)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2C7.5 6 5 8 5 11.5a5 5 0 0010 0C15 8 12.5 6 10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
+  pessoa:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke={c} strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  doc:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 2v5h5M8 11h4M8 14h6" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
+  filter:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 4h16M5 10h10M8 16h4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  email:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2 6l8 5 8-5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  phone:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H7l1.5 3.5-2 1.5a10 10 0 004.5 4.5l1.5-2L16 13v2.5c0 .8-.7 1.5-1.5 1.5C8 17 3 12 3 5.5z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
+  calendar:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2 8h16M6 2v4M14 2v4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  tag:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h5.17a2 2 0 011.42.59l7.24 7.24a2 2 0 010 2.83l-5.17 5.17a2 2 0 01-2.83 0L2.59 10.6A2 2 0 012 9.17V4z" stroke={c} strokeWidth="1.5"/><circle cx="6.5" cy="6.5" r="1" fill={c}/></svg>,
+  building:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="1.5" stroke={c} strokeWidth="1.5"/><path d="M7 6h2M11 6h2M7 10h2M11 10h2M8 14h4v4H8z" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
+  cnpj:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M6 7h8M6 10h5M6 13h3" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
+  map:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2C6.7 2 4 4.7 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.3-2.7-6-6-6z" stroke={c} strokeWidth="1.5"/><circle cx="10" cy="8" r="2" stroke={c} strokeWidth="1.3"/></svg>,
+  status:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke={c} strokeWidth="1.5"/><path d="M7 10l2 2 4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  prioridade:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M4 18V3l12 5-12 5" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
 };
 
-function JunctionLines({style}:any){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
+function JunctionLines({style}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-/* ═══════════════════════════════════════════ LAYOUT HELPERS ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(
-  <section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body}}>{desc}</p>{children}</section>
-);}
-function Card({children,s}:{children:React.ReactNode,s?:React.CSSProperties}){return(
-  <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>
-);}
-function TokenRow({label,value,color}:{label:string,value:string,color?:string}){return(
-  <div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:F.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:120}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:F.mono,color:C.cinzaEscuro}}>{value}</code></div>
-);}
+/* ═══════════════════════════════════════════ BADGE mini ═══════════════════════════════════════════ */
+const BV={sucesso:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},atencao:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},critico:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},info:{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu},default:{bg:C.azulProfundo,color:C.branco,border:"transparent"},secondary:{bg:C.bg,color:C.cinzaEscuro,border:C.cardBorder}};
+function Badge({variant="default",children,dot,size="md"}){const v=BV[variant]||BV.default;return(<span style={{display:"inline-flex",alignItems:"center",gap:5,padding:`2px ${size==="sm"?6:8}px`,fontSize:size==="sm"?10:11,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:6,height:6,borderRadius:"50%",background:v.color,opacity:.85}}/>}{children}</span>)}
 
-/* ═══════════════════════════════════════════ DRAWER COMPONENT ═══════════════════════════════════════════ */
-const overlayStyle:React.CSSProperties={position:"fixed",inset:0,background:"rgba(0,42,104,.45)",backdropFilter:"blur(4px)",zIndex:9998,transition:"opacity .25s"};
-const panelBase:React.CSSProperties={position:"fixed",top:0,right:0,height:"100%",background:C.cardBg,boxShadow:"-8px 0 32px rgba(0,42,104,.12)",zIndex:9999,display:"flex",flexDirection:"column",transition:"transform .3s cubic-bezier(.32,.72,0,1)",overflowY:"auto"};
+/* ═══════════════════════════════════════════
+   DRAWER COMPONENT
+   ═══════════════════════════════════════════ */
+function Drawer({open,onClose,title,subtitle,children,footer,side="right",width=420}){
+  const [visible,setVisible]=useState(false);
+  const [animIn,setAnimIn]=useState(false);
 
-function DemoDrawer({open,onClose,width=440,title,subtitle,children,footer}:{open:boolean,onClose:()=>void,width?:number,title:string,subtitle?:string,children:React.ReactNode,footer?:React.ReactNode}){
-  if(!open)return null;
+  useEffect(()=>{
+    if(open){setVisible(true);requestAnimationFrame(()=>requestAnimationFrame(()=>setAnimIn(true)))}
+    else{setAnimIn(false);const t=setTimeout(()=>setVisible(false),300);return()=>clearTimeout(t)}
+  },[open]);
+
+  useEffect(()=>{
+    if(!open)return;
+    const h=(e)=>{if(e.key==="Escape")onClose()};
+    document.addEventListener("keydown",h);
+    return()=>document.removeEventListener("keydown",h);
+  },[open,onClose]);
+
+  if(!visible)return null;
+
+  const isH=side==="left"||side==="right";
+  const panelStyle=isH?{
+    position:"fixed",top:0,[side]:0,width,maxWidth:"90vw",height:"100vh",zIndex:1001,
+    background:C.cardBg,boxShadow:"-4px 0 24px rgba(0,0,0,.12)",
+    display:"flex",flexDirection:"column",
+    transform:animIn?"translateX(0)":`translateX(${side==="right"?"100%":"-100%"})`,
+    transition:"transform .3s cubic-bezier(.4,0,.2,1)",
+  }:{
+    position:"fixed",[side]:0,left:0,right:0,height:width,maxHeight:"80vh",zIndex:1001,
+    background:C.cardBg,boxShadow:"0 -4px 24px rgba(0,0,0,.12)",
+    display:"flex",flexDirection:"column",
+    transform:animIn?"translateY(0)":`translateY(${side==="bottom"?"100%":"-100%"})`,
+    transition:"transform .3s cubic-bezier(.4,0,.2,1)",
+    borderRadius:side==="bottom"?"12px 12px 0 0":"0 0 12px 12px",
+  };
+
   return(
-    <>
-      <div style={overlayStyle} onClick={onClose}/>
-      <div style={{...panelBase,width,transform:open?"translateX(0)":"translateX(100%)"}}>
-        <div style={{padding:"20px 24px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12,flexShrink:0}}>
+    <div style={{position:"fixed",inset:0,zIndex:1000}}>
+      <div onClick={onClose} style={{position:"absolute",inset:0,background:"rgba(0,42,104,.35)",opacity:animIn?1:0,transition:"opacity .3s",cursor:"pointer"}}/>
+      <div style={panelStyle}>
+        {/* Header */}
+        <div style={{padding:"18px 24px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
           <div>
-            <h3 style={{fontSize:17,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:F.title}}>{title}</h3>
-            {subtitle&&<p style={{fontSize:13,color:C.cinzaChumbo,margin:"4px 0 0",fontFamily:F.body,lineHeight:1.45}}>{subtitle}</p>}
+            <h2 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{title}</h2>
+            {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"2px 0 0",fontFamily:Fn.body}}>{subtitle}</p>}
           </div>
-          <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",padding:4,borderRadius:6,display:"flex",opacity:.5,transition:"opacity .15s"}} onMouseEnter={e=>(e.currentTarget.style.opacity="1")} onMouseLeave={e=>(e.currentTarget.style.opacity=".5")}>{Ic.x(18)}</button>
+          <span onClick={onClose} style={{display:"flex",cursor:"pointer",opacity:.5,padding:4,borderRadius:4,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.opacity="1";e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.opacity=".5";e.currentTarget.style.background="transparent"}}>{Ic.x(18,C.cinzaChumbo)}</span>
         </div>
-        <div style={{flex:1,padding:"20px 24px",overflowY:"auto"}}>{children}</div>
-        {footer&&<div style={{padding:"16px 24px",borderTop:`1px solid ${C.cardBorder}`,flexShrink:0}}>{footer}</div>}
-      </div>
-    </>
-  );
-}
-
-/* ═══════════════════════════════════════════ MINI UI ═══════════════════════════════════════════ */
-function Btn({children,variant="primary",onClick,full,s}:{children:React.ReactNode,variant?:"primary"|"secondary"|"danger"|"ghost",onClick?:()=>void,full?:boolean,s?:React.CSSProperties}){
-  const styles:{[k:string]:React.CSSProperties}={
-    primary:{background:C.azulProfundo,color:C.branco,border:"none"},
-    secondary:{background:"transparent",color:C.cinzaEscuro,border:`1.5px solid ${C.inputBorder}`},
-    danger:{background:C.danger,color:C.branco,border:"none"},
-    ghost:{background:"transparent",color:C.azulProfundo,border:"none"},
-  };
-  return <button onClick={onClick} style={{padding:"8px 18px",fontSize:13,fontWeight:600,borderRadius:8,cursor:"pointer",fontFamily:F.body,display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,transition:"all .15s",width:full?"100%":undefined,...styles[variant],...s}}>{children}</button>;
-}
-
-function MiniInput({label,placeholder,icon,value,readOnly,compact}:{label?:string,placeholder?:string,icon?:React.ReactNode,value?:string,readOnly?:boolean,compact?:boolean}){
-  const h=compact?30:35;
-  return(
-    <div style={{display:"flex",flexDirection:"column",minWidth:0}}>
-      {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,marginBottom:1,marginLeft:7}}>{label}</label>}
-      <div style={{display:"flex",alignItems:"center",gap:8,height:h,padding:"0 12px",background:readOnly?"#F8FAFC":C.branco,border:`1.5px solid ${C.inputBorder}`,borderRadius:8,fontFamily:F.body,fontSize:compact?12:13,color:C.cinzaEscuro}}>
-        {icon&&<span style={{display:"flex",flexShrink:0,opacity:.55}}>{icon}</span>}
-        <input readOnly style={{flex:1,border:"none",outline:"none",background:"transparent",fontFamily:F.body,fontSize:compact?12:13,color:C.cinzaEscuro,minWidth:0}} placeholder={placeholder} defaultValue={value}/>
+        {/* Body */}
+        <div style={{flex:1,overflowY:"auto",padding:"20px 24px"}}>{children}</div>
+        {/* Footer */}
+        {footer&&<div style={{padding:"14px 24px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",gap:10,justifyContent:"flex-end",flexShrink:0}}>{footer}</div>}
       </div>
     </div>
   );
 }
 
-function MiniSelect({label,options,compact,icon}:{label?:string,options:string[],compact?:boolean,icon?:React.ReactNode}){
-  const h=compact?30:35;
+/* ═══════════════════════════════════════════ MINI COMPONENTS ═══════════════════════════════════════════ */
+function FInput({label,placeholder,value,required,compact,icon}){
   return(
-    <div style={{display:"flex",flexDirection:"column",minWidth:0}}>
-      {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,marginBottom:1,marginLeft:7}}>{label}</label>}
-      <div style={{display:"flex",alignItems:"center",gap:8,height:h,padding:"0 12px",borderRadius:8,border:`1.5px solid ${C.inputBorder}`,background:C.branco,fontFamily:F.body,fontSize:compact?12:13}}>
-        {icon&&<span style={{display:"flex",flexShrink:0,opacity:.55}}>{icon}</span>}
-        <select style={{flex:1,border:"none",outline:"none",background:"transparent",fontFamily:F.body,fontSize:compact?12:13,color:C.cinzaEscuro,cursor:"pointer",WebkitAppearance:"none",MozAppearance:"none",appearance:"none" as any,minWidth:0}}>{options.map(o=><option key={o}>{o}</option>)}</select>
-        <span style={{display:"flex",flexShrink:0,opacity:.5}}>{Ic.dropdown(16)}</span>
+    <div style={{display:"flex",flexDirection:"column",gap:1}}>
+      {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,marginLeft:7,display:"flex",gap:3}}>{label}{required&&<span style={{color:C.danger}}>*</span>}</label>}
+      <div style={{display:"flex",alignItems:"center",gap:8,height:compact?30:35,padding:"0 12px",border:`1.5px solid ${C.inputBorder}`,borderRadius:8,background:C.branco,transition:"all .18s"}} onClick={e=>{const inp=e.currentTarget.querySelector("input");if(inp)inp.focus()}}>
+        {icon&&<span style={{display:"flex",flexShrink:0,opacity:.5}}>{icon}</span>}
+        <input placeholder={placeholder} defaultValue={value} style={{flex:1,height:"100%",border:"none",outline:"none",background:"transparent",fontFamily:Fn.body,fontSize:compact?12:13,color:C.cinzaEscuro,minWidth:0}} onFocus={e=>e.target.parentElement.style.borderColor=C.azulProfundo} onBlur={e=>e.target.parentElement.style.borderColor=C.inputBorder}/>
       </div>
     </div>
   );
 }
-
-function MiniTextarea({label,placeholder,rows=3}:{label?:string,placeholder?:string,rows?:number}){
+function FSelect({label,options=[],value,compact,icon}){
   return(
-    <div style={{display:"flex",flexDirection:"column",minWidth:0}}>
-      {label&&<label style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,marginBottom:1,marginLeft:7}}>{label}</label>}
-      <textarea placeholder={placeholder} rows={rows} style={{padding:"8px 12px",borderRadius:8,border:`1.5px solid ${C.inputBorder}`,background:C.branco,fontFamily:F.body,fontSize:13,color:C.cinzaEscuro,outline:"none",resize:"vertical"}}/>
-    </div>
-  );
-}
-
-function MiniBadge({children,variant="default"}:{children:React.ReactNode,variant?:"default"|"success"|"warning"|"danger"|"info"|"secondary"}){
-  const m:{[k:string]:{bg:string,color:string,border:string}}={
-    default:{bg:C.azulProfundo,color:C.branco,border:"transparent"},
-    success:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},
-    warning:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},
-    danger:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},
-    info:{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu},
-    secondary:{bg:C.bg,color:C.cinzaEscuro,border:C.cardBorder},
-  };
-  const v=m[variant]||m.default;
-  return <span style={{display:"inline-flex",alignItems:"center",gap:5,padding:"2px 8px",fontSize:11,fontWeight:600,fontFamily:F.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,lineHeight:1.3,whiteSpace:"nowrap"}}>{children}</span>;
-}
-
-/* ═══════════════════════════════════════════ DETAIL ROW ═══════════════════════════════════════════ */
-function DetailRow({icon,label,value}:{icon:React.ReactNode,label:string,value:string}){
-  return(
-    <div style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:14}}>
-      <span style={{display:"flex",flexShrink:0,marginTop:2,opacity:.6}}>{icon}</span>
-      <div><p style={{fontSize:11,color:C.cinzaChumbo,margin:0,fontFamily:F.body}}>{label}</p><p style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro,margin:"1px 0 0",fontFamily:F.body}}>{value}</p></div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════ PROGRESS BAR ═══════════════════════════════════════════ */
-function MiniProgress({value,color=C.azulProfundo}:{value:number,color?:string}){
-  return(
-    <div style={{height:6,borderRadius:3,background:C.bg,overflow:"hidden"}}>
-      <div style={{height:"100%",width:`${value}%`,borderRadius:3,background:color,transition:"width .4s"}}/>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════ GUIDELINE ROW ═══════════════════════════════════════════ */
-function GuideRow({icon,title,desc,positive}:{icon:React.ReactNode,title:string,desc:string,positive:boolean}){
-  return(
-    <div style={{display:"flex",gap:12,alignItems:"flex-start",padding:"12px 16px",background:positive?"#F0FDF4":"#FEF2F2",borderRadius:10,border:`1px solid ${positive?"#BBF7D0":"#FECACA"}`}}>
-      <span style={{flexShrink:0,marginTop:2}}>{icon}</span>
-      <div>
-        <p style={{fontSize:13,fontWeight:600,color:positive?C.verdeEscuro:"#B91C1C",margin:0,fontFamily:F.body}}>{title}</p>
-        <p style={{fontSize:12,color:C.cinzaChumbo,margin:"3px 0 0",lineHeight:1.45,fontFamily:F.body}}>{desc}</p>
+    <div style={{display:"flex",flexDirection:"column",gap:1}}>
+      {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,marginLeft:7}}>{label}</label>}
+      <div style={{display:"flex",alignItems:"center",gap:8,height:compact?30:35,padding:"0 12px",border:`1.5px solid ${C.inputBorder}`,borderRadius:8,background:C.branco}}>
+        {icon&&<span style={{display:"flex",flexShrink:0,opacity:.5}}>{icon}</span>}
+        <select defaultValue={value} style={{flex:1,height:"100%",border:"none",outline:"none",background:"transparent",fontFamily:Fn.body,fontSize:compact?12:13,color:C.cinzaEscuro,appearance:"none",WebkitAppearance:"none",cursor:"pointer"}}>
+          {options.map(o=><option key={o} value={o}>{o}</option>)}
+        </select>
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style={{opacity:.4,flexShrink:0}}><path d="M6 8l4 4 4-4" stroke={C.cinzaChumbo} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </div>
     </div>
   );
 }
+function Btn({label,color,outline,onClick,full}){
+  return <button onClick={onClick} style={{padding:"7px 18px",fontSize:12,fontWeight:600,background:outline?"transparent":color||C.azulProfundo,color:outline?color||C.cinzaChumbo:C.branco,border:outline?`1.5px solid ${color||C.cinzaClaro}`:"none",borderRadius:6,cursor:"pointer",fontFamily:Fn.body,width:full?"100%":"auto"}}>{label}</button>;
+}
+
+/* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
+
+const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
+const gh={padding:"16px 20px",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:12};
+const gb={padding:"16px 20px 20px"};
+const gl={fontSize:10,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:4,marginTop:12};
+const gt={fontSize:13,color:C.cinzaEscuro,lineHeight:1.55,margin:0,fontFamily:Fn.body};
+const ge={fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body,fontStyle:"italic",paddingLeft:10,borderLeft:`2px solid ${C.azulCeuClaro}`};
+const gk={fontSize:11,fontFamily:Fn.mono,color:C.cinzaChumbo,background:C.cardBg,padding:"2px 8px",borderRadius:4,border:`1px solid ${C.cardBorder}`};
+function TokenRow({label,value,color}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:130}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DrawerDoc(){
@@ -169,292 +139,296 @@ export default function DrawerDoc(){
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
 
-  const [filterOpen,setFilterOpen]=useState(false);
-  const [detailOpen,setDetailOpen]=useState(false);
-  const [formOpen,setFormOpen]=useState(false);
+  const [d,setD]=useState({open:false,id:null});
+  const open=(id)=>setD({open:true,id});
+  const close=()=>setD({open:false,id:null});
 
   return(
-    <div style={{minHeight:"100vh",background:`linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,fontFamily:F.body,color:C.cinzaEscuro}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-input::placeholder{color:${C.textLight};}
-select{-webkit-appearance:none;-moz-appearance:none;appearance:none;}
-`}</style>
-
-      {/* ══════ HEADER ══════ */}
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
-        <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
-        <JunctionLines style={{position:"absolute",bottom:-30,left:"30%",width:500,height:200,transform:"scaleX(-1)"}}/>
-        <div style={{position:"relative"}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:F.title,marginBottom:16}}>
-            {Ic.grid(14,C.amareloOuro)} Design System FIPS
-          </div>
-          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:F.title}}>Drawer</h1>
-          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:F.body}}>
-            Painéis laterais deslizantes para <strong style={{color:`${C.branco}DD`}}>filtros avançados, detalhes de registro e formulários auxiliares</strong>. Mantêm a tabela ou listagem parcialmente visível enquanto o operador interage com controles secundários.
-          </p>
-          {/* Anatomy badges */}
-          <div style={{display:"flex",gap:14,marginTop:24,flexWrap:"wrap"}}>
-            {[
-              {l:"DrawerTrigger",c:C.azulClaro},
-              {l:"DrawerContent",c:C.cinzaEscuro},
-              {l:"DrawerHeader",c:C.amareloOuro},
-              {l:"DrawerTitle",c:C.branco},
-              {l:"DrawerOverlay",c:C.cinzaChumbo},
-              {l:"DrawerFooter",c:C.inputBorder},
-            ].map(t=>(
-              <div key={t.l} style={{display:"flex",alignItems:"center",gap:8,background:`${C.branco}08`,border:`1px solid ${C.branco}15`,borderRadius:6,padding:"6px 12px",fontSize:12,color:`${C.branco}90`,fontFamily:F.mono}}>
-                <div style={{width:12,height:12,borderRadius:3,background:t.c,border:`1px solid ${C.branco}20`,flexShrink:0}}/>{t.l}
-              </div>
-            ))}
-          </div>
-        </div>
-      </header>
-
-      {/* ══════ BODY ══════ */}
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
-
-        {/* 01 — FILTER DRAWER */}
-        <Section n="01" title="Filtro avançado lateral" desc="Drawer de filtros mantém a listagem parcialmente visivel. Ideal para cenários com muitos critérios de busca — certificados, empresas, SSMA.">
-          <Card>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
-              <h3 style={{fontSize:18,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,margin:0}}>Painel de Filtros</h3>
-              <Btn variant="secondary" onClick={()=>setFilterOpen(true)}>{Ic.filter(15,C.cinzaEscuro)} Abrir filtro lateral</Btn>
-            </div>
-
-            {/* Inline preview */}
-            <div style={{background:C.bg,borderRadius:12,border:`1px solid ${C.cardBorder}`,padding:20}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16}}>
-                {Ic.panelRight(18,C.azulClaro)}
-                <span style={{fontSize:12,fontWeight:600,color:C.azulClaro,fontFamily:F.title,letterSpacing:".5px",textTransform:"uppercase"}}>Preview do drawer de filtros</span>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
-                <MiniInput label="Busca rápida" placeholder="Empresa, CNPJ ou responsável..." icon={Ic.search(14)} compact/>
-                <MiniSelect label="Status" options={["Selecione","Ativo","Pendente","Inativo"]} compact icon={Ic.dropdown(14,C.cinzaChumbo)}/>
-                <MiniSelect label="Segmento" options={["Selecione","Grãos","Contêiner","Granel líquido","Carga geral"]} compact/>
-                <MiniInput label="Vencimento até" placeholder="dd/mm/aaaa" icon={Ic.calendar(14)} compact/>
-                <MiniSelect label="Responsável fiscal" options={["Selecione o colaborador","Fábio","Ronaldo","Marcela"]} compact icon={Ic.user(14)}/>
-                <MiniSelect label="Tipo certificado" options={["Selecione","A1","A3","NF-e","CT-e"]} compact icon={Ic.doc(14)}/>
-              </div>
-              <div style={{display:"flex",gap:10,marginTop:16}}>
-                <Btn variant="secondary" s={{flex:1}}>Limpar</Btn>
-                <Btn variant="primary" s={{flex:1}}>Aplicar filtros</Btn>
-              </div>
-            </div>
-
-            <p style={{fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:"16px 0 0",fontFamily:F.body,fontStyle:"italic",paddingLeft:10,borderLeft:`2px solid ${C.azulCeuClaro}`}}>
-              Clique em "Abrir filtro lateral" para ver o drawer real sobrepondo a tela. A densidade compacta dos campos otimiza o uso vertical do painel.
-            </p>
-          </Card>
-        </Section>
-
-        {/* 02 — DETAIL DRAWER */}
-        <Section n="02" title="Detalhe de registro" desc="Leitura rápida de informações sem sair da listagem principal. Certificados, empresas e ocorrências SSMA podem ser inspecionados no painel lateral.">
-          <Card>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
-              <h3 style={{fontSize:18,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,margin:0}}>Detalhe lateral</h3>
-              <Btn onClick={()=>setDetailOpen(true)}>{Ic.shield(15,C.branco)} Abrir detalhe lateral</Btn>
-            </div>
-
-            {/* Inline preview */}
-            <div style={{background:C.bg,borderRadius:12,border:`1px solid ${C.cardBorder}`,padding:20}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16}}>
-                {Ic.panelRight(18,C.azulClaro)}
-                <span style={{fontSize:12,fontWeight:600,color:C.azulClaro,fontFamily:F.title,letterSpacing:".5px",textTransform:"uppercase"}}>Preview do drawer de detalhe</span>
-              </div>
-              <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
-                <div style={{width:44,height:44,borderRadius:"50%",background:`${C.azulCeuClaro}88`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.shield(22,C.azulProfundo)}</div>
-                <div>
-                  <p style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:F.title}}>Certificado #508</p>
-                  <p style={{fontSize:12,color:C.cinzaChumbo,margin:0,fontFamily:F.body}}>Leitura rápida sem sair da listagem.</p>
-                </div>
-              </div>
-              <div style={{display:"flex",gap:6,marginBottom:16}}>
-                <MiniBadge variant="warning">Vencendo</MiniBadge>
-                <MiniBadge variant="secondary">A1</MiniBadge>
-              </div>
-              <div style={{background:C.cardBg,borderRadius:10,border:`1px solid ${C.cardBorder}`,padding:14,marginBottom:16}}>
-                <p style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,margin:"0 0 8px"}}>Progresso de renovacao</p>
-                <div style={{display:"flex",justifyContent:"space-between",fontSize:12,fontFamily:F.body,marginBottom:6}}>
-                  <span style={{fontWeight:600,color:C.cinzaEscuro}}>Em andamento</span>
-                  <span style={{color:C.cinzaChumbo}}>64%</span>
-                </div>
-                <MiniProgress value={64}/>
-              </div>
-              <DetailRow icon={Ic.building(16)} label="Empresa" value="Black Ice Confecções e Comércio"/>
-              <DetailRow icon={Ic.user(16)} label="Responsável" value="Ronaldo"/>
-              <DetailRow icon={Ic.calendar(16)} label="Vencimento" value="30/04/2026"/>
-              <DetailRow icon={Ic.check(14,C.verdeEscuro)} label="Observação" value="Renovação já sinalizada para o time fiscal."/>
-            </div>
-          </Card>
-        </Section>
-
-        {/* 03 — FORM DRAWER */}
-        <Section n="03" title="Formulário auxiliar" desc="Drawer para cadastros rápidos e edições inline — como registro de nova ocorrência SSMA ou inclusão de empresa sem sair da tela principal.">
-          <Card>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
-              <h3 style={{fontSize:18,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,margin:0}}>Formulário lateral</h3>
-              <Btn onClick={()=>setFormOpen(true)}>{Ic.hardhat(15,C.branco)} Registrar ocorrência SSMA</Btn>
-            </div>
-
-            {/* Inline preview */}
-            <div style={{background:C.bg,borderRadius:12,border:`1px solid ${C.cardBorder}`,padding:20}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16}}>
-                {Ic.panelRight(18,C.azulClaro)}
-                <span style={{fontSize:12,fontWeight:600,color:C.azulClaro,fontFamily:F.title,letterSpacing:".5px",textTransform:"uppercase"}}>Preview do drawer de formulario</span>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr",gap:12}}>
-                <MiniSelect label="Tipo de ocorrência" options={["Selecione","Incidente","Quase-acidente","Desvio","Melhoria"]} icon={Ic.alert(14)}/>
-                <MiniInput label="Local" placeholder="Berço, armazém ou pátio..." icon={Ic.building(14)}/>
-                <MiniInput label="Data da ocorrência" placeholder="dd/mm/aaaa" icon={Ic.calendar(14)}/>
-                <MiniSelect label="Severidade" options={["Selecione","Baixa","Média","Alta","Crítica"]}/>
-                <MiniInput label="Responsável pela ação" placeholder="Nome do colaborador" icon={Ic.user(14)}/>
-                <MiniTextarea label="Descrição da ocorrência" placeholder="Descreva o ocorrido, condições e ações imediatas tomadas..." rows={3}/>
-              </div>
-              <div style={{display:"flex",gap:10,marginTop:16}}>
-                <Btn variant="secondary" s={{flex:1}}>Cancelar</Btn>
-                <Btn variant="primary" s={{flex:1}}>{Ic.save(13)} Registrar</Btn>
-              </div>
-            </div>
-
-            <p style={{fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:"16px 0 0",fontFamily:F.body,fontStyle:"italic",paddingLeft:10,borderLeft:`2px solid ${C.azulCeuClaro}`}}>
-              Formulários auxiliares no drawer evitam perda de contexto. O operador mantém a listagem visível e retorna ao fluxo sem navegação adicional.
-            </p>
-          </Card>
-        </Section>
-
-        {/* 04 — USAGE GUIDELINES */}
-        <Section n="04" title="Diretrizes de uso" desc="Quando usar Drawer e quando preferir Modal ou navegação completa.">
-          <Card>
-            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:14}}>
-              <GuideRow positive icon={Ic.check(14,C.verdeEscuro)} title="Use Drawer quando..." desc="O operador precisa manter a listagem ou tabela parcialmente visível enquanto interage com filtros, detalhes ou formulários rápidos."/>
-              <GuideRow positive icon={Ic.check(14,C.verdeEscuro)} title="Filtros avançados com muitos campos" desc="Drawers laterais comportam formulários longos com scroll, sem bloquear toda a interface como um modal faria."/>
-              <GuideRow positive={false} icon={Ic.x(14,"#B91C1C")} title="Evite para ações destrutivas" desc="Confirmações de exclusão, cancelamentos irreversíveis ou qualquer ação crítica devem usar Dialog/Modal com foco total."/>
-              <GuideRow positive={false} icon={Ic.x(14,"#B91C1C")} title="Evite para cadastros complexos" desc="Formulários com mais de 8 campos ou com múltiplas etapas pedem uma página dedicada, não um drawer."/>
-              <GuideRow positive icon={Ic.check(14,C.verdeEscuro)} title="Inspeção rápida de registros" desc="Ver detalhes de um certificado, empresa ou ocorrência SSMA sem sair da listagem principal."/>
-              <GuideRow positive={false} icon={Ic.x(14,"#B91C1C")} title="Evite drawers empilhados" desc="Nunca abra um drawer dentro de outro. Se a interação requer profundidade, navegue para uma página ou use um modal dentro do drawer."/>
-            </div>
-
-            <div style={{marginTop:20,padding:16,background:C.bg,borderRadius:10,border:`1px solid ${C.cardBorder}`}}>
-              <p style={{fontSize:10,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,margin:"0 0 8px"}}>Drawer vs Modal — regra prática</p>
-              <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
-                <div style={{padding:12,background:C.cardBg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
-                  <p style={{fontSize:13,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title}}>{Ic.panelRight(14,C.azulProfundo)} Drawer</p>
-                  <p style={{fontSize:12,color:C.cinzaChumbo,margin:0,lineHeight:1.5,fontFamily:F.body}}>Contexto parcial necessário. Filtros, detalhes, edição rápida. O conteúdo principal permanece visível.</p>
-                </div>
-                <div style={{padding:12,background:C.cardBg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
-                  <p style={{fontSize:13,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title}}>Modal / Dialog</p>
-                  <p style={{fontSize:12,color:C.cinzaChumbo,margin:0,lineHeight:1.5,fontFamily:F.body}}>Foco total necessário. Confirmações, alertas, ações destrutivas. Bloqueia interação com o fundo.</p>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Section>
-
-        {/* 05 — TOKEN REFERENCE */}
-        <Section n="05" title="Referência de tokens" desc="Valores de design padronizados do Drawer no Design System FIPS.">
-          <Card s={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:28}}>
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:F.title,marginBottom:4}}>Dimensões</span>
-              <TokenRow label="Largura padrão" value="440px"/>
-              <TokenRow label="Largura compacta" value="360px"/>
-              <TokenRow label="Largura larga" value="560px"/>
-              <TokenRow label="Altura" value="100vh"/>
-              <TokenRow label="Header padding" value="20px 24px"/>
-              <TokenRow label="Body padding" value="20px 24px"/>
-              <TokenRow label="Footer padding" value="16px 24px"/>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:F.title,marginBottom:4}}>Cores & Efeitos</span>
-              <TokenRow label="Overlay bg" value="rgba(0,42,104,.45)" color="rgba(0,42,104,.45)"/>
-              <TokenRow label="Panel bg" value="#FFFFFF" color={C.branco}/>
-              <TokenRow label="Border" value="#E2E8F0" color={C.cardBorder}/>
-              <TokenRow label="Shadow" value="−8px 0 32px"/>
-              <TokenRow label="Backdrop blur" value="4px"/>
-              <TokenRow label="Transition" value="300ms cubic-bezier"/>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:F.title,marginBottom:4}}>Tipografia</span>
-              <TokenRow label="Título" value="Saira Expanded 700"/>
-              <TokenRow label="Título size" value="17px"/>
-              <TokenRow label="Subtítulo" value="Open Sans 400"/>
-              <TokenRow label="Subtítulo size" value="13px"/>
-              <TokenRow label="Body font" value="Open Sans"/>
-              <TokenRow label="Close btn" value="18px icon"/>
-            </div>
-          </Card>
-        </Section>
-
-        {/* ══════ FOOTER ══════ */}
-        <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:F.title,fontWeight:400}}>DS-FIPS v2.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
-        </div>
-      </div>
+    <div style={{minHeight:"100vh",background:`linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,fontFamily:Fn.body,color:C.cinzaEscuro}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');`}</style>
 
       {/* ══════ LIVE DRAWERS ══════ */}
 
-      {/* Filter Drawer */}
-      <DemoDrawer open={filterOpen} onClose={()=>setFilterOpen(false)} width={440} title="Filtros avançados" subtitle="Refine a listagem de certificados sem perder o contexto da tabela.">
-        <div style={{display:"flex",flexDirection:"column",gap:14}}>
-          <MiniInput label="Busca rápida" placeholder="Empresa, CNPJ ou responsável..." icon={Ic.search(14)} compact/>
-          <MiniSelect label="Status" options={["Selecione","Ativo","Pendente","Novo","Inativo"]} compact icon={Ic.dropdown(14,C.cinzaChumbo)}/>
-          <MiniSelect label="Segmento" options={["Selecione","Grãos","Contêiner","Granel líquido","Carga geral"]} compact/>
-          <MiniSelect label="Responsável fiscal" options={["Selecione o colaborador","Fábio","Ronaldo","Marcela"]} compact icon={Ic.user(14)}/>
-          <MiniInput label="Vencimento até" placeholder="dd/mm/aaaa" value="30/04/2026" icon={Ic.calendar(14)} compact/>
-          <MiniSelect label="Tipo certificado" options={["Selecione","A1","A3","NF-e","CT-e"]} compact icon={Ic.doc(14)}/>
+      {/* Right - Detalhe */}
+      <Drawer open={d.open&&d.id==="right"} onClose={close} title="Detalhe da requisição" subtitle="REQ-4025 · Equipamento SSMA" side="right" width={420}
+        footer={<><Btn label="Rejeitar" outline color={C.danger} onClick={close}/><Btn label="Aprovar" color={C.verdeFloresta} onClick={close}/></>}>
+        <div style={{display:"flex",flexDirection:"column",gap:16}}>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Solicitante</span><span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro}}>Carlos Santos</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Departamento</span><span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro}}>SSMA</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.azulProfundo}}>R$ 2.450,00</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Status</span><Badge variant="atencao" dot size="sm">Pendente</Badge></div>
+          <div style={{height:1,background:C.cardBorder}}/>
+          <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Itens</span>
+          {[{item:"Extintor PQS 6kg",qty:3,val:"R$ 450"},{item:"Cone sinalização 75cm",qty:10,val:"R$ 1.200"},{item:"Fita zebrada 200m",qty:5,val:"R$ 800"}].map(i=>(
+            <div key={i.item} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 12px",background:C.bg,borderRadius:6}}>
+              <div><span style={{fontSize:13,color:C.cinzaEscuro,display:"block"}}>{i.item}</span><span style={{fontSize:11,color:C.textMuted}}>Qtd: {i.qty}</span></div>
+              <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.mono}}>{i.val}</span>
+            </div>
+          ))}
+          <div style={{height:1,background:C.cardBorder}}/>
+          <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Observação</span>
+          <p style={{fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0}}>Material para reposição do estoque de segurança do pátio ferroviário. Urgência: média. Prazo desejado: 15 dias úteis.</p>
         </div>
-        <div style={{display:"flex",gap:10,marginTop:24}}>
-          <Btn variant="secondary" s={{flex:1}}>Limpar</Btn>
-          <Btn variant="primary" s={{flex:1}} onClick={()=>setFilterOpen(false)}>Aplicar filtros</Btn>
-        </div>
-      </DemoDrawer>
+      </Drawer>
 
-      {/* Detail Drawer */}
-      <DemoDrawer open={detailOpen} onClose={()=>setDetailOpen(false)} width={460} title="Certificado #508" subtitle="Leitura rápida sem sair da listagem." footer={
-        <div style={{display:"flex",flexDirection:"column",gap:8}}>
-          <Btn full>Editar certificado</Btn>
-          <Btn variant="secondary" full>Visualizar na aba acessos</Btn>
-        </div>
-      }>
-        <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:20}}>
-          <div style={{width:44,height:44,borderRadius:"50%",background:`${C.azulCeuClaro}88`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.shield(22,C.azulProfundo)}</div>
-          <div style={{display:"flex",gap:6}}>
-            <MiniBadge variant="warning">Vencendo</MiniBadge>
-            <MiniBadge variant="secondary">A1</MiniBadge>
+      {/* Left - Filtros */}
+      <Drawer open={d.open&&d.id==="left"} onClose={close} title="Filtros avançados" subtitle="Refine a listagem de resultados" side="left" width={360}
+        footer={<><Btn label="Limpar filtros" outline onClick={close}/><Btn label="Aplicar" color={C.azulProfundo} onClick={close}/></>}>
+        <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          <FSelect icon={Ic.status(14)} label="Status" options={["Todos","Ativo","Pendente","Inativo","Vencido"]} value="Todos" compact/>
+          <FSelect icon={Ic.building(14)} label="Departamento" options={["Todos","Operações","Logística","TI","SSMA","RH"]} value="Todos" compact/>
+          <FSelect icon={Ic.tag(14)} label="Segmento" options={["Todos","Grãos","Contêiner","Granel","Carga geral"]} value="Todos" compact/>
+          <FInput icon={Ic.calendar(14)} label="Período de" placeholder="01/01/2026" compact/>
+          <FInput icon={Ic.calendar(14)} label="Período até" placeholder="31/03/2026" compact/>
+          <FSelect icon={Ic.prioridade(14)} label="Prioridade" options={["Todas","Baixa","Média","Alta","Urgente"]} value="Todas" compact/>
+          <div style={{marginTop:8,padding:"10px 12px",background:`${C.amareloOuro}15`,borderRadius:6,border:`1px solid ${C.amareloOuro}30`}}>
+            <span style={{fontSize:11,color:C.amareloEscuro,fontFamily:Fn.body}}>6 filtros disponíveis. Combine para refinar a busca.</span>
           </div>
         </div>
+      </Drawer>
 
-        <div style={{background:C.bg,borderRadius:10,border:`1px solid ${C.cardBorder}`,padding:14,marginBottom:20}}>
-          <p style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,margin:"0 0 10px"}}>Progresso de renovação</p>
-          <div style={{display:"flex",justifyContent:"space-between",fontSize:12,fontFamily:F.body,marginBottom:6}}>
-            <span style={{fontWeight:600,color:C.cinzaEscuro}}>Em andamento</span>
-            <span style={{color:C.cinzaChumbo}}>64%</span>
-          </div>
-          <MiniProgress value={64}/>
+      {/* Bottom - Ação rápida */}
+      <Drawer open={d.open&&d.id==="bottom"} onClose={close} title="Ação rápida" subtitle="Atribuir responsável" side="bottom" width={280}
+        footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Salvar" color={C.verdeFloresta} onClick={close}/></>}>
+        <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
+          <div style={{flex:1,minWidth:200}}><FInput icon={Ic.pessoa(14)} label="Responsável" placeholder="Selecione o colaborador" required compact/></div>
+          <div style={{flex:1,minWidth:200}}><FSelect icon={Ic.tag(14)} label="Tipo" options={["Interno","Externo","Terceiro"]} value="Interno" compact/></div>
         </div>
+      </Drawer>
 
-        <DetailRow icon={Ic.building(16)} label="Empresa" value="Black Ice Confecções e Comércio"/>
-        <DetailRow icon={Ic.user(16)} label="Responsável" value="Ronaldo"/>
-        <DetailRow icon={Ic.calendar(16)} label="Vencimento" value="30/04/2026"/>
-        <DetailRow icon={Ic.check(14,C.verdeEscuro)} label="Observação" value="Renovação já sinalizada para o time fiscal."/>
-      </DemoDrawer>
-
-      {/* Form Drawer */}
-      <DemoDrawer open={formOpen} onClose={()=>setFormOpen(false)} width={480} title="Registrar ocorrência SSMA" subtitle="Registro rápido de incidente, quase-acidente ou desvio operacional." footer={
-        <div style={{display:"flex",gap:10}}>
-          <Btn variant="secondary" s={{flex:1}} onClick={()=>setFormOpen(false)}>Cancelar</Btn>
-          <Btn s={{flex:1}} onClick={()=>setFormOpen(false)}>{Ic.save(13)} Registrar</Btn>
-        </div>
-      }>
+      {/* Right wide - Edição */}
+      <Drawer open={d.open&&d.id==="wide"} onClose={close} title="Editar fornecedor" subtitle="MRS Logística S.A." side="right" width={560}
+        footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Salvar alterações" color={C.azulProfundo} onClick={close}/></>}>
         <div style={{display:"flex",flexDirection:"column",gap:14}}>
-          <MiniSelect label="Tipo de ocorrência" options={["Selecione","Incidente","Quase-acidente","Desvio","Melhoria"]} icon={Ic.alert(14)}/>
-          <MiniInput label="Local" placeholder="Berço, armazém ou pátio..." icon={Ic.building(14)}/>
-          <MiniInput label="Data da ocorrência" placeholder="dd/mm/aaaa" icon={Ic.calendar(14)}/>
-          <MiniSelect label="Severidade" options={["Selecione","Baixa","Média","Alta","Crítica"]}/>
-          <MiniInput label="Empresa envolvida" placeholder="Nome ou CNPJ" icon={Ic.building(14)}/>
-          <MiniInput label="Responsável pela ação" placeholder="Nome do colaborador" icon={Ic.user(14)}/>
-          <MiniTextarea label="Descrição da ocorrência" placeholder="Descreva o ocorrido, condições e ações imediatas tomadas..." rows={4}/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <FInput icon={Ic.building(14)} label="Razão social" value="MRS Logística S.A." required/>
+            <FInput icon={Ic.cnpj(14)} label="CNPJ" value="01.417.222/0001-77" required/>
+            <FInput icon={Ic.email(14)} label="Email" value="contato@mrs.com.br"/>
+            <FInput icon={Ic.phone(14)} label="Telefone" value="(11) 3138-6000"/>
+            <FInput icon={Ic.map(14)} label="Cidade" value="Juiz de Fora"/>
+            <FSelect icon={Ic.map(14)} label="UF" options={["MG","SP","RJ","ES","PR"]} value="MG"/>
+          </div>
+          <div style={{display:"flex",flexDirection:"column",gap:1}}>
+            <label style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,marginLeft:7}}>Observações</label>
+            <textarea placeholder="Notas internas sobre o fornecedor..." rows={3} style={{padding:"10px 14px",border:`1.5px solid ${C.inputBorder}`,borderRadius:8,fontFamily:Fn.body,fontSize:13,color:C.cinzaEscuro,outline:"none",resize:"vertical"}}/>
+          </div>
+          <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+            <Badge variant="sucesso" dot size="sm">Ativo</Badge>
+            <Badge variant="info" size="sm">Segmento: Ferroviário</Badge>
+            <Badge variant="secondary" size="sm">Desde 2019</Badge>
+          </div>
         </div>
-      </DemoDrawer>
+      </Drawer>
+
+      {/* Right narrow - Ocorrência */}
+      <Drawer open={d.open&&d.id==="narrow"} onClose={close} title="Ocorrência #OC-2041" subtitle="Vazamento pátio 47-B" side="right" width={340}
+        footer={<Btn label="Fechar" outline onClick={close} full/>}>
+        <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          <Badge variant="critico" dot>Crítica</Badge>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Registrado por</span><span style={{fontSize:13,fontWeight:600}}>Ana Costa</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Data</span><span style={{fontSize:13,fontWeight:600}}>02/04/2026 14:30</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Local</span><span style={{fontSize:13,fontWeight:600}}>Pátio 47-B, Junção</span></div>
+          <div style={{height:1,background:C.cardBorder}}/>
+          <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Descrição</span>
+          <p style={{fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0}}>Identificado vazamento de óleo na junção 47-B durante inspeção de rotina. Área isolada conforme protocolo SSMA. Equipe de manutenção acionada.</p>
+          <div style={{height:1,background:C.cardBorder}}/>
+          <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Histórico</span>
+          {[{t:"14:30",a:"Registro criado por Ana Costa"},{t:"14:35",a:"Equipe SSMA notificada"},{t:"14:42",a:"Área isolada — perímetro 50m"}].map(h=>(
+            <div key={h.t} style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+              <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.mono,minWidth:36,marginTop:2}}>{h.t}</span>
+              <span style={{fontSize:12,color:C.cinzaEscuro,lineHeight:1.4}}>{h.a}</span>
+            </div>
+          ))}
+        </div>
+      </Drawer>
+
+      {/* HEADER */}
+      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+        <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
+        <div style={{position:"relative"}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
+          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Drawer</h1>
+          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Painel lateral deslizante para detalhes, formulários e filtros sem sair da tela atual. Overlay escuro, header fixo, body scrollável e footer com ações.</p>
+        </div>
+      </header>
+
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+
+        {/* 01 — PLAYGROUND */}
+        <Section n="01" title="Playground interativo" desc="Clique nos botões para abrir drawers reais em diferentes direções e tamanhos. ESC ou clique no overlay para fechar.">
+          <DSCard mob={mob}>
+            <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+              <Btn label="→ Detalhe (right 420px)" color={C.azulProfundo} onClick={()=>open("right")}/>
+              <Btn label="← Filtros (left 360px)" color={C.azulCeu} onClick={()=>open("left")}/>
+              <Btn label="↑ Ação rápida (bottom 280px)" color={C.amareloEscuro} onClick={()=>open("bottom")}/>
+              <Btn label="→ Edição larga (right 560px)" color={C.verdeFloresta} onClick={()=>open("wide")}/>
+              <Btn label="→ Ocorrência (right 340px)" color={C.danger} onClick={()=>open("narrow")}/>
+            </div>
+            <p style={{fontSize:11,color:C.textMuted,marginTop:12}}>Drawers abrem com slide animation .3s. Overlay clica para fechar. ESC também fecha. Body com scroll interno.</p>
+          </DSCard>
+        </Section>
+
+        {/* 02 — TAMANHOS */}
+        <Section n="02" title="Tamanhos" desc="Quatro larguras padrão para diferentes contextos de uso.">
+          <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
+            {[
+              {name:"Estreito",w:"320–340px",c:C.cinzaChumbo,badge:"detalhe rápido",desc:"Para visualização de informação compacta. Histórico, status, detalhes de registro sem edição.",ex:"Detalhe de ocorrência; histórico de aprovação; perfil de visitante."},
+              {name:"Padrão",w:"420px",c:C.azulProfundo,badge:"★ padrão",desc:"Tamanho default. Detalhes com itens, formulário compacto, resumo com ações.",ex:"Detalhe de requisição no Suprimentos; resumo de ideia no App Ideias."},
+              {name:"Largo",w:"520–560px",c:C.verdeFloresta,badge:"formulário",desc:"Para formulários de edição com 2 colunas. Grid de inputs lado a lado.",ex:"Edição de fornecedor no App Cadastros; cadastro de colaborador; configuração avançada."},
+              {name:"Full",w:"100%",c:C.amareloEscuro,badge:"mobile",desc:"Drawer ocupa toda a largura. Usado exclusivamente em mobile ou ações críticas.",ex:"Qualquer drawer em mobile; formulário multi-step; onboarding."},
+            ].map(s=>(
+              <div key={s.name} style={{...gc,borderLeft:`4px solid ${s.c}`}}>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{s.name}</span><code style={gk}>{s.w}</code><code style={gk}>{s.badge}</code></div>
+                <div style={gb}>
+                  <p style={gt}>{s.desc}</p>
+                  <div style={gl}>Exemplo FIPS</div><p style={ge}>{s.ex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 03 — ANATOMIA */}
+        <Section n="03" title="Anatomia e comportamento" desc="Estrutura do drawer: overlay, header fixo, body scrollável, footer fixo.">
+          <DSCard mob={mob}>
+            <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
+              {/* Diagrama */}
+              <div style={{flex:1,minWidth:260}}>
+                <div style={{background:C.bg,borderRadius:10,border:`2px dashed ${C.azulCeu}`,overflow:"hidden",position:"relative",height:300}}>
+                  {/* Overlay */}
+                  <div style={{position:"absolute",inset:0,background:"rgba(0,42,104,.15)"}}/>
+                  {/* Panel */}
+                  <div style={{position:"absolute",top:0,right:0,width:"55%",height:"100%",background:C.cardBg,borderLeft:`1px solid ${C.cardBorder}`,display:"flex",flexDirection:"column"}}>
+                    <div style={{padding:"10px 14px",borderBottom:`1px dashed ${C.azulCeu}`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title}}>HEADER (fixo)</span>
+                      <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>18px 24px</span>
+                    </div>
+                    <div style={{flex:1,padding:"10px 14px",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:`1px dashed ${C.azulCeu}`}}>
+                      <div style={{textAlign:"center"}}>
+                        <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title,display:"block"}}>BODY (scrollável)</span>
+                        <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>20px 24px · overflow-y auto</span>
+                      </div>
+                    </div>
+                    <div style={{padding:"10px 14px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title}}>FOOTER (fixo)</span>
+                      <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>14px 24px</span>
+                    </div>
+                  </div>
+                  <div style={{position:"absolute",top:"50%",left:"12%",transform:"translateY(-50%)",textAlign:"center"}}>
+                    <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title,display:"block"}}>OVERLAY</span>
+                    <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>rgba(0,42,104,.35)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Specs */}
+              <div style={{flex:1,minWidth:250}}>
+                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamentos</span>
+                {[
+                  {l:"Posição",v:"Fixed. Right ★, Left, Bottom, Top."},
+                  {l:"Animação",v:"Slide .3s cubic-bezier(.4,0,.2,1)"},
+                  {l:"Overlay",v:"rgba(0,42,104,.35) — click fecha"},
+                  {l:"ESC",v:"Fecha o drawer (keydown listener)"},
+                  {l:"Max width",v:"90vw (não ultrapassa a tela)"},
+                  {l:"Body scroll",v:"overflow-y: auto (scroll interno)"},
+                  {l:"Header",v:"Fixo no topo. Título + X."},
+                  {l:"Footer",v:"Fixo embaixo. Botões CTA."},
+                  {l:"z-index",v:"1000 (overlay) / 1001 (panel)"},
+                  {l:"Sombra",v:"-4px 0 24px rgba(0,0,0,.12)"},
+                ].map(s=>(
+                  <div key={s.l} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:6}}>
+                    <code style={{background:`${C.amareloOuro}30`,color:C.amareloEscuro,padding:"2px 8px",borderRadius:4,fontSize:10,fontFamily:Fn.mono,fontWeight:600,minWidth:75,textAlign:"center",flexShrink:0}}>{s.l}</code>
+                    <span style={{fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body}}>{s.v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </DSCard>
+        </Section>
+
+        {/* 04 — GUIA */}
+        <Section n="04" title="Guia de uso por tipo" desc="Quando usar drawer vs modal vs nova tela.">
+          <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
+            {[
+              {name:"Detalhe de registro",c:C.azulProfundo,badge:"mais comum",desc:"Visualizar informações de um item sem sair da listagem. Itens, status, histórico.",when:"Clique em linha de tabela para ver detalhes. Visualização rápida sem navegação.",not:"Edição complexa com muitos campos — usar drawer largo ou nova tela.",ex:"Detalhe de requisição; resumo de ocorrência; perfil de visitante."},
+              {name:"Filtros avançados",c:C.azulCeu,badge:"left side",desc:"Painel lateral esquerdo com campos de filtro. Complementa filtros inline da toolbar.",when:"Mais de 3 filtros. Filtros complexos com datas, ranges e combos.",not:"1–3 filtros simples — usar filtros inline na toolbar.",ex:"Filtros do App Suprimentos; filtros do Power BI embed; busca avançada do App Cadastros."},
+              {name:"Edição rápida",c:C.verdeFloresta,badge:"formulário",desc:"Formulário de edição no drawer largo. Campos em grid 2 colunas. Salvar sem sair da tela.",when:"Edição de entidade com 6–12 campos. Quando a tela de edição full seria pesada demais.",not:"Cadastro novo com muitos campos e validação — usar tela dedicada.",ex:"Editar fornecedor; atualizar dados de colaborador; configurar alerta SSMA."},
+              {name:"Ação rápida",c:C.amareloEscuro,badge:"bottom sheet",desc:"Drawer de baixo para ações rápidas com 2–3 campos. Mobile-friendly.",when:"Atribuir responsável, mudar status, confirmar ação simples com 1–2 inputs.",not:"Formulários grandes — usar drawer lateral. Confirmação simples — usar modal.",ex:"Atribuir responsável; reclassificar ocorrência; adicionar nota rápida."},
+            ].map(t=>(
+              <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span><code style={gk}>{t.badge}</code></div>
+                <div style={gb}>
+                  <p style={gt}>{t.desc}</p>
+                  <div style={gl}>Quando usar</div><p style={gt}>{t.when}</p>
+                  <div style={{...gl,color:C.danger}}>Quando NÃO usar</div><p style={{...gt,color:C.cinzaChumbo}}>{t.not}</p>
+                  <div style={gl}>Exemplo FIPS</div><p style={ge}>{t.ex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Drawer vs Modal vs Tela */}
+          <div style={{marginTop:16,background:`${C.azulCeuClaro}40`,border:`1px solid ${C.azulCeuClaro}`,borderRadius:12,padding:20,display:"flex",gap:14,alignItems:"flex-start"}}>
+            <div style={{width:20,height:20,borderRadius:"50%",background:C.azulProfundo,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}><span style={{color:C.branco,fontSize:12,fontWeight:700}}>i</span></div>
+            <div>
+              <p style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 6px",fontFamily:Fn.body}}>Drawer vs Modal vs Tela</p>
+              <div style={{display:"flex",flexDirection:"column",gap:4}}>
+                {[
+                  {r:"Visualizar/editar sem sair da listagem",v:"→ Drawer",c:C.azulProfundo},
+                  {r:"Confirmação ou decisão rápida (sim/não)",v:"→ Modal",c:C.amareloEscuro},
+                  {r:"Cadastro complexo ou fluxo multi-step",v:"→ Tela dedicada",c:C.cinzaChumbo},
+                ].map(i=>(
+                  <div key={i.r} style={{display:"flex",alignItems:"center",gap:8,fontSize:13,fontFamily:Fn.body}}>
+                    <div style={{width:6,height:6,borderRadius:"50%",background:i.c,flexShrink:0}}/>
+                    <span style={{color:C.cinzaChumbo,flex:1}}>{i.r}</span>
+                    <span style={{fontWeight:700,color:i.c,whiteSpace:"nowrap"}}>{i.v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* 05 — TOKENS */}
+        <Section n="05" title="Tokens de referência" desc="Valores de design do componente Drawer.">
+          <DSCard mob={mob} s={{display:"flex",gap:mob?24:48,flexWrap:"wrap"}}>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Estrutura</span>
+              <TokenRow label="Background" value="#FFFFFF" color={C.cardBg}/>
+              <TokenRow label="Overlay" value="rgba(0,42,104,.35)" color="rgba(0,42,104,.35)"/>
+              <TokenRow label="Sombra" value="-4px 0 24px"/>
+              <TokenRow label="z-index panel" value="1001"/>
+              <TokenRow label="z-index overlay" value="1000"/>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Larguras</span>
+              <TokenRow label="Estreito" value="320–340px"/>
+              <TokenRow label="Padrão ★" value="420px"/>
+              <TokenRow label="Largo" value="520–560px"/>
+              <TokenRow label="Full" value="100%"/>
+              <TokenRow label="Max width" value="90vw"/>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Padding</span>
+              <TokenRow label="Header" value="18px 24px"/>
+              <TokenRow label="Body" value="20px 24px"/>
+              <TokenRow label="Footer" value="14px 24px"/>
+              <TokenRow label="Footer bg" value="#F2F4F8" color={C.bg}/>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Tipografia</span>
+              <TokenRow label="Título" value="Saira 700 16px"/>
+              <TokenRow label="Subtítulo" value="Open Sans 400 12px"/>
+              <TokenRow label="Animação" value=".3s cubic-bezier"/>
+              <TokenRow label="Direção ★" value="Right"/>
+            </div>
+          </DSCard>
+        </Section>
+
+        <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+        </div>
+      </div>
     </div>
   );
 }
