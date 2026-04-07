@@ -19,31 +19,31 @@ const F = { title:"'Saira Expanded',sans-serif", body:"'Open Sans',sans-serif", 
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
 const I = {
-  pessoa:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke={c} strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  email:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2 6l8 5 8-5" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
-  busca:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke={c} strokeWidth="1.5"/><path d="M13.5 13.5L17 17" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  calendario:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2.5 8h15M7 2v3M13 2v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  cadeado:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="4" y="9" width="12" height="8" rx="2" stroke={c} strokeWidth="1.5"/><path d="M7 9V6a3 3 0 016 0v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  telefone:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M3 4.5A1.5 1.5 0 014.5 3h2.2a1 1 0 01.95.68l.8 2.4a1 1 0 01-.36 1.1l-1.2.9a10 10 0 004.9 4.9l.9-1.2a1 1 0 011.1-.36l2.4.8a1 1 0 01.68.95v2.2a1.5 1.5 0 01-1.5 1.5C8.5 16.9 3.1 11.5 3 4.5z" stroke={c} strokeWidth="1.5"/></svg>,
-  documento:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 2v5h5M8 11h4M8 14h6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  placa:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="10" rx="2" stroke={c} strokeWidth="1.5"/><path d="M6 5v10M14 5v10M2 10h16" stroke={c} strokeWidth="1.2" opacity=".4"/></svg>,
-  moeda:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke={c} strokeWidth="1.5"/><path d="M10 5v10M7.5 7.5h3.75a1.75 1.75 0 010 3.5H7.5h4a1.5 1.5 0 010 3H7.5" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  olhoOn:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 10s3.5-5 8-5 8 5 8 5-3.5 5-8 5-8-5-8-5z" stroke={c} strokeWidth="1.5"/><circle cx="10" cy="10" r="2.5" stroke={c} strokeWidth="1.5"/></svg>,
-  olhoOff:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 10s3.5-5 8-5 8 5 8 5-3.5 5-8 5-8-5-8-5z" stroke={c} strokeWidth="1.5"/><path d="M4 4l12 12" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  limpar:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  dropdown:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  save:(s=14,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M13 1H3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V4l-2-3z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M5 1v4h6V1" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><rect x="4" y="9" width="8" height="4" rx=".5" stroke={c} strokeWidth="1.5"/></svg>,
-  grid:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
-  alerta:(s=16,c=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L1.5 17h17L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 8v4M10 14v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
+  pessoa:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke={c} strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  email:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2 6l8 5 8-5" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
+  busca:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke={c} strokeWidth="1.5"/><path d="M13.5 13.5L17 17" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  calendario:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2.5 8h15M7 2v3M13 2v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  cadeado:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="4" y="9" width="12" height="8" rx="2" stroke={c} strokeWidth="1.5"/><path d="M7 9V6a3 3 0 016 0v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  telefone:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M3 4.5A1.5 1.5 0 014.5 3h2.2a1 1 0 01.95.68l.8 2.4a1 1 0 01-.36 1.1l-1.2.9a10 10 0 004.9 4.9l.9-1.2a1 1 0 011.1-.36l2.4.8a1 1 0 01.68.95v2.2a1.5 1.5 0 01-1.5 1.5C8.5 16.9 3.1 11.5 3 4.5z" stroke={c} strokeWidth="1.5"/></svg>,
+  documento:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 2v5h5M8 11h4M8 14h6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  placa:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="10" rx="2" stroke={c} strokeWidth="1.5"/><path d="M6 5v10M14 5v10M2 10h16" stroke={c} strokeWidth="1.2" opacity=".4"/></svg>,
+  moeda:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke={c} strokeWidth="1.5"/><path d="M10 5v10M7.5 7.5h3.75a1.75 1.75 0 010 3.5H7.5h4a1.5 1.5 0 010 3H7.5" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  olhoOn:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 10s3.5-5 8-5 8 5 8 5-3.5 5-8 5-8-5-8-5z" stroke={c} strokeWidth="1.5"/><circle cx="10" cy="10" r="2.5" stroke={c} strokeWidth="1.5"/></svg>,
+  olhoOff:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M2 10s3.5-5 8-5 8 5 8 5-3.5 5-8 5-8-5-8-5z" stroke={c} strokeWidth="1.5"/><path d="M4 4l12 12" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  limpar:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
+  dropdown:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  save:(s:number=14,c:string="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M13 1H3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V4l-2-3z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M5 1v4h6V1" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><rect x="4" y="9" width="8" height="4" rx=".5" stroke={c} strokeWidth="1.5"/></svg>,
+  grid:(s:number=16,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
+  alerta:(s:number=16,c:string=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L1.5 17h17L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 8v4M10 14v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
 };
 
 /* ═══════════════════════════════════════════ JUNCTION LINES ═══════════════════════════════════════════ */
-function JunctionLines({style}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 170H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 20H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
+function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 170H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 20H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
 /* ═══════════════════════════════════════════ FIELD INPUT ═══════════════════════════════════════════ */
-function FInput({label,placeholder,icon,iconRight,required,error,errorMsg,disabled,readOnly,helper,compact,value:cv,onChange,onClear,showToggle,size="desktop",cols}){
-  const [focused,setFocused]=useState(false);const [val,setVal]=useState(cv||"");const [showPw,setShowPw]=useState(false);const ref=useRef(null);
-  const sm={desktop:{h:35,fs:13},mobile:{h:42,fs:14},compact:{h:30,fs:12}};const sz=compact?sm.compact:sm[size]||sm.desktop;
+function FInput({label,placeholder,icon,iconRight,required,error,errorMsg,disabled,readOnly,helper,compact,value:cv,onChange,onClear,showToggle,size="desktop",cols}:{label?:string,placeholder?:string,icon?:React.ReactNode,iconRight?:React.ReactNode,required?:boolean,error?:boolean,errorMsg?:string,disabled?:boolean,readOnly?:boolean,helper?:string,compact?:boolean,value?:string,onChange?:(v:string)=>void,onClear?:()=>void,showToggle?:boolean,size?:string,cols?:number}){
+  const [focused,setFocused]=useState(false);const [val,setVal]=useState(cv||"");const [showPw,setShowPw]=useState(false);const ref=useRef<HTMLInputElement>(null);
+  const sm={desktop:{h:35,fs:13},mobile:{h:42,fs:14},compact:{h:30,fs:12}};const sz=compact?sm.compact:(sm as Record<string,any>)[size]||sm.desktop;
   const dv=cv!==undefined?cv:val;
   const bc=error?C.danger:focused?C.azulProfundo:C.inputBorder;
   const bg=disabled?"#F1F5F9":C.branco;
@@ -64,7 +64,7 @@ function FInput({label,placeholder,icon,iconRight,required,error,errorMsg,disabl
     </div>
   );
 }
-function FSelect({label,icon,options=[],value,disabled,compact,cols}){
+function FSelect({label,icon,options=[],value,disabled,compact,cols}:{label?:string,icon?:React.ReactNode,options?:string[],value?:string,disabled?:boolean,compact?:boolean,cols?:number}){
   const h=compact?30:35;
   return(
     <div style={{display:"flex",flexDirection:"column",minWidth:0,gridColumn:cols?`span ${cols}`:undefined}}>
@@ -77,7 +77,7 @@ function FSelect({label,icon,options=[],value,disabled,compact,cols}){
     </div>
   );
 }
-function FTextarea({label,placeholder,rows=3,compact,cols}){
+function FTextarea({label,placeholder,rows=3,compact,cols}:{label?:string,placeholder?:string,rows?:number,compact?:boolean,cols?:number}){
   return(
     <div style={{display:"flex",flexDirection:"column",minWidth:0,gridColumn:cols?`span ${cols}`:undefined}}>
       {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,marginBottom:1,marginLeft:7}}>{label}</label>}
@@ -87,10 +87,10 @@ function FTextarea({label,placeholder,rows=3,compact,cols}){
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return (
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return (
   <section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body}}>{desc}</p>{children}</section>
 );}
-function Card({children,s}){return (
+function Card({children,s}:{children:React.ReactNode,s?:React.CSSProperties}){return (
   <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>
 );}
 
@@ -102,7 +102,7 @@ const gt={fontSize:13,color:C.cinzaEscuro,lineHeight:1.55,margin:0,fontFamily:F.
 const ge={fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:F.body,fontStyle:"italic",paddingLeft:10,borderLeft:`2px solid ${C.azulCeuClaro}`};
 const gk={fontSize:11,fontFamily:F.mono,color:C.cinzaChumbo,background:C.cardBg,padding:"2px 8px",borderRadius:4,border:`1px solid ${C.cardBorder}`};
 
-function TokenRow({label,value,color}){
+function TokenRow({label,value,color}:{label:string,value:string,color?:string}){
   return (
     <div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:F.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:100}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:F.mono,color:C.cinzaEscuro}}>{value}</code></div>
   );

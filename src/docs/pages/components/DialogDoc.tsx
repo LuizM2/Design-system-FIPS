@@ -19,18 +19,18 @@ const F={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
 const Ic={
-  grid:(s=14,c=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
-  x:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
-  trash:(s=14,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.33 4V2.67a1.33 1.33 0 011.34-1.34h2.66a1.33 1.33 0 011.34 1.34V4m2 0v9.33a1.33 1.33 0 01-1.34 1.34H4.67a1.33 1.33 0 01-1.34-1.34V4h9.34z" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  filter:(s=14,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M1.5 2h13L9 8.5V13l-2 1V8.5L1.5 2z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/></svg>,
-  info:(s=14,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M8 7v4M8 5v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  check:(s=14,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  alert:(s=14,c=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 14h14L8 1.5z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M8 6v3.5M8 11.5v.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  search:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke={c} strokeWidth="1.5"/><path d="M10.5 10.5L14 14" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  shield:(s=14,c=C.verdeFloresta)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.5 2.5 5.5 6 7 3.5-1.5 6-3.5 6-7V4L8 1z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/></svg>,
-  doc:(s=14,c=C.azulClaro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 1h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M10 1v4h4M6 8h4M6 11h4" stroke={c} strokeWidth="1.2" strokeLinecap="round"/></svg>,
-  building:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 14V3a1 1 0 011-1h5a1 1 0 011 1v11M9 14V8h4a1 1 0 011 1v5M5 5h1M5 8h1M5 11h1M11 10h1" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  maximize:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  grid:(s:number=14,c:string=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
+  x:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
+  trash:(s:number=14,c:string="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.33 4V2.67a1.33 1.33 0 011.34-1.34h2.66a1.33 1.33 0 011.34 1.34V4m2 0v9.33a1.33 1.33 0 01-1.34 1.34H4.67a1.33 1.33 0 01-1.34-1.34V4h9.34z" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  filter:(s:number=14,c:string=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M1.5 2h13L9 8.5V13l-2 1V8.5L1.5 2z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/></svg>,
+  info:(s:number=14,c:string=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M8 7v4M8 5v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
+  check:(s:number=14,c:string="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  alert:(s:number=14,c:string=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 14h14L8 1.5z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M8 6v3.5M8 11.5v.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  search:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke={c} strokeWidth="1.5"/><path d="M10.5 10.5L14 14" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  shield:(s:number=14,c:string=C.verdeFloresta)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.5 2.5 5.5 6 7 3.5-1.5 6-3.5 6-7V4L8 1z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/></svg>,
+  doc:(s:number=14,c:string=C.azulClaro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 1h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M10 1v4h4M6 8h4M6 11h4" stroke={c} strokeWidth="1.2" strokeLinecap="round"/></svg>,
+  building:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 14V3a1 1 0 011-1h5a1 1 0 011 1v11M9 14V8h4a1 1 0 011 1v5M5 5h1M5 8h1M5 11h1M11 10h1" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  maximize:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 };
 
 /* ═══════════════════════════════════════════ SVG OVERLAY ═══════════════════════════════════════════ */
@@ -201,7 +201,7 @@ function ModalFooter({children}:{children:React.ReactNode}){
 }
 
 /* ═══════════════════════════════════════════ GUIDE CARD ═══════════════════════════════════════════ */
-function GuideRow({icon,label,desc,good}:{icon?:React.ReactNode;label:string;desc:string;good:boolean}){
+function GuideRow({icon: _icon,label,desc,good}:{icon?:React.ReactNode;label:string;desc:string;good:boolean}){
   return(
     <div style={{display:"flex",alignItems:"flex-start",gap:10,padding:"10px 0",borderBottom:`1px solid ${C.cardBorder}`}}>
       <div style={{width:22,height:22,borderRadius:"50%",background:good?"#ECFDF5":"#FEF2F2",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>

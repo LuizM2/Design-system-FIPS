@@ -28,14 +28,14 @@ function JunctionLines({style}:{style?:React.CSSProperties}){
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
 const Ic = {
-  check:(s=14,c="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  x:(s=12,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
-  alert:(s=14,c=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 14h14L8 1.5z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M8 6v3.5M8 11.5v.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  info:(s=14,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M8 7v4M8 5v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  error:(s=14,c=C.danger)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  bell:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 6a4 4 0 018 0c0 4 2 5 2 5H2s2-1 2-5zM6.5 13a1.5 1.5 0 003 0" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  undo:(s=14,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3 7h7a3 3 0 010 6H7" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.5 4.5L3 7l2.5 2.5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  grid:(s=14,c=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill={c}/><rect x="9" y="1" width="6" height="6" rx="1.5" fill={c} opacity="0.5"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill={c} opacity="0.5"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill={c} opacity="0.3"/></svg>,
+  check:(s:number=14,c:string="#fff")=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  x:(s:number=12,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
+  alert:(s:number=14,c:string=C.amareloEscuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 14h14L8 1.5z" stroke={c} strokeWidth="1.3" strokeLinejoin="round"/><path d="M8 6v3.5M8 11.5v.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  info:(s:number=14,c:string=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M8 7v4M8 5v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
+  error:(s:number=14,c:string=C.danger)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke={c} strokeWidth="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  bell:(s:number=14,c:string=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 6a4 4 0 018 0c0 4 2 5 2 5H2s2-1 2-5zM6.5 13a1.5 1.5 0 003 0" stroke={c} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  undo:(s:number=14,c:string=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M3 7h7a3 3 0 010 6H7" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M5.5 4.5L3 7l2.5 2.5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  grid:(s:number=14,c:string=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill={c}/><rect x="9" y="1" width="6" height="6" rx="1.5" fill={c} opacity="0.5"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill={c} opacity="0.5"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill={c} opacity="0.3"/></svg>,
 };
 
 /* ═══════════════════════════════════════════ TOAST VISUAL ═══════════════════════════════════════════ */
@@ -174,7 +174,7 @@ function PositionDiagram({mob}:{mob:boolean}){
 }
 
 /* ═══════════════════════════════════════════ COMPARISON TABLE ═══════════════════════════════════════════ */
-function ComparisonTable({mob}:{mob:boolean}){
+function ComparisonTable({mob: _mob}:{mob:boolean}){
   const rows = [
     {feature:"Bloqueante?",toast:"Nao",modal:"Sim",inline:"Nao"},
     {feature:"Requer acao?",toast:"Opcional",modal:"Sim",inline:"Nao"},
