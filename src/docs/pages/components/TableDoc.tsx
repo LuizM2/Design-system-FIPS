@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment -- doc page synced from DS export bundle */
 // @ts-nocheck
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from 'react'
+import type { CSSProperties } from 'react'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"#E8EBFF",branco:"#FFFFFF",bg:"#F2F4F8",cardBg:"#FFFFFF",cardBorder:"#E2E8F0",textMuted:"#64748B",textLight:"#94A3B8"};
@@ -15,7 +17,16 @@ const Ic={
   edit:(s=14,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M12 3l5 5-10 10H2v-5L12 3z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
 };
 
-function JunctionLines({style}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
+function JunctionLines({ style }: { style?: CSSProperties }) {
+  return (
+    <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, ...style }}>
+      <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round" />
+      <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round" />
+      <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round" />
+      <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round" />
+    </svg>
+  )
+}
 
 /* ═══════════════════════════════════════════ BADGE ═══════════════════════════════════════════ */
 const BV={sucesso:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},atencao:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},critico:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},info:{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu},secondary:{bg:C.bg,color:C.cinzaEscuro,border:C.cardBorder}};
@@ -50,6 +61,20 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
   const [colOrder,setColOrder]=useState(()=>columns.map(c=>c.key));
   const [dragIdx,setDragIdx]=useState(null);
   const [dragOverIdx,setDragOverIdx]=useState(null);
+  const [configTab,setConfigTab]=useState("colunas");
+  const [densityS,setDensityS]=useState(compact?"compact":"normal");
+  const [stripedS,setStripedS]=useState(striped);
+  const [borderedS,setBorderedS]=useState(!!bordered);
+  const [stickyHS,setStickyHS]=useState(false);
+  const [wrapTextS,setWrapTextS]=useState(false);
+  const configRef=useRef(null);
+
+  useEffect(()=>{
+    if(!showColMenu)return;
+    const h=e=>{if(configRef.current&&!configRef.current.contains(e.target))setShowColMenu(false)};
+    document.addEventListener("mousedown",h);
+    return()=>document.removeEventListener("mousedown",h);
+  },[showColMenu]);
 
   const toggleCol=(key)=>setHiddenCols(h=>h.includes(key)?h.filter(k=>k!==key):[...h,key]);
   const orderedCols=colOrder.map(k=>columns.find(c=>c.key===k)).filter(Boolean);
@@ -92,8 +117,8 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
   const toggleAll=()=>setSelected(allSelected?[]:paged.map((_,i)=>i));
   const toggleRow=(i)=>setSelected(s=>s.includes(i)?s.filter(x=>x!==i):[...s,i]);
 
-  const py=compact?6:10;
-  const fs=compact?11:12;
+  const py=densityS==="compact"?6:densityS==="comfortable"?14:10;
+  const fs=densityS==="compact"?11:densityS==="comfortable"?13:12;
 
   const pgBtn=(label,disabled,onClick)=><button onClick={onClick} disabled={disabled} style={{padding:"4px 10px",fontSize:11,fontWeight:600,fontFamily:Fn.body,background:disabled?"transparent":C.cardBg,color:disabled?C.textLight:C.azulProfundo,border:`1px solid ${disabled?C.cardBorder:C.azulCeu}`,borderRadius:5,cursor:disabled?"default":"pointer",transition:"all .15s"}}>{label}</button>;
 
@@ -111,43 +136,97 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
           </div>
           <div style={{display:"flex",alignItems:"center",gap:12}}>
             {configurable&&(
-              <div style={{position:"relative"}}>
-                <button onClick={()=>setShowColMenu(v=>!v)} style={{display:"flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.cinzaEscuro,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:6,cursor:"pointer"}}>
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke={C.cinzaChumbo} strokeWidth="1.5"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3M3.9 3.9l2.1 2.1M14 14l2.1 2.1M16.1 3.9l-2.1 2.1M6 14l-2.1 2.1" stroke={C.cinzaChumbo} strokeWidth="1.3" strokeLinecap="round"/></svg>
-                  Colunas
+              <div ref={configRef} style={{position:"relative"}}>
+                <button onClick={()=>setShowColMenu(v=>!v)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showColMenu?C.azulProfundo:C.cinzaEscuro,background:showColMenu?C.azulCeuClaro:C.cardBg,border:`1px solid ${showColMenu?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}}>
+                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M3 5h6M13 5h4M3 10h2M9 10h8M3 15h10M17 15h0" stroke={showColMenu?C.azulProfundo:C.cinzaChumbo} strokeWidth="1.6" strokeLinecap="round"/><circle cx="11" cy="5" r="1.6" fill={showColMenu?C.azulProfundo:C.cinzaChumbo}/><circle cx="7" cy="10" r="1.6" fill={showColMenu?C.azulProfundo:C.cinzaChumbo}/><circle cx="15" cy="15" r="1.6" fill={showColMenu?C.azulProfundo:C.cinzaChumbo}/></svg>
+                  Configurar
                 </button>
                 {showColMenu&&(
-                  <div style={{position:"absolute",top:"100%",right:0,marginTop:4,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:10,boxShadow:"0 4px 20px rgba(0,0,0,.12)",padding:"12px 0",zIndex:20,minWidth:220,maxHeight:340,display:"flex",flexDirection:"column"}} onClick={e=>e.stopPropagation()}>
-                    <div style={{padding:"0 14px 10px",fontSize:11,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,letterSpacing:".5px",display:"flex",alignItems:"center",gap:6,borderBottom:`1px solid ${C.cardBorder}`,paddingBottom:10}}>
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke={C.cinzaClaro} strokeWidth="1.5" strokeLinecap="round"/></svg>
-                      Arraste para ordenar
+                  <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",overflow:"hidden"}}>
+                    {/* Header */}
+                    <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Configurações</span>
+                      <button onClick={()=>setShowColMenu(false)} style={{width:22,height:22,background:"transparent",border:"none",cursor:"pointer",borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={C.cinzaChumbo} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                      </button>
                     </div>
-                    <div style={{overflowY:"auto",flex:1,padding:"4px 0"}}>
-                      {colOrder.map((key,i)=>{
-                        const col=columns.find(c=>c.key===key);
-                        if(!col)return null;
-                        const isDrag=dragIdx===i;
-                        const isOver=dragOverIdx===i;
-                        return(
-                          <div key={key} draggable onDragStart={()=>handleDragStart(i)} onDragOver={e=>handleDragOver(e,i)} onDrop={()=>handleDrop(i)} onDragEnd={handleDragEnd}
-                            style={{display:"flex",alignItems:"center",gap:8,padding:"7px 14px",fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body,cursor:"grab",transition:"background .1s",opacity:isDrag?.4:1,background:isOver?`${C.azulCeu}15`:"transparent",borderTop:isOver?`2px solid ${C.azulProfundo}`:"2px solid transparent"}}
-                            onMouseEnter={e=>{if(!isDrag)e.currentTarget.style.background=C.bg}}
-                            onMouseLeave={e=>{if(!isOver)e.currentTarget.style.background="transparent"}}
-                          >
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{flexShrink:0,opacity:.35,cursor:"grab"}}>
-                              <circle cx="5" cy="3" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="3" r="1.2" fill={C.cinzaChumbo}/>
-                              <circle cx="5" cy="8" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="8" r="1.2" fill={C.cinzaChumbo}/>
-                              <circle cx="5" cy="13" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="13" r="1.2" fill={C.cinzaChumbo}/>
-                            </svg>
-                            <input type="checkbox" checked={!hiddenCols.includes(key)} onChange={()=>toggleCol(key)} style={{cursor:"pointer",width:16,height:16}} onClick={e=>e.stopPropagation()}/>
-                            <span style={{flex:1}}>{col.label||key}</span>
-                          </div>
-                        );
-                      })}
+                    {/* Tabs */}
+                    <div style={{display:"flex",borderBottom:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                      {[
+                        {id:"colunas",label:"Colunas"},
+                        {id:"densidade",label:"Densidade"},
+                        {id:"aparencia",label:"Aparência"},
+                      ].map(t=>(
+                        <button key={t.id} onClick={()=>setConfigTab(t.id)} style={{flex:1,padding:"9px 8px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:configTab===t.id?C.azulProfundo:C.cinzaChumbo,background:configTab===t.id?C.cardBg:"transparent",border:"none",borderBottom:`2px solid ${configTab===t.id?C.azulProfundo:"transparent"}`,cursor:"pointer",transition:"all .12s"}}>{t.label}</button>
+                      ))}
                     </div>
-                    <div style={{borderTop:`1px solid ${C.cardBorder}`,padding:"8px 14px 4px",display:"flex",justifyContent:"space-between"}}>
-                      <button onClick={()=>{setHiddenCols([]);setColOrder(columns.map(c=>c.key))}} style={{fontSize:11,color:C.azulProfundo,background:"none",border:"none",cursor:"pointer",fontFamily:Fn.body,fontWeight:600,padding:0}}>Resetar</button>
-                      <button onClick={()=>setShowColMenu(false)} style={{fontSize:11,color:C.cinzaChumbo,background:"none",border:"none",cursor:"pointer",fontFamily:Fn.body,fontWeight:500,padding:0}}>Fechar</button>
+                    {/* Body */}
+                    <div style={{padding:"12px 0",maxHeight:320,overflowY:"auto"}}>
+                      {configTab==="colunas"&&(
+                        <>
+                          <div style={{padding:"0 14px 8px",fontSize:9,fontWeight:700,letterSpacing:".5px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Arraste para ordenar</div>
+                          {colOrder.map((key,i)=>{
+                            const col=columns.find(c=>c.key===key);
+                            if(!col)return null;
+                            const isDrag=dragIdx===i;
+                            const isOver=dragOverIdx===i;
+                            return(
+                              <div key={key} draggable onDragStart={()=>handleDragStart(i)} onDragOver={e=>handleDragOver(e,i)} onDrop={()=>handleDrop(i)} onDragEnd={handleDragEnd}
+                                style={{display:"flex",alignItems:"center",gap:8,padding:"7px 14px",fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body,cursor:"grab",transition:"background .1s",opacity: isDrag ? 0.4 : 1,background:isOver?`${C.azulCeu}15`:"transparent",borderTop:isOver?`2px solid ${C.azulProfundo}`:"2px solid transparent"}}
+                                onMouseEnter={e=>{if(!isDrag)e.currentTarget.style.background=C.bg}}
+                                onMouseLeave={e=>{if(!isOver)e.currentTarget.style.background="transparent"}}
+                              >
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{flexShrink:0,opacity:.35,cursor:"grab"}}>
+                                  <circle cx="5" cy="3" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="3" r="1.2" fill={C.cinzaChumbo}/>
+                                  <circle cx="5" cy="8" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="8" r="1.2" fill={C.cinzaChumbo}/>
+                                  <circle cx="5" cy="13" r="1.2" fill={C.cinzaChumbo}/><circle cx="11" cy="13" r="1.2" fill={C.cinzaChumbo}/>
+                                </svg>
+                                <div onMouseDown={e=>e.stopPropagation()} onClick={e=>{e.stopPropagation();toggleCol(key)}} style={{width:14,height:14,borderRadius:3,border:`1.5px solid ${!hiddenCols.includes(key)?C.azulProfundo:C.cardBorder}`,background:!hiddenCols.includes(key)?C.azulProfundo:C.branco,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,cursor:"pointer"}}>{!hiddenCols.includes(key)&&<svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={C.branco} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>}</div>
+                                <span style={{flex:1}} onMouseDown={e=>e.stopPropagation()} onClick={e=>{e.stopPropagation();toggleCol(key)}}>{col.label||key}</span>
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
+                      {configTab==="densidade"&&(
+                        <div style={{padding:"4px 14px",display:"flex",flexDirection:"column",gap:4}}>
+                          {[
+                            {id:"compact",label:"Compacta",desc:"30px · alta densidade"},
+                            {id:"normal",label:"Normal",desc:"42px · padrão"},
+                            {id:"comfortable",label:"Confortável",desc:"56px · acessível"},
+                          ].map(d=>(
+                            <div key={d.id} onClick={()=>setDensityS(d.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 10px",borderRadius:6,cursor:"pointer",background:densityS===d.id?C.azulCeuClaro:"transparent",transition:"background .1s"}} onMouseEnter={e=>{if(densityS!==d.id)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(densityS!==d.id)e.currentTarget.style.background="transparent"}}>
+                              <div style={{width:14,height:14,borderRadius:"50%",border:`1.5px solid ${densityS===d.id?C.azulProfundo:C.cardBorder}`,background:densityS===d.id?C.azulProfundo:C.branco,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{densityS===d.id&&<div style={{width:5,height:5,borderRadius:"50%",background:C.branco}}/>}</div>
+                              <div style={{flex:1}}>
+                                <div style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{d.label}</div>
+                                <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:1}}>{d.desc}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {configTab==="aparencia"&&(
+                        <div style={{padding:"4px 14px",display:"flex",flexDirection:"column",gap:2}}>
+                          {[
+                            {id:"zebra",label:"Linhas zebradas",val:stripedS,set:setStripedS},
+                            {id:"borders",label:"Bordas verticais",val:borderedS,set:setBorderedS},
+                            {id:"sticky",label:"Header fixo",val:stickyHS,set:setStickyHS},
+                            {id:"wrap",label:"Quebra de linha",val:wrapTextS,set:setWrapTextS},
+                          ].map(t=>(
+                            <div key={t.id} onClick={()=>t.set(!t.val)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"8px 10px",borderRadius:6,cursor:"pointer",transition:"background .1s"}} onMouseEnter={e=>{e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>
+                              <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{t.label}</span>
+                              <div style={{width:30,height:16,borderRadius:8,background:t.val?C.azulProfundo:C.cardBorder,position:"relative",transition:"background .15s"}}>
+                                <div style={{position:"absolute",top:2,left:t.val?16:2,width:12,height:12,borderRadius:"50%",background:C.branco,boxShadow:"0 1px 2px rgba(0,0,0,.2)",transition:"left .15s"}}/>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    {/* Footer */}
+                    <div style={{padding:"10px 14px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <button onClick={()=>{setHiddenCols([]);setColOrder(columns.map(c=>c.key));setDensityS(compact?"compact":"normal");setStripedS(striped);setBorderedS(!!bordered);setStickyHS(false);setWrapTextS(false)}} style={{fontSize:10,color:C.cinzaChumbo,background:"transparent",border:"none",cursor:"pointer",fontFamily:Fn.body,fontWeight:600}}>Restaurar padrão</button>
+                      <button onClick={()=>setShowColMenu(false)} style={{padding:"6px 12px",fontSize:11,fontWeight:700,color:C.branco,background:C.azulProfundo,border:"none",borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}>Aplicar</button>
                     </div>
                   </div>
                 )}
@@ -157,13 +236,13 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
           </div>
         </div>
       )}
-      <div style={{overflowX:"auto"}}>
+      <div style={{overflowX:"auto",...(stickyHS?{maxHeight:420,overflowY:"auto"}:{})}}>
         <table style={{width:"100%",borderCollapse:"collapse",fontFamily:Fn.body}}>
-          <thead>
+          <thead style={stickyHS?{position:"sticky",top:0,zIndex:2,background:C.bg,boxShadow:`0 1px 0 ${C.cardBorder}`}:undefined}>
             <tr style={{background:C.bg}}>
-              {selectable&&<th style={{padding:`${py}px 12px ${py}px 16px`,width:36}}><input type="checkbox" checked={allSelected} onChange={toggleAll} style={{cursor:"pointer",}}/></th>}
-              {visibleCols.map(col=>(
-                <th key={col.key} onClick={()=>col.sortable!==false&&toggleSort(col.key)} style={{padding:`${py+2}px 16px`,textAlign:"center",fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title,cursor:col.sortable!==false&&sortable?"pointer":"default",userSelect:"none",borderBottom:`2px solid ${C.cardBorder}`,whiteSpace:"nowrap",transition:"color .15s",...(col.width?{width:col.width}:{})}}>
+              {selectable&&<th style={{padding:`${py}px 12px ${py}px 16px`,width:36,...(borderedS?{borderRight:`1px solid ${C.cardBorder}`}:{})}}><input type="checkbox" checked={allSelected} onChange={toggleAll} style={{cursor:"pointer",}}/></th>}
+              {visibleCols.map((col,ci)=>(
+                <th key={col.key} onClick={()=>col.sortable!==false&&toggleSort(col.key)} style={{padding:`${py+2}px 16px`,textAlign:"center",fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title,cursor:col.sortable!==false&&sortable?"pointer":"default",userSelect:"none",borderBottom:`2px solid ${C.cardBorder}`,whiteSpace:"nowrap",transition:"color .15s",...(borderedS&&ci<visibleCols.length-1?{borderRight:`1px solid ${C.cardBorder}`}:{}),...(col.width?{width:col.width}:{})}}>
                   <span style={{display:"inline-flex",alignItems:"center",gap:4,justifyContent:"center"}}>
                     {col.label}
                     {sortable&&col.sortable!==false&&(sortCol===col.key?sortDir==="asc"?Ic.sortAsc(12,C.azulProfundo):Ic.sortDesc(12,C.azulProfundo):Ic.sortNone(12))}
@@ -221,12 +300,12 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
             {!loading&&paged.map((row,i)=>{
               const isSelected=selected.includes(i);
               const isHover=hoverRow===i;
-              const rowBg=isSelected?`${C.azulCeu}20`:isHover?`${C.amareloOuro}18`:striped&&i%2===1?`${C.azulCeu}0D`:"transparent";
+              const rowBg=isSelected?`${C.azulCeu}20`:isHover?`${C.amareloOuro}18`:stripedS&&i%2===1?`${C.azulCeu}0D`:"transparent";
               return(
-                <tr key={i} onMouseEnter={()=>setHoverRow(i)} onMouseLeave={()=>setHoverRow(-1)} style={{background:rowBg,transition:"background .12s",cursor:selectable?"pointer":"default",...(bordered?{borderBottom:`1px solid ${C.cardBorder}`}:{borderBottom:i<paged.length-1?`1px solid ${C.cardBorder}`:"none"})}} onClick={()=>selectable&&toggleRow(i)}>
-                  {selectable&&<td style={{padding:`${py}px 12px ${py}px 16px`}}><input type="checkbox" checked={isSelected} onChange={()=>toggleRow(i)} style={{cursor:"pointer",}}/></td>}
-                  {visibleCols.map(col=>(
-                    <td key={col.key} style={{padding:`${py}px 16px`,fontSize:fs,color:C.cinzaEscuro,textAlign:col.align||"left",whiteSpace:"nowrap"}}>
+                <tr key={i} onMouseEnter={()=>setHoverRow(i)} onMouseLeave={()=>setHoverRow(-1)} style={{background:rowBg,transition:"background .12s",cursor:selectable?"pointer":"default",...(borderedS?{borderBottom:`1px solid ${C.cardBorder}`}:{borderBottom:i<paged.length-1?`1px solid ${C.cardBorder}`:"none"})}} onClick={()=>selectable&&toggleRow(i)}>
+                  {selectable&&<td style={{padding:`${py}px 12px ${py}px 16px`,...(borderedS?{borderRight:`1px solid ${C.cardBorder}`}:{})}}><input type="checkbox" checked={isSelected} onChange={()=>toggleRow(i)} style={{cursor:"pointer",}}/></td>}
+                  {visibleCols.map((col,ci)=>(
+                    <td key={col.key} style={{padding:`${py}px 16px`,fontSize:fs,color:C.cinzaEscuro,textAlign:col.align||"left",whiteSpace:wrapTextS?"normal":"nowrap",...(borderedS&&ci<visibleCols.length-1?{borderRight:`1px solid ${C.cardBorder}`}:{})}}>
                       {col.render?col.render(row[col.key],row):row[col.key]}
                     </td>
                   ))}
@@ -307,7 +386,7 @@ const fornData=[
 const statusForn={Ativo:"sucesso",Pendente:"atencao",Inativo:"critico"};
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
-export default function TableDoc(){
+export default function TableDoc() {
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
@@ -320,7 +399,7 @@ export default function TableDoc(){
     {key:"valor",label:"Valor",align:"right",render:v=><span style={{fontFamily:Fn.mono,fontWeight:600,color:C.azulEscuro}}>R$ {v.toLocaleString("pt-BR")}</span>},
     {key:"status",label:"Status",render:v=><Badge variant={statusMap[v]} dot>{v}</Badge>},
     {key:"sla",label:"SLA",width:120,render:v=><MiniProgress value={v}/>},
-    {key:"_actions",label:"",sortable:false,width:70,render:(_,r)=><div style={{display:"flex",gap:4}}><ActionBtn icon={Ic.eye(14,C.azulProfundo)} title="Ver"/><ActionBtn icon={Ic.edit(14,C.cinzaChumbo)} title="Editar"/></div>},
+    {key:"_actions",label:"",sortable:false,width:70,render:()=><div style={{display:"flex",gap:4}}><ActionBtn icon={Ic.eye(14,C.azulProfundo)} title="Ver"/><ActionBtn icon={Ic.edit(14,C.cinzaChumbo)} title="Editar"/></div>},
   ];
 
   const fornCols=[
@@ -748,7 +827,7 @@ export default function TableDoc(){
                 {prop:"subtitle",type:"string",def:"—",desc:"Subtítulo descritivo abaixo do título. Contexto da listagem."},
                 {prop:"configurable",type:"boolean",def:"false",desc:"Exibe botão 'Colunas' com dropdown para ocultar/exibir e reordenar colunas. Usar apenas com 5+ colunas — tabelas com poucas colunas não precisam de configuração."},
               ].map((p,i)=>(
-                <div key={p.prop} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"10px 0",borderBottom:i<11?`1px solid ${C.cardBorder}`:"none"}}>
+                <div key={p.prop} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"10px 0",borderBottom:i<14?`1px solid ${C.cardBorder}`:"none"}}>
                   <code style={{fontFamily:Fn.mono,fontSize:12,fontWeight:700,color:C.azulProfundo,minWidth:110}}>{p.prop}</code>
                   <code style={{fontFamily:Fn.mono,fontSize:10,color:C.cinzaChumbo,background:C.bg,padding:"2px 6px",borderRadius:3,minWidth:60,textAlign:"center"}}>{p.type}</code>
                   <code style={{fontFamily:Fn.mono,fontSize:10,color:C.textMuted,minWidth:55,textAlign:"center"}}>{p.def}</code>
