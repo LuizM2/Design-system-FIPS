@@ -25,14 +25,6 @@ const Ic={
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function SparkArea({data,color,w=200,h=34}:{data:number[],color:string,w?:number,h?:number}){
-  if(!data||data.length<2)return null;
-  const max=Math.max(...data),min=Math.min(...data);
-  const pts=data.map((v,i)=>`${(i/(data.length-1))*w},${h-((v-min)/(max-min||1))*(h-4)+2}`);
-  const uid=color.replace('#','')+(w+h)+data.length;
-  return <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{display:"block",width:"100%"}}><defs><linearGradient id={`ga${uid}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity=".18"/><stop offset="100%" stopColor={color} stopOpacity="0"/></linearGradient></defs><polygon points={`0,${h} ${pts.join(" ")} ${w},${h}`} fill={`url(#ga${uid})`}/><polyline points={pts.join(" ")} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-}
-
 function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const r=(size-stroke)/2;const circ=2*Math.PI*r;const off=circ-(pct/100)*circ;return <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform:"rotate(-90deg)"}}><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={`${color}18`} strokeWidth={stroke}/><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth={stroke} strokeDasharray={circ} strokeDashoffset={off} strokeLinecap="round"/></svg>}
 
 const BV: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},Aguardando:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},Recusada:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},"Em análise":{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu}};
@@ -215,6 +207,12 @@ const STATUS_D_META=[
 ];
 const DAYS_LABELS=["Seg","Ter","Qua","Qui","Sex"];
 
+function getRowBreakdownValue(row: Row, breakdown: "status" | "dept" | "priority") {
+  if (breakdown === "status") return row.status;
+  if (breakdown === "dept") return row.dept;
+  return row.priority;
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DSFIPSDashboard(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
@@ -300,7 +298,7 @@ export default function DSFIPSDashboard(){
     const lists: Record<string,string[]>={status:STATUSES,dept:DEPTS,priority:PRIORITIES};
     const src=meta.slaFilter?filtered.filter(r=>r.sla<50):meta.statusFilter?filtered.filter(r=>r.status===meta.statusFilter):filtered;
     const keys=lists[meta.breakdown];const clrs=colors[meta.breakdown];
-    return{title:meta.label,color:meta.color,total:src.length,rows:keys.map(k=>({label:k,value:src.filter(r=>(r as Record<string,unknown>)[meta.breakdown]===k).length,color:clrs[k]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
+    return{title:meta.label,color:meta.color,total:src.length,rows:keys.map(k=>({label:k,value:src.filter(r=>getRowBreakdownValue(r,meta.breakdown)===k).length,color:clrs[k]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
   },[hovKpiCard,filtered]);
 
   const tipStatusD=useMemo(()=>{

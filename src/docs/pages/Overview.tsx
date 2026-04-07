@@ -62,6 +62,39 @@ const components=[
   {name:"Table",desc:"Sort, select, paginate, composições ricas",icon:Ic.table,color:C.verdeFloresta},
 ];
 
+const downloadPackages=[
+  {
+    kind:"docs",
+    file:"design-system-fips-complete-docs.md",
+    title:"Documentação completa",
+    description:"Markdown offline com fundamentos, componentes, governança e mapa de código do Design System FIPS.",
+    href:"/downloads/design-system-fips-complete-docs.md",
+    cta:"Baixar .md",
+    accent:C.amareloOuro,
+    bullets:[
+      "Tokens oficiais de cor, tipografia, spacing, raios e sombras",
+      "Mapa dos arquivos-fonte do repositório",
+      "Regras de uso por componente e padrão de tela",
+      "Checklist de governança para times e parceiros",
+    ],
+  },
+  {
+    kind:"skill",
+    file:"design-system-fips-skill.zip",
+    title:"Skill portátil para IA",
+    description:"Pacote com SKILL.md, referências sob demanda e instruções exatas para outra IA reproduzir o padrão FIPS.",
+    href:"/downloads/design-system-fips-skill.zip",
+    cta:"Baixar .zip",
+    accent:C.verdeFloresta,
+    bullets:[
+      "SKILL.md pronto para uso em ambientes Codex/OpenAI",
+      "Referências separadas por foundations, components e patterns",
+      "Snippets essenciais e ordem de prioridade das fontes",
+      "Regras para reutilizar componentes em vez de CSS local",
+    ],
+  },
+];
+
 export default function DSFIPSOverview(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
@@ -247,32 +280,59 @@ export default function DSFIPSOverview(){
           </DSCard>
         </Section>
 
-        <Section n="07" title="Baixar documentação" desc="Arquivo Markdown com todos os tokens, decisões e regras do Design System para referência offline.">
+        <Section n="07" title="Baixar pacotes para IA" desc="Baixe a documentação consolidada ou a skill portátil para usar este design system fora deste projeto.">
           <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"12px 12px 12px 24px",padding:mob?"24px 20px":"32px 36px",position:"relative",overflow:"hidden"}}>
             <JunctionLines style={{position:"absolute",top:-20,right:-30,width:350,height:250,opacity:.08}}/>
-            <div style={{position:"relative",display:"flex",alignItems:mob?"flex-start":"center",gap:mob?16:28,flexDirection:mob?"column":"row"}}>
-              <div style={{width:56,height:56,borderRadius:16,background:`${C.branco}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke={C.amareloOuro} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke={C.amareloOuro} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </div>
-              <div style={{flex:1}}>
-                <span style={{fontSize:18,fontWeight:700,color:C.branco,fontFamily:Fn.title,display:"block",marginBottom:4}}>DS-FIPS.md</span>
-                <span style={{fontSize:13,color:`${C.branco}A0`,fontFamily:Fn.body,lineHeight:1.5,display:"block"}}>Documento completo com tokens de cor, tipografia, espaçamento, breakpoints, regras de uso por componente e decisões de design.</span>
-              </div>
-              <div style={{display:"inline-flex",alignItems:"center",gap:6,background:C.amareloOuro,color:C.azulEscuro,padding:"10px 20px",borderRadius:8,fontSize:13,fontWeight:700,fontFamily:Fn.title,cursor:"pointer",boxShadow:`0 4px 12px ${C.amareloOuro}40`}}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Baixar .md
-              </div>
-            </div>
-            <div style={{marginTop:24,background:`${C.branco}08`,borderRadius:10,padding:"16px 20px",border:`1px solid ${C.branco}10`}}>
-              <span style={{fontSize:10,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,display:"block",marginBottom:10}}>Conteúdo do arquivo</span>
-              <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:8}}>
-                {["Tokens de cor (primárias, secundárias, semânticas)","Tipografia (famílias, pesos, tamanhos)","Espaçamento e grid (xs→3xl, breakpoints)","Elemento caixa (border-radius assimétrico)","Regras por componente (14 componentes)","Decisões de design (inputs, modal, tabs, table)","Padrões de interação (hover, focus, transitions)","Cenários de uso recomendados","Changelog e versionamento"].map((item,i)=>(
-                  <div key={i} style={{display:"flex",alignItems:"flex-start",gap:6}}>
-                    <span style={{color:C.verdeFloresta,fontSize:12,lineHeight:"18px",flexShrink:0}}>✓</span>
-                    <span style={{fontSize:11,color:`${C.branco}90`,fontFamily:Fn.body,lineHeight:1.4}}>{item}</span>
+            <div style={{position:"relative",display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
+              {downloadPackages.map((pkg)=>(
+                <div key={pkg.file} style={{background:`${C.branco}08`,borderRadius:"10px 10px 10px 20px",padding:mob?"18px 16px":"22px 22px 20px",border:`1px solid ${C.branco}10`,display:"flex",flexDirection:"column",gap:16}}>
+                  <div style={{display:"flex",alignItems:"flex-start",gap:14}}>
+                    <div style={{width:52,height:52,borderRadius:16,background:`${C.branco}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                      {pkg.kind==="skill" ? (
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                          <path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" stroke={pkg.accent} strokeWidth="1.8" strokeLinejoin="round"/>
+                          <path d="M9.5 12l1.5 1.5L14.5 10" stroke={pkg.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      ) : (
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                          <path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z" stroke={pkg.accent} strokeWidth="1.8" strokeLinejoin="round"/>
+                          <path d="M14 3v5h5" stroke={pkg.accent} strokeWidth="1.8" strokeLinejoin="round"/>
+                          <path d="M12 12v5m0 0l-2-2m2 2l2-2" stroke={pkg.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </div>
+                    <div style={{flex:1,minWidth:0}}>
+                      <span style={{display:"inline-flex",alignItems:"center",gap:6,background:`${pkg.accent}20`,color:pkg.accent,border:`1px solid ${pkg.accent}35`,borderRadius:999,padding:"4px 10px",fontSize:10,fontWeight:700,letterSpacing:"1.1px",textTransform:"uppercase",fontFamily:Fn.title,marginBottom:10}}>
+                        {pkg.kind==="skill"?"Skill":"Documentação"}
+                      </span>
+                      <span style={{fontSize:18,fontWeight:700,color:C.branco,fontFamily:Fn.title,display:"block",marginBottom:4}}>{pkg.title}</span>
+                      <span style={{fontSize:12,color:`${C.branco}80`,fontFamily:Fn.mono,display:"block",marginBottom:8}}>{pkg.file}</span>
+                      <span style={{fontSize:13,color:`${C.branco}A8`,fontFamily:Fn.body,lineHeight:1.5,display:"block"}}>{pkg.description}</span>
+                    </div>
                   </div>
-                ))}
-              </div>
+
+                  <a
+                    href={pkg.href}
+                    download
+                    style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,alignSelf:mob?"stretch":"flex-start",background:pkg.accent,color:pkg.kind==="skill"?C.azulEscuro:C.azulEscuro,padding:"10px 18px",borderRadius:8,fontSize:13,fontWeight:700,fontFamily:Fn.title,textDecoration:"none",boxShadow:`0 4px 12px ${pkg.accent}40`}}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {pkg.cta}
+                  </a>
+
+                  <div style={{display:"grid",gridTemplateColumns:"1fr",gap:8}}>
+                    {pkg.bullets.map((item,i)=>(
+                      <div key={i} style={{display:"flex",alignItems:"flex-start",gap:8}}>
+                        <span style={{color:pkg.accent,fontSize:12,lineHeight:"18px",flexShrink:0}}>✓</span>
+                        <span style={{fontSize:11,color:`${C.branco}90`,fontFamily:Fn.body,lineHeight:1.45}}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </Section>

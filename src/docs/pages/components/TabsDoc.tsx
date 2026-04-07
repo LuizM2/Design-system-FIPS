@@ -117,7 +117,8 @@ function DSTabsTrigger({ value, children, ctx, icon, disabled }: {
     md: { fontSize: 13, padding: "9px 18px", gap: 6 },
     lg: { fontSize: 14, padding: "11px 22px", gap: 7 },
   };
-  const s = sizeMap[sz] || sizeMap.md;
+  const sizeKey: keyof typeof sizeMap = sz === "sm" || sz === "lg" ? sz : "md";
+  const s = sizeMap[sizeKey];
 
   const getStyle = (): React.CSSProperties => {
     const shared: React.CSSProperties = {
@@ -171,7 +172,7 @@ function DSTabsTrigger({ value, children, ctx, icon, disabled }: {
   );
 }
 
-function DSTabsContent({ value, children }: { value: string; children: React.ReactNode }) {
+function DSTabsContent({ children }: { value: string; children: React.ReactNode }) {
   return (
     <div style={{ padding: "16px 0", fontFamily: F.body, fontSize: 13, color: C.cinzaEscuro, lineHeight: 1.6 }}>
       {children}
