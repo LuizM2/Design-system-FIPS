@@ -553,7 +553,7 @@ export function DocsNeuSidebar({
           className="flex items-center justify-center overflow-hidden px-4"
           style={{
             borderBottom: `1px solid ${theme.border}`,
-            height: collapsed ? 56 : 68,
+            height: collapsed ? 56 : 59,
             paddingLeft: collapsed ? 12 : 16,
             paddingRight: collapsed ? 12 : 16,
           }}

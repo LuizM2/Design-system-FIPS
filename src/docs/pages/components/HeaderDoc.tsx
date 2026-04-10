@@ -1,7 +1,8 @@
 // @ts-nocheck
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Bell, BookOpen, Component, Home, LayoutDashboard, Menu, PanelLeft, Settings } from 'lucide-react'
 import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
+import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
 import { SearchPill } from '../../../components/layout/SearchPill'
 import { UserChip } from '../../../components/layout/UserChip'
 import { Button } from '../../../components/ui/button'
@@ -11,8 +12,6 @@ import {
   docHeaderBarTabs,
   docHeaderBarTop,
   docHeaderShellBorder,
-  docHeaderTabsNavSeparatorClass,
-  docHeaderTabsUnderlineMd,
 } from '../../../lib/docHeaderChrome'
 import { cn } from '../../../lib/cn'
 import { SHELL_HERO_ART_SRC } from '../../../lib/shellHeroArt'
@@ -138,7 +137,7 @@ const gk = {
 const shellHeaderIconBtnClass =
   'flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-xl border-[1.5px] border-white/[0.16] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25'
 
-/** Réplica estática do header da documentação (alinha às abas Tabs — Underline do TabsDoc / DocLayout). */
+/** Réplica estática do header da documentação (abas secção — TabsUnderline padrão do TabsDoc / DocLayout). */
 function DocHeaderReferenceDemo() {
   const tabs = [
     { id: 'start', label: 'Início', active: false, icon: Home },
@@ -146,36 +145,6 @@ function DocHeaderReferenceDemo() {
     { id: 'components', label: 'Componentes', active: true, icon: Component },
     { id: 'meta', label: 'Projeto', active: false, icon: BookOpen },
   ]
-  const activeTabIndex = Math.max(
-    0,
-    tabs.findIndex((t) => t.active),
-  )
-  const navRef = useRef(null)
-  const tabRefs = useRef([])
-  const [line, setLine] = useState({ left: 0, width: 0 })
-
-  const measure = useCallback(() => {
-    const nav = navRef.current
-    const el = tabRefs.current[activeTabIndex]
-    if (!nav || !el) return
-    const navRect = nav.getBoundingClientRect()
-    const elRect = el.getBoundingClientRect()
-    setLine({
-      left: elRect.left - navRect.left + nav.scrollLeft,
-      width: elRect.width,
-    })
-  }, [activeTabIndex])
-
-  useLayoutEffect(() => {
-    measure()
-    const nav = navRef.current
-    window.addEventListener('resize', measure)
-    nav?.addEventListener('scroll', measure, { passive: true })
-    return () => {
-      window.removeEventListener('resize', measure)
-      nav?.removeEventListener('scroll', measure)
-    }
-  }, [measure])
 
   return (
     <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] shadow-sm">
@@ -220,65 +189,7 @@ function DocHeaderReferenceDemo() {
           </div>
         </div>
         <div className={cn('relative z-10 px-4 sm:px-6', docHeaderBarTabs)}>
-          <nav
-            ref={navRef}
-            className={cn(
-              'no-scrollbar relative flex items-stretch gap-0 overflow-x-auto',
-              docHeaderTabsNavSeparatorClass,
-            )}
-            aria-label="Demo — seções"
-          >
-            {tabs.map((tab, i) => {
-              const Icon = tab.icon
-              return (
-                <div
-                  key={tab.id}
-                  ref={(el) => {
-                    tabRefs.current[i] = el
-                  }}
-                  className="inline-flex shrink-0"
-                >
-                  <span
-                    style={{
-                      fontSize: docHeaderTabsUnderlineMd.fontSizePx,
-                      padding: `${docHeaderTabsUnderlineMd.paddingYPx}px ${docHeaderTabsUnderlineMd.paddingXPx}px`,
-                      gap: docHeaderTabsUnderlineMd.iconGapPx,
-                    }}
-                    className={cn(
-                      'inline-flex cursor-default items-center font-sans whitespace-nowrap transition-all duration-200',
-                      tab.active
-                        ? 'font-semibold text-white'
-                        : 'font-normal text-white/[0.72]',
-                    )}
-                  >
-                    <Icon
-                      className={cn(
-                        'shrink-0 transition-colors duration-200',
-                        tab.active ? 'text-[var(--color-fips-yellow-600)]' : 'text-white/[0.55]',
-                      )}
-                      style={{
-                        width: docHeaderTabsUnderlineMd.iconSizePx,
-                        height: docHeaderTabsUnderlineMd.iconSizePx,
-                      }}
-                      aria-hidden
-                      strokeWidth={1.5}
-                    />
-                    {tab.label}
-                  </span>
-                </div>
-              )
-            })}
-            <span
-              className="pointer-events-none absolute -bottom-0.5 rounded-t-[3px] bg-[var(--color-fips-yellow-600)]"
-              style={{
-                left: line.left,
-                width: line.width,
-                height: docHeaderTabsUnderlineMd.indicatorHeightPx,
-                transition: docHeaderTabsUnderlineMd.indicatorTransition,
-              }}
-              aria-hidden
-            />
-          </nav>
+          <DocHeaderSectionNavDemo tabs={tabs} />
         </div>
       </header>
       <div className="px-4 py-3 text-xs text-[var(--color-fg-muted)] sm:px-6">Área de conteúdo (exemplo)</div>

@@ -1,7 +1,5 @@
 /**
  * Cromia do header da documentação alinhada ao sidebar (`#002A68`, `#004B9B`, DocsNeuSidebar).
- * Sem `border-b` aqui: o fecho visual fica nas faixas internas (`docHeaderBarTop`, `nav` das abas),
- * evitando duas linhas claras empilhadas e “faixa branca” grossa sobre o hero.
  */
 export const docHeaderShellBorder = ''
 
@@ -13,20 +11,21 @@ export const docHeaderArtWash =
 export const docHeaderArtDepth =
   'bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.09),transparent_46%),radial-gradient(circle_at_100%_100%,rgba(0,26,64,0.55),transparent_38%)]'
 
-/** Primeira faixa (toolbar): vidro sobre o mesmo azul do sidebar. */
-export const docHeaderBarTop =
-  'border-b border-white/[0.08] bg-[linear-gradient(180deg,rgba(0,42,104,0.52),rgba(0,26,64,0.26))] backdrop-blur-md'
+/** Mesmo azul sólido do rail lateral (`aside` / DocsNeuSidebar `#002A68`) — padronizado só no header. */
+export const docHeaderBarSurface = 'bg-[#002a68]'
 
-/** Faixa das abas de seção (borda inferior fica no `nav` — 2px como Tabs underline). */
-export const docHeaderBarTabs =
-  'border-t border-white/[0.06] bg-[linear-gradient(180deg,rgba(0,26,64,0.40),rgba(0,42,104,0.20))] backdrop-blur-sm'
+/** Primeira faixa (toolbar): trilho, busca, ações. */
+export const docHeaderBarTop = `border-b border-white/[0.08] ${docHeaderBarSurface}`
+
+/** Superfície clara da faixa de abas. */
+export const docHeaderTabsSurface = 'bg-white'
+
+/** Faixa das abas de secção — fundo branco `#FFFFFF`. Sem padding inferior para o indicador ficar rente. */
+export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-2 pb-0`
 
 /**
  * Espaçamentos, tamanhos e cores base do `TabsUnderline` com `size="md"` em
  * `src/docs/pages/components/TabsDoc.tsx` (padding 10×20, fs 13, gap 7, ícone 14, barra 2px, traço 3px).
- *
- * No header da documentação o fundo é azul escuro: texto/ícone inativos usam branco com opacidade
- * para contraste (no playground claro o mesmo papel é `#7B8C96` / ativo `#002A68`).
  */
 export const docHeaderTabsUnderlineMd = {
   fontSizePx: 13,
@@ -49,9 +48,5 @@ export const docHeaderTabsUnderlineMd = {
   separatorOnLightHex: '#E2E8F0',
 } as const
 
-/**
- * Linha inferior do `nav` de abas (2px): no TabsDoc é `C.cardBorder` (#E2E8F0) em card branco.
- * Sobre fundo azul escuro usamos o mesmo tom com opacidade — cinza-claro suave, não branco puro.
- */
-export const docHeaderTabsNavSeparatorClass =
-  'border-b-2 border-[rgba(226,232,240,0.22)]'
+/** Separador sob o `nav` de abas — borda inferior sutil em superfície clara `#EDF2F8`. */
+export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[#E2E8F0]'

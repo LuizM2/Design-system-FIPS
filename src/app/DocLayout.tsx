@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Bell, BookOpen, Menu, PanelLeft, Settings } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
+import { Bell, BookOpen, GraduationCap, Menu, PanelLeft } from 'lucide-react'
 import { cn } from '../lib/cn'
 import { bottomNavItems, navGroups } from '../routes/nav'
 import { DocHeaderPageTrail } from '../components/layout/DocHeaderPageTrail'
+import { DocHeaderSectionNav } from '../components/layout/DocHeaderSectionNav'
 import { DocsNeuSidebar } from '../components/layout/DocsNeuSidebar'
 import { SearchPill } from '../components/layout/SearchPill'
 import { UserChip } from '../components/layout/UserChip'
@@ -15,15 +16,73 @@ import {
   docHeaderBarTabs,
   docHeaderBarTop,
   docHeaderShellBorder,
-  docHeaderTabsNavSeparatorClass,
-  docHeaderTabsUnderlineMd,
 } from '../lib/docHeaderChrome'
 import { SHELL_HERO_ART_SRC } from '../lib/shellHeroArt'
 
 const DOC_VERSION = 'v0.3.0'
 
-const shellHeaderIconBtnClass =
-  'flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-xl border-[1.5px] border-white/[0.16] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25'
+const NEU = {
+  borderIdle: 'rgba(255,255,255,0.16)',
+  borderHover: 'rgba(246,146,30,0.58)',
+  bgIdle: 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 56%, rgba(0,24,58,0.18) 100%)',
+  bgHover: 'linear-gradient(145deg, #FFD37B 0%, #f7ad45 34%, #F6921E 64%, #cf730d 100%)',
+  shadowIdle: '0 1px 2px rgba(0,42,104,0.3)',
+  shadowHover:
+    '0 10px 20px -10px rgba(246,146,30,0.55), 0 2px 3px rgba(0,42,104,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 4px rgba(140,72,0,0.28)',
+  iconIdle: 'rgba(255,255,255,0.75)',
+  iconHover: '#002A68',
+} as const
+
+function HeaderNeuIconBtn({ children, ariaLabel }: { children: ReactNode; ariaLabel: string }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      type="button"
+      aria-label={ariaLabel}
+      className="relative flex shrink-0 items-center justify-center overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25"
+      style={{
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        border: `1px solid ${hovered ? NEU.borderHover : NEU.borderIdle}`,
+        background: hovered ? NEU.bgHover : NEU.bgIdle,
+        boxShadow: hovered ? NEU.shadowHover : NEU.shadowIdle,
+        transform: hovered ? 'translateY(-1px)' : 'none',
+        transition: 'all 0.25s ease',
+        color: hovered ? NEU.iconHover : NEU.iconIdle,
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: 1,
+          left: 2,
+          right: 2,
+          height: '44%',
+          borderRadius: 8,
+          background: hovered
+            ? 'linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0.02))'
+            : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
+          transform: hovered ? 'translateX(0)' : 'translateX(-100%)',
+          animation: hovered ? 'docsSidebarNeuShimmer 0.5s ease forwards' : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+      <div className="relative z-[1] flex items-center justify-center">{children}</div>
+    </button>
+  )
+}
 
 export function DocLayout() {
   const [collapsed, setCollapsed] = useState(false)
@@ -71,38 +130,6 @@ export function DocLayout() {
     ],
     [],
   )
-
-  const activeTabIndex = Math.max(
-    0,
-    topTabs.findIndex((t) => t.id === currentGroupId),
-  )
-
-  const sectionNavRef = useRef<HTMLElement>(null)
-  const sectionTabRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [sectionUnderline, setSectionUnderline] = useState({ left: 0, width: 0 })
-
-  const updateSectionUnderline = useCallback(() => {
-    const nav = sectionNavRef.current
-    const el = sectionTabRefs.current[activeTabIndex]
-    if (!nav || !el) return
-    const navRect = nav.getBoundingClientRect()
-    const elRect = el.getBoundingClientRect()
-    setSectionUnderline({
-      left: elRect.left - navRect.left + nav.scrollLeft,
-      width: elRect.width,
-    })
-  }, [activeTabIndex])
-
-  useLayoutEffect(() => {
-    updateSectionUnderline()
-    const nav = sectionNavRef.current
-    window.addEventListener('resize', updateSectionUnderline)
-    nav?.addEventListener('scroll', updateSectionUnderline, { passive: true })
-    return () => {
-      window.removeEventListener('resize', updateSectionUnderline)
-      nav?.removeEventListener('scroll', updateSectionUnderline)
-    }
-  }, [updateSectionUnderline, location.pathname, collapsed])
 
   const handleSidebarAutoCollapseChange = useCallback((enabled: boolean) => {
     setSidebarAutoMenu(enabled)
@@ -199,80 +226,22 @@ export function DocLayout() {
                 <SearchPill variant="docHeader" aria-label="Buscar na documentação" />
               </div>
               <div className="hidden shrink-0 items-center gap-2 sm:flex">
-                <button type="button" className={shellHeaderIconBtnClass} aria-label="Notificações">
-                  <Bell className="h-[18px] w-[18px]" aria-hidden strokeWidth={2} />
-                </button>
-                <button type="button" className={shellHeaderIconBtnClass} aria-label="Configurações">
-                  <Settings className="h-[18px] w-[18px]" aria-hidden strokeWidth={2} />
-                </button>
+                <HeaderNeuIconBtn ariaLabel="Notificações">
+                  <Bell className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
+                </HeaderNeuIconBtn>
+                <HeaderNeuIconBtn ariaLabel="Tutorial">
+                  <GraduationCap className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
+                </HeaderNeuIconBtn>
                 <UserChip variant="docHeader" />
               </div>
             </div>
           </div>
           <div className={cn('relative z-10 hidden px-4 sm:px-6 lg:block', docHeaderBarTabs)}>
-            <nav
-              ref={sectionNavRef}
-              className={cn(
-                'no-scrollbar relative flex items-stretch gap-0 overflow-x-auto',
-                docHeaderTabsNavSeparatorClass,
-              )}
-              aria-label="Seções principais"
-            >
-              {topTabs.map((tab, i) => {
-                const isActive = tab.id === currentGroupId
-                const Icon = tab.icon
-
-                return (
-                  <div
-                    key={tab.id}
-                    ref={(el) => {
-                      sectionTabRefs.current[i] = el
-                    }}
-                    className="inline-flex shrink-0"
-                  >
-                    <NavLink
-                      to={tab.to}
-                      end={tab.end}
-                      style={{
-                        fontSize: docHeaderTabsUnderlineMd.fontSizePx,
-                        padding: `${docHeaderTabsUnderlineMd.paddingYPx}px ${docHeaderTabsUnderlineMd.paddingXPx}px`,
-                        gap: docHeaderTabsUnderlineMd.iconGapPx,
-                      }}
-                      className={cn(
-                        'inline-flex items-center font-sans whitespace-nowrap transition-all duration-200',
-                        isActive
-                          ? 'font-semibold text-white'
-                          : 'font-normal text-white/[0.72] hover:bg-white/[0.06] hover:text-white/[0.92]',
-                      )}
-                    >
-                      <Icon
-                        className={cn(
-                          'shrink-0 transition-colors duration-200',
-                          isActive ? 'text-[var(--color-fips-yellow-600)]' : 'text-white/[0.55]',
-                        )}
-                        style={{
-                          width: docHeaderTabsUnderlineMd.iconSizePx,
-                          height: docHeaderTabsUnderlineMd.iconSizePx,
-                        }}
-                        aria-hidden
-                        strokeWidth={1.5}
-                      />
-                      {tab.label}
-                    </NavLink>
-                  </div>
-                )
-              })}
-              <span
-                className="pointer-events-none absolute -bottom-0.5 rounded-t-[3px] bg-[var(--color-fips-yellow-600)]"
-                style={{
-                  left: sectionUnderline.left,
-                  width: sectionUnderline.width,
-                  height: docHeaderTabsUnderlineMd.indicatorHeightPx,
-                  transition: docHeaderTabsUnderlineMd.indicatorTransition,
-                }}
-                aria-hidden
-              />
-            </nav>
+            <DocHeaderSectionNav
+              tabs={topTabs}
+              currentGroupId={currentGroupId}
+              remeasureKey={collapsed}
+            />
           </div>
         </header>
 
