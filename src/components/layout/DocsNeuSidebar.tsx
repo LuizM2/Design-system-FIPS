@@ -445,9 +445,17 @@ export type DocsNeuSidebarProps = {
   onCollapsedChange: (collapsed: boolean) => void
   onNavigate?: () => void
   docVersion?: string
+  /** Quando “Fechar automaticamente” (menu automático) é ligado ou desligado no diálogo do rodapé. */
+  onAutoCollapseChange?: (enabled: boolean) => void
 }
 
-export function DocsNeuSidebar({ collapsed, onCollapsedChange, onNavigate, docVersion = 'v0.3.0' }: DocsNeuSidebarProps) {
+export function DocsNeuSidebar({
+  collapsed,
+  onCollapsedChange,
+  onNavigate,
+  docVersion = 'v0.3.0',
+  onAutoCollapseChange,
+}: DocsNeuSidebarProps) {
   const theme = TN
   const { pathname } = useLocation()
   const menuTree = useMemo(() => buildMenuTree(navGroups), [])
@@ -514,6 +522,10 @@ export function DocsNeuSidebar({ collapsed, onCollapsedChange, onNavigate, docVe
   }, [collapseSeconds, autoCollapse, menuBehaviorOpen, clearTimer, scheduleLeaveCollapse])
 
   useEffect(() => () => clearTimer(), [clearTimer])
+
+  useEffect(() => {
+    onAutoCollapseChange?.(autoCollapse)
+  }, [autoCollapse, onAutoCollapseChange])
 
   const width = collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH
 

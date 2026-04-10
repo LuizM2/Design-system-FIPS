@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react'
-import { Bell, Menu, PanelLeft, Settings } from 'lucide-react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Bell, BookOpen, Component, Home, LayoutDashboard, Menu, PanelLeft, Settings } from 'lucide-react'
+import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
 import { SearchPill } from '../../../components/layout/SearchPill'
 import { UserChip } from '../../../components/layout/UserChip'
-import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import {
   docHeaderArtDepth,
@@ -11,6 +11,8 @@ import {
   docHeaderBarTabs,
   docHeaderBarTop,
   docHeaderShellBorder,
+  docHeaderTabsNavSeparatorClass,
+  docHeaderTabsUnderlineMd,
 } from '../../../lib/docHeaderChrome'
 import { cn } from '../../../lib/cn'
 import { SHELL_HERO_ART_SRC } from '../../../lib/shellHeroArt'
@@ -136,13 +138,45 @@ const gk = {
 const shellHeaderIconBtnClass =
   'flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-xl border-[1.5px] border-white/[0.16] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25'
 
-/** Réplica estática do header da documentação (mesmas classes do DocLayout) para padronização visual. */
+/** Réplica estática do header da documentação (alinha às abas Tabs — Underline do TabsDoc / DocLayout). */
 function DocHeaderReferenceDemo() {
   const tabs = [
-    { id: 'start', label: 'Início', active: false },
-    { id: 'components', label: 'Componentes', active: true },
-    { id: 'patterns', label: 'Padrões', active: false },
+    { id: 'start', label: 'Início', active: false, icon: Home },
+    { id: 'patterns', label: 'Padrões', active: false, icon: LayoutDashboard },
+    { id: 'components', label: 'Componentes', active: true, icon: Component },
+    { id: 'meta', label: 'Projeto', active: false, icon: BookOpen },
   ]
+  const activeTabIndex = Math.max(
+    0,
+    tabs.findIndex((t) => t.active),
+  )
+  const navRef = useRef(null)
+  const tabRefs = useRef([])
+  const [line, setLine] = useState({ left: 0, width: 0 })
+
+  const measure = useCallback(() => {
+    const nav = navRef.current
+    const el = tabRefs.current[activeTabIndex]
+    if (!nav || !el) return
+    const navRect = nav.getBoundingClientRect()
+    const elRect = el.getBoundingClientRect()
+    setLine({
+      left: elRect.left - navRect.left + nav.scrollLeft,
+      width: elRect.width,
+    })
+  }, [activeTabIndex])
+
+  useLayoutEffect(() => {
+    measure()
+    const nav = navRef.current
+    window.addEventListener('resize', measure)
+    nav?.addEventListener('scroll', measure, { passive: true })
+    return () => {
+      window.removeEventListener('resize', measure)
+      nav?.removeEventListener('scroll', measure)
+    }
+  }, [measure])
+
   return (
     <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] shadow-sm">
       <header className={cn('relative overflow-hidden', docHeaderShellBorder)}>
@@ -169,18 +203,7 @@ function DocHeaderReferenceDemo() {
             </Button>
             <div className="flex min-w-0 flex-1 items-center gap-2">
               <PanelLeft className="hidden h-5 w-5 text-white/55 sm:block" aria-hidden />
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <p className="truncate text-xs font-medium uppercase tracking-[0.14em] text-white/[0.75]">Componentes</p>
-                  <Badge
-                    variant="outline"
-                    className="hidden h-[35px] items-center gap-1.5 border-[1.5px] border-white/[0.16] bg-white/[0.08] px-3 py-0 text-[13px] font-semibold leading-none text-white/[0.92] sm:inline-flex"
-                  >
-                    Biblioteca + padrões
-                  </Badge>
-                </div>
-                <h2 className="font-heading truncate text-lg font-semibold text-[#fafafa]">Header</h2>
-              </div>
+              <DocHeaderPageTrail groupLabel="Componentes" pageTitle="Header" />
             </div>
             <div className="hidden w-full max-w-xs md:block">
               <SearchPill variant="docHeader" aria-label="Buscar (demo)" />
@@ -197,21 +220,64 @@ function DocHeaderReferenceDemo() {
           </div>
         </div>
         <div className={cn('relative z-10 px-4 sm:px-6', docHeaderBarTabs)}>
-          <nav className="flex items-center gap-1 overflow-x-auto" aria-label="Demo — seções">
-            {tabs.map((tab) => (
-              <span
-                key={tab.id}
-                className={cn(
-                  'relative inline-flex min-h-11 cursor-default items-center px-3 py-2 text-sm font-medium whitespace-nowrap',
-                  tab.active ? 'text-[#fafafa]' : 'text-white/[0.72]',
-                )}
-              >
-                {tab.label}
-                {tab.active ? (
-                  <span className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-[var(--color-accent-strong)]" />
-                ) : null}
-              </span>
-            ))}
+          <nav
+            ref={navRef}
+            className={cn(
+              'no-scrollbar relative flex items-stretch gap-0 overflow-x-auto',
+              docHeaderTabsNavSeparatorClass,
+            )}
+            aria-label="Demo — seções"
+          >
+            {tabs.map((tab, i) => {
+              const Icon = tab.icon
+              return (
+                <div
+                  key={tab.id}
+                  ref={(el) => {
+                    tabRefs.current[i] = el
+                  }}
+                  className="inline-flex shrink-0"
+                >
+                  <span
+                    style={{
+                      fontSize: docHeaderTabsUnderlineMd.fontSizePx,
+                      padding: `${docHeaderTabsUnderlineMd.paddingYPx}px ${docHeaderTabsUnderlineMd.paddingXPx}px`,
+                      gap: docHeaderTabsUnderlineMd.iconGapPx,
+                    }}
+                    className={cn(
+                      'inline-flex cursor-default items-center font-sans whitespace-nowrap transition-all duration-200',
+                      tab.active
+                        ? 'font-semibold text-white'
+                        : 'font-normal text-white/[0.72]',
+                    )}
+                  >
+                    <Icon
+                      className={cn(
+                        'shrink-0 transition-colors duration-200',
+                        tab.active ? 'text-[var(--color-fips-yellow-600)]' : 'text-white/[0.55]',
+                      )}
+                      style={{
+                        width: docHeaderTabsUnderlineMd.iconSizePx,
+                        height: docHeaderTabsUnderlineMd.iconSizePx,
+                      }}
+                      aria-hidden
+                      strokeWidth={1.5}
+                    />
+                    {tab.label}
+                  </span>
+                </div>
+              )
+            })}
+            <span
+              className="pointer-events-none absolute -bottom-0.5 rounded-t-[3px] bg-[var(--color-fips-yellow-600)]"
+              style={{
+                left: line.left,
+                width: line.width,
+                height: docHeaderTabsUnderlineMd.indicatorHeightPx,
+                transition: docHeaderTabsUnderlineMd.indicatorTransition,
+              }}
+              aria-hidden
+            />
           </nav>
         </div>
       </header>
