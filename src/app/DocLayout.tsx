@@ -1,253 +1,31 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import {
-  BadgeCheck,
-  BookOpen,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Menu,
-  PanelLeft,
-  Search,
-  Sparkles,
-} from 'lucide-react'
+import { Bell, Menu, PanelLeft, Settings } from 'lucide-react'
 import { cn } from '../lib/cn'
-import { bottomNavItems, navGroups, type NavGroup, type NavItem } from '../routes/nav'
-import { FipsLogo } from '../components/brand/FipsLogo'
+import { bottomNavItems, navGroups } from '../routes/nav'
+import { DocsNeuSidebar } from '../components/layout/DocsNeuSidebar'
+import { SearchPill } from '../components/layout/SearchPill'
+import { UserChip } from '../components/layout/UserChip'
 import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
-import { Input } from '../components/ui/input'
 import { Toaster } from 'sonner'
+import {
+  docHeaderArtDepth,
+  docHeaderArtWash,
+  docHeaderBarTabs,
+  docHeaderBarTop,
+  docHeaderShellBorder,
+} from '../lib/docHeaderChrome'
+import { SHELL_HERO_ART_SRC } from '../lib/shellHeroArt'
 
 const DOC_VERSION = 'v0.3.0'
 
-function SidebarLink({
-  item,
-  collapsed,
-  indented = false,
-  onNavigate,
-}: {
-  item: NavItem
-  collapsed: boolean
-  indented?: boolean
-  onNavigate?: () => void
-}) {
-  const ItemIcon = item.icon ?? BookOpen
-
-  return (
-    <li key={item.to}>
-      <NavLink
-        to={item.to}
-        end={item.to === '/docs'}
-        onClick={onNavigate}
-        title={collapsed ? item.label : undefined}
-        className={({ isActive }) =>
-          cn(
-            'flex w-full items-center gap-3 rounded-lg transition-all duration-200',
-            'hover:bg-white/10 active:bg-white/15',
-            collapsed ? 'justify-center px-3 py-2.5' : 'py-2.5',
-            indented && !collapsed ? 'pl-10 pr-3' : !collapsed ? 'px-3' : '',
-            isActive
-              ? 'bg-white/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
-              : 'text-white/70 hover:text-white',
-          )
-        }
-      >
-        {({ isActive }) => (
-          <>
-            <span
-              className={cn(
-                'flex shrink-0 transition-colors duration-200',
-                isActive ? 'text-[var(--color-accent-strong)]' : '',
-              )}
-            >
-              <ItemIcon className="h-5 w-5" aria-hidden />
-            </span>
-            {!collapsed ? <span className="truncate text-sm font-medium">{item.label}</span> : null}
-          </>
-        )}
-      </NavLink>
-    </li>
-  )
-}
-
-function SidebarContent({
-  collapsed,
-  expandedGroups,
-  activeGroupId,
-  onToggleGroup,
-  onToggleSidebar,
-  onNavigate,
-}: {
-  collapsed: boolean
-  expandedGroups: Set<string>
-  activeGroupId?: string
-  onToggleGroup: (groupId: string) => void
-  onToggleSidebar: () => void
-  onNavigate?: () => void
-}) {
-  const renderGroup = (group: NavGroup) => {
-    const isStart = group.id === 'start'
-    const isExpanded = group.collapsible === false || expandedGroups.has(group.id) || group.id === activeGroupId
-    const GroupIcon = group.icon
-
-    if (isStart) {
-      return (
-        <ul key={group.id} className="space-y-0.5">
-          {group.items.map((item) => (
-            <SidebarLink
-              key={item.to}
-              item={item}
-              collapsed={collapsed}
-              onNavigate={onNavigate}
-            />
-          ))}
-        </ul>
-      )
-    }
-
-    if (collapsed) {
-      return (
-        <div key={group.id}>
-          <div className="mx-3 my-2 border-t border-white/10" />
-          <ul className="space-y-0.5">
-            {group.items.map((item) => (
-              <SidebarLink
-                key={item.to}
-                item={item}
-                collapsed={collapsed}
-                onNavigate={onNavigate}
-              />
-            ))}
-          </ul>
-        </div>
-      )
-    }
-
-    return (
-      <div key={group.id} className="mt-2">
-        <div className="mx-3 mb-1 border-t border-white/10" />
-        <button
-          type="button"
-          onClick={() => onToggleGroup(group.id)}
-          className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-white/40 transition-all duration-200 hover:bg-white/5 hover:text-white/60"
-        >
-          {GroupIcon ? (
-            <span className="flex shrink-0 opacity-70">
-              <GroupIcon className="h-4 w-4" aria-hidden />
-            </span>
-          ) : null}
-          <span className="flex-1 text-left text-[11px] font-bold uppercase tracking-widest">
-            {group.label}
-          </span>
-          <ChevronDown
-            className={cn(
-              'h-3.5 w-3.5 opacity-50 transition-transform duration-200',
-              isExpanded ? '' : '-rotate-90',
-            )}
-            aria-hidden
-          />
-        </button>
-        <div
-          className={cn(
-            'overflow-hidden transition-all duration-200',
-            isExpanded ? 'max-h-[720px] opacity-100' : 'max-h-0 opacity-0',
-          )}
-        >
-          <ul className="mt-0.5 space-y-0.5">
-            {group.items.map((item) => (
-              <SidebarLink
-                key={item.to}
-                item={item}
-                collapsed={collapsed}
-                indented
-                onNavigate={onNavigate}
-              />
-            ))}
-          </ul>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <>
-      <div
-        className={cn(
-          'flex h-16 items-center border-b border-white/10 transition-all duration-300',
-          collapsed ? 'justify-center px-3' : 'px-4',
-        )}
-      >
-        {collapsed ? (
-          <FipsLogo />
-        ) : (
-          <div className="flex flex-1 items-center gap-2 overflow-hidden">
-            <FipsLogo />
-            <span className="text-lg text-white/50">|</span>
-            <span className="truncate font-semibold text-lg text-white">Design System</span>
-          </div>
-        )}
-      </div>
-
-      <nav className="sidebar-scroll min-h-0 flex-1 overflow-y-auto px-2 py-3" aria-label="Documentação">
-        <div className="space-y-0.5">
-          {navGroups.map((group) => renderGroup(group))}
-        </div>
-      </nav>
-
-      <div className="border-t border-white/10 px-2 pb-1 pt-2">
-        <ul className="space-y-0.5">
-          {bottomNavItems.map((item) => (
-            <SidebarLink
-              key={item.to}
-              item={item}
-              collapsed={collapsed}
-              onNavigate={onNavigate}
-            />
-          ))}
-        </ul>
-      </div>
-
-      <div className="hidden border-t border-white/10 p-2 lg:block">
-        <button
-          type="button"
-          onClick={onToggleSidebar}
-          className="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-white"
-          aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
-        >
-          {collapsed ? (
-            <ChevronRight className="h-5 w-5" aria-hidden />
-          ) : (
-            <>
-              <ChevronLeft className="h-5 w-5" aria-hidden />
-              <span className="text-sm">Recolher</span>
-            </>
-          )}
-        </button>
-      </div>
-
-      <div className="border-t border-white/10 p-2">
-        <div
-          className={cn(
-            'flex items-center gap-2 rounded-lg px-3 py-2 text-white/50 transition-colors duration-200 hover:text-white/80',
-            collapsed ? 'justify-center' : 'justify-start',
-          )}
-          title="Versão da documentação"
-        >
-          <Sparkles className="h-3.5 w-3.5" aria-hidden />
-          {!collapsed ? <span className="text-xs">{DOC_VERSION}</span> : null}
-        </div>
-      </div>
-    </>
-  )
-}
+const shellHeaderIconBtnClass =
+  'flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-xl border-[1.5px] border-white/[0.16] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25'
 
 export function DocLayout() {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
-    () => new Set(navGroups.filter((group) => group.collapsible !== false).map((group) => group.id)),
-  )
   const location = useLocation()
 
   const activeItem = [
@@ -269,33 +47,22 @@ export function DocLayout() {
     { id: 'meta', label: 'Projeto', to: '/docs/changelog' },
   ]
 
-  const toggleGroup = (groupId: string) => {
-    setExpandedGroups((previous) => {
-      const next = new Set(previous)
-      if (next.has(groupId)) next.delete(groupId)
-      else next.add(groupId)
-      return next
-    })
-  }
-
   return (
     <div className="flex min-h-svh bg-[var(--color-surface-muted)]">
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-40 flex h-svh flex-col bg-[#002a68] shadow-[4px_0_32px_rgba(0,26,64,0.36)] transition-[width,transform] duration-300 ease-in-out lg:static lg:h-auto lg:min-h-svh',
-          collapsed ? 'w-16' : 'w-64',
+          collapsed ? 'w-[68px]' : 'w-64',
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         )}
         aria-label="Menu lateral"
       >
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <SidebarContent
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <DocsNeuSidebar
             collapsed={collapsed}
-            expandedGroups={expandedGroups}
-            activeGroupId={currentGroupId}
-            onToggleGroup={toggleGroup}
-            onToggleSidebar={() => setCollapsed((value) => !value)}
+            onCollapsedChange={setCollapsed}
             onNavigate={() => setMobileOpen(false)}
+            docVersion={DOC_VERSION}
           />
         </div>
       </aside>
@@ -310,51 +77,62 @@ export function DocLayout() {
       ) : null}
 
       <div className="flex min-h-svh flex-1 flex-col lg:min-w-0">
-        <header className="sticky top-0 z-20 border-b border-[var(--color-border)] bg-[var(--color-surface)]/92 backdrop-blur-md">
-          <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
-            <Button
-              type="button"
-              variant="secondary"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Abrir menu"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-            <div className="flex min-w-0 flex-1 items-center gap-2">
-              <PanelLeft className="hidden h-5 w-5 text-[var(--color-fg-muted)] sm:block" aria-hidden />
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <p className="truncate text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-fg-muted)]">
-                    {currentGroupLabel}
-                  </p>
-                  <Badge variant="info" className="hidden sm:inline-flex">
-                    Biblioteca + padrões
-                  </Badge>
+        <header className={cn('sticky top-0 z-20 overflow-hidden', docHeaderShellBorder)}>
+          <div className="pointer-events-none absolute inset-0">
+            <img
+              src={SHELL_HERO_ART_SRC}
+              alt=""
+              className="h-full w-full object-cover object-[center_65%] opacity-[0.20]"
+              draggable={false}
+            />
+            <div className={cn('absolute inset-0', docHeaderArtWash)} />
+            <div className={cn('absolute inset-0', docHeaderArtDepth)} />
+          </div>
+
+          <div className={cn('relative z-10', docHeaderBarTop)}>
+            <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
+              <Button
+                type="button"
+                variant="secondary"
+                size="icon"
+                className="border border-white/[0.16] bg-white/[0.08] text-white/90 backdrop-blur-sm hover:bg-white/[0.12] lg:hidden"
+                onClick={() => setMobileOpen(true)}
+                aria-label="Abrir menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <PanelLeft className="hidden h-5 w-5 text-white/[0.55] sm:block" aria-hidden />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="truncate text-xs font-medium uppercase tracking-[0.14em] text-white/[0.75]">
+                      {currentGroupLabel}
+                    </p>
+                    <Badge
+                      variant="outline"
+                      className="hidden h-[35px] items-center gap-1.5 border-[1.5px] border-white/[0.16] bg-white/[0.08] px-3 py-0 text-[13px] font-semibold leading-none text-white/[0.92] sm:inline-flex"
+                    >
+                      Biblioteca + padrões
+                    </Badge>
+                  </div>
+                  <h2 className="font-heading truncate text-lg font-semibold text-[#fafafa]">{title}</h2>
                 </div>
-                <h2 className="font-heading truncate text-lg font-semibold text-[var(--color-fg)]">
-                  {title}
-                </h2>
+              </div>
+              <div className="hidden w-full max-w-xs md:block">
+                <SearchPill variant="docHeader" aria-label="Buscar na documentação" />
+              </div>
+              <div className="hidden shrink-0 items-center gap-2 sm:flex">
+                <button type="button" className={shellHeaderIconBtnClass} aria-label="Notificações">
+                  <Bell className="h-[18px] w-[18px]" aria-hidden strokeWidth={2} />
+                </button>
+                <button type="button" className={shellHeaderIconBtnClass} aria-label="Configurações">
+                  <Settings className="h-[18px] w-[18px]" aria-hidden strokeWidth={2} />
+                </button>
+                <UserChip variant="docHeader" />
               </div>
             </div>
-            <div className="hidden w-full max-w-xs md:block">
-              <Input
-                type="search"
-                placeholder="Buscar na documentação…"
-                leftIcon={<Search className="h-4 w-4" aria-hidden />}
-                aria-label="Buscar na documentação"
-                readOnly
-              />
-            </div>
-            <div className="hidden items-center gap-2 lg:flex">
-              <Badge variant="outline" className="gap-1.5">
-                <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
-                Pronto para review
-              </Badge>
-            </div>
           </div>
-          <div className="hidden border-t border-[var(--color-border)] px-4 sm:px-6 lg:block">
+          <div className={cn('relative z-10 hidden px-4 sm:px-6 lg:block', docHeaderBarTabs)}>
             <nav className="flex items-center gap-1 overflow-x-auto" aria-label="Seções principais">
               {topTabs.map((tab) => {
                 const isActive = tab.id === currentGroupId
@@ -366,9 +144,7 @@ export function DocLayout() {
                     end={tab.to === '/docs'}
                     className={cn(
                       'relative inline-flex min-h-11 items-center px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors',
-                      isActive
-                        ? 'text-[var(--color-primary)]'
-                        : 'text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]',
+                      isActive ? 'text-[#fafafa]' : 'text-white/[0.72] hover:text-white/[0.92]',
                     )}
                   >
                     {tab.label}

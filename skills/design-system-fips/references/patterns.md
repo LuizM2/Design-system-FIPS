@@ -77,11 +77,11 @@ Regras:
 - overlays com `--shadow-elevated`
 - não transformar fluxo longo em modal único se a tarefa exigir navegação complexa
 
-## Hero Header
+## Hero
 
 Fontes:
 
-- `src/docs/pages/patterns/HeroHeaderDoc.tsx`
+- `src/docs/pages/patterns/HeroHeaderDoc.tsx` (página **Hero** na doc; rota `/docs/patterns/hero`)
 - `src/composites/PageHero.tsx`
 
 Regras:

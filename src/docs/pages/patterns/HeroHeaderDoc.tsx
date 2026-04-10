@@ -173,8 +173,8 @@ function StateCard({
 export default function HeroHeaderDoc() {
   return (
     <DocPage
-      title="Hero Header"
-      description="Cabeçalho que se funde ao hero com efeito de vidro (glass) e transiciona para branco ao rolar — usado exclusivamente na página Home. Nas demais rotas (módulos), use o componente PageHero com faixa azul e trem sutil (veja seção abaixo e padrão Dashboard)."
+      title="Hero"
+      description="Padrão da Home: barra superior da aplicação sobre o hero com vidro (glass) e transição para branco ao rolar — não confundir com o header da documentação (DocLayout). Nas demais rotas (módulos), use PageHero com faixa azul e trem sutil (veja seção abaixo e padrão Dashboard)."
     >
       <PatternGuidelines
         rules={[
@@ -221,7 +221,7 @@ export default function HeroHeaderDoc() {
         <HeroHeaderDemo />
       </DemoSection>
 
-      <DemoSection title="Estados do header">
+      <DemoSection title="Estados da barra no hero">
         <div className="flex gap-4">
           <StateCard
             label="Glass — no topo"

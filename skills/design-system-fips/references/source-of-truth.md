@@ -56,7 +56,7 @@ Se houver conflito:
 - `src/docs/pages/patterns/DataListingDemo.tsx`
 - `src/docs/pages/patterns/FormWorkspaceDemo.tsx`
 - `src/docs/pages/patterns/ModalWorkflowDemo.tsx`
-- `src/docs/pages/patterns/HeroHeaderDoc.tsx`
+- `src/docs/pages/patterns/HeroHeaderDoc.tsx` (página **Hero** em `/docs/patterns/hero`)
 - `src/docs/pages/GovernancePage.tsx`
 
 ## Regras portáteis
