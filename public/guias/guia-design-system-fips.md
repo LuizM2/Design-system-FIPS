@@ -2,7 +2,7 @@
 
 Documento de referência para equipes que precisam replicar a interface com **fidelidade visual** (pixel perfect) em outros produtos. Complementa o Brandbook institucional (`docs/Brandbook PPT.pdf`): use **sempre o PDF como fonte da verdade** para logotipos finais, área de proteção e aprovações de marca.
 
-**Versão do guia:** 0.2.0  
+**Versão do guia:** 0.4.0  
 **Stack de referência:** React 19, TypeScript, Tailwind CSS v4, Vite.
 
 ---

@@ -2,21 +2,31 @@ import { DocPage, DemoSection } from '../components/DocPage'
 
 const entries = [
   {
-    version: '0.2.1',
-    date: '2026-03-31',
+    version: '0.4.0',
+    date: '2026-04-07',
     items: [
-      'Documentação reposicionada como catálogo visual interno, sem blocos de código copiável nem ações de download/cópia por página.',
-      'Nova variante success para Button, usando o verde semântico do tema FIPS como padrão de salvar e gravar.',
-      'Catálogo de botões reorganizado com composições reais de negócio, incluindo rodapé de modal e barra de ação.',
+      'Versão oficial do produto alinhada para 0.4.0 no app, package metadata, guia público e páginas standalone da documentação.',
+      'Catálogo expandido com reescrita das páginas de Button, Input, Select, Textarea, Progress, Badge, Field, Card, Tabs, Table, Dialog, Drawer, Toast e Tooltip.',
+      'Padrão Dashboard concluído com visualização rica, exportação em PDF e alinhamento das foundations.',
+      'Nova camada de distribuição para IA com documentação consolidada para download e skill portátil do Design System FIPS.',
+    ],
+  },
+  {
+    version: '0.3.0',
+    date: '2026-04-01',
+    items: [
+      'Shell principal da documentação consolidado com navegação lateral, changelog, governança e divisão por foundations, components e patterns.',
+      'Introdução de PageHero, FipsLogo, composição de Field e InputGroup, além das primeiras regras formais de governança do design system.',
+      'Fluxos de modal e form workspace reposicionados para o padrão visual inspirado no CONTPIX, com densidade e hierarquia mais consistentes.',
     ],
   },
   {
     version: '0.2.0',
-    date: '2026-03-24',
+    date: '2026-03-31',
     items: [
-      'Logotipo FIPS: símbolo (junção de vias) + wordmark “Design System FIPS” e subtítulo institucional; SVG em /brand/fips-symbol.svg.',
-      'Guia Markdown para implementação pixel perfect: /guias/guia-design-system-fips.md (download na visão geral).',
-      'Ajustes de cor (--color-fg-muted), sidebar com gradiente e sombra.',
+      'Documentação reorganizada por rotas lazy-loaded, com redução do peso inicial e melhor segmentação do catálogo.',
+      'Base visual refinada com tokens mais estáveis, sidebar institucional, superfícies e shadows alinhadas ao Brandbook FIPS.',
+      'Primeira rodada de vitrines editoriais para consolidar a linguagem visual do design system dentro do produto.',
     ],
   },
   {
@@ -25,7 +35,7 @@ const entries = [
     items: [
       'MVP da documentação navegável com menu lateral responsivo.',
       'Tokens de cor e tipografia alinhados ao Brandbook FIPS.',
-      'Biblioteca inicial: Button, Input, Select, Textarea, Badge, Card, Tabs, Table, Dialog, Drawer, Tooltip e Toast (Sonner).',
+      'Biblioteca inicial: Button, Input, Select, Textarea, Badge, Card, Tabs, Table, Dialog, Drawer, Tooltip e Toast.',
       'Padrões de referência: dashboard, tabela de certificados e modal de formulário.',
     ],
   },

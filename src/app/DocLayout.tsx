@@ -19,7 +19,7 @@ import {
 } from '../lib/docHeaderChrome'
 import { SHELL_HERO_ART_SRC } from '../lib/shellHeroArt'
 
-const DOC_VERSION = 'v0.3.0'
+const DOC_VERSION = 'v0.4.0'
 
 const NEU = {
   borderIdle: 'rgba(255,255,255,0.16)',
