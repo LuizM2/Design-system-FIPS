@@ -5,6 +5,7 @@ import { DocLayout } from './app/DocLayout'
 const OverviewPage = lazy(() => import('./docs/pages/Overview'))
 const GovernancePage = lazy(() => import('./docs/pages/GovernancePage'))
 const ChangelogPage = lazy(() => import('./docs/pages/ChangelogPage'))
+const LoginPage = lazy(() => import('./docs/pages/LoginPage'))
 const ColorsPage = lazy(() => import('./docs/pages/foundations/ColorsPage'))
 const TypographyPage = lazy(() => import('./docs/pages/foundations/TypographyPage'))
 const SpacingPage = lazy(() => import('./docs/pages/foundations/SpacingPage'))
@@ -84,6 +85,7 @@ export default function App() {
         <Route path="patterns/hero-header" element={<Navigate to="/docs/patterns/hero" replace />} />
         <Route path="patterns/certificados" element={<Navigate to="/docs/patterns/data-listing" replace />} />
         <Route path="patterns/modal-form" element={<Navigate to="/docs/patterns/modal-workflow" replace />} />
+        <Route path="login" element={renderLazyRoute(<LoginPage />)} />
         <Route path="changelog" element={renderLazyRoute(<ChangelogPage />)} />
       </Route>
       <Route path="*" element={<Navigate to="/docs" replace />} />

@@ -59,6 +59,12 @@ Se houver conflito:
 - `src/docs/pages/patterns/HeroHeaderDoc.tsx` (página **Hero** em `/docs/patterns/hero`)
 - `src/docs/pages/GovernancePage.tsx`
 
+### Espelho em produto (Tecnopano 3.0)
+
+- `client/tecnopano/ApplicationShellDemo.tsx` — demo lazy, fora de `AppLayout`
+- `client/src/components/layout/Header.tsx` — header da aplicação (hero + faixa + neu + abas lg+)
+- `client/src/components/layout/DocHeaderStandard.tsx`, `DocHeaderNeuIconButton.tsx`, `client/src/lib/docHeaderChrome.ts`
+
 ## Regras portáteis
 
 - Nome oficial: `Design System FIPS`. Evite abreviar isso em documentação externa.

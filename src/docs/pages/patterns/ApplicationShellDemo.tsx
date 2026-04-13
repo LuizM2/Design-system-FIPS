@@ -10,18 +10,26 @@ import {
   FilePlus,
   FileText,
   FolderOpen,
+  GraduationCap,
   Home,
   LayoutDashboard,
   Menu,
+  PanelLeft,
   Search,
   Settings,
   Shield,
   Sparkles,
+  SunMoon,
+  Timer,
   Wrench,
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { PatternGuidelines } from '../../components/PatternGuidelines'
 import { Badge } from '../../../components/ui/badge'
+import { DocHeaderNeuIconButton } from '../../../components/layout/DocHeaderNeuIconButton'
+import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
+import { SearchPill as SearchPillComponent } from '../../../components/layout/SearchPill'
+import { UserChip as UserChipComponent } from '../../../components/layout/UserChip'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent } from '../../../components/ui/card'
 import { FipsLogo } from '../../../components/brand/FipsLogo'
@@ -209,6 +217,59 @@ function MockupFrame({
   )
 }
 
+/* ─── Neumorphic icon tile (mesmo padrão DocsNeuSidebar) ─── */
+const NEU = {
+  borderIdle: 'rgba(255,255,255,0.16)',
+  borderAccent: 'rgba(246,146,30,0.58)',
+  bgIdle: 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 56%, rgba(0,24,58,0.18) 100%)',
+  bgAccent: 'linear-gradient(145deg, #FFD37B 0%, #f7ad45 34%, #F6921E 64%, #cf730d 100%)',
+  shadowIdle: '0 1px 2px rgba(0,42,104,0.3)',
+  shadowHover: '0 10px 20px -10px rgba(246,146,30,0.55), 0 2px 3px rgba(0,42,104,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 4px rgba(140,72,0,0.28)',
+  shadowActive: '0 12px 24px -12px rgba(246,146,30,0.62), 0 2px 4px rgba(0,42,104,0.38), inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -3px 6px rgba(120,64,0,0.36)',
+  iconIdle: 'rgba(255,255,255,0.75)',
+  iconActive: '#002A68',
+  textMuted: 'rgba(255,255,255,0.75)',
+  textHover: 'rgba(255,255,255,0.92)',
+  textActive: '#fafafa',
+} as const
+
+function ShellNeuIcon({ children, isActive, hovered }: { children: ReactNode; isActive: boolean; hovered: boolean }) {
+  const lit = isActive || hovered
+  return (
+    <div
+      className="relative flex shrink-0 items-center justify-center overflow-hidden"
+      style={{
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        border: `1px solid ${lit ? NEU.borderAccent : NEU.borderIdle}`,
+        background: lit ? NEU.bgAccent : NEU.bgIdle,
+        boxShadow: isActive ? NEU.shadowActive : hovered ? NEU.shadowHover : NEU.shadowIdle,
+        transform: hovered && !isActive ? 'translateY(-1px)' : 'none',
+        transition: 'all 0.25s ease',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute', top: 1, left: 2, right: 2, height: '44%', borderRadius: 8,
+          background: lit ? 'linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0.02))' : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
+          transform: lit ? 'translateX(0)' : 'translateX(-100%)',
+          animation: lit ? 'docsSidebarNeuShimmer 0.5s ease forwards' : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+      <div className="relative z-[1] flex items-center justify-center">{children}</div>
+    </div>
+  )
+}
+
 function ShellNavItem({
   item,
   collapsed,
@@ -218,24 +279,92 @@ function ShellNavItem({
   collapsed: boolean
   indented?: boolean
 }) {
+  const [hovered, setHovered] = useState(false)
   const Icon = item.icon
+  const isActive = !!item.active
 
   return (
     <button
       type="button"
       className={cn(
-        'relative flex w-full items-center gap-3 rounded-xl transition-all duration-200 hover:bg-white/[0.1] active:bg-white/[0.15]',
-        collapsed ? 'justify-center px-3 py-2.5' : 'py-2.5',
-        indented && !collapsed ? 'pl-10 pr-3' : !collapsed ? 'px-3' : '',
-        item.active ? 'bg-white/[0.15] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]' : 'text-white/[0.7] hover:text-white',
-        item.active && !collapsed && 'after:absolute after:top-2 after:bottom-2 after:left-0 after:w-0.5 after:rounded-full after:bg-[var(--color-accent-strong)]',
+        'relative flex w-full items-center rounded-lg transition-all duration-200',
+        collapsed ? 'justify-center py-1.5' : 'py-1.5',
+        indented && !collapsed ? 'pl-7 pr-3' : !collapsed ? 'px-3' : '',
       )}
+      style={{ gap: collapsed ? 0 : 12 }}
       title={collapsed ? item.label : undefined}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <span className={cn('flex shrink-0', item.active ? 'text-[var(--color-accent-strong)]' : '')}>
-        <Icon className="h-5 w-5" aria-hidden />
-      </span>
-      {!collapsed ? <span className="truncate text-sm font-medium">{item.label}</span> : null}
+      <ShellNeuIcon isActive={isActive} hovered={hovered}>
+        <Icon
+          className="h-[17px] w-[17px]"
+          strokeWidth={1.9}
+          style={{ color: isActive || hovered ? NEU.iconActive : NEU.iconIdle, transition: 'color 0.2s ease' }}
+          aria-hidden
+        />
+      </ShellNeuIcon>
+      {!collapsed ? (
+        <span
+          className="truncate text-left"
+          style={{
+            fontSize: 13,
+            fontWeight: isActive ? 500 : 400,
+            letterSpacing: '0.01em',
+            color: isActive ? NEU.textActive : hovered ? NEU.textHover : NEU.textMuted,
+            transition: 'color 0.15s ease',
+          }}
+        >
+          {item.label}
+        </span>
+      ) : null}
+    </button>
+  )
+}
+
+function ShellMenuAutoButton({ collapsed }: { collapsed: boolean }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      type="button"
+      className="flex w-full items-center rounded-lg"
+      style={{
+        width: collapsed ? 52 : '100%',
+        maxWidth: collapsed ? 52 : '100%',
+        margin: collapsed ? '1px auto' : '1px 8px',
+        justifyContent: collapsed ? 'center' : 'flex-start',
+        gap: collapsed ? 0 : 12,
+        padding: collapsed ? '6px 0' : '6px 12px',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <ShellNeuIcon isActive={false} hovered={hovered}>
+        <Timer
+          className="h-[17px] w-[17px]"
+          strokeWidth={1.9}
+          style={{ color: hovered ? NEU.iconActive : NEU.iconIdle, transition: 'color 0.2s ease' }}
+          aria-hidden
+        />
+      </ShellNeuIcon>
+      {!collapsed ? (
+        <span
+          style={{
+            fontSize: 13,
+            fontWeight: 400,
+            letterSpacing: '0.01em',
+            color: hovered ? NEU.textHover : NEU.textMuted,
+            transition: 'color 0.15s ease',
+            textAlign: 'left',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Menu automático
+        </span>
+      ) : null}
     </button>
   )
 }
@@ -261,24 +390,54 @@ function ShellSidebar({
       )}
     >
       <div
-        className={cn(
-          'flex h-16 items-center border-b border-white/[0.1]',
-          collapsed ? 'justify-center px-3' : 'px-4',
-        )}
+        className="flex items-center justify-center overflow-hidden"
+        style={{
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          height: collapsed ? 56 : 59,
+          paddingLeft: collapsed ? 12 : 16,
+          paddingRight: collapsed ? 12 : 16,
+        }}
       >
-        {collapsed ? (
-          <FipsLogo />
-        ) : (
-          <div className="flex flex-1 items-center gap-2 overflow-hidden">
-            <FipsLogo />
-            <span className="text-lg text-white/50">|</span>
-            <span className="truncate font-semibold text-lg text-white">Aplicativo FIPS</span>
-          </div>
-        )}
+        <div
+          className="flex items-center"
+          style={{
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            gap: collapsed ? 0 : 14,
+            minWidth: 0,
+            width: collapsed ? 'auto' : '100%',
+          }}
+        >
+          <img
+            src={collapsed ? '/appfips-mark-collapsed.png' : '/appfips-logo.png'}
+            alt="App FIPS"
+            style={
+              collapsed
+                ? { width: 36, height: 36, objectFit: 'contain', flexShrink: 0, display: 'block' }
+                : { height: 52, width: 'auto', maxWidth: 148, minWidth: 72, objectFit: 'contain', objectPosition: 'left center', flexShrink: 0, display: 'block' }
+            }
+          />
+          {!collapsed ? (
+            <span
+              style={{
+                fontFamily: "'Saira Expanded', sans-serif",
+                fontWeight: 700,
+                fontSize: 16,
+                lineHeight: 1.2,
+                color: '#fafafa',
+                letterSpacing: '0.03em',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              Design System
+            </span>
+          ) : null}
+        </div>
       </div>
 
       <nav className="sidebar-scroll flex-1 overflow-y-auto px-2 py-3">
-        <div className="space-y-0.5">
+        <div className="space-y-1">
           {primaryItems.map((item) => (
             <ShellNavItem key={item.label} item={item} collapsed={collapsed} />
           ))}
@@ -291,8 +450,8 @@ function ShellSidebar({
           if (collapsed) {
             return (
               <div key={group.id}>
-                <div className="mx-3 my-2 border-t border-white/[0.1]" />
-                <div className="space-y-0.5">
+                <div className="mx-3 my-2 border-t border-white/[0.06]" />
+                <div className="space-y-1">
                   {group.items.map((item) => (
                     <ShellNavItem key={item.label} item={item} collapsed />
                   ))}
@@ -303,7 +462,7 @@ function ShellSidebar({
 
           return (
             <div key={group.id} className="mt-2">
-              <div className="mx-3 mb-1 border-t border-white/[0.1]" />
+              <div className="mx-3 mb-1 border-t border-white/[0.06]" />
               <button
                 type="button"
                 onClick={() => onToggleGroup(group.id)}
@@ -329,7 +488,7 @@ function ShellSidebar({
                   isExpanded ? 'max-h-[420px] opacity-100' : 'max-h-0 opacity-0',
                 )}
               >
-                <div className="mt-0.5 space-y-0.5">
+                <div className="mt-0.5 space-y-1">
                   {group.items.map((item) => (
                     <ShellNavItem key={item.label} item={item} collapsed={false} indented />
                   ))}
@@ -340,37 +499,14 @@ function ShellSidebar({
         })}
       </nav>
 
-      <div className="border-t border-white/[0.1] px-2 pb-1 pt-2">
-        <div className="space-y-0.5">
-          {footerItems.map((item) => (
-            <ShellNavItem key={item.label} item={item} collapsed={collapsed} />
-          ))}
-        </div>
-      </div>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '8px 8px 12px' }}>
+        <ShellMenuAutoButton collapsed={collapsed} />
 
-      {!drawer && onToggleSidebar ? (
-        <div className="border-t border-white/[0.1] p-2">
-          <button
-            type="button"
-            onClick={onToggleSidebar}
-            className="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-white/[0.7] transition-all duration-200 hover:bg-white/[0.1] hover:text-white"
-          >
-            {collapsed ? (
-              <ChevronRight className="h-5 w-5" aria-hidden />
-            ) : (
-              <>
-                <ChevronLeft className="h-5 w-5" aria-hidden />
-                <span className="text-sm">Recolher</span>
-              </>
-            )}
-          </button>
-        </div>
-      ) : null}
-
-      <div className="border-t border-white/[0.1] p-2">
-        <div className={cn('flex items-center gap-2 px-3 py-2 text-white/[0.5]', collapsed ? 'justify-center' : 'justify-start')}>
-          <Sparkles className="h-3.5 w-3.5" aria-hidden />
-          {!collapsed ? <span className="text-xs">UI v1.2</span> : null}
+        <div className="border-t border-white/[0.06] px-2 pt-2 mt-2">
+          <div className={cn('flex items-center gap-2 py-2 text-white/[0.5]', collapsed ? 'justify-center' : 'justify-start', !collapsed && 'px-1')}>
+            <Sparkles className="h-3.5 w-3.5" aria-hidden />
+            {!collapsed ? <span className="text-xs">UI v1.2</span> : null}
+          </div>
         </div>
       </div>
     </aside>
@@ -456,6 +592,50 @@ function ShellCanvas({
       ) : null}
 
       <div className="relative flex min-w-0 flex-1 flex-col">
+        {/* Header — bloco separado estilo Tecnopano */}
+        <header className="z-20 flex shrink-0 items-center gap-3 border-b border-[#e5e5e5] bg-[#f5f5f5] px-4 py-2.5">
+          {isMobile ? (
+            <button
+              type="button"
+              onClick={onToggleMobileDrawer}
+              className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-black/[0.10] bg-white/90 text-neutral-800"
+              aria-label="Abrir menu"
+            >
+              <Menu className="h-[17px] w-[17px]" aria-hidden />
+            </button>
+          ) : null}
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            {!isMobile ? (
+              <DocHeaderNeuIconButton ariaLabel="Recolher menu" onClick={isDesktop ? onToggleDesktopSidebar : undefined}>
+                <PanelLeft className={cn('h-[17px] w-[17px] transition-transform duration-200', isDesktop && desktopCollapsed && 'rotate-180')} aria-hidden strokeWidth={1.9} />
+              </DocHeaderNeuIconButton>
+            ) : null}
+            <DocHeaderPageTrail groupLabel="Padrões" pageTitle="Home" />
+          </div>
+          {!isMobile ? (
+            <div className="hidden w-full max-w-[160px] md:block">
+              <SearchPillComponent variant="docHeader" placeholder="Buscar..." />
+            </div>
+          ) : null}
+          <div className="flex shrink-0 items-center gap-2">
+            <DocHeaderNeuIconButton ariaLabel="Notificações">
+              <Bell className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
+            </DocHeaderNeuIconButton>
+            {!isMobile ? (
+              <>
+                <DocHeaderNeuIconButton ariaLabel="Tutorial">
+                  <GraduationCap className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
+                </DocHeaderNeuIconButton>
+                <DocHeaderNeuIconButton ariaLabel="Tema">
+                  <SunMoon className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.85} />
+                </DocHeaderNeuIconButton>
+              </>
+            ) : null}
+            <div className={cn('mx-0.5 h-6 w-px shrink-0 bg-neutral-300', isMobile && 'hidden')} />
+            <UserChipComponent variant="docHeader" />
+          </div>
+        </header>
+
         <div className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img
@@ -466,73 +646,6 @@ function ShellCanvas({
             />
             <div className="absolute inset-0 bg-[linear-gradient(118deg,rgba(0,19,56,0.92)_0%,rgba(0,63,138,0.82)_44%,rgba(0,144,208,0.58)_100%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.2),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(0,42,104,0.52),transparent_30%)]" />
-          </div>
-
-          <div className="relative z-10 border-b border-white/[0.12] bg-[linear-gradient(180deg,rgba(3,19,55,0.52),rgba(3,19,55,0.2))] backdrop-blur-md">
-            <div className={cn('flex items-center gap-3', isDesktop ? 'px-5 py-4' : isTablet ? 'px-4 py-3.5' : 'px-4 py-4')}>
-              {isMobile ? (
-                <button
-                  type="button"
-                  onClick={onToggleMobileDrawer}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm"
-                  aria-label="Abrir menu"
-                >
-                  <Menu className="h-[18px] w-[18px]" aria-hidden />
-                </button>
-              ) : null}
-
-              <div className="flex min-w-0 flex-1 items-center gap-3">
-                <FipsLogo className="h-10 w-10 rounded-xl shadow-[0_12px_24px_rgba(0,0,0,0.1)]" />
-                <div className="min-w-0">
-                  <p className="text-[10px] font-semibold tracking-[0.18em] text-white/[0.55] uppercase">
-                    Padrão Home
-                  </p>
-                  <p className="truncate font-heading text-lg font-semibold text-white sm:text-xl">
-                    Aplicativo FIPS
-                  </p>
-                </div>
-              </div>
-
-              {!isMobile ? <SearchPill compact={isTablet} /> : null}
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.08] text-white/[0.82] backdrop-blur-sm"
-                  aria-label="Notificações"
-                >
-                  <Bell className="h-[18px] w-[18px]" aria-hidden />
-                </button>
-                <UserChip compact={!isDesktop} />
-              </div>
-            </div>
-          </div>
-
-          <div className={cn('relative z-10 border-t border-white/[0.1] border-b border-white/[0.1] bg-white/[0.06] backdrop-blur-sm', isMobile ? 'px-4 py-2.5' : 'px-5')}>
-            <div className="no-scrollbar overflow-x-auto">
-              <div className="flex min-w-max items-center gap-1">
-                {headerTabs.map((tab, index) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    className={cn(
-                      'relative text-sm font-medium whitespace-nowrap transition-colors',
-                      isMobile ? 'rounded-full px-3 py-2' : 'min-h-11 px-3 py-2',
-                      index === 0
-                        ? isMobile
-                          ? 'bg-white/[0.14] text-white'
-                          : 'text-white'
-                        : 'text-white/[0.72] hover:text-white',
-                    )}
-                  >
-                    {tab}
-                    {index === 0 && !isMobile ? (
-                      <span className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-[var(--color-accent-strong)]" />
-                    ) : null}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
           <section
@@ -781,28 +894,28 @@ export default function ApplicationShellDemo() {
 
       <PatternGuidelines
         rules={[
-          'No padrão Home, a arte institucional continua visível atrás do cabeçalho e das abas.',
-          'A documentação usa nomenclatura neutra: Aplicativo FIPS, Home, Menu 1, Menu 2 e assim por diante.',
-          'O recolhimento manual da sidebar é o comportamento padrão documentado.',
-          'Desktop, tablet e celular devem aparecer em mockups dedicados, não apenas em um toggle abstrato.',
-          'Todo texto sobre o topo azul usa contraste claro; evitar preto ou cinza escuro sobre a imagem.',
+          'O header é um bloco separado acima do hero — toolbar cinza #f5f5f5 com botões neumorphic amarelos FIPS.',
+          'Header e hero são blocos distintos: header nunca sobreposto à imagem.',
+          'Sidebar com ícones neumorphic quadrados (36×36, shimmer sweep no hover, gradiente amarelo FIPS).',
+          'Botão PanelLeft (colapsar sidebar) sempre visível no header.',
+          'Desktop, tablet e celular devem aparecer em mockups dedicados.',
         ]}
         required={[
-          'Overlay azul com transparência suficiente para deixar a foto perceptível.',
-          'Sidebar coerente com o shell aprovado, inclusive no modo recolhido.',
-          'Indicadores logo abaixo do hero, com boa separação do fundo.',
-          'Reorganização clara do conteúdo entre desktop, tablet e celular.',
+          'Overlay azul no hero com transparência suficiente para deixar a foto perceptível.',
+          'Sidebar com neumorphic tiles alinhados ao DocsNeuSidebar (logo App FIPS + "Design System" no topo).',
+          'Botões do header usam DocHeaderNeuIconButton com shimmer sweep.',
+          'UserChip e SearchPill no header com estilo neumorphic.',
         ]}
         optional={[
+          'Botão SunMoon para alternar dark/light mode no header.',
+          'Menu automático no rodapé da sidebar.',
           'Drawer aberto no celular para revisão do menu.',
-          'Rail compacta no tablet para manter navegação sempre visível.',
-          'Comportamento automático de fechamento apenas como referência opcional fora do padrão principal.',
           'Blocos secundários de conteúdo para demonstrar profundidade visual.',
         ]}
         avoid={[
-          'Usar nomes de produtos ou fluxos reais nos exemplos da documentação.',
-          'Deixar o hero terminar antes do cabeçalho, quebrando a continuidade visual.',
-          'Aplicar textos escuros diretamente sobre o degradê azul.',
+          'Sobrepor o header sobre o hero (ambos são blocos separados).',
+          'Usar ícones flat na sidebar (sempre usar neumorphic tiles).',
+          'Aplicar textos escuros diretamente sobre o degradê azul do hero.',
         ]}
       />
     </DocPage>

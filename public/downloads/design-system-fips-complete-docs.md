@@ -253,7 +253,7 @@ Uso:
 
 ### Application Shell
 
-Fonte: `src/docs/pages/patterns/ApplicationShellDemo.tsx`
+Fonte: `src/docs/pages/patterns/ApplicationShellDemo.tsx`. Header padrão do shell: `src/components/layout/DocHeaderStandard.tsx` + `DocHeaderNeuIconButton.tsx` + `src/lib/docHeaderChrome.ts` (`DocLayout.tsx`). No **Tecnopano 3.0** (`client/`): `tecnopano/ApplicationShellDemo.tsx` (`/shell-demo`) e `src/components/layout/Header.tsx`.
 
 - sidebar institucional escura
 - topbar clara

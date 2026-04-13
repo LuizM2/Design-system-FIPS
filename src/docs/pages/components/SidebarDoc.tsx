@@ -35,6 +35,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../../../components/ui/dialog'
+import { bottomNavItems } from '../../../routes/nav'
 
 /* ═══════════════════════════════════════════ TOKENS (página — mesmo padrão SelectDoc) ═══════════════════════════════════════════ */
 const C = {
@@ -742,15 +743,18 @@ function SidebarDemo({
           />
         ))}
         <div style={{ borderTop: `1px solid ${theme.border}`, margin: '8px 8px 0', paddingTop: 8 }}>
-          <SidebarItem
-            item={{ icon: BookOpen, label: 'Changelog', href: '/docs/changelog' }}
-            badges={badges}
-            collapsed={collapsed}
-            depth={0}
-            location={location}
-            onNavigate={onNavigate}
-            theme={theme}
-          />
+          {bottomNavItems.map((bn) => (
+            <SidebarItem
+              key={bn.to}
+              item={{ icon: bn.icon ?? BookOpen, label: bn.label, href: bn.to }}
+              badges={badges}
+              collapsed={collapsed}
+              depth={0}
+              location={location}
+              onNavigate={onNavigate}
+              theme={theme}
+            />
+          ))}
         </div>
       </nav>
 

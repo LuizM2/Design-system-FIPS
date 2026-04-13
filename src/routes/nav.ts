@@ -10,6 +10,7 @@ import {
   Layers3,
   LayoutDashboard,
   LayoutTemplate,
+  LogIn,
   MousePointer2,
   Palette,
   PanelLeft,
@@ -55,6 +56,7 @@ export const navGroups: NavGroup[] = [
     label: 'Padrões',
     icon: LayoutDashboard,
     items: [
+      { label: 'Login', to: '/docs/login', icon: LogIn },
       { label: 'Application Shell', to: '/docs/patterns/application-shell', icon: PanelLeft },
       { label: 'Dashboard', to: '/docs/patterns/dashboard', icon: LayoutDashboard },
       { label: 'Data Listing', to: '/docs/patterns/data-listing', icon: TableProperties },
@@ -101,4 +103,7 @@ export const navGroups: NavGroup[] = [
   },
 ]
 
-export const bottomNavItems: NavItem[] = [{ label: 'Changelog', to: '/docs/changelog', icon: BookOpen }]
+/** Itens da faixa inferior do sidebar (grupo “Projeto” no header): ordem fixa — Login, depois Changelog. */
+export const bottomNavItems: NavItem[] = [
+  { label: 'Changelog', to: '/docs/changelog', icon: BookOpen },
+]

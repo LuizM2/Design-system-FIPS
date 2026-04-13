@@ -631,171 +631,166 @@ export function DocsNeuSidebar({
             {bottomNavItems.map((item) => (
               <BottomNavLink key={item.to} item={item} collapsed={collapsed} pathname={pathname} onItemNavigate={onNavigate} theme={theme} />
             ))}
-          </div>
-        </nav>
-
-        <div style={{ borderTop: `1px solid ${theme.border}`, padding: '8px 8px 12px' }}>
-          <button
-            type="button"
-            onClick={() => onMenuBehaviorOpenChange(true)}
-            onMouseEnter={() => setMenuTriggerHovered(true)}
-            onMouseLeave={() => setMenuTriggerHovered(false)}
-            aria-expanded={menuBehaviorOpen}
-            aria-haspopup="dialog"
-            id="docs-sidebar-menu-behavior-trigger"
-            style={{
-              display: 'flex',
-              width: collapsed ? 52 : '100%',
-              maxWidth: collapsed ? 52 : '100%',
-              minWidth: 0,
-              margin: collapsed ? '1px auto' : '1px 8px',
-              marginBottom: 8,
-              alignItems: 'center',
-              justifyContent: collapsed ? 'center' : 'flex-start',
-              gap: collapsed ? 0 : 12,
-              padding: collapsed ? '6px 0' : '6px 12px',
-              borderRadius: 8,
-              border: 'none',
-              background: 'transparent',
-              cursor: 'pointer',
-            }}
-          >
-            <SidebarNeuIcon36 theme={theme} isActive={menuBehaviorOpen} shimmerLoop={menuBehaviorOpen} hovered={menuTriggerHovered}>
-              <Timer
-                size={17}
-                strokeWidth={1.9}
-                style={{ color: menuBehaviorOpen || menuTriggerHovered ? theme.iconActive : theme.textMuted, transition: 'color 0.2s ease' }}
-                aria-hidden
-              />
-            </SidebarNeuIcon36>
-            {!collapsed ? (
-              <span
-                style={{
-                  fontSize: 13,
-                  fontWeight: menuBehaviorOpen ? 500 : 400,
-                  letterSpacing: '0.01em',
-                  flex: 1,
-                  color: menuBehaviorOpen ? theme.textActive : menuTriggerHovered ? theme.textHover : theme.textMuted,
-                  fontFamily: F.body,
-                  textAlign: 'left',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                Menu automático
-              </span>
-            ) : null}
-          </button>
-
-          <Dialog open={menuBehaviorOpen} onOpenChange={onMenuBehaviorOpenChange}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Comportamento do menu</DialogTitle>
-                <DialogDescription className="sr-only">Ajustes de fechamento automático do menu lateral da documentação.</DialogDescription>
-              </DialogHeader>
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-sm " style={{ fontFamily: F.body, color: 'var(--color-fg)' }}>
-                  Fechar automaticamente
-                </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={autoCollapse}
-                  onClick={() => {
-                    setAutoCollapse((prev) => {
-                      if (prev) clearTimer()
-                      return !prev
-                    })
-                  }}
-                  className="shrink-0 cursor-pointer p-0.5"
+            <button
+              type="button"
+              onClick={() => onMenuBehaviorOpenChange(true)}
+              onMouseEnter={() => setMenuTriggerHovered(true)}
+              onMouseLeave={() => setMenuTriggerHovered(false)}
+              aria-expanded={menuBehaviorOpen}
+              aria-haspopup="dialog"
+              id="docs-sidebar-menu-behavior-trigger"
+              style={{
+                display: 'flex',
+                width: collapsed ? 52 : '100%',
+                maxWidth: collapsed ? 52 : '100%',
+                minWidth: 0,
+                margin: collapsed ? '1px auto' : '1px 8px',
+                marginBottom: 8,
+                alignItems: 'center',
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                gap: collapsed ? 0 : 12,
+                padding: collapsed ? '6px 0' : '6px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+              }}
+            >
+              <SidebarNeuIcon36 theme={theme} isActive={menuBehaviorOpen} shimmerLoop={menuBehaviorOpen} hovered={menuTriggerHovered}>
+                <Timer
+                  size={17}
+                  strokeWidth={1.9}
+                  style={{ color: menuBehaviorOpen || menuTriggerHovered ? theme.iconActive : theme.textMuted, transition: 'color 0.2s ease' }}
+                  aria-hidden
+                />
+              </SidebarNeuIcon36>
+              {!collapsed ? (
+                <span
                   style={{
-                    width: 44,
-                    height: 24,
-                    borderRadius: 12,
-                    border: `1px solid ${autoCollapse ? C.azulProfundo : C.cardBorder}`,
-                    background: autoCollapse ? C.azulProfundo : C.neutro,
+                    fontSize: 13,
+                    fontWeight: menuBehaviorOpen ? 500 : 400,
+                    letterSpacing: '0.01em',
+                    flex: 1,
+                    color: menuBehaviorOpen ? theme.textActive : menuTriggerHovered ? theme.textHover : theme.textMuted,
+                    fontFamily: F.body,
+                    textAlign: 'left',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
-                  <span
-                    className="block rounded-full bg-white"
+                  Menu automático
+                </span>
+              ) : null}
+            </button>
+
+            <Dialog open={menuBehaviorOpen} onOpenChange={onMenuBehaviorOpenChange}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Comportamento do menu</DialogTitle>
+                  <DialogDescription className="sr-only">Ajustes de fechamento automático do menu lateral da documentação.</DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-sm " style={{ fontFamily: F.body, color: 'var(--color-fg)' }}>
+                    Fechar automaticamente
+                  </span>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={autoCollapse}
+                    onClick={() => {
+                      setAutoCollapse((prev) => {
+                        if (prev) clearTimer()
+                        return !prev
+                      })
+                    }}
+                    className="shrink-0 cursor-pointer p-0.5"
                     style={{
-                      width: 18,
-                      height: 18,
-                      transform: autoCollapse ? 'translateX(22px)' : 'translateX(0)',
-                      transition: 'transform 0.2s ease',
-                      boxShadow: '0 1px 3px rgba(0,42,104,0.2)',
+                      width: 44,
+                      height: 24,
+                      borderRadius: 12,
+                      border: `1px solid ${autoCollapse ? C.azulProfundo : C.cardBorder}`,
+                      background: autoCollapse ? C.azulProfundo : C.neutro,
+                    }}
+                  >
+                    <span
+                      className="block rounded-full bg-white"
+                      style={{
+                        width: 18,
+                        height: 18,
+                        transform: autoCollapse ? 'translateX(22px)' : 'translateX(0)',
+                        transition: 'transform 0.2s ease',
+                        boxShadow: '0 1px 3px rgba(0,42,104,0.2)',
+                      }}
+                    />
+                  </button>
+                </div>
+                <div style={{ opacity: autoCollapse ? 1 : 0.55 }}>
+                  <div className="mb-2.5 flex items-center justify-between">
+                    <span className="text-[13px]" style={{ fontFamily: F.body, color: 'var(--color-fg-muted)' }}>
+                      Tempo para fechar
+                    </span>
+                    <span className="text-sm font-bold" style={{ fontFamily: F.body, color: C.azulEscuro }}>
+                      {collapseSeconds}s
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    className="docs-sidebar-behavior-range block w-full"
+                    min={1}
+                    max={30}
+                    step={1}
+                    value={collapseSeconds}
+                    disabled={!autoCollapse}
+                    onChange={(e) => setCollapseSeconds(Number(e.target.value))}
+                    style={{
+                      background: `linear-gradient(to right, ${C.azulProfundo} 0%, ${C.azulProfundo} ${rangePct}%, ${C.azulCeuClaro} ${rangePct}%, ${C.azulCeuClaro} 100%)`,
                     }}
                   />
-                </button>
-              </div>
-              <div style={{ opacity: autoCollapse ? 1 : 0.55 }}>
-                <div className="mb-2.5 flex items-center justify-between">
-                  <span className="text-[13px]" style={{ fontFamily: F.body, color: 'var(--color-fg-muted)' }}>
-                    Tempo para fechar
-                  </span>
-                  <span className="text-sm font-bold" style={{ fontFamily: F.body, color: C.azulEscuro }}>
-                    {collapseSeconds}s
-                  </span>
+                  <div className="mt-2 flex justify-between text-[11px]" style={{ fontFamily: F.body, color: C.textMuted }}>
+                    <span>1s</span>
+                    <span>30s</span>
+                  </div>
                 </div>
-                <input
-                  type="range"
-                  className="docs-sidebar-behavior-range block w-full"
-                  min={1}
-                  max={30}
-                  step={1}
-                  value={collapseSeconds}
-                  disabled={!autoCollapse}
-                  onChange={(e) => setCollapseSeconds(Number(e.target.value))}
-                  style={{
-                    background: `linear-gradient(to right, ${C.azulProfundo} 0%, ${C.azulProfundo} ${rangePct}%, ${C.azulCeuClaro} ${rangePct}%, ${C.azulCeuClaro} 100%)`,
-                  }}
-                />
-                <div className="mt-2 flex justify-between text-[11px]" style={{ fontFamily: F.body, color: C.textMuted }}>
-                  <span>1s</span>
-                  <span>30s</span>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+              </DialogContent>
+            </Dialog>
 
-          <a
-            href="https://github.com/LuizM2/Design-system-FIPS"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex cursor-pointer items-center rounded-lg py-2 transition-colors no-underline [color:inherit]"
-            style={{
-              color: theme.chevron,
-              justifyContent: collapsed ? 'center' : 'flex-start',
-              paddingLeft: collapsed ? 0 : 8,
-              gap: collapsed ? 0 : 12,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = theme.accentFrom
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = theme.chevron
-            }}
-          >
-            <LogOut size={17} aria-hidden />
-            {!collapsed ? (
-              <span className="text-[13px] font-normal" style={{ fontFamily: F.body }}>
-                Repositório
-              </span>
-            ) : null}
-          </a>
-        </div>
+            <a
+              href="https://github.com/LuizM2/Design-system-FIPS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex cursor-pointer items-center rounded-lg py-2 transition-colors no-underline [color:inherit]"
+              style={{
+                color: theme.chevron,
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                paddingLeft: collapsed ? 0 : 8,
+                gap: collapsed ? 0 : 12,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = theme.accentFrom
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = theme.chevron
+              }}
+            >
+              <LogOut size={17} aria-hidden />
+              {!collapsed ? (
+                <span className="text-[13px] font-normal" style={{ fontFamily: F.body }}>
+                  Repositório
+                </span>
+              ) : null}
+            </a>
 
-        <div className="border-t p-2" style={{ borderColor: theme.border }}>
-          <div
-            className={`flex items-center gap-2 rounded-lg px-3 py-2 transition-colors ${collapsed ? 'justify-center' : 'justify-start'}`}
-            style={{ color: 'rgba(255,255,255,0.5)' }}
-            title="Versão da documentação"
-          >
-            <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
-            {!collapsed ? <span className="text-xs">{docVersion}</span> : null}
+            <div
+              className={`flex items-center gap-2 rounded-lg px-3 py-2 transition-colors ${collapsed ? 'justify-center' : 'justify-start'}`}
+              style={{ color: 'rgba(255,255,255,0.5)' }}
+              title="Versão da documentação"
+            >
+              <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              {!collapsed ? <span className="text-xs">{docVersion}</span> : null}
+            </div>
           </div>
-        </div>
+        </nav>
       </aside>
     </SidebarCtx.Provider>
   )

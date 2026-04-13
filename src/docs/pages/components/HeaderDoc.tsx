@@ -1,19 +1,8 @@
 // @ts-nocheck
 import { useEffect, useState } from 'react'
-import { Bell, BookOpen, Component, Home, LayoutDashboard, Menu, PanelLeft, Settings } from 'lucide-react'
-import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
+import { BookOpen, Component, Home, LayoutDashboard, Palette } from 'lucide-react'
 import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
-import { SearchPill } from '../../../components/layout/SearchPill'
-import { UserChip } from '../../../components/layout/UserChip'
-import { Button } from '../../../components/ui/button'
-import {
-  docHeaderArtDepth,
-  docHeaderArtWash,
-  docHeaderBarTabs,
-  docHeaderBarTop,
-  docHeaderShellBorder,
-} from '../../../lib/docHeaderChrome'
-import { cn } from '../../../lib/cn'
+import { DocHeaderStandardPreview } from '../../../components/layout/DocHeaderStandard'
 import { SHELL_HERO_ART_SRC } from '../../../lib/shellHeroArt'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
@@ -134,68 +123,13 @@ const gk = {
   border: `1px solid ${C.cardBorder}`,
 }
 
-const shellHeaderIconBtnClass =
-  'flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-xl border-[1.5px] border-white/[0.16] bg-white/[0.08] text-white/[0.85] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25'
-
-/** Réplica estática do header da documentação (abas secção — TabsUnderline padrão do TabsDoc / DocLayout). */
-function DocHeaderReferenceDemo() {
-  const tabs = [
-    { id: 'start', label: 'Início', active: false, icon: Home },
-    { id: 'patterns', label: 'Padrões', active: false, icon: LayoutDashboard },
-    { id: 'components', label: 'Componentes', active: true, icon: Component },
-    { id: 'meta', label: 'Projeto', active: false, icon: BookOpen },
-  ]
-
-  return (
-    <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] shadow-sm">
-      <header className={cn('relative overflow-hidden', docHeaderShellBorder)}>
-        <div className="pointer-events-none absolute inset-0">
-          <img
-            src={SHELL_HERO_ART_SRC}
-            alt=""
-            className="h-full w-full object-cover object-[center_65%] opacity-[0.20]"
-            draggable={false}
-          />
-          <div className={cn('absolute inset-0', docHeaderArtWash)} />
-          <div className={cn('absolute inset-0', docHeaderArtDepth)} />
-        </div>
-        <div className={cn('relative z-10', docHeaderBarTop)}>
-          <div className="pointer-events-none flex items-center gap-3 px-4 py-3 sm:px-6" aria-hidden tabIndex={-1}>
-            <Button
-              type="button"
-              variant="secondary"
-              size="icon"
-              className="border border-white/[0.16] bg-white/[0.08] text-white/90 backdrop-blur-sm lg:hidden"
-              tabIndex={-1}
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-            <div className="flex min-w-0 flex-1 items-center gap-2">
-              <PanelLeft className="hidden h-5 w-5 text-white/55 sm:block" aria-hidden />
-              <DocHeaderPageTrail groupLabel="Componentes" pageTitle="Header" />
-            </div>
-            <div className="hidden w-full max-w-xs md:block">
-              <SearchPill variant="docHeader" aria-label="Buscar (demo)" />
-            </div>
-            <div className="hidden shrink-0 items-center gap-2 sm:flex">
-              <span className={shellHeaderIconBtnClass} aria-hidden>
-                <Bell className="h-[18px] w-[18px]" strokeWidth={2} />
-              </span>
-              <span className={shellHeaderIconBtnClass} aria-hidden>
-                <Settings className="h-[18px] w-[18px]" strokeWidth={2} />
-              </span>
-              <UserChip variant="docHeader" />
-            </div>
-          </div>
-        </div>
-        <div className={cn('relative z-10 px-4 sm:px-6', docHeaderBarTabs)}>
-          <DocHeaderSectionNavDemo tabs={tabs} />
-        </div>
-      </header>
-      <div className="px-4 py-3 text-xs text-[var(--color-fg-muted)] sm:px-6">Área de conteúdo (exemplo)</div>
-    </div>
-  )
-}
+const HEADER_DOC_DEMO_TABS = [
+  { id: 'start', label: 'Início', active: false, icon: Home },
+  { id: 'patterns', label: 'Padrões', active: false, icon: LayoutDashboard },
+  { id: 'foundations', label: 'Fundamentos', active: false, icon: Palette },
+  { id: 'components', label: 'Componentes', active: true, icon: Component },
+  { id: 'meta', label: 'Projeto', active: false, icon: BookOpen },
+]
 
 export default function HeaderDoc() {
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -272,12 +206,20 @@ export default function HeaderDoc() {
         <Section
           n="02"
           title="Anatomia"
-          desc="Da esquerda para a direita: controle de menu (mobile), ícone de painel, coluna de título (eyebrow + badge opcional + H2), busca (md+), ações em vidro (notificações, configurações) e chip de conta (sm+). Abaixo, trilho de tabs alinhado ao grupo ativo."
+          desc="Da esquerda para a direita: controle de menu (mobile), ícone de painel, coluna de título (eyebrow + badge opcional + H2), busca (md+), botões neumórficos (notificações, tutorial) e chip de conta (sm+). Abaixo, trilho de tabs alinhado ao grupo ativo (lg+)."
         >
           <DSCard mob={mob}>
             <div style={gl}>Referência viva</div>
-            <p style={{ ...gt, marginBottom: 16 }}>Bloco abaixo replica classes e componentes do header atual da documentação.</p>
-            <DocHeaderReferenceDemo />
+            <p style={{ ...gt, marginBottom: 16 }}>
+              Bloco abaixo usa <code style={gk}>DocHeaderStandardPreview</code> — mesmas peças e classes que{' '}
+              <code style={gk}>DocLayout</code>.
+            </p>
+            <DocHeaderStandardPreview
+              groupLabel="Componentes"
+              pageTitle="Header"
+              sectionNav={<DocHeaderSectionNavDemo tabs={HEADER_DOC_DEMO_TABS} />}
+              withCardChrome={false}
+            />
           </DSCard>
         </Section>
 
@@ -307,11 +249,13 @@ export default function HeaderDoc() {
         <Section
           n="04"
           title="Implementação de referência"
-          desc="O código-fonte do header documentado está em DocLayout; evite divergências de espaçamento (px-4 py-3 / sm:px-6) e de hierarquia de título."
+          desc="Implementação canônica em layout + shell; evite divergências de espaçamento (px-4 py-3 / sm:px-6) e de hierarquia de título."
         >
           <DSCard mob={mob}>
             <p style={gt}>
-              Arquivo: <code style={gk}>src/app/DocLayout.tsx</code>. Ao padronizar produtos internos, extraia este bloco para um componente compartilhado apenas quando a API de rotas e tabs estiver estável.
+              Shell: <code style={gk}>src/app/DocLayout.tsx</code>. Pré-visualização e fundo hero:{' '}
+              <code style={gk}>src/components/layout/DocHeaderStandard.tsx</code>; botão de ícone neumórfico:{' '}
+              <code style={gk}>DocHeaderNeuIconButton.tsx</code>.
             </p>
           </DSCard>
         </Section>

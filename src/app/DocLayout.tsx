@@ -73,13 +73,13 @@ export function DocLayout() {
       <aside
         id="docs-app-sidebar"
         className={cn(
-          'fixed inset-y-0 left-0 z-40 flex h-svh flex-col bg-[#002a68] shadow-[4px_0_32px_rgba(0,26,64,0.36)] transition-[width,transform] duration-300 ease-in-out lg:static lg:h-auto lg:min-h-svh',
+          'fixed inset-y-0 left-0 z-40 overflow-hidden bg-[#002a68] shadow-[4px_0_32px_rgba(0,26,64,0.36)] transition-[width,transform] duration-300 ease-in-out lg:relative lg:inset-auto',
           collapsed ? 'w-[68px]' : 'w-64',
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         )}
         aria-label="Menu lateral"
       >
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="sticky top-0 flex h-svh flex-col overflow-hidden">
           <DocsNeuSidebar
             collapsed={collapsed}
             onCollapsedChange={setCollapsed}
@@ -99,7 +99,7 @@ export function DocLayout() {
         />
       ) : null}
 
-      <div className="flex min-h-svh flex-1 flex-col lg:min-w-0">
+      <div className="flex min-h-svh flex-1 flex-col bg-[var(--color-surface-muted)] lg:min-w-0">
         <header
           className={cn(
             'sticky top-0 z-20 isolate overflow-hidden',
@@ -135,33 +135,31 @@ export function DocLayout() {
                 <Menu className="h-5 w-5" />
               </Button>
               <div className="flex min-w-0 flex-1 items-center gap-2">
-                {sidebarAutoMenu ? (
-                  <DocHeaderNeuIconButton
-                    className="hidden sm:inline-flex"
-                    dark={dark}
-                    ariaLabel={
-                      isLg
-                        ? collapsed
-                          ? 'Expandir painel lateral'
-                          : 'Recolher painel lateral'
-                        : mobileOpen
-                          ? 'Fechar menu'
-                          : 'Abrir menu'
-                    }
-                    aria-controls="docs-app-sidebar"
-                    aria-expanded={isLg ? !collapsed : mobileOpen}
-                    onClick={() => {
-                      if (isLg) setCollapsed((c) => !c)
-                      else setMobileOpen((o) => !o)
-                    }}
-                  >
-                    <PanelLeft
-                      className={cn('h-[17px] w-[17px] transition-transform duration-200', isLg && collapsed && 'rotate-180')}
-                      aria-hidden
-                      strokeWidth={1.9}
-                    />
-                  </DocHeaderNeuIconButton>
-                ) : null}
+                <DocHeaderNeuIconButton
+                  className="hidden sm:inline-flex"
+                  dark={dark}
+                  ariaLabel={
+                    isLg
+                      ? collapsed
+                        ? 'Expandir painel lateral'
+                        : 'Recolher painel lateral'
+                      : mobileOpen
+                        ? 'Fechar menu'
+                        : 'Abrir menu'
+                  }
+                  aria-controls="docs-app-sidebar"
+                  aria-expanded={isLg ? !collapsed : mobileOpen}
+                  onClick={() => {
+                    if (isLg) setCollapsed((c) => !c)
+                    else setMobileOpen((o) => !o)
+                  }}
+                >
+                  <PanelLeft
+                    className={cn('h-[17px] w-[17px] transition-transform duration-200', isLg && collapsed && 'rotate-180')}
+                    aria-hidden
+                    strokeWidth={1.9}
+                  />
+                </DocHeaderNeuIconButton>
                 <DocHeaderPageTrail groupLabel={currentGroupLabel} pageTitle={title} dark={dark} />
               </div>
               <div className="hidden w-full max-w-xs md:block">
