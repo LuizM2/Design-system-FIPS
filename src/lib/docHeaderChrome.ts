@@ -1,32 +1,72 @@
 /**
- * Cromia do header da documentação alinhada ao sidebar (`#002A68`, `#004B9B`, DocsNeuSidebar).
+ * Cromia do header da documentação — estilo Tecnopano (toolbar claro/escuro, neumorphic, shimmer).
+ * Paleta FIPS: azul #002A68, amarelo #F6921E.
  */
+
+import type { CSSProperties } from 'react'
+
+/** Painel vidro sobre `#1A1A1A` — faixa de tabs (dark), barra de filtros e KPIs no dashboard. */
+export const shellDarkGlassPanel: CSSProperties = {
+  background: 'rgba(255, 255, 255, 0.08)',
+  backdropFilter: 'blur(8px)',
+  WebkitBackdropFilter: 'blur(8px)',
+  border: '1px solid rgba(255, 255, 255, 0.10)',
+}
+
 export const docHeaderShellBorder = ''
 
-/** Lavagem sobre a arte (silhueta) — azul escuro FIPS + azul profundo. */
+/** Lavagem sobre a arte (silhueta) — claro. */
 export const docHeaderArtWash =
-  'bg-[linear-gradient(135deg,rgba(0,42,104,0.97)_0%,rgba(0,75,155,0.90)_44%,rgba(0,34,80,0.95)_100%)]'
+  'bg-[linear-gradient(135deg,rgba(245,245,245,0.94)_0%,rgba(255,255,255,0.88)_44%,rgba(235,235,235,0.96)_100%)]'
 
-/** Profundidade / vinheta institucional. */
+/** Profundidade / vinheta. */
 export const docHeaderArtDepth =
-  'bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.09),transparent_46%),radial-gradient(circle_at_100%_100%,rgba(0,26,64,0.55),transparent_38%)]'
+  'bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.5),transparent_48%),radial-gradient(circle_at_100%_100%,rgba(0,0,0,0.06),transparent_40%)]'
 
-/** Mesmo azul sólido do rail lateral (`aside` / DocsNeuSidebar `#002A68`) — padronizado só no header. */
-export const docHeaderBarSurface = 'bg-[#002a68]'
+export const docHeaderBarSurface = 'bg-[#f5f5f5]'
 
-/** Primeira faixa (toolbar): trilho, busca, ações. */
-export const docHeaderBarTop = `border-b border-white/[0.08] ${docHeaderBarSurface}`
+/** Primeira faixa (toolbar): trilho, busca, ações — cinza claro como Tecnopano. */
+export const docHeaderBarTop = `border-b border-[#e5e5e5] ${docHeaderBarSurface}`
 
 /** Superfície clara da faixa de abas. */
 export const docHeaderTabsSurface = 'bg-white'
 
-/** Faixa das abas de secção — fundo branco `#FFFFFF`. Sem padding inferior para o indicador ficar rente. */
+/** Faixa das abas de secção. */
 export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-2 pb-0`
 
-/**
- * Espaçamentos, tamanhos e cores base do `TabsUnderline` com `size="md"` em
- * `src/docs/pages/components/TabsDoc.tsx` (padding 10×20, fs 13, gap 7, ícone 14, barra 2px, traço 3px).
- */
+/** Separador sob o `nav` de abas. */
+export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[#E2E8F0]'
+
+/* ─── Neumorphic: azulejo claro (repouso na faixa #f5f5f5) ─── */
+export const docHeaderNeuLightBorderIdle = 'rgba(0,0,0,0.10)'
+export const docHeaderNeuLightBgIdle =
+  'linear-gradient(145deg, #ffffff 0%, #ebebeb 55%, #e0e0e0 100%)'
+export const docHeaderNeuLightShadowIdle =
+  '0 1px 2px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.85)'
+export const docHeaderNeuLightIconIdle = 'rgba(55,55,55,0.82)'
+
+/* ─── Neumorphic: hover/active amarelo FIPS ─── */
+export const docHeaderNeuAccentBorderHover = 'rgba(246,146,30,0.55)'
+export const docHeaderNeuAccentBgHover = 'linear-gradient(135deg,#FFD37B,#f7ad45 34%,#F6921E 64%,#cf730d 100%)'
+export const docHeaderNeuAccentShadowHover =
+  '0 6px 22px -4px rgba(246,146,30,0.5), 0 3px 10px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.35) inset'
+export const docHeaderNeuAccentIcon = '#002A68'
+
+/* ─── Neumorphic: faixa escura (repouso) ─── */
+export const docHeaderNeuDarkBorderIdle = '#3f3f46'
+export const docHeaderNeuDarkBgIdle =
+  'linear-gradient(160deg, #303036 0%, #222226 55%, #1c1c20 100%)'
+export const docHeaderNeuDarkShadowIdle =
+  '0 3px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.45) inset'
+export const docHeaderNeuDarkIconIdle = '#a1a1aa'
+
+/** Shimmer translúcido (sweep). */
+export const docHeaderNeuShimmerGradient =
+  'linear-gradient(135deg,transparent,rgba(255,255,255,0.25) 50%,transparent)'
+/** Sobre hover amarelo — mais visível. */
+export const docHeaderNeuShimmerOnAccent =
+  'linear-gradient(135deg,transparent,rgba(255,255,255,0.38) 50%,transparent)'
+
 export const docHeaderTabsUnderlineMd = {
   fontSizePx: 13,
   paddingXPx: 20,
@@ -39,14 +79,13 @@ export const docHeaderTabsUnderlineMd = {
   inactiveFontWeight: 400,
   transitionMs: 200,
   indicatorTransition: 'left .3s cubic-bezier(.4,0,.2,1), width .3s cubic-bezier(.4,0,.2,1)',
-  /** TabsDoc `C.amareloEscuro` ≡ `--color-fips-yellow-600` */
   accentHex: '#F6921E',
-  /** Superfície clara (playground Tabs) */
   activeTextOnLightHex: '#002A68',
   mutedOnLightHex: '#7B8C96',
   hoverTextOnLightHex: '#333B41',
   separatorOnLightHex: '#E2E8F0',
 } as const
 
-/** Separador sob o `nav` de abas — borda inferior sutil em superfície clara `#EDF2F8`. */
-export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[#E2E8F0]'
+/** Input de busca no header claro. */
+export const docHeaderSearchInputLightClass =
+  'h-[35px] w-full rounded-lg border border-black/[0.10] bg-white py-0 pl-9 pr-3 font-sans text-[13px] leading-normal text-neutral-800 shadow-[0_1px_2px_rgba(0,0,0,0.04)] placeholder:text-neutral-500 focus-visible:outline-none focus-visible:border-[#a3a3a3] focus-visible:ring-2 focus-visible:ring-[#2563EB]/20 focus-visible:ring-offset-0'

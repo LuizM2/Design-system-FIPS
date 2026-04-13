@@ -3,6 +3,9 @@ import type { LucideIcon } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '../../lib/cn'
 import {
+  docHeaderNeuAccentBgHover,
+  docHeaderNeuAccentBorderHover,
+  docHeaderNeuShimmerOnAccent,
   docHeaderTabsNavSeparatorClass,
   docHeaderTabsSurface,
   docHeaderTabsUnderlineMd,
@@ -18,13 +21,79 @@ export type DocHeaderSectionTab = {
   icon: LucideIcon
 }
 
-/** Cores para fundo claro `#EDF2F8`; geometria e animação iguais ao `TabsUnderline` do TabsDoc. */
-function tabLinkClass(active: boolean) {
+function tabLinkClass(active: boolean, dark: boolean) {
   return cn(
-    'inline-flex shrink-0 items-center font-sans whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002a68]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
-    active
-      ? 'font-semibold text-[#002A68]'
-      : 'font-normal text-[#7B8C96] hover:bg-[#002a68]/[0.04] hover:text-[#333B41]',
+    'inline-flex shrink-0 items-center font-sans whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2',
+    dark
+      ? cn(
+          active
+            ? 'font-semibold text-[#E2E2E8] focus-visible:ring-[#F6921E]/40'
+            : 'font-normal text-[#A1A1AA] hover:bg-white/[0.06] hover:text-[#D4D4D8] focus-visible:ring-[#F6921E]/30',
+          'focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]',
+        )
+      : cn(
+          active
+            ? 'font-semibold text-[#002A68] focus-visible:ring-[#F6921E]/35'
+            : 'font-normal text-[#7B8C96] hover:bg-[#002a68]/[0.04] hover:text-[#333B41] focus-visible:ring-[#F6921E]/28',
+          'focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+        ),
+  )
+}
+
+function iconClassInactive(dark: boolean) {
+  return cn('shrink-0 transition-colors duration-200', dark ? 'text-[#71717A]' : 'text-[#7B8C96]')
+}
+
+/** Ícone ativo: azulejo amarelo FIPS + sweep shimmer. */
+function SectionTabIcon({
+  icon: Icon,
+  active,
+  dark,
+  sizePx,
+}: {
+  icon: LucideIcon
+  active: boolean
+  dark: boolean
+  sizePx: number
+}) {
+  if (!active) {
+    return (
+      <Icon
+        className={iconClassInactive(dark)}
+        style={{ width: sizePx, height: sizePx }}
+        strokeWidth={1.5}
+        aria-hidden
+      />
+    )
+  }
+  const pad = 4
+  const box = sizePx + pad * 2
+  return (
+    <span
+      className="relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-md"
+      style={{
+        width: box,
+        height: box,
+        border: `1px solid ${docHeaderNeuAccentBorderHover}`,
+        boxShadow: '0 2px 8px -2px rgba(246,146,30,0.45)',
+      }}
+    >
+      <span className="absolute inset-0 rounded-[5px]" style={{ background: docHeaderNeuAccentBgHover }} aria-hidden />
+      <span
+        className="pointer-events-none absolute inset-0 rounded-[5px]"
+        style={{
+          background: docHeaderNeuShimmerOnAccent,
+          animation: 'shimmerSweep 0.55s ease forwards',
+        }}
+        aria-hidden
+      />
+      <Icon
+        className="relative z-[1] shrink-0 text-[#002A68]"
+        style={{ width: sizePx, height: sizePx }}
+        strokeWidth={1.5}
+        aria-hidden
+      />
+    </span>
   )
 }
 
@@ -35,8 +104,15 @@ function useSectionTabUnderline(activeIndex: number, remeasureKey?: unknown) {
 
   const update = useCallback(() => {
     const nav = navRef.current
+    if (activeIndex < 0 || !nav) {
+      setLine({ left: 0, width: 0 })
+      return
+    }
     const el = tabRefs.current[activeIndex]
-    if (!nav || !el) return
+    if (!el) {
+      setLine({ left: 0, width: 0 })
+      return
+    }
     const navRect = nav.getBoundingClientRect()
     const elRect = el.getBoundingClientRect()
     setLine({
@@ -60,15 +136,17 @@ function useSectionTabUnderline(activeIndex: number, remeasureKey?: unknown) {
 }
 
 /**
- * Abas de secção do header — **Underline** como no `TabsDoc`, sobre superfície clara `#EDF2F8`.
+ * Abas de secção — Underline com icon tiles ativos (estilo Tecnopano, paleta FIPS).
  */
 export function DocHeaderSectionNav({
   tabs,
   currentGroupId,
+  dark = false,
   remeasureKey,
 }: {
   tabs: DocHeaderSectionTab[]
   currentGroupId: string
+  dark?: boolean
   remeasureKey?: unknown
 }) {
   const activeIndex = Math.max(
@@ -77,69 +155,69 @@ export function DocHeaderSectionNav({
   )
   const { navRef, tabRefs, line } = useSectionTabUnderline(activeIndex, remeasureKey)
 
+  const navSkin = dark
+    ? cn(
+        'bg-[rgba(255,255,255,0.08)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+        'border-b-2 border-white/10',
+      )
+    : cn(docHeaderTabsSurface, docHeaderTabsNavSeparatorClass)
+
   return (
     <nav
       ref={navRef}
-      className={cn(
-        docHeaderTabsSurface,
-        'no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto',
-        docHeaderTabsNavSeparatorClass,
-      )}
+      className={cn('no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto', navSkin)}
       aria-label="Seções principais"
     >
-        {tabs.map((tab, i) => {
-          const active = tab.id === currentGroupId
-          const Icon = tab.icon
-          return (
-            <div
-              key={tab.id}
-              ref={(el) => {
-                tabRefs.current[i] = el
+      {tabs.map((tab, i) => {
+        const active = tab.id === currentGroupId
+        const Icon = tab.icon
+        return (
+          <div
+            key={tab.id}
+            ref={(el) => {
+              tabRefs.current[i] = el
+            }}
+            className="inline-flex shrink-0"
+          >
+            <NavLink
+              to={tab.to}
+              end={tab.end}
+              className={tabLinkClass(active, dark)}
+              style={{
+                fontSize: U.fontSizePx,
+                padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
+                gap: U.iconGapPx,
               }}
-              className="inline-flex shrink-0"
             >
-              <NavLink
-                to={tab.to}
-                end={tab.end}
-                className={tabLinkClass(active)}
-                style={{
-                  fontSize: U.fontSizePx,
-                  padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
-                  gap: U.iconGapPx,
-                }}
-              >
-                <Icon
-                  className={cn(
-                    'shrink-0 transition-colors duration-200',
-                    active ? 'text-[#F6921E]' : 'text-[#7B8C96]',
-                  )}
-                  style={{ width: U.iconSizePx, height: U.iconSizePx }}
-                  strokeWidth={1.5}
-                  aria-hidden
-                />
-                {tab.label}
-              </NavLink>
-            </div>
-          )
-        })}
-        <span
-          className="pointer-events-none absolute -bottom-0.5 h-[3px] rounded-t-[3px] bg-[#F6921E]"
-          style={{
-            left: line.left,
-            width: line.width,
-            transition: U.indicatorTransition,
-          }}
-          aria-hidden
-        />
+              <SectionTabIcon icon={Icon} active={active} dark={dark} sizePx={U.iconSizePx} />
+              {tab.label}
+            </NavLink>
+          </div>
+        )
+      })}
+      <span
+        className={cn(
+          'pointer-events-none absolute -bottom-0.5 h-[3px] rounded-t-[3px] bg-[#F6921E]',
+          activeIndex < 0 && 'opacity-0',
+        )}
+        style={{
+          left: line.left,
+          width: line.width,
+          transition: U.indicatorTransition,
+        }}
+        aria-hidden
+      />
     </nav>
   )
 }
 
-/** Réplica estática (HeaderDoc), mesmo padrão Underline. */
+/** Réplica estática (HeaderDoc), mesmo padrão Underline com icon tiles. */
 export function DocHeaderSectionNavDemo({
   tabs,
+  dark = false,
 }: {
   tabs: Array<{ id: string; label: string; active: boolean; icon: LucideIcon }>
+  dark?: boolean
 }) {
   const activeIndex = Math.max(
     0,
@@ -147,57 +225,55 @@ export function DocHeaderSectionNavDemo({
   )
   const { navRef, tabRefs, line } = useSectionTabUnderline(activeIndex)
 
+  const navSkin = dark
+    ? cn(
+        'bg-[rgba(255,255,255,0.08)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+        'border-b-2 border-white/10',
+      )
+    : cn(docHeaderTabsSurface, docHeaderTabsNavSeparatorClass)
+
   return (
     <nav
       ref={navRef}
-      className={cn(
-        docHeaderTabsSurface,
-        'no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto',
-        docHeaderTabsNavSeparatorClass,
-      )}
+      className={cn('no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto', navSkin)}
       aria-label="Demo — seções"
     >
-        {tabs.map((tab, i) => {
-          const Icon = tab.icon
-          return (
-            <div
-              key={tab.id}
-              ref={(el) => {
-                tabRefs.current[i] = el
+      {tabs.map((tab, i) => {
+        const Icon = tab.icon
+        return (
+          <div
+            key={tab.id}
+            ref={(el) => {
+              tabRefs.current[i] = el
+            }}
+            className="inline-flex shrink-0"
+          >
+            <span
+              className={cn(tabLinkClass(tab.active, dark), 'cursor-default')}
+              style={{
+                fontSize: U.fontSizePx,
+                padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
+                gap: U.iconGapPx,
               }}
-              className="inline-flex shrink-0"
             >
-              <span
-                className={cn(tabLinkClass(tab.active), 'cursor-default')}
-                style={{
-                  fontSize: U.fontSizePx,
-                  padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
-                  gap: U.iconGapPx,
-                }}
-              >
-                <Icon
-                  className={cn(
-                    'shrink-0 transition-colors duration-200',
-                    tab.active ? 'text-[#F6921E]' : 'text-[#7B8C96]',
-                  )}
-                  style={{ width: U.iconSizePx, height: U.iconSizePx }}
-                  aria-hidden
-                  strokeWidth={1.5}
-                />
-                {tab.label}
-              </span>
-            </div>
-          )
-        })}
-        <span
-          className="pointer-events-none absolute -bottom-0.5 h-[3px] rounded-t-[3px] bg-[#F6921E]"
-          style={{
-            left: line.left,
-            width: line.width,
-            transition: U.indicatorTransition,
-          }}
-          aria-hidden
-        />
+              <SectionTabIcon icon={Icon} active={tab.active} dark={dark} sizePx={U.iconSizePx} />
+              {tab.label}
+            </span>
+          </div>
+        )
+      })}
+      <span
+        className={cn(
+          'pointer-events-none absolute -bottom-0.5 h-[3px] rounded-t-[3px] bg-[#F6921E]',
+          activeIndex < 0 && 'opacity-0',
+        )}
+        style={{
+          left: line.left,
+          width: line.width,
+          transition: U.indicatorTransition,
+        }}
+        aria-hidden
+      />
     </nav>
   )
 }

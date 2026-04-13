@@ -187,6 +187,16 @@
   }
 }
 
+/* Shimmer sweep para icon tiles ativos (tabs do header) */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* Docs app sidebar (neumorphic tiles + Menu automático range) */
 @keyframes docsSidebarNeuShimmer {
   0% {
