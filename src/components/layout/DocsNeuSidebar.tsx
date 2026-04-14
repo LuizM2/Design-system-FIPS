@@ -487,8 +487,8 @@ export function DocsNeuSidebar({
   const onPointerEnter = useCallback(() => {
     sidebarPointerInsideRef.current = true
     clearTimer()
-    onCollapsedChange(false)
-  }, [clearTimer, onCollapsedChange])
+    if (autoCollapse) onCollapsedChange(false)
+  }, [autoCollapse, clearTimer, onCollapsedChange])
 
   const onPointerLeave = useCallback(() => {
     sidebarPointerInsideRef.current = false
