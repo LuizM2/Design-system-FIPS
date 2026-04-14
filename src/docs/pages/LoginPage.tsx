@@ -39,6 +39,8 @@ export default function LoginPage() {
 
   const [v2ShowPw, setV2ShowPw] = useState(false)
   const [v2Tab, setV2Tab] = useState<LoginTab>('interno')
+  const [v3ShowPw, setV3ShowPw] = useState(false)
+  const [v3Focused, setV3Focused] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -47,6 +49,146 @@ export default function LoginPage() {
   }, [])
 
   return (<>
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  Documentação — Glassmorphism nos padrões de Login          ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      padding: '48px 48px 40px',
+      background: 'var(--color-surface-muted)',
+      fontFamily: "'Open Sans', sans-serif",
+    }}>
+      <h1 style={{
+        fontFamily: "'Saira Expanded', sans-serif",
+        fontSize: 28,
+        fontWeight: 800,
+        color: 'var(--color-fg)',
+        margin: '0 0 8px',
+      }}>
+        Padrão Login — <span style={{ color: '#F6921E' }}>Glassmorphism</span>
+      </h1>
+      <p style={{
+        fontSize: 14,
+        color: 'var(--color-fg-muted)',
+        lineHeight: 1.7,
+        maxWidth: 720,
+        margin: '0 0 16px',
+      }}>
+        <strong style={{ color: 'var(--color-fg)' }}>Os três modelos abaixo (V1, V2 e V3) são vidro fosco (glassmorphism).</strong>{' '}
+        Todos usam a mesma técnica: <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>backdrop-filter: blur()</code> +{' '}
+        fundo semi-transparente via <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>rgba()</code> +{' '}
+        bordas que simulam reflexo de luz no vidro.
+      </p>
+      <p style={{
+        fontSize: 14,
+        color: 'var(--color-fg-muted)',
+        lineHeight: 1.7,
+        maxWidth: 720,
+        margin: '0 0 28px',
+      }}>
+        A diferença visual entre eles não é a técnica — <strong style={{ color: 'var(--color-fg)' }}>é o grau de transparência</strong>.
+        Um vidro fosco pode ser quase opaco (V1) ou quase invisível (V2/V3), mas todos são glassmorphism.
+        O que controla essa variação é a opacidade do <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>rgba()</code> e
+        os filtros <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>blur</code>, <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>brightness</code> e <code style={{ fontSize: 12, padding: '2px 6px', borderRadius: 4, background: 'rgba(0,0,0,0.06)' }}>saturate</code>.
+      </p>
+
+      {/* Tabela comparativa */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 16,
+        maxWidth: 900,
+      }}>
+        {/* V1 */}
+        <div style={{
+          padding: '20px 18px',
+          borderRadius: 14,
+          background: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+        }}>
+          <span style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 10, fontWeight: 700, letterSpacing: '2px',
+            color: '#F6921E', textTransform: 'uppercase',
+            display: 'block', marginBottom: 10,
+          }}>V1 — Split 50/50</span>
+          <div style={{ fontSize: 12, color: 'var(--color-fg-muted)', lineHeight: 1.8 }}>
+            <div><strong>Fundo:</strong> <code style={{ fontSize: 11 }}>rgba(0,20,48,0.92)</code></div>
+            <div><strong>Blur:</strong> <code style={{ fontSize: 11 }}>blur(2px)</code></div>
+            <div><strong>Estilo:</strong> Overlay escuro sobre imagem</div>
+            <div><strong>Card:</strong> Painel direito inteiro</div>
+            <div style={{ marginTop: 8, fontSize: 11, color: 'var(--color-fg-muted)', opacity: 0.7 }}>
+              <strong>É glassmorphism</strong> — mais opaco, pouca transparência. Ideal para foco total no formulário.
+            </div>
+          </div>
+        </div>
+
+        {/* V2 */}
+        <div style={{
+          padding: '20px 18px',
+          borderRadius: 14,
+          background: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+        }}>
+          <span style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 10, fontWeight: 700, letterSpacing: '2px',
+            color: '#F6921E', textTransform: 'uppercase',
+            display: 'block', marginBottom: 10,
+          }}>V2 — Card centralizado</span>
+          <div style={{ fontSize: 12, color: 'var(--color-fg-muted)', lineHeight: 1.8 }}>
+            <div><strong>Fundo:</strong> <code style={{ fontSize: 11 }}>rgba(255,255,255,0.06–0.14)</code></div>
+            <div><strong>Blur:</strong> <code style={{ fontSize: 11 }}>blur(12px) brightness(1.15)</code></div>
+            <div><strong>Estilo:</strong> Vidro fosco com reflexo de luz</div>
+            <div><strong>Card:</strong> Flutuante sobre a divisa</div>
+            <div style={{ marginTop: 8, fontSize: 11, color: 'var(--color-fg-muted)', opacity: 0.7 }}>
+              <strong>É glassmorphism</strong> — mais transparente, vê-se o fundo. <code style={{ fontSize: 10 }}>saturate(0.4)</code> neutraliza o azul, <code style={{ fontSize: 10 }}>brightness</code> clareia.
+            </div>
+          </div>
+        </div>
+
+        {/* V3 */}
+        <div style={{
+          padding: '20px 18px',
+          borderRadius: 14,
+          background: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+        }}>
+          <span style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 10, fontWeight: 700, letterSpacing: '2px',
+            color: '#F6921E', textTransform: 'uppercase',
+            display: 'block', marginBottom: 10,
+          }}>V3 — Split editorial</span>
+          <div style={{ fontSize: 12, color: 'var(--color-fg-muted)', lineHeight: 1.8 }}>
+            <div><strong>Fundo:</strong> <code style={{ fontSize: 11 }}>rgba(255,255,255,0.03–0.10)</code></div>
+            <div><strong>Blur:</strong> <code style={{ fontSize: 11 }}>blur(14px) brightness(1.12)</code></div>
+            <div><strong>Estilo:</strong> Vidro fosco + split card</div>
+            <div><strong>Card:</strong> Dois painéis (branding + form)</div>
+            <div style={{ marginTop: 8, fontSize: 11, color: 'var(--color-fg-muted)', opacity: 0.7 }}>
+              <strong>É glassmorphism</strong> — similar ao V2 com layout split. <code style={{ fontSize: 10 }}>saturate(0.45)</code> dessatura o azul. Inputs underline-only.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Nota técnica */}
+      <div style={{
+        marginTop: 24,
+        padding: '14px 18px',
+        borderRadius: 10,
+        background: 'rgba(246,146,30,0.05)',
+        border: '1px solid rgba(246,146,30,0.12)',
+        maxWidth: 900,
+      }}>
+        <p style={{ fontSize: 12, color: 'var(--color-fg-muted)', lineHeight: 1.7, margin: 0 }}>
+          <strong style={{ color: '#F6921E' }}>O que muda entre eles?</strong> A diferença principal é o valor <code style={{ fontSize: 11 }}>rgba()</code> do background do card.
+          Quanto menor a opacidade (ex: <code style={{ fontSize: 11 }}>0.06</code>), mais transparente e mais do fundo aparece.
+          O <code style={{ fontSize: 11 }}>backdrop-filter</code> com <code style={{ fontSize: 11 }}>blur</code>, <code style={{ fontSize: 11 }}>brightness</code> e <code style={{ fontSize: 11 }}>saturate</code> controlam
+          o quão fosco, claro e neutro o vidro fica — essencial quando o fundo é azul escuro e o card precisa parecer cinza/branco.
+        </p>
+      </div>
+    </div>
+
     <div className="relative flex min-h-[calc(100svh-120px)] overflow-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -382,12 +524,6 @@ export default function LoginPage() {
           animation: mounted ? 'slideInLeft 0.8s ease-out forwards' : 'none',
           opacity: mounted ? 1 : 0,
         }}>
-          <img
-            src="/appfips-logo.png"
-            alt="App FIPS"
-            style={{ height: 56, objectFit: 'contain', marginBottom: 32 }}
-          />
-
           <h1 style={{
             fontFamily: "'Saira Expanded', sans-serif",
             fontSize: 36,
@@ -496,28 +632,12 @@ export default function LoginPage() {
       <div className="login-right">
         <div className="relative z-10" style={{
           animation: mounted ? 'slideInRight 0.7s ease-out 0.2s both' : 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
         }}>
-          {/* Segurança badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '6px 14px', borderRadius: 20,
-            background: 'rgba(0,198,76,0.08)',
-            border: '1px solid rgba(0,198,76,0.15)',
-            marginBottom: 32,
-          }}>
-            <Shield size={13} color="#00C64C" />
-            <span style={{
-              fontFamily: "'Saira Expanded', sans-serif",
-              fontSize: 9,
-              fontWeight: 600,
-              letterSpacing: '1.5px',
-              color: '#00C64C',
-              textTransform: 'uppercase',
-            }}>
-              Conexão segura
-            </span>
-          </div>
-
+          <img src="/appfips-logo.png" alt="App FIPS" style={{ height: 56, objectFit: 'contain', marginBottom: 24 }} />
           <h2 style={{
             fontFamily: "'Saira Expanded', sans-serif",
             fontSize: 24,
@@ -525,6 +645,7 @@ export default function LoginPage() {
             color: '#fff',
             margin: '0 0 6px',
             letterSpacing: '0.02em',
+            textAlign: 'center',
           }}>
             Acessar sistema
           </h2>
@@ -533,59 +654,25 @@ export default function LoginPage() {
             fontSize: 13,
             color: 'rgba(255,255,255,0.32)',
             margin: '0 0 28px',
+            textAlign: 'center',
           }}>
             Identifique-se para continuar
           </p>
 
-          {/* ── Tabs Interno / Externo ── */}
-          <div className="login-tabs">
-            <button
-              type="button"
-              className={`login-tab ${tab === 'interno' ? 'active' : ''}`}
-              onClick={() => setTab('interno')}
-            >
-              <User size={15} className="tab-icon" />
-              Interno
-            </button>
-            <button
-              type="button"
-              className={`login-tab ${tab === 'externo' ? 'active' : ''}`}
-              onClick={() => setTab('externo')}
-            >
-              <Globe size={15} className="tab-icon" />
-              Externo
-            </button>
-          </div>
-
-          {/* Hint contextual */}
-          <div className="tab-hint">
-            <Shield size={13} color="rgba(253,194,78,0.5)" style={{ flexShrink: 0 }} />
-            <span>
-              {tab === 'interno'
-                ? 'Use seu Código de Servidor (CS) ou E-mail'
-                : 'Use seu CPF para acessar como colaborador externo'}
-            </span>
-          </div>
-
           <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Campo dinâmico por tab */}
+            {/* CS ou E-mail */}
             <div>
               <label className={`rail-label ${focused === 'user' ? 'active' : ''}`}>
-                {tab === 'interno' ? 'CS ou E-mail' : 'CPF'}
+                CS ou E-mail
               </label>
               <div className="rail-input">
-                {tab === 'interno' ? (
-                  <User size={18} strokeWidth={1.6} className="icon" />
-                ) : (
-                  <Fingerprint size={18} strokeWidth={1.6} className="icon" />
-                )}
+                <User size={18} strokeWidth={1.6} className="icon" />
                 <input
                   type="text"
-                  placeholder={tab === 'interno' ? 'Digite CS ou Email' : '000.000.000-00'}
+                  placeholder="Digite CS ou Email"
                   onFocus={() => setFocused('user')}
                   onBlur={() => setFocused(null)}
                   autoComplete="username"
-                  key={tab}
                 />
               </div>
             </div>
@@ -938,6 +1025,347 @@ export default function LoginPage() {
           </div>
           <p style={{ textAlign: 'center', fontFamily: "'Open Sans',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.18)', margin: 0 }}>
             Ferrovia Interna do Porto de Santos
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  SEPARADOR v2 → v3                                         ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 24,
+      padding: '64px 48px',
+      background: 'var(--color-surface-muted)',
+    }}>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+      <span style={{
+        fontFamily: "'Saira Expanded', sans-serif",
+        fontSize: 11, fontWeight: 700, letterSpacing: '3px',
+        color: 'rgba(0,75,155,0.35)', textTransform: 'uppercase', whiteSpace: 'nowrap',
+      }}>
+        Login v3 — Split editorial
+      </span>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+    </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  LOGIN v3 — Split card, editorial, Dieter Rams              ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      position: 'relative',
+      height: 'calc(100svh - 120px)',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <style>{`
+        /* ─── V3 Underline inputs ─── */
+        .v3-input-group { position:relative; margin-bottom:4px; }
+        .v3-input-label {
+          position:absolute; top:0; left:0;
+          font-family:'Saira Expanded',sans-serif;
+          font-size:9px; font-weight:600; letter-spacing:3px;
+          text-transform:uppercase;
+          color:rgba(255,255,255,0.28);
+          transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
+          pointer-events:none;
+        }
+        .v3-input-label.active { color:#FDC24E; }
+        .v3-underline-input {
+          width:100%; padding:20px 0 8px 0;
+          background:transparent; border:none; outline:none;
+          border-bottom:1px solid rgba(255,255,255,0.10);
+          color:#fff; font-size:15px; font-family:'Open Sans',sans-serif;
+          font-weight:400; letter-spacing:0.02em;
+          transition:border-color 0.3s;
+        }
+        .v3-underline-input::placeholder { color:rgba(255,255,255,0.18); font-weight:300; }
+        .v3-underline-input:focus { border-bottom-color:transparent; }
+        .v3-underline-input:-webkit-autofill,
+        .v3-underline-input:-webkit-autofill:hover,
+        .v3-underline-input:-webkit-autofill:focus {
+          -webkit-box-shadow:0 0 0 50px transparent inset !important;
+          -webkit-text-fill-color:#fff !important;
+          transition:background-color 5000s ease-in-out 0s;
+        }
+        /* Animated gold fill line */
+        .v3-line-fill {
+          position:absolute; bottom:0; left:0; right:0; height:2px;
+          overflow:hidden;
+        }
+        .v3-line-fill::after {
+          content:''; display:block; height:100%; width:100%;
+          background:linear-gradient(90deg, #F6921E, #FDC24E, #F6921E);
+          transform:scaleX(0); transform-origin:center;
+          transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .v3-input-group:focus-within .v3-line-fill::after { transform:scaleX(1); }
+
+        /* ─── V3 Outline button ─── */
+        .v3-outline-btn {
+          position:relative; display:flex; align-items:center; justify-content:center; gap:10px;
+          width:100%; height:44px; padding:0 24px;
+          background:transparent;
+          border:1.5px solid #FDC24E;
+          border-radius:6px;
+          color:#FDC24E; font-size:13px; font-weight:700;
+          font-family:'Saira Expanded',sans-serif;
+          letter-spacing:1.5px; text-transform:uppercase;
+          cursor:pointer; overflow:hidden;
+          transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .v3-outline-btn::before {
+          content:''; position:absolute; inset:0;
+          background:linear-gradient(135deg, #FDC24E, #F6921E);
+          transform:scaleX(0); transform-origin:left;
+          transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+          z-index:0;
+        }
+        .v3-outline-btn:hover::before { transform:scaleX(1); }
+        .v3-outline-btn:hover { color:#001430; border-color:#F6921E; }
+        .v3-outline-btn span, .v3-outline-btn svg { position:relative; z-index:1; }
+        .v3-outline-btn:hover svg { transform:translateX(4px); }
+        .v3-outline-btn svg { transition:transform 0.3s ease; }
+
+        /* ─── V3 Track decoration ─── */
+        @keyframes v3trainPulse {
+          0%,100% { opacity:0.15; }
+          50% { opacity:0.35; }
+        }
+        @keyframes v3slideIn {
+          0% { opacity:0; transform:translateX(-20px); }
+          100% { opacity:1; transform:translateX(0); }
+        }
+        @keyframes v3fadeUp {
+          0% { opacity:0; transform:translateY(16px); }
+          100% { opacity:1; transform:translateY(0); }
+        }
+      `}</style>
+
+      {/* Imagem Nossa Essência */}
+      <div style={{
+        flex: '0 0 85%',
+        position: 'relative',
+        background: '#002A68',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}>
+        <img
+          src="/backgrounds/nossa-essencia.png"
+          alt=""
+          draggable={false}
+          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center center' }}
+        />
+      </div>
+
+      {/* Azul escuro */}
+      <div style={{ flex: 1, background: '#002A68' }} />
+
+      {/* ══════ SPLIT CARD ══════ */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -38%)',
+        zIndex: 10,
+        display: 'flex',
+        width: 620,
+        minHeight: 360,
+        borderRadius: 16,
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%)',
+        outline: '1px solid rgba(255,255,255,0.10)',
+        backdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
+        WebkitBackdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.18)',
+        overflow: 'hidden',
+      }}>
+
+        {/* ── LEFT: Branding panel ── */}
+        <div style={{
+          width: 200,
+          flexShrink: 0,
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '32px 24px',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          overflow: 'hidden',
+        }}>
+          {/* Track line decoration */}
+          <svg width="3" height="100%" style={{
+            position: 'absolute', left: 12, top: 0,
+            animation: 'v3trainPulse 3s ease-in-out infinite',
+          }}>
+            <line x1="1.5" y1="0" x2="1.5" y2="100%" stroke="#FDC24E" strokeWidth="1.5" strokeDasharray="8 6" />
+          </svg>
+
+          {/* Horizontal ties */}
+          {[60, 120, 180, 240, 300].map((y) => (
+            <svg key={y} width="20" height="3" style={{
+              position: 'absolute', left: 4, top: y,
+              opacity: 0.12,
+            }}>
+              <line x1="0" y1="1.5" x2="20" y2="1.5" stroke="#FDC24E" strokeWidth="2" />
+            </svg>
+          ))}
+
+          <div style={{ position: 'relative', zIndex: 1, animation: mounted ? 'v3slideIn 0.6s ease-out 0.1s both' : 'none' }}>
+            <h3 style={{
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 22, fontWeight: 800, color: '#fff',
+              lineHeight: 1.1, margin: '0 0 12px',
+              letterSpacing: '-0.3px',
+            }}>
+              Gestão<br />
+              <span style={{ color: '#FDC24E' }}>ferroviária</span>
+            </h3>
+            <p style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: 11, color: 'rgba(255,255,255,0.30)',
+              lineHeight: 1.6, margin: 0,
+            }}>
+              Porto de Santos<br />
+              Sistema integrado
+            </p>
+          </div>
+
+          {/* Bottom departure-board style info */}
+          <div style={{
+            position: 'relative', zIndex: 1,
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            paddingTop: 16,
+            animation: mounted ? 'v3fadeUp 0.5s ease-out 0.3s both' : 'none',
+          }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              marginBottom: 8,
+            }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#00C64C', boxShadow: '0 0 8px rgba(0,198,76,0.4)' }} />
+              <span style={{
+                fontFamily: "'Saira Expanded', sans-serif",
+                fontSize: 8, fontWeight: 600, letterSpacing: '1.5px',
+                color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase',
+              }}>
+                Online
+              </span>
+            </div>
+            <span style={{
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 9, fontWeight: 500, letterSpacing: '2px',
+              color: 'rgba(255,255,255,0.15)', textTransform: 'uppercase',
+            }}>
+              v0.4.0
+            </span>
+          </div>
+        </div>
+
+        {/* ── RIGHT: Form panel ── */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '36px 36px 28px',
+          animation: mounted ? 'v3fadeUp 0.6s ease-out 0.15s both' : 'none',
+        }}>
+          <h2 style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 16, fontWeight: 700, color: '#fff',
+            margin: '0 0 2px', letterSpacing: '0.5px',
+          }}>
+            Acessar sistema
+          </h2>
+          <p style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: 12, color: 'rgba(255,255,255,0.25)',
+            margin: '0 0 32px',
+          }}>
+            Identifique-se para continuar
+          </p>
+
+          <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {/* CS / Email */}
+            <div className="v3-input-group">
+              <label className={`v3-input-label ${v3Focused === 'user' ? 'active' : ''}`}>
+                CS ou E-mail
+              </label>
+              <input
+                type="text"
+                className="v3-underline-input"
+                placeholder="servidor@fips.app.br"
+                autoComplete="off"
+                onFocus={() => setV3Focused('user')}
+                onBlur={() => setV3Focused(null)}
+              />
+              <div className="v3-line-fill" />
+            </div>
+
+            {/* Senha */}
+            <div className="v3-input-group">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <label className={`v3-input-label ${v3Focused === 'pw' ? 'active' : ''}`}>
+                  Senha
+                </label>
+                <a href="#" onClick={e => e.preventDefault()} style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: 10, color: 'rgba(253,194,78,0.45)',
+                  textDecoration: 'none', letterSpacing: '0.3px',
+                  transition: 'color 0.2s',
+                  position: 'relative', zIndex: 2,
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#FDC24E' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(253,194,78,0.45)' }}
+                >
+                  Esqueceu?
+                </a>
+              </div>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <input
+                  type={v3ShowPw ? 'text' : 'password'}
+                  className="v3-underline-input"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  onFocus={() => setV3Focused('pw')}
+                  onBlur={() => setV3Focused(null)}
+                  style={{ paddingRight: 36 }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setV3ShowPw(v => !v)}
+                  style={{
+                    position: 'absolute', right: 0, bottom: 8,
+                    background: 'none', border: 'none',
+                    color: 'rgba(255,255,255,0.15)', cursor: 'pointer',
+                    display: 'flex', padding: 2, transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.15)' }}
+                >
+                  {v3ShowPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                </button>
+              </div>
+              <div className="v3-line-fill" />
+            </div>
+
+            {/* CTA */}
+            <button type="submit" className="v3-outline-btn">
+              <span>Entrar</span>
+              <ArrowRight size={15} strokeWidth={2.4} />
+            </button>
+          </form>
+
+          {/* Footer */}
+          <p style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 8, fontWeight: 500, letterSpacing: '2.5px',
+            color: 'rgba(255,255,255,0.12)', textTransform: 'uppercase',
+            textAlign: 'center', marginTop: 24, marginBottom: 0,
+          }}>
+            FIPS © {new Date().getFullYear()}
           </p>
         </div>
       </div>
