@@ -41,6 +41,8 @@ export default function LoginPage() {
   const [v2Tab, setV2Tab] = useState<LoginTab>('interno')
   const [v3ShowPw, setV3ShowPw] = useState(false)
   const [v3Focused, setV3Focused] = useState<string | null>(null)
+  const [v4ShowPw, setV4ShowPw] = useState(false)
+  const [v4Focused, setV4Focused] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -224,7 +226,7 @@ export default function LoginPage() {
 
         /* ─── LEFT PANEL ─── */
         .login-left {
-          width:50%;
+          width:25%;
           flex-shrink:0;
           position:relative;
           display:flex;
@@ -238,7 +240,7 @@ export default function LoginPage() {
 
         /* ─── RIGHT PANEL ─── */
         .login-right {
-          width:50%;
+          width:75%;
           flex-shrink:0;
           position:relative;
           display:flex;
@@ -250,16 +252,15 @@ export default function LoginPage() {
         .login-right::before {
           content:'';
           position:absolute;
-          inset:-40%;
-          background:url('${BG}') center center / 180% auto no-repeat;
+          inset:0;
+          background:url('${BG}') center center / cover no-repeat;
+          opacity:0.8;
         }
         .login-right::after {
           content:'';
           position:absolute;
           inset:0;
-          background: linear-gradient(135deg, rgba(0,20,48,0.92) 0%, rgba(0,42,104,0.88) 50%, rgba(0,20,48,0.94) 100%);
-          backdrop-filter: blur(2px);
-          -webkit-backdrop-filter: blur(2px);
+          background: linear-gradient(135deg, rgba(0,20,48,0.55) 0%, rgba(0,42,104,0.45) 50%, rgba(0,20,48,0.55) 100%);
         }
 
         /* ─── TABS Interno/Externo ─── */
@@ -323,6 +324,10 @@ export default function LoginPage() {
         }
 
         /* ─── FORM ELEMENTS ─── */
+        @keyframes railShimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
         .rail-input {
           position:relative;
           display:flex;
@@ -331,20 +336,37 @@ export default function LoginPage() {
           height:42px;
           padding:0 14px;
           border-radius:10px;
-          background: rgba(255,255,255,0.04);
-          border: 1.5px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.07);
+          border: 1.5px solid rgba(253,194,78,0.30);
+          box-shadow: 0 0 0 3px rgba(253,194,78,0.04), inset 0 0 12px rgba(253,194,78,0.01);
           transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+          overflow:hidden;
         }
         .rail-input:focus-within {
-          background: rgba(255,255,255,0.07);
-          border-color: rgba(253,194,78,0.40);
+          background: rgba(255,255,255,0.09);
+          border-color: rgba(253,194,78,0.50);
           box-shadow:
-            0 0 0 4px rgba(253,194,78,0.06),
-            0 0 24px rgba(253,194,78,0.05),
+            0 0 0 4px rgba(253,194,78,0.08),
+            0 0 24px rgba(253,194,78,0.06),
             inset 0 0 20px rgba(253,194,78,0.02);
         }
+        /* Shimmer no focus */
+        .rail-input::before {
+          content:'';
+          position:absolute;
+          top:0; left:0;
+          width:40%;
+          height:100%;
+          background: linear-gradient(105deg, transparent 30%, rgba(253,194,78,0.08) 45%, rgba(253,194,78,0.14) 50%, rgba(253,194,78,0.08) 55%, transparent 70%);
+          transform: translateX(-100%);
+          pointer-events:none;
+          z-index:1;
+        }
+        .rail-input:focus-within::before {
+          animation: railShimmer 1.2s ease-out forwards;
+        }
         .rail-input .icon {
-          color: rgba(255,255,255,0.20);
+          color: rgba(253,194,78,0.50);
           transition: all 0.35s;
           flex-shrink:0;
         }
@@ -363,10 +385,20 @@ export default function LoginPage() {
           font-weight:400;
           letter-spacing:0.01em;
           min-width:0;
+          position:relative;
+          z-index:2;
         }
         .rail-input input::placeholder {
-          color: rgba(255,255,255,0.22);
+          color: rgba(255,255,255,0.30);
           font-weight:300;
+        }
+        .rail-input input:-webkit-autofill,
+        .rail-input input:-webkit-autofill:hover,
+        .rail-input input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0 50px rgba(0,15,40,0.95) inset !important;
+          -webkit-text-fill-color: rgba(255,255,255,0.90) !important;
+          caret-color: #fff;
+          transition: background-color 5000s ease-in-out 0s;
         }
 
         /* Linha dourada animada abaixo do input focado */
@@ -376,14 +408,15 @@ export default function LoginPage() {
           bottom:-1.5px;
           left:50%;
           height:2px;
-          width:0;
-          background: linear-gradient(90deg, transparent, #FDC24E, #F6921E, #FDC24E, transparent);
+          width:60%;
+          background: linear-gradient(90deg, transparent, rgba(253,194,78,0.20), transparent);
           border-radius:2px;
           transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
           transform:translateX(-50%);
         }
         .rail-input:focus-within::after {
           width:80%;
+          background: linear-gradient(90deg, transparent, #FDC24E, #F6921E, #FDC24E, transparent);
         }
 
         /* Label flutuante */
@@ -393,13 +426,13 @@ export default function LoginPage() {
           font-weight:600;
           letter-spacing:2px;
           text-transform:uppercase;
-          color: rgba(255,255,255,0.28);
+          color: rgba(253,194,78,0.55);
           margin-bottom:6px;
           display:block;
           transition: color 0.3s;
         }
         .rail-label.active {
-          color: rgba(253,194,78,0.70);
+          color: rgba(253,194,78,0.85);
         }
 
         /* ─── CTA Button ─── */
@@ -569,61 +602,136 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* 5 Princípios FIPS */}
+          {/* ── Linha de trem: Princípios FIPS ── */}
           <div style={{
-            display: 'flex', flexDirection: 'column', gap: 12,
+            height: 400,
+            overflow: 'hidden',
             borderTop: '1px solid rgba(255,255,255,0.06)',
             paddingTop: 24,
+            position: 'relative',
           }}>
-            <span style={{
-              fontFamily: "'Saira Expanded', sans-serif",
-              fontSize: 9,
-              fontWeight: 600,
-              letterSpacing: '2px',
-              color: 'rgba(255,255,255,0.22)',
-              textTransform: 'uppercase',
-              marginBottom: 4,
+            <style>{`
+              @keyframes stationPulse {
+                0%, 100% { box-shadow: 0 0 6px rgba(253,194,78,0.4), 0 0 12px rgba(253,194,78,0.15); }
+                50% { box-shadow: 0 0 10px rgba(253,194,78,0.7), 0 0 20px rgba(253,194,78,0.3); }
+              }
+              @keyframes stationReveal {
+                0% { opacity: 0; transform: translateX(-12px); }
+                100% { opacity: 1; transform: translateX(0); }
+              }
+            `}</style>
+
+            {/* Cabeçalho da rota */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              marginBottom: 20, paddingLeft: 4,
             }}>
-              Nossos princípios
-            </span>
-            {[
-              { icon: '🔗', title: 'Consistência', desc: 'Mesma experiência em todos os aplicativos' },
-              { icon: '♿', title: 'Acessibilidade', desc: 'WCAG AA, foco visível, toque mínimo 42px' },
-              { icon: '⚡', title: 'Eficiência', desc: 'Componentes prontos, menos tempo projetando' },
-              { icon: '🛤️', title: 'Identidade Ferroviária', desc: 'Cada tela carrega a identidade da FIPS' },
-              { icon: '🔒', title: 'Segurança', desc: 'Proteção de dados e controle de acesso' },
-            ].map((p, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 12,
-                padding: '8px 12px',
-                borderRadius: 10,
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.04)',
-                animation: mounted ? `fadeIn 0.4s ease-out ${0.4 + i * 0.1}s both` : 'none',
+              <div style={{
+                width: 18, height: 3, borderRadius: 2,
+                background: 'linear-gradient(90deg, #FDC24E, #F6921E)',
+              }} />
+              <span style={{
+                fontFamily: "'Saira Expanded', sans-serif",
+                fontSize: 8, fontWeight: 700, letterSpacing: '2.5px',
+                color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
               }}>
-                <span style={{ fontSize: 16, flexShrink: 0 }}>{p.icon}</span>
-                <div>
+                Rota dos princípios
+              </span>
+            </div>
+
+            {/* Trilho + estações */}
+            <div style={{ position: 'relative', paddingLeft: 32 }}>
+              {/* Trilho vertical — linha principal */}
+              <div style={{
+                position: 'absolute', left: 9, top: 0, bottom: 0, width: 2,
+                background: 'repeating-linear-gradient(180deg, #FDC24E 0px, #FDC24E 8px, transparent 8px, transparent 14px)',
+                opacity: 0.5,
+              }} />
+
+              {/* Dormentes horizontais */}
+              {[28, 62, 96, 130, 164, 198, 232, 266, 300].map((y, i) => (
+                <div key={i} style={{
+                  position: 'absolute', left: 2, top: y, width: 16, height: 2,
+                  background: '#FDC24E', opacity: 0.12, borderRadius: 1,
+                }} />
+              ))}
+
+              {/* Estações — faróis de partida */}
+              {[
+                { name: 'Eficiência', desc: 'A busca pela eficiência, com responsabilidade, deve estar presente em nosso dia a dia.', color: '#00C64C' },
+                { name: 'Pessoas', desc: 'Pessoas engajadas e um ambiente de trabalho saudável são o alicerce para bons resultados duradouros.', color: '#FDC24E' },
+                { name: 'Integridade', desc: 'Respeitar as pessoas e cumprir os compromissos assumidos é essencial para relacionamentos duradouros.', color: '#F6921E' },
+                { name: 'Colaboração', desc: 'Trabalho em conjunto, com empatia, para alcançar o melhor resultado para todos.', color: '#00C64C' },
+                { name: 'Segurança', desc: 'A segurança das pessoas é prioridade sobre qualquer outro tema.', color: '#FF4D4D' },
+              ].map((station, i) => (
+                <div
+                  key={station.name}
+                  style={{
+                    position: 'relative',
+                    marginBottom: i < 4 ? 28 : 0,
+                    animation: mounted ? `stationReveal 0.4s ease-out ${0.3 + i * 0.12}s both` : 'none',
+                  }}
+                >
+                  {/* Farol de partida */}
+                  <div style={{
+                    position: 'absolute',
+                    left: -28,
+                    top: 2,
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    background: `radial-gradient(circle at 40% 35%, ${station.color}, ${station.color}88 60%, transparent 100%)`,
+                    boxShadow: `0 0 8px ${station.color}80, 0 0 16px ${station.color}30`,
+                    animation: `stationPulse 2.5s ease-in-out ${i * 0.5}s infinite`,
+                  }} />
+                  {/* Aro externo do farol */}
+                  <div style={{
+                    position: 'absolute',
+                    left: -30,
+                    top: 0,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    border: `1.5px solid ${station.color}40`,
+                    pointerEvents: 'none',
+                  }} />
+
+                  {/* Conector horizontal */}
+                  <div style={{
+                    position: 'absolute',
+                    left: -12,
+                    top: 8,
+                    width: 8,
+                    height: 1,
+                    background: `${station.color}50`,
+                  }} />
+
+                  {/* Nome da estação */}
                   <div style={{
                     fontFamily: "'Saira Expanded', sans-serif",
                     fontSize: 11,
-                    fontWeight: 600,
-                    color: 'rgba(255,255,255,0.70)',
+                    fontWeight: 700,
+                    color: station.color,
+                    letterSpacing: '0.3px',
                     lineHeight: 1.2,
                   }}>
-                    {p.title}
+                    {station.name}
                   </div>
+
+                  {/* Descrição */}
                   <div style={{
                     fontFamily: "'Open Sans', sans-serif",
-                    fontSize: 10,
-                    color: 'rgba(255,255,255,0.28)',
-                    lineHeight: 1.3,
-                    marginTop: 1,
+                    fontSize: 9,
+                    color: 'rgba(255,255,255,0.25)',
+                    lineHeight: 1.45,
+                    marginTop: 3,
+                    maxWidth: 220,
                   }}>
-                    {p.desc}
+                    {station.desc}
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -636,8 +744,20 @@ export default function LoginPage() {
           flexDirection: 'column',
           alignItems: 'center',
           width: '100%',
+          maxWidth: 380,
+          margin: '0 auto',
+          padding: '36px 32px',
+          borderRadius: 28,
+          background: 'rgba(255,255,255,0.02)',
+          backdropFilter: 'blur(10px) saturate(50%) brightness(1.1)',
+          WebkitBackdropFilter: 'blur(10px) saturate(50%) brightness(1.1)',
+          border: '0.5px solid rgba(255,255,255,0.08)',
+          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.10)',
+          position: 'relative',
+          gap: 18,
         }}>
-          <img src="/appfips-logo.png" alt="App FIPS" style={{ height: 56, objectFit: 'contain', marginBottom: 24 }} />
+
+          <img src="/appfips-logo-full.png" alt="App FIPS" style={{ height: 48, objectFit: 'contain', marginBottom: 20 }} />
           <h2 style={{
             fontFamily: "'Saira Expanded', sans-serif",
             fontSize: 24,
@@ -724,9 +844,9 @@ export default function LoginPage() {
             </div>
 
             {/* CTA */}
-            <button type="submit" className="rail-cta">
-              Entrar no sistema
-              <ArrowRight size={18} strokeWidth={2.4} />
+            <button type="submit" className="v3-outline-btn">
+              <span>Entrar</span>
+              <ArrowRight size={15} strokeWidth={2.4} />
             </button>
           </form>
 
@@ -1364,6 +1484,193 @@ export default function LoginPage() {
             fontSize: 8, fontWeight: 500, letterSpacing: '2.5px',
             color: 'rgba(255,255,255,0.12)', textTransform: 'uppercase',
             textAlign: 'center', marginTop: 24, marginBottom: 0,
+          }}>
+            FIPS © {new Date().getFullYear()}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  SEPARADOR v3 → v4                                         ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 24,
+      padding: '64px 48px',
+      background: 'var(--color-surface-muted)',
+    }}>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+      <span style={{
+        fontFamily: "'Saira Expanded', sans-serif",
+        fontSize: 11, fontWeight: 700, letterSpacing: '3px',
+        color: 'rgba(0,75,155,0.35)', textTransform: 'uppercase', whiteSpace: 'nowrap',
+      }}>
+        Login v4 — Split 50/50
+      </span>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+    </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  LOGIN v4 — Card split v3 sobre background v1               ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div className="relative flex min-h-[calc(100svh-120px)] overflow-hidden">
+      {/* Fundo: mesma estrutura da v1 */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(145deg, #001430 0%, #002A68 40%, #00396B 100%)',
+      }}>
+        <img
+          src={BG}
+          alt=""
+          draggable={false}
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%',
+            objectFit: 'cover', opacity: 0.8,
+          }}
+        />
+        {/* Overlay escuro */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(135deg, rgba(0,20,48,0.55) 0%, rgba(0,42,104,0.45) 50%, rgba(0,20,48,0.55) 100%)',
+        }} />
+      </div>
+
+      {/* Card split v3 — canto direito */}
+      <div style={{
+        position: 'relative', zIndex: 10,
+        margin: 'auto',
+        display: 'flex',
+        width: 620,
+        minHeight: 360,
+        borderRadius: 16,
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%)',
+        outline: '1px solid rgba(255,255,255,0.10)',
+        backdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
+        WebkitBackdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.18)',
+        overflow: 'hidden',
+      }}>
+
+        {/* ── LEFT: Branding panel ── */}
+        <div style={{
+          width: 200, flexShrink: 0, position: 'relative',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          padding: '32px 24px',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          overflow: 'hidden',
+        }}>
+          <svg width="3" height="100%" style={{
+            position: 'absolute', left: 12, top: 0,
+            animation: 'v3trainPulse 3s ease-in-out infinite',
+          }}>
+            <line x1="1.5" y1="0" x2="1.5" y2="100%" stroke="#FDC24E" strokeWidth="1.5" strokeDasharray="8 6" />
+          </svg>
+          {[60, 120, 180, 240, 300].map((y) => (
+            <svg key={y} width="20" height="3" style={{ position: 'absolute', left: 4, top: y, opacity: 0.12 }}>
+              <line x1="0" y1="1.5" x2="20" y2="1.5" stroke="#FDC24E" strokeWidth="2" />
+            </svg>
+          ))}
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <h3 style={{
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 22, fontWeight: 800, color: '#fff',
+              lineHeight: 1.1, margin: '0 0 12px', letterSpacing: '-0.3px',
+            }}>
+              Gestão<br />
+              <span style={{ color: '#FDC24E' }}>ferroviária</span>
+            </h3>
+            <p style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: 11, color: 'rgba(255,255,255,0.30)',
+              lineHeight: 1.6, margin: 0,
+            }}>
+              Porto de Santos<br />
+              Sistema integrado
+            </p>
+          </div>
+
+          <div style={{
+            position: 'relative', zIndex: 1,
+            borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 16,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#00C64C', boxShadow: '0 0 8px rgba(0,198,76,0.4)' }} />
+              <span style={{
+                fontFamily: "'Saira Expanded', sans-serif",
+                fontSize: 8, fontWeight: 600, letterSpacing: '1.5px',
+                color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase',
+              }}>Online</span>
+            </div>
+            <span style={{
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 9, fontWeight: 500, letterSpacing: '2px',
+              color: 'rgba(255,255,255,0.15)', textTransform: 'uppercase',
+            }}>v0.4.0</span>
+          </div>
+        </div>
+
+        {/* ── RIGHT: Form panel ── */}
+        <div style={{
+          flex: 1, display: 'flex', flexDirection: 'column',
+          justifyContent: 'center', padding: '36px 36px 28px',
+        }}>
+          <h2 style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 16, fontWeight: 700, color: '#fff',
+            margin: '0 0 2px', letterSpacing: '0.5px',
+          }}>Acessar sistema</h2>
+          <p style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: 12, color: 'rgba(255,255,255,0.25)',
+            margin: '0 0 32px',
+          }}>Identifique-se para continuar</p>
+
+          <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div className="v3-input-group">
+              <label className={`v3-input-label ${v4Focused === 'user' ? 'active' : ''}`}>CS ou E-mail</label>
+              <input type="text" className="v3-underline-input" placeholder="servidor@fips.app.br" autoComplete="off"
+                onFocus={() => setV4Focused('user')} onBlur={() => setV4Focused(null)} />
+              <div className="v3-line-fill" />
+            </div>
+
+            <div className="v3-input-group">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <label className={`v3-input-label ${v4Focused === 'pw' ? 'active' : ''}`}>Senha</label>
+                <a href="#" onClick={e => e.preventDefault()} style={{
+                  fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: 'rgba(253,194,78,0.45)',
+                  textDecoration: 'none', transition: 'color 0.2s', position: 'relative', zIndex: 2,
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#FDC24E' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(253,194,78,0.45)' }}
+                >Esqueceu?</a>
+              </div>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <input type={v4ShowPw ? 'text' : 'password'} className="v3-underline-input" placeholder="••••••••"
+                  autoComplete="new-password" style={{ paddingRight: 36 }}
+                  onFocus={() => setV4Focused('pw')} onBlur={() => setV4Focused(null)} />
+                <button type="button" onClick={() => setV4ShowPw(v => !v)}
+                  style={{ position: 'absolute', right: 0, bottom: 8, background: 'none', border: 'none',
+                    color: 'rgba(255,255,255,0.15)', cursor: 'pointer', display: 'flex', padding: 2, transition: 'color 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.15)' }}
+                >
+                  {v4ShowPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                </button>
+              </div>
+              <div className="v3-line-fill" />
+            </div>
+
+            <button type="submit" className="v3-outline-btn">
+              <span>Entrar</span>
+              <ArrowRight size={15} strokeWidth={2.4} />
+            </button>
+          </form>
+
+          <p style={{
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 8, fontWeight: 500, letterSpacing: '2.5px',
+            color: 'rgba(255,255,255,0.12)', textTransform: 'uppercase',
+            marginTop: 24, marginBottom: 0,
           }}>
             FIPS © {new Date().getFullYear()}
           </p>
