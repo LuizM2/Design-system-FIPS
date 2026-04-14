@@ -103,6 +103,54 @@ export default function LoginPage(){
       0% { transform: translateX(-100%); }
       100% { transform: translateX(200%); }
     }
+    @keyframes borderRotate {
+      0% { --border-angle: 0deg; }
+      100% { --border-angle: 360deg; }
+    }
+    @property --border-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .liquid-card {
+      position: relative;
+    }
+    .liquid-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 29px;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--border-angle),
+        transparent 0%,
+        transparent 25%,
+        rgba(253,194,78,0.45) 35%,
+        rgba(255,255,255,0.25) 40%,
+        rgba(253,194,78,0.50) 45%,
+        transparent 55%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderRotate 6s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .liquid-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      box-shadow:
+        0 0 18px rgba(253,194,78,0.06),
+        0 0 40px rgba(253,194,78,0.03),
+        inset 0 0.5px 0 rgba(255,255,255,0.08);
+      pointer-events: none;
+      z-index: 1;
+    }
 
     .login-left {
       width:25%;
@@ -166,7 +214,7 @@ export default function LoginPage(){
       content:'';
       position:absolute;
       inset:0;
-      background: linear-gradient(135deg, rgba(0,20,48,0.55) 0%, rgba(0,42,104,0.45) 50%, rgba(0,20,48,0.55) 100%);
+      background: linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%);
     }
     .login-tabs {
       display:flex;
@@ -261,20 +309,20 @@ export default function LoginPage(){
       animation: railShimmer 1.2s ease-out forwards;
     }
     .rail-input .icon {
-      color: rgba(253,194,78,0.50);
+      color: #FDC24E;
       transition: all 0.35s;
       flex-shrink:0;
     }
     .rail-input:focus-within .icon {
       color: #FDC24E;
-      filter: drop-shadow(0 0 6px rgba(253,194,78,0.30));
+      filter: drop-shadow(0 0 4px rgba(253,194,78,0.4));
     }
     .rail-input input {
       flex:1;
       background:transparent;
       border:none;
       outline:none !important;
-      color: rgba(255,255,255,0.90);
+      color: #FFFFFF;
       font-size:13px;
       font-family:'Open Sans',sans-serif;
       font-weight:400;
@@ -284,14 +332,19 @@ export default function LoginPage(){
       z-index:2;
     }
     .rail-input input::placeholder {
-      color: rgba(255,255,255,0.30);
-      font-weight:300;
+      color: rgba(255,255,255,0.45) !important;
+      font-weight:400;
+      -webkit-text-fill-color: rgba(255,255,255,0.45) !important;
+    }
+    .rail-input input::-webkit-input-placeholder {
+      color: rgba(255,255,255,0.45) !important;
+      -webkit-text-fill-color: rgba(255,255,255,0.45) !important;
     }
     .rail-input input:-webkit-autofill,
     .rail-input input:-webkit-autofill:hover,
     .rail-input input:-webkit-autofill:focus {
       -webkit-box-shadow: 0 0 0 50px rgba(0,15,40,0.95) inset !important;
-      -webkit-text-fill-color: rgba(255,255,255,0.90) !important;
+      -webkit-text-fill-color: #FFFFFF !important;
       caret-color: #fff;
       transition: background-color 5000s ease-in-out 0s;
     }
@@ -314,16 +367,16 @@ export default function LoginPage(){
     .rail-label {
       font-family:'Saira Expanded',sans-serif;
       font-size:10px;
-      font-weight:600;
+      font-weight:700;
       letter-spacing:2px;
       text-transform:uppercase;
-      color: rgba(255,255,255,0.75);
+      color: #FFFFFF;
       margin-bottom:6px;
       display:block;
       transition: color 0.3s;
     }
     .rail-label.active {
-      color: #FDC24E;
+      color: #FFFFFF;
     }
     .rail-cta {
       position:relative;
@@ -365,26 +418,53 @@ export default function LoginPage(){
       border-radius:14px 14px 50% 50%;
       pointer-events:none;
     }
+    /* ─── Outline Button (slide fill) ─── */
+    .outline-btn {
+      position:relative; display:flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; height:44px; padding:0 24px;
+      background:transparent;
+      border:1.5px solid #FDC24E;
+      border-radius:6px;
+      color:#FDC24E; font-size:13px; font-weight:700;
+      font-family:'Saira Expanded',sans-serif;
+      letter-spacing:1.5px; text-transform:uppercase;
+      cursor:pointer; overflow:hidden;
+      transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .outline-btn::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, #FDC24E, #F6921E);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      z-index:0;
+    }
+    .outline-btn:hover::before { transform:scaleX(1); }
+    .outline-btn:hover { color:#001430; border-color:#F6921E; }
+    .outline-btn span, .outline-btn svg { position:relative; z-index:1; }
+    .outline-btn:hover svg { transform:translateX(4px); }
+    .outline-btn svg { transition:transform 0.3s ease; }
+
     .rail-link {
-      color:rgba(255,255,255,0.65);
+      color:#FFFFFF;
       font-size:12px;
+      font-weight:700;
       text-decoration:none;
       font-family:'Saira Expanded',sans-serif;
       transition:color 0.2s;
     }
-    .rail-link:hover { color:#FDC24E; }
+    .rail-link:hover { color:rgba(255,255,255,0.75); }
     .rail-check {
       appearance:none; -webkit-appearance:none;
       width:16px; height:16px;
       border-radius:4px;
-      border:1.5px solid rgba(255,255,255,0.35);
+      border:1.5px solid rgba(255,255,255,0.40);
       background:rgba(255,255,255,0.06);
       cursor:pointer; flex-shrink:0;
       position:relative; transition:all 0.2s;
     }
     .rail-check:checked {
       background: rgba(253,194,78,0.20);
-      border-color: rgba(253,194,78,0.50);
+      border-color: #FDC24E;
     }
     .rail-check:checked::after {
       content:'\\2713'; position:absolute;
@@ -569,15 +649,13 @@ export default function LoginPage(){
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           width: '100%', maxWidth: 380, margin: '0 auto',
           padding: '36px 32px', borderRadius: 28,
-          background: 'linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-          backdropFilter: 'blur(4px) saturate(35%) brightness(1.18)',
-          WebkitBackdropFilter: 'blur(4px) saturate(35%) brightness(1.18)',
-          border: '0.5px solid rgba(255,255,255,0.10)',
-          borderTop: '0.5px solid rgba(255,255,255,0.22)',
-          boxShadow: 'inset 0 0.5px 0 0 rgba(255,255,255,0.20), 0 12px 32px rgba(0,0,0,0.12)',
+          background: 'linear-gradient(160deg, rgba(255,255,255,0.008) 0%, rgba(255,255,255,0.002) 100%)',
+          backdropFilter: 'blur(2px) saturate(20%) brightness(1.04)',
+          WebkitBackdropFilter: 'blur(2px) saturate(20%) brightness(1.04)',
+          border: '0.5px solid rgba(255,255,255,0.04)',
           gap: 10,
         }}>
-          <img src="/appfips-logo.png" alt="App FIPS" style={{ height: 64, objectFit: 'contain', marginBottom: 2 }} />
+          <img src="/fips-logo-azul.svg" alt="App FIPS" style={{ height: 86, objectFit: 'contain', marginBottom: 2 }} />
           <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <label className={`rail-label ${focused === 'user' ? 'active' : ''}`}>
@@ -628,12 +706,12 @@ export default function LoginPage(){
                   onClick={() => setShowPw(v => !v)}
                   style={{
                     background: 'none', border: 'none',
-                    color: 'rgba(255,255,255,0.18)',
+                    color: '#FDC24E',
                     cursor: 'pointer', padding: 2,
-                    display: 'flex', transition: 'color 0.2s',
+                    display: 'flex', transition: 'color 0.2s', opacity: 0.6,
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.18)' }}
+                  onMouseEnter={e => { e.currentTarget.style.opacity = '1' }}
+                  onMouseLeave={e => { e.currentTarget.style.opacity = '0.6' }}
                 >
                   {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -648,7 +726,7 @@ export default function LoginPage(){
                 Esqueceu a senha?
               </a>
             </div>
-            <button type="submit" className="rail-cta">
+            <button type="submit" className="outline-btn">
               <span>Entrar</span>
               <ArrowRight size={15} strokeWidth={2.4} />
             </button>
@@ -699,9 +777,9 @@ export default function LoginPage(){
                 {/* Mobile left (top) */}
                 <div style={{
                   position:"relative",
-                  display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"flex-start",
+                  display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",
                   background:"linear-gradient(145deg, #001430 0%, #002A68 40%, #00396B 100%)",
-                  overflow:"hidden",padding:"24px 20px",
+                  overflow:"hidden",padding:"24px 20px",textAlign:"center",
                 }}>
                   <h1 style={{
                     fontFamily:"'Saira Expanded',sans-serif",
@@ -730,51 +808,51 @@ export default function LoginPage(){
                   }}/>
                   <div style={{
                     position:"absolute",inset:0,
-                    background:"linear-gradient(135deg, rgba(0,20,48,0.55) 0%, rgba(0,42,104,0.45) 50%, rgba(0,20,48,0.55) 100%)",
+                    background:"linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%)",
                   }}/>
-                  <div style={{
+                  <div className="liquid-card" style={{
                     position:"relative",zIndex:10,
                     display:"flex",flexDirection:"column",alignItems:"center",
                     width:"100%",maxWidth:340,margin:"0 auto",
                     padding:"28px 20px",borderRadius:20,
-                    background:"linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
-                    backdropFilter:"blur(4px) saturate(35%) brightness(1.18)",
-                    WebkitBackdropFilter:"blur(4px) saturate(35%) brightness(1.18)",
-                    border:"0.5px solid rgba(255,255,255,0.10)",
-                    borderTop:"0.5px solid rgba(255,255,255,0.22)",
-                    boxShadow:"inset 0 0.5px 0 0 rgba(255,255,255,0.20), 0 12px 32px rgba(0,0,0,0.12)",
+                    background:"linear-gradient(160deg, rgba(255,255,255,0.008) 0%, rgba(255,255,255,0.002) 100%)",
+                    backdropFilter:"blur(2px) saturate(20%) brightness(1.04)",
+                    WebkitBackdropFilter:"blur(2px) saturate(20%) brightness(1.04)",
+                    border:"0.5px solid rgba(255,255,255,0.04)",
                     gap:8,
                   }}>
-                    <img src="/appfips-logo.png" alt="App FIPS" style={{height:48,objectFit:"contain",marginBottom:2}} />
+                    <img src="/fips-logo-azul.svg" alt="App FIPS" style={{height:64,objectFit:"contain",marginBottom:2}} />
                     <div style={{display:"flex",flexDirection:"column",gap:14,width:"100%"}}>
                       <div>
-                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.75)",marginBottom:4,display:"block"}}>CS ou E-mail</label>
+                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,display:"block"}}>CS ou E-mail</label>
                         <div style={{display:"flex",alignItems:"center",gap:10,height:38,padding:"0 12px",borderRadius:8,background:"rgba(255,255,255,0.07)",border:"1.5px solid rgba(253,194,78,0.30)"}}>
-                          <User size={15} strokeWidth={1.6} style={{color:"rgba(253,194,78,0.50)",flexShrink:0}} />
-                          <span style={{fontSize:12,color:"rgba(255,255,255,0.30)",fontFamily:"'Open Sans',sans-serif"}}>Digite CS ou Email</span>
+                          <User size={15} strokeWidth={1.6} style={{color:"#FDC24E",flexShrink:0}} />
+                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>Digite CS ou Email</span>
                         </div>
                       </div>
                       <div>
-                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:600,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(255,255,255,0.75)",marginBottom:4,display:"block"}}>Senha</label>
+                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,display:"block"}}>Senha</label>
                         <div style={{display:"flex",alignItems:"center",gap:10,height:38,padding:"0 12px",borderRadius:8,background:"rgba(255,255,255,0.07)",border:"1.5px solid rgba(253,194,78,0.30)"}}>
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{color:"rgba(253,194,78,0.50)",flexShrink:0}}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{color:"#FDC24E",flexShrink:0}}>
                             <rect x="3" y="11" width="18" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
                             <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                             <circle cx="12" cy="16.5" r="1.5" fill="currentColor" />
                           </svg>
-                          <span style={{fontSize:12,color:"rgba(255,255,255,0.30)",fontFamily:"'Open Sans',sans-serif"}}>--------</span>
-                          <Eye size={14} style={{color:"rgba(255,255,255,0.18)",marginLeft:"auto"}} />
+                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>--------</span>
+                          <Eye size={14} style={{color:"#FDC24E",marginLeft:"auto"}} />
                         </div>
                       </div>
                       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                        <span style={{fontSize:10,color:"rgba(255,255,255,0.50)",fontFamily:"'Saira Expanded',sans-serif"}}>Lembrar acesso</span>
-                        <span style={{fontSize:10,color:"rgba(255,255,255,0.50)",fontFamily:"'Saira Expanded',sans-serif"}}>Esqueceu?</span>
+                        <span style={{fontSize:10,color:"#FFFFFF",fontWeight:700,fontFamily:"'Saira Expanded',sans-serif"}}>Lembrar acesso</span>
+                        <span style={{fontSize:10,color:"#FFFFFF",fontWeight:700,fontFamily:"'Saira Expanded',sans-serif"}}>Esqueceu?</span>
                       </div>
                       <div style={{
-                        width:"100%",height:40,borderRadius:10,
-                        background:"linear-gradient(135deg, #FDC24E 0%, #F6921E 100%)",
+                        width:"100%",height:40,borderRadius:6,
+                        background:"transparent",
+                        border:"1.5px solid #FDC24E",
                         display:"flex",alignItems:"center",justifyContent:"center",gap:8,
-                        fontFamily:"'Saira Expanded',sans-serif",fontSize:12,fontWeight:700,color:"#002A68",
+                        fontFamily:"'Saira Expanded',sans-serif",fontSize:12,fontWeight:700,color:"#FDC24E",
+                        letterSpacing:"1.5px",textTransform:"uppercase",
                       }}>
                         <span>Entrar</span>
                         <ArrowRight size={13} strokeWidth={2.4} />
@@ -788,52 +866,28 @@ export default function LoginPage(){
         </Section>
 
         {/* 03 -- GLASSMORPHISM */}
-        <Section n="03" title="Glassmorphism" desc="Os tres modelos (V1, V2, V3) usam vidro fosco. Todos aplicam backdrop-filter: blur() + fundo semi-transparente via rgba() + bordas que simulam reflexo de luz. A diferenca e o grau de transparencia.">
+        <Section n="03" title="Liquid Glass" desc="O login usa glassmorphism estilo Liquid Glass — vidro fosco com backdrop-filter, fundo semi-transparente e bordas que simulam reflexo de luz.">
           <DSCard mob={mob}>
-            <p style={{fontSize:13,color:C.cinzaEscuro,lineHeight:1.65,margin:"0 0 20px",fontFamily:Fn.body}}>
-              Um vidro fosco pode ser quase opaco (V1) ou quase invisivel (V2/V3), mas todos sao glassmorphism.
-              O que controla essa variacao e a opacidade do <code style={{fontSize:11,padding:"2px 6px",borderRadius:4,background:C.neutro,fontFamily:Fn.mono}}>rgba()</code> e
-              os filtros <code style={{fontSize:11,padding:"2px 6px",borderRadius:4,background:C.neutro,fontFamily:Fn.mono}}>blur</code>, <code style={{fontSize:11,padding:"2px 6px",borderRadius:4,background:C.neutro,fontFamily:Fn.mono}}>brightness</code> e <code style={{fontSize:11,padding:"2px 6px",borderRadius:4,background:C.neutro,fontFamily:Fn.mono}}>saturate</code>.
-            </p>
-
-            {/* Comparison grid */}
-            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16,marginBottom:20}}>
-              {[
-                {tag:"V1 -- Split 50/50",bg:"rgba(0,20,48,0.92)",blur:"blur(2px)",style:"Overlay escuro sobre imagem",card:"Painel direito inteiro",note:"Mais opaco, pouca transparencia. Ideal para foco total no formulario."},
-                {tag:"V2 -- Card centralizado",bg:"rgba(255,255,255,0.06-0.14)",blur:"blur(12px) brightness(1.15)",style:"Vidro fosco com reflexo de luz",card:"Flutuante sobre a divisa",note:"Mais transparente, ve-se o fundo. saturate(0.4) neutraliza o azul, brightness clareia."},
-                {tag:"V3 -- Split editorial",bg:"rgba(255,255,255,0.03-0.10)",blur:"blur(14px) brightness(1.12)",style:"Vidro fosco + split card",card:"Dois paineis (branding + form)",note:"Similar ao V2 com layout split. saturate(0.45) dessatura o azul. Inputs underline-only."},
-              ].map(v=>(
-                <div key={v.tag} style={{...gc,borderLeft:`4px solid ${C.amareloEscuro}`}}>
-                  <div style={gh}>
-                    <span style={{fontSize:10,fontWeight:700,letterSpacing:"2px",color:C.amareloEscuro,fontFamily:Fn.title,textTransform:"uppercase"}}>{v.tag}</span>
+            <div style={{...gc,borderLeft:`4px solid ${C.amareloEscuro}`}}>
+              <div style={gh}>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"2px",color:C.amareloEscuro,fontFamily:Fn.title,textTransform:"uppercase"}}>Como funciona</span>
+              </div>
+              <div style={gb}>
+                <div style={{fontSize:13,color:C.cinzaEscuro,lineHeight:1.8,fontFamily:Fn.body}}>
+                  <div style={{marginBottom:12}}>
+                    O card de login usa <strong>Liquid Glass</strong> — uma camada quase invisivel sobre o background dos trens.
+                    O efeito e construido com 3 propriedades CSS:
                   </div>
-                  <div style={gb}>
-                    <div style={{fontSize:12,color:C.cinzaEscuro,lineHeight:1.8,fontFamily:Fn.body}}>
-                      <div><strong>Fundo:</strong> <code style={{fontSize:11,fontFamily:Fn.mono}}>{v.bg}</code></div>
-                      <div><strong>Blur:</strong> <code style={{fontSize:11,fontFamily:Fn.mono}}>{v.blur}</code></div>
-                      <div><strong>Estilo:</strong> {v.style}</div>
-                      <div><strong>Card:</strong> {v.card}</div>
-                      <div style={{marginTop:8,fontSize:11,color:C.cinzaChumbo,fontStyle:"italic"}}>{v.note}</div>
-                    </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>background: rgba(255,255,255,0.04)</code> — fundo quase transparente</div>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>backdrop-filter: blur(4px) saturate(35%) brightness(1.18)</code> — vidro fosco neutro</div>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>border: 0.5px solid rgba(255,255,255,0.22)</code> — borda superior brilhante (reflexo)</div>
+                  </div>
+                  <div style={{marginTop:12,fontSize:12,color:C.cinzaChumbo,fontStyle:"italic"}}>
+                    O <code style={{fontSize:11,fontFamily:Fn.mono}}>saturate(35%)</code> neutraliza o azul do fundo e o <code style={{fontSize:11,fontFamily:Fn.mono}}>brightness(1.18)</code> clareia, criando o efeito de vidro puro.
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Technical note */}
-            <div style={{
-              padding:"12px 16px",borderRadius:8,
-              background:`${C.amareloOuro}12`,border:`1px solid ${C.amareloOuro}30`,
-              display:"flex",gap:10,alignItems:"center",
-            }}>
-              <div style={{width:18,height:18,borderRadius:"50%",background:C.amareloEscuro,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <span style={{color:C.branco,fontSize:11,fontWeight:700}}>!</span>
               </div>
-              <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body}}>
-                A diferenca principal e o valor <code style={{fontSize:11,fontFamily:Fn.mono}}>rgba()</code> do background do card.
-                Quanto menor a opacidade, mais transparente e mais do fundo aparece.
-                O <code style={{fontSize:11,fontFamily:Fn.mono}}>backdrop-filter</code> controla o quao fosco, claro e neutro o vidro fica.
-              </span>
             </div>
           </DSCard>
         </Section>
@@ -846,7 +900,7 @@ export default function LoginPage(){
                 <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
                   {l:"Card glass",v:"Liquid glass com backdrop-filter + rgba"},
-                  {l:"Logo",v:"appfips-logo.png, 64px height, centered"},
+                  {l:"Logo",v:"fips-logo-azul.svg, 64px height, centered"},
                   {l:"Labels",v:"Saira Expanded 600 10px, uppercase, 2px tracking"},
                   {l:"Inputs rail-style",v:"42px height, gold border, shimmer on focus"},
                   {l:"Validation check",v:"CheckCircle2 verde, CS 6 chars ou email regex"},
