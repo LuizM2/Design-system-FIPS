@@ -37,13 +37,16 @@ export default function LoginPage() {
   const [signalStep, setSignalStep] = useState(0)
   const [tab, setTab] = useState<LoginTab>('interno')
 
+  const [v2ShowPw, setV2ShowPw] = useState(false)
+  const [v2Tab, setV2Tab] = useState<LoginTab>('interno')
+
   useEffect(() => {
     setMounted(true)
     const t = setInterval(() => setSignalStep(s => (s + 1) % 4), 1200)
     return () => clearInterval(t)
   }, [])
 
-  return (
+  return (<>
     <div className="relative flex min-h-[calc(100svh-120px)] overflow-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -666,5 +669,279 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  SEPARADOR v1 → v2                                         ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 24,
+      padding: '64px 48px',
+      background: 'var(--color-surface-muted)',
+    }}>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+      <span style={{
+        fontFamily: "'Saira Expanded', sans-serif",
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: '3px',
+        color: 'rgba(0,75,155,0.35)',
+        textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+      }}>
+        Login v2 — Card centralizado
+      </span>
+      <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,75,155,0.18), transparent)' }} />
+    </div>
+
+    {/* ╔══════════════════════════════════════════════════════════════╗
+        ║  LOGIN v2 — Viewport único, sem scroll                     ║
+        ╚══════════════════════════════════════════════════════════════╝ */}
+    <div style={{
+      position: 'relative',
+      height: 'calc(100svh - 120px)',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      {/* Imagem Nossa Essência — escalada pra caber inteira no topo */}
+      <div style={{
+        flex: '0 0 85%',
+        position: 'relative',
+        background: '#002A68',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}>
+        <img
+          src="/backgrounds/nossa-essencia.png"
+          alt=""
+          draggable={false}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'center center',
+          }}
+        />
+      </div>
+
+      {/* Azul escuro preenchendo o resto */}
+      <div style={{
+        flex: 1,
+        background: '#002A68',
+      }} />
+
+      {/* Card glassmorphism com form */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -35%)',
+        zIndex: 10,
+        width: 340,
+        padding: '36px 32px',
+        borderRadius: 22,
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.02) 100%)',
+        border: 'none',
+        borderImage: 'initial',
+        outline: '1px solid rgba(255,255,255,0.10)',
+        backdropFilter: 'blur(12px) brightness(1.15) saturate(0.4)',
+        WebkitBackdropFilter: 'blur(12px) brightness(1.15) saturate(0.4)',
+        boxShadow: `
+          0 20px 40px rgba(0,0,0,0.18),
+          0 0 0 0.5px rgba(255,255,255,0.15),
+          inset 0 1px 1px rgba(255,255,255,0.25),
+          inset 0 -1px 1px rgba(0,0,0,0.08),
+          inset 40px -40px 80px rgba(255,255,255,0.02)
+        `,
+        overflow: 'hidden' as const,
+      }}>
+        <style>{`
+          .v2-field-wrap {
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:12px;
+            height:40px;
+            padding:0 14px;
+            border-radius:12px;
+            background:rgba(255,255,255,0.04);
+            border:1.5px solid rgba(255,255,255,0.08);
+            transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
+          }
+          .v2-field-wrap:focus-within {
+            background:rgba(255,255,255,0.07);
+            border-color:rgba(253,194,78,0.40);
+            box-shadow:0 0 0 3px rgba(253,194,78,0.06);
+          }
+          .v2-field-wrap .v2-icon {
+            color:rgba(255,255,255,0.20);
+            transition:all 0.3s;
+            flex-shrink:0;
+          }
+          .v2-field-wrap:focus-within .v2-icon {
+            color:#FDC24E;
+            filter:drop-shadow(0 0 6px rgba(253,194,78,0.30));
+          }
+          .v2-field-wrap input {
+            flex:1; background:transparent; border:none; outline:none;
+            color:rgba(255,255,255,0.90);
+            font-size:14px; font-family:'Open Sans',sans-serif;
+            font-weight:400; min-width:0;
+          }
+          .v2-field-wrap input::placeholder { color:rgba(255,255,255,0.22); font-weight:300; }
+          .v2-field-wrap input:-webkit-autofill,
+          .v2-field-wrap input:-webkit-autofill:hover,
+          .v2-field-wrap input:-webkit-autofill:focus {
+            -webkit-box-shadow:0 0 0 50px transparent inset !important;
+            -webkit-text-fill-color:rgba(255,255,255,0.90) !important;
+            caret-color:#fff; transition:background-color 5000s ease-in-out 0s;
+          }
+          .v2-field-wrap::after {
+            content:''; position:absolute; bottom:-1.5px; left:50%;
+            height:2px; width:0;
+            background:linear-gradient(90deg, transparent, #FDC24E, #F6921E, #FDC24E, transparent);
+            border-radius:2px; transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+            transform:translateX(-50%);
+          }
+          .v2-field-wrap:focus-within::after { width:80%; }
+          .v2-btn {
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            width:100%; height:48px; padding:0 24px;
+            background:linear-gradient(135deg, #FDC24E 0%, #F6921E 100%);
+            border:none; border-radius:12px;
+            color:#001430; font-size:15px; font-weight:700;
+            font-family:'Saira Expanded',sans-serif;
+            letter-spacing:0.5px; cursor:pointer;
+            position:relative; overflow:hidden;
+            transition:all 0.3s ease;
+            box-shadow:0 4px 16px rgba(246,146,30,0.25);
+          }
+          .v2-btn:hover {
+            transform:translateY(-2px);
+            box-shadow:0 8px 28px rgba(246,146,30,0.35);
+          }
+          .v2-btn:active { transform:translateY(0); }
+          .v2-btn::before {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+            transform:translateX(-100%);
+            animation: v2shimmer 2.5s ease-in-out infinite;
+          }
+          @keyframes v2shimmer {
+            0% { transform:translateX(-100%); }
+            60% { transform:translateX(100%); }
+            100% { transform:translateX(100%); }
+          }
+          .v2-lbl {
+            display:flex; align-items:center; gap:7px;
+            font-family:'Open Sans',sans-serif; font-size:12px; font-weight:500;
+            color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;
+          }
+          .v2-forgot { color:rgba(253,194,78,0.65); font-size:12px; text-decoration:none; font-family:'Open Sans',sans-serif; transition:color 0.2s; }
+          .v2-forgot:hover { color:#FDC24E; text-decoration:underline; }
+        `}</style>
+
+        {/* Brilho de vidro no topo */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0,
+          height: '50%',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%)',
+          borderRadius: '22px 22px 0 0',
+          pointerEvents: 'none',
+        }} />
+        {/* Linha de luz no topo */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: '10%', right: '10%',
+          height: 1,
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Título */}
+        <h2 style={{
+          fontFamily: "'Saira Expanded', sans-serif",
+          fontSize: 20, fontWeight: 700, color: '#fff',
+          margin: '0 0 4px', textAlign: 'center',
+        }}>Acessar sistema</h2>
+        <p style={{
+          fontFamily: "'Open Sans', sans-serif",
+          fontSize: 13, color: 'rgba(255,255,255,0.3)',
+          margin: '0 0 28px', textAlign: 'center',
+        }}>Identifique-se para continuar</p>
+
+        <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* CS/Email */}
+          <div>
+            <label className="v2-lbl">CS ou E-mail</label>
+            <div className="v2-field-wrap">
+              <User size={18} strokeWidth={1.6} className="v2-icon" />
+              <input type="text" placeholder="Digite CS ou Email" autoComplete="off" />
+            </div>
+          </div>
+
+          {/* Senha */}
+          <div>
+            <label className="v2-lbl">Senha</label>
+            <div className="v2-field-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="v2-icon" style={{ flexShrink: 0 }}>
+                <rect x="3" y="11" width="18" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <circle cx="12" cy="16.5" r="1.5" fill="currentColor" />
+              </svg>
+              <input
+                type={v2ShowPw ? 'text' : 'password'}
+                placeholder="••••••••"
+                autoComplete="new-password"
+              />
+              <button
+                type="button"
+                onClick={() => setV2ShowPw(v => !v)}
+                style={{
+                  background: 'none', border: 'none',
+                  color: 'rgba(255,255,255,0.18)', cursor: 'pointer',
+                  display: 'flex', padding: 2, transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.18)' }}
+              >
+                {v2ShowPw ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Lembrar + Esqueceu */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+              <input type="checkbox" className="rail-check" />
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.30)', fontFamily: "'Open Sans',sans-serif" }}>Lembrar acesso</span>
+            </label>
+            <a href="#" onClick={e => e.preventDefault()} className="v2-forgot">Esqueceu a senha?</a>
+          </div>
+
+          {/* Botão com shimmer */}
+          <button type="submit" className="v2-btn">
+            Entrar no sistema
+            <ArrowRight size={17} strokeWidth={2.4} />
+          </button>
+        </form>
+
+        {/* Footer */}
+        <div style={{ marginTop: 24 }}>
+          <div className="divider-line" style={{ marginBottom: 12 }}>
+            <span style={{ fontFamily: "'Open Sans',sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.15)', whiteSpace: 'nowrap', letterSpacing: '0.5px' }}>
+              FIPS © {new Date().getFullYear()}
+            </span>
+          </div>
+          <p style={{ textAlign: 'center', fontFamily: "'Open Sans',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.18)', margin: 0 }}>
+            Ferrovia Interna do Porto de Santos
+          </p>
+        </div>
+      </div>
+    </div>
+  </>
   )
 }
