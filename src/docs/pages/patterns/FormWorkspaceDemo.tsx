@@ -360,18 +360,18 @@ export default function FormWorkspaceDemo() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <WorkspaceField label="Data de emissão" inset="icon" required>
+                <CardContent className="grid gap-4 md:grid-cols-2">
+                  <WorkspaceField label="Data de emissão" inset="control" required>
                     <Input
                       inputMode="numeric"
                       placeholder="dd/mm/aaaa"
                       leftIcon={<CalendarDays className="h-4 w-4" aria-hidden />}
                     />
                   </WorkspaceField>
-                  <WorkspaceField label="Nome do solicitante" inset="icon" required>
+                  <WorkspaceField label="Nome do solicitante" inset="control" required>
                     <Input placeholder="Nome completo" leftIcon={<UserRound className="h-4 w-4" aria-hidden />} />
                   </WorkspaceField>
-                  <WorkspaceField label="Nome do escopo" inset="icon" required>
+                  <WorkspaceField label="Nome do escopo" inset="control" required>
                     <Input placeholder="Ex.: Contratação de manutenção" leftIcon={<FolderKanban className="h-4 w-4" aria-hidden />} />
                   </WorkspaceField>
                 </CardContent>
@@ -391,22 +391,22 @@ export default function FormWorkspaceDemo() {
                   </div>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2">
-                  <WorkspaceField label="Área processo" inset="icon" required>
+                  <WorkspaceField label="Área processo" inset="control" required>
                     <Select aria-label="Área processo" defaultValue="tecnologia" leftIcon={<Layers className="h-4 w-4" aria-hidden />}>
                       <option value="tecnologia">Tecnologia</option>
                       <option value="operacoes">Operações</option>
                     </Select>
                   </WorkspaceField>
-                  <WorkspaceField label="Subprocesso" inset="icon" required>
+                  <WorkspaceField label="Subprocesso" inset="control" required>
                     <Select aria-label="Subprocesso" defaultValue="suporte" leftIcon={<ListTree className="h-4 w-4" aria-hidden />}>
                       <option value="suporte">Suporte</option>
                       <option value="infra">Infraestrutura</option>
                     </Select>
                   </WorkspaceField>
-                  <WorkspaceField label="Local de execução" inset="icon" required>
+                  <WorkspaceField label="Local de execução" inset="control" required>
                     <Input placeholder="Ex.: Terminal 1" leftIcon={<MapPin className="h-4 w-4" aria-hidden />} />
                   </WorkspaceField>
-                  <WorkspaceField label="Sublocal" inset="icon">
+                  <WorkspaceField label="Sublocal" inset="control">
                     <Input placeholder="Ex.: Casa de força" leftIcon={<MapPin className="h-4 w-4" aria-hidden />} />
                   </WorkspaceField>
                 </CardContent>
@@ -426,14 +426,14 @@ export default function FormWorkspaceDemo() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <WorkspaceField label="Centro de custo" inset="icon" required>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <WorkspaceField label="Centro de custo" inset="control" required>
                       <Input placeholder="CC 3010" leftIcon={<BadgeDollarSign className="h-4 w-4" aria-hidden />} />
                     </WorkspaceField>
-                    <WorkspaceField label="Contato rápido" inset="icon">
+                    <WorkspaceField label="Contato rápido" inset="control">
                       <Input placeholder="(11) 99999-9999" leftIcon={<Phone className="h-4 w-4" aria-hidden />} />
                     </WorkspaceField>
-                    <WorkspaceField label="Categoria" inset="icon" required>
+                    <WorkspaceField label="Categoria" inset="control" required>
                       <Select aria-label="Categoria" defaultValue="servico" leftIcon={<Tag className="h-4 w-4" aria-hidden />}>
                         <option value="servico">Serviço</option>
                         <option value="material">Material</option>
