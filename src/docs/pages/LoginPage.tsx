@@ -844,7 +844,10 @@ export default function LoginPage(){
                         </div>
                       </div>
                       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                        <span style={{fontSize:10,color:"#FFFFFF",fontWeight:700,fontFamily:"'Saira Expanded',sans-serif"}}>Lembrar acesso</span>
+                        <label style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer"}}>
+                          <input type="checkbox" className="rail-check" />
+                          <span style={{fontSize:10,color:"#FFFFFF",fontWeight:700,fontFamily:"'Saira Expanded',sans-serif"}}>Lembrar acesso</span>
+                        </label>
                         <span style={{fontSize:10,color:"#FFFFFF",fontWeight:700,fontFamily:"'Saira Expanded',sans-serif"}}>Esqueceu?</span>
                       </div>
                       <div style={{
