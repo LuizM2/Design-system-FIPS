@@ -372,6 +372,7 @@ export default function LoginPage(){
       text-transform:uppercase;
       color: #FFFFFF;
       margin-bottom:6px;
+      margin-left:14px;
       display:block;
       transition: color 0.3s;
     }
@@ -534,7 +535,7 @@ export default function LoginPage(){
             fontSize: 36, fontWeight: 800, color: '#fff',
             lineHeight: 1.1, margin: '0 0 16px', letterSpacing: '-0.5px',
           }}>
-            Excelencia<br />
+            Excelência<br />
             <span style={{ color: '#FDC24E' }}>sobre trilhos</span>
           </h1>
 
@@ -544,7 +545,7 @@ export default function LoginPage(){
             lineHeight: 1.7, margin: '0 0 16px', maxWidth: 320,
           }}>
             Sistema integrado da Ferrovia Interna do Porto de Santos.
-            Gestao ferroviaria com precisao e seguranca.
+            Gestão ferroviária com precisão e segurança.
           </p>
 
           {/* Train route - Principios FIPS */}
@@ -656,7 +657,7 @@ export default function LoginPage(){
           gap: 10,
         }}>
           <img src="/fips-logo-azul.svg" alt="App FIPS" style={{ height: 86, objectFit: 'contain', marginBottom: 2 }} />
-          <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
             <div>
               <label className={`rail-label ${focused === 'user' ? 'active' : ''}`}>
                 CS ou E-mail
@@ -665,7 +666,7 @@ export default function LoginPage(){
                 <User size={18} strokeWidth={1.6} className="icon" />
                 <input
                   type="text"
-                  placeholder="Digite CS ou Email"
+                  placeholder="email@fips.app.br"
                   value={csEmail}
                   onChange={e => setCsEmail(e.target.value)}
                   onFocus={() => setFocused('user')}
@@ -746,21 +747,21 @@ export default function LoginPage(){
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
           <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Login</h1>
-          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Tela de autenticacao do sistema FIPS. Glassmorphism com liquid glass, validacao CS/Email, inputs ferroviarios e principios FIPS.</p>
+          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Tela de autenticação do sistema FIPS. Filtro background padrão 1 com degradê azul escuro, card liquid glass com borda animada dourada, ícones amarelos, textos brancos e botão outline.</p>
         </div>
       </header>
 
       <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
 
         {/* 01 -- PLAYGROUND INTERATIVO */}
-        <Section n="01" title="Playground interativo" desc="Login V1 completo com painel de branding a esquerda e formulario liquid glass a direita. Interaja com os inputs, toggle de senha e validacao CS/Email.">
+        <Section n="01" title="Playground interativo" desc="Login V1 completo com painel de branding à esquerda e formulário liquid glass à direita. Filtro background padrão 1, borda animada dourada, ícones amarelos e textos brancos. Interaja com os inputs, toggle de senha e validação CS/Email.">
           <DSCard mob={mob} s={{padding:0,overflow:"hidden"}}>
             {renderLoginV1()}
           </DSCard>
         </Section>
 
         {/* 02 -- VARIANTE MOBILE */}
-        <Section n="02" title="Variante Mobile" desc="Visualizacao do login em viewport de 375px. O layout empilha verticalmente com branding compacto acima do formulario.">
+        <Section n="02" title="Variante Mobile" desc="Visualização do login em viewport de 375px. Layout empilhado com branding compacto, filtro padrão 1, borda animada dourada, ícones amarelos e botão outline.">
           <DSCard mob={mob} s={{display:"flex",justifyContent:"center",background:C.bg}}>
             <div style={{
               width:375,
@@ -785,11 +786,11 @@ export default function LoginPage(){
                     fontFamily:"'Saira Expanded',sans-serif",
                     fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.1,margin:"0 0 8px",
                   }}>
-                    Excelencia <span style={{color:"#FDC24E"}}>sobre trilhos</span>
+                    Excelência <span style={{color:"#FDC24E"}}>sobre trilhos</span>
                   </h1>
                   <p style={{
                     fontFamily:"'Open Sans',sans-serif",
-                    fontSize:12,color:"rgba(255,255,255,0.40)",lineHeight:1.5,margin:0,maxWidth:300,
+                    fontSize:12,color:"rgba(255,255,255,0.40)",lineHeight:1.5,margin:0,maxWidth:340,whiteSpace:"nowrap" as const,
                   }}>
                     Sistema integrado da Ferrovia Interna do Porto de Santos.
                   </p>
@@ -824,14 +825,14 @@ export default function LoginPage(){
                     <img src="/fips-logo-azul.svg" alt="App FIPS" style={{height:64,objectFit:"contain",marginBottom:2}} />
                     <div style={{display:"flex",flexDirection:"column",gap:14,width:"100%"}}>
                       <div>
-                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,display:"block"}}>CS ou E-mail</label>
+                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,marginLeft:12,display:"block"}}>CS ou E-mail</label>
                         <div style={{display:"flex",alignItems:"center",gap:10,height:38,padding:"0 12px",borderRadius:8,background:"rgba(255,255,255,0.07)",border:"1.5px solid rgba(253,194,78,0.30)"}}>
                           <User size={15} strokeWidth={1.6} style={{color:"#FDC24E",flexShrink:0}} />
-                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>Digite CS ou Email</span>
+                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>email@fips.app.br</span>
                         </div>
                       </div>
                       <div>
-                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,display:"block"}}>Senha</label>
+                        <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,marginLeft:12,display:"block"}}>Senha</label>
                         <div style={{display:"flex",alignItems:"center",gap:10,height:38,padding:"0 12px",borderRadius:8,background:"rgba(255,255,255,0.07)",border:"1.5px solid rgba(253,194,78,0.30)"}}>
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{color:"#FDC24E",flexShrink:0}}>
                             <rect x="3" y="11" width="18" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
@@ -866,7 +867,7 @@ export default function LoginPage(){
         </Section>
 
         {/* 03 -- GLASSMORPHISM */}
-        <Section n="03" title="Liquid Glass" desc="O login usa glassmorphism estilo Liquid Glass — vidro fosco com backdrop-filter, fundo semi-transparente e bordas que simulam reflexo de luz.">
+        <Section n="03" title="Liquid Glass" desc="O login usa Liquid Glass ultra-transparente com borda conic-gradient rotativa dourada, ícones amarelos #FDC24E e textos brancos sobre filtro background padrão 1.">
           <DSCard mob={mob}>
             <div style={{...gc,borderLeft:`4px solid ${C.amareloEscuro}`}}>
               <div style={gh}>
@@ -875,16 +876,16 @@ export default function LoginPage(){
               <div style={gb}>
                 <div style={{fontSize:13,color:C.cinzaEscuro,lineHeight:1.8,fontFamily:Fn.body}}>
                   <div style={{marginBottom:12}}>
-                    O card de login usa <strong>Liquid Glass</strong> — uma camada quase invisivel sobre o background dos trens.
-                    O efeito e construido com 3 propriedades CSS:
+                    O card de login usa <strong>Liquid Glass</strong> — uma camada quase invisível sobre o background dos trens, com borda animada dourada rotativa.
+                    O efeito é construído com as seguintes propriedades CSS:
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>background: rgba(255,255,255,0.04)</code> — fundo quase transparente</div>
-                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>backdrop-filter: blur(4px) saturate(35%) brightness(1.18)</code> — vidro fosco neutro</div>
-                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>border: 0.5px solid rgba(255,255,255,0.22)</code> — borda superior brilhante (reflexo)</div>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>background: rgba(255,255,255,0.008)</code> — fundo ultra-transparente</div>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>backdrop-filter: blur(2px) saturate(20%) brightness(1.04)</code> — vidro sutil</div>
+                    <div><code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>border: conic-gradient rotativo</code> — borda animada dourada (6s loop)</div>
                   </div>
                   <div style={{marginTop:12,fontSize:12,color:C.cinzaChumbo,fontStyle:"italic"}}>
-                    O <code style={{fontSize:11,fontFamily:Fn.mono}}>saturate(35%)</code> neutraliza o azul do fundo e o <code style={{fontSize:11,fontFamily:Fn.mono}}>brightness(1.18)</code> clareia, criando o efeito de vidro puro.
+                    Ícones em <code style={{fontSize:11,fontFamily:Fn.mono}}>#FDC24E</code> (amarelo ouro), textos e labels em <code style={{fontSize:11,fontFamily:Fn.mono}}>#FFFFFF</code> (branco), botão outline com preenchimento no hover.
                   </div>
                 </div>
               </div>
@@ -893,21 +894,23 @@ export default function LoginPage(){
         </Section>
 
         {/* 04 -- ANATOMIA E COMPORTAMENTO */}
-        <Section n="04" title="Anatomia e comportamento" desc="Estrutura visual e regras de comportamento da tela de login.">
+        <Section n="04" title="Anatomia e comportamento" desc="Estrutura visual e regras de comportamento da tela de login. Ícones amarelos, labels brancos, borda animada e filtro padrão 1.">
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
               <div style={{flex:1,minWidth:280}}>
                 <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
-                  {l:"Card glass",v:"Liquid glass com backdrop-filter + rgba"},
-                  {l:"Logo",v:"fips-logo-azul.svg, 64px height, centered"},
-                  {l:"Labels",v:"Saira Expanded 600 10px, uppercase, 2px tracking"},
-                  {l:"Inputs rail-style",v:"42px height, gold border, shimmer on focus"},
+                  {l:"Card glass",v:"Ultra-transparente + borda conic-gradient rotativa dourada"},
+                  {l:"Logo",v:"fips-logo-azul.svg, 86px height, centered"},
+                  {l:"Labels",v:"Saira Expanded 600 10px, uppercase, branco #FFF"},
+                  {l:"Ícones",v:"Amarelo ouro #FDC24E, com glow no focus"},
+                  {l:"Inputs rail-style",v:"42px height, gold border, shimmer on focus, texto branco"},
                   {l:"Validation check",v:"CheckCircle2 verde, CS 6 chars ou email regex"},
-                  {l:"Toggle password",v:"Eye/EyeOff 16px, hover opacity change"},
-                  {l:"Checkbox",v:"16px custom, gold check on checked"},
-                  {l:"CTA button",v:"Gold gradient, 44px, Saira 700 13px"},
-                  {l:"Principios route",v:"Train route vertical com 5 estacoes animadas"},
+                  {l:"Toggle password",v:"Eye/EyeOff 16px, amarelo #FDC24E"},
+                  {l:"Checkbox",v:"16px custom, borda branca, check amarelo"},
+                  {l:"CTA button",v:"Outline dourado, slide fill no hover, Saira 700 13px"},
+                  {l:"Links",v:"Branco #FFF, hover rgba(255,255,255,0.75)"},
+                  {l:"Princípios route",v:"Train route vertical com 5 estações animadas"},
                 ].map(s=>(
                   <div key={s.l} style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
                     <div style={{width:6,height:6,borderRadius:"50%",background:C.azulProfundo,flexShrink:0}}/>
@@ -919,7 +922,7 @@ export default function LoginPage(){
               <div style={{flex:1,minWidth:250}}>
                 <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
                 {[
-                  {l:"backdrop-filter",v:"blur(4px) saturate(35%) brightness(1.18)"},
+                  {l:"backdrop-filter",v:"blur(2px) saturate(20%) brightness(1.04)"},
                   {l:"CS validation",v:"6 caracteres exatos = valido"},
                   {l:"Email validation",v:"Regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/"},
                   {l:"Signal dots",v:"3 cores, ciclo 1.2s, step animation"},
@@ -938,24 +941,78 @@ export default function LoginPage(){
           </DSCard>
         </Section>
 
-        {/* 05 -- TOKENS DE REFERENCIA */}
-        <Section n="05" title="Tokens de referencia" desc="Valores de design da tela de Login FIPS.">
+        {/* 05 -- FILTRO BACKGROUND PADRÃO1 */}
+        <Section n="05" title="Filtro Background Padrão 1" desc="Degradê overlay aplicado sobre a imagem de fundo do login. Escurece o suficiente para legibilidade sem perder a foto, com toque azulado.">
+          <DSCard mob={mob}>
+            <div style={{...gc,borderLeft:`4px solid ${C.azulProfundo}`}}>
+              <div style={gh}>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"2px",color:C.azulProfundo,fontFamily:Fn.title,textTransform:"uppercase"}}>Filtro Padrão 1</span>
+              </div>
+              <div style={gb}>
+                <div style={{borderRadius:16,overflow:"hidden",marginBottom:16,position:"relative",height:120}}>
+                  <div style={{position:"absolute",inset:0,background:`url('${BG}') center 40% / cover no-repeat`,opacity:0.8}}/>
+                  <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%)"}}/>
+                  <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"center",height:"100%"}}>
+                    <span style={{fontFamily:Fn.title,fontSize:14,fontWeight:700,color:"#fff",letterSpacing:"1px"}}>Resultado do filtro sobre a imagem</span>
+                  </div>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                  <div style={gl}>Composição do degradê</div>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12}}>
+                      <div style={{width:32,height:32,borderRadius:8,background:"rgba(10,27,53,0.95)",border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>
+                      <div>
+                        <code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>0% — rgba(10,27,53,0.95)</code>
+                        <div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2}}>#0a1b35 com 95% de opacidade — escuro máximo</div>
+                      </div>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:12}}>
+                      <div style={{width:32,height:32,borderRadius:8,background:"rgba(10,27,53,0.85)",border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>
+                      <div>
+                        <code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>50% — rgba(10,27,53,0.85)</code>
+                        <div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2}}>#0a1b35 com 85% de opacidade — transição</div>
+                      </div>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:12}}>
+                      <div style={{width:32,height:32,borderRadius:8,background:"rgba(21,101,192,0.70)",border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>
+                      <div>
+                        <code style={{fontSize:11,fontFamily:Fn.mono,background:C.neutro,padding:"2px 8px",borderRadius:4}}>100% — rgba(21,101,192,0.70)</code>
+                        <div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2}}>#1565c0 com 70% de opacidade — toque azulado</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{marginTop:12,padding:"12px 16px",borderRadius:10,background:`${C.azulProfundo}08`,border:`1px solid ${C.azulProfundo}15`}}>
+                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulEscuro,lineHeight:1.8,display:"block",wordBreak:"break-all" as const}}>
+                      background: linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%);
+                    </code>
+                  </div>
+                  <div style={{marginTop:8,fontSize:12,color:C.cinzaChumbo,fontStyle:"italic"}}>
+                    Direção: <code style={{fontSize:11,fontFamily:Fn.mono}}>135deg</code> (diagonal top-left → bottom-right). Aplicado como <code style={{fontSize:11,fontFamily:Fn.mono}}>::after</code> sobre a imagem de fundo.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DSCard>
+        </Section>
+
+        {/* 06 -- TOKENS DE REFERENCIA */}
+        <Section n="06" title="Tokens de referência" desc="Valores de design da tela de Login FIPS.">
           <DSCard mob={mob} s={{display:"flex",gap:mob?24:48,flexWrap:"wrap"}}>
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Cores</span>
-              <TokenRow label="Card bg" value="rgba(255,255,255,0.04)" color="rgba(255,255,255,0.04)"/>
-              <TokenRow label="Card border" value="rgba(255,255,255,0.10)" color="rgba(255,255,255,0.10)"/>
-              <TokenRow label="Card border-top" value="rgba(255,255,255,0.22)" color="rgba(255,255,255,0.22)"/>
-              <TokenRow label="Gold (ouro)" value="#FDC24E" color={C.amareloOuro}/>
+              <TokenRow label="Card bg" value="rgba(255,255,255,0.008)" color="rgba(255,255,255,0.008)"/>
+              <TokenRow label="Card border" value="conic-gradient rotativo" color={C.amareloOuro}/>
+              <TokenRow label="Ícones" value="#FDC24E (amarelo ouro)" color={C.amareloOuro}/>
+              <TokenRow label="Textos/Labels" value="#FFFFFF (branco)" color="#FFFFFF"/>
               <TokenRow label="Gold dark" value="#F6921E" color={C.amareloEscuro}/>
               <TokenRow label="Green valid" value="#00C64C" color={C.verdeFloresta}/>
               <TokenRow label="Left panel" value="#001430 -> #002A68" color={C.azulEscuro}/>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Blur / Filters</span>
-              <TokenRow label="Card blur" value="blur(4px)"/>
-              <TokenRow label="Saturate" value="saturate(35%)"/>
-              <TokenRow label="Brightness" value="brightness(1.18)"/>
+              <TokenRow label="Card blur" value="blur(2px)"/>
+              <TokenRow label="Saturate" value="saturate(20%)"/>
+              <TokenRow label="Brightness" value="brightness(1.04)"/>
               <TokenRow label="Input border" value="rgba(253,194,78,0.30)"/>
               <TokenRow label="Input focus border" value="rgba(253,194,78,0.50)"/>
               <TokenRow label="Input bg" value="rgba(255,255,255,0.07)"/>
@@ -972,6 +1029,7 @@ export default function LoginPage(){
               <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Dimensoes</span>
               <TokenRow label="Card maxWidth" value="380px"/>
               <TokenRow label="Card borderRadius" value="28px"/>
+              <TokenRow label="Logo height" value="86px (desktop) / 64px (mobile)"/>
               <TokenRow label="Card padding" value="36px 32px"/>
               <TokenRow label="Input height" value="42px"/>
               <TokenRow label="Input borderRadius" value="10px"/>
@@ -983,7 +1041,7 @@ export default function LoginPage(){
         </Section>
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 -- Ferrovia Interna do Porto de Santos -- Excelencia sobre trilhos -- {new Date().getFullYear()}</span>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 -- Ferrovia Interna do Porto de Santos -- Excelência sobre trilhos -- {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>
