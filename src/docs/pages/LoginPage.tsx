@@ -253,7 +253,7 @@ export default function LoginPage() {
           content:'';
           position:absolute;
           inset:0;
-          background:url('${BG}') center center / cover no-repeat;
+          background:url('${BG}') center 40% / cover no-repeat;
           opacity:0.8;
         }
         .login-right::after {
@@ -575,39 +575,19 @@ export default function LoginPage() {
             fontSize: 15,
             color: 'rgba(255,255,255,0.45)',
             lineHeight: 1.7,
-            margin: '0 0 32px',
+            margin: '0 0 16px',
             maxWidth: 320,
           }}>
             Sistema integrado da Ferrovia Interna do Porto de Santos.
             Gestão ferroviária com precisão e segurança.
           </p>
 
-          {/* Sinais ferroviários */}
-          <div style={{ display: 'flex', gap: 20, alignItems: 'center', marginBottom: 32 }}>
-            <div className="status-bar">
-              <SignalDot color="#00C64C" active={signalStep >= 1} delay={0} />
-              <SignalDot color="#FDC24E" active={signalStep >= 2} delay={100} />
-              <SignalDot color="#F6921E" active={signalStep >= 3} delay={200} />
-              <span style={{
-                fontFamily: "'Saira Expanded', sans-serif",
-                fontSize: 9,
-                fontWeight: 600,
-                letterSpacing: '1.5px',
-                color: 'rgba(255,255,255,0.30)',
-                marginLeft: 4,
-                textTransform: 'uppercase',
-              }}>
-                Sistema ativo
-              </span>
-            </div>
-          </div>
-
           {/* ── Linha de trem: Princípios FIPS ── */}
           <div style={{
-            height: 400,
+            height: 440,
             overflow: 'hidden',
             borderTop: '1px solid rgba(255,255,255,0.06)',
-            paddingTop: 24,
+            paddingTop: 16,
             position: 'relative',
           }}>
             <style>{`
@@ -621,22 +601,34 @@ export default function LoginPage() {
               }
             `}</style>
 
-            {/* Cabeçalho da rota */}
+            {/* Cabeçalho da rota + Sistema ativo */}
             <div style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              marginBottom: 20, paddingLeft: 4,
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              marginBottom: 14, paddingLeft: 4, paddingRight: 4,
             }}>
-              <div style={{
-                width: 18, height: 3, borderRadius: 2,
-                background: 'linear-gradient(90deg, #FDC24E, #F6921E)',
-              }} />
-              <span style={{
-                fontFamily: "'Saira Expanded', sans-serif",
-                fontSize: 8, fontWeight: 700, letterSpacing: '2.5px',
-                color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
-              }}>
-                Rota dos princípios
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{
+                  width: 14, height: 2.5, borderRadius: 2,
+                  background: 'linear-gradient(90deg, #FDC24E, #F6921E)',
+                }} />
+                <span style={{
+                  fontFamily: "'Saira Expanded', sans-serif",
+                  fontSize: 7, fontWeight: 700, letterSpacing: '2px',
+                  color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
+                }}>
+                  Rota dos princípios
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <SignalDot color="#FF4D4D" active={signalStep >= 1} delay={0} />
+                <SignalDot color="#FDC24E" active={signalStep >= 2} delay={100} />
+                <SignalDot color="#00C64C" active={signalStep >= 3} delay={200} />
+                <span style={{
+                  fontFamily: "'Saira Expanded', sans-serif",
+                  fontSize: 6, fontWeight: 600, letterSpacing: '1px',
+                  color: 'rgba(255,255,255,0.22)', marginLeft: 2, textTransform: 'uppercase',
+                }}>Ativo</span>
+              </div>
             </div>
 
             {/* Trilho + estações */}
@@ -748,16 +740,22 @@ export default function LoginPage() {
           margin: '0 auto',
           padding: '36px 32px',
           borderRadius: 28,
-          background: 'rgba(255,255,255,0.02)',
-          backdropFilter: 'blur(10px) saturate(50%) brightness(1.1)',
-          WebkitBackdropFilter: 'blur(10px) saturate(50%) brightness(1.1)',
-          border: '0.5px solid rgba(255,255,255,0.08)',
-          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.10)',
+          background: 'linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 40%, rgba(255,255,255,0.00) 100%)',
+          backdropFilter: 'blur(12px) saturate(50%) brightness(1.12)',
+          WebkitBackdropFilter: 'blur(12px) saturate(50%) brightness(1.12)',
+          border: '0.5px solid rgba(255,255,255,0.14)',
+          borderTop: '0.5px solid rgba(255,255,255,0.28)',
+          boxShadow: `
+            inset 0 1px 0 0 rgba(255,255,255,0.22),
+            inset 0 -1px 0 0 rgba(0,0,0,0.05),
+            0 20px 40px rgba(0,0,0,0.15),
+            0 0 0 0.5px rgba(255,255,255,0.06)
+          `,
           position: 'relative',
           gap: 18,
         }}>
 
-          <img src="/appfips-logo-full.png" alt="App FIPS" style={{ height: 48, objectFit: 'contain', marginBottom: 20 }} />
+          <img src="/appfips-logo.png" alt="App FIPS" style={{ height: 64, objectFit: 'contain', marginBottom: 8 }} />
           <h2 style={{
             fontFamily: "'Saira Expanded', sans-serif",
             fontSize: 24,
