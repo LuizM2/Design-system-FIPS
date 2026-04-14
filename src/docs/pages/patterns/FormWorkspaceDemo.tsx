@@ -6,11 +6,15 @@ import {
   ChevronRight,
   Clock,
   FolderKanban,
+  Layers,
+  ListTree,
   MapPin,
+  MessageSquareText,
   Phone,
   Save,
   Send,
   Eye,
+  Tag,
   UserRound,
   AlertTriangle,
   FileCheck,
@@ -387,14 +391,14 @@ export default function FormWorkspaceDemo() {
                   </div>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2">
-                  <WorkspaceField label="Área processo" required>
-                    <Select aria-label="Área processo" defaultValue="tecnologia">
+                  <WorkspaceField label="Área processo" inset="icon" required>
+                    <Select aria-label="Área processo" defaultValue="tecnologia" leftIcon={<Layers className="h-4 w-4" aria-hidden />}>
                       <option value="tecnologia">Tecnologia</option>
                       <option value="operacoes">Operações</option>
                     </Select>
                   </WorkspaceField>
-                  <WorkspaceField label="Subprocesso" required>
-                    <Select aria-label="Subprocesso" defaultValue="suporte">
+                  <WorkspaceField label="Subprocesso" inset="icon" required>
+                    <Select aria-label="Subprocesso" defaultValue="suporte" leftIcon={<ListTree className="h-4 w-4" aria-hidden />}>
                       <option value="suporte">Suporte</option>
                       <option value="infra">Infraestrutura</option>
                     </Select>
@@ -429,14 +433,14 @@ export default function FormWorkspaceDemo() {
                     <WorkspaceField label="Contato rápido" inset="icon">
                       <Input placeholder="(11) 99999-9999" leftIcon={<Phone className="h-4 w-4" aria-hidden />} />
                     </WorkspaceField>
-                    <WorkspaceField label="Categoria" required>
-                      <Select aria-label="Categoria" defaultValue="servico">
+                    <WorkspaceField label="Categoria" inset="icon" required>
+                      <Select aria-label="Categoria" defaultValue="servico" leftIcon={<Tag className="h-4 w-4" aria-hidden />}>
                         <option value="servico">Serviço</option>
                         <option value="material">Material</option>
                       </Select>
                     </WorkspaceField>
                   </div>
-                  <WorkspaceField label="Observação">
+                  <WorkspaceField label="Observação" inset="control">
                     <Textarea placeholder="Detalhe contexto, premissas, restrições e informações úteis para análise..." />
                   </WorkspaceField>
                 </CardContent>
