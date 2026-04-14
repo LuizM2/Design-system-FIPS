@@ -1185,7 +1185,7 @@ export default function LoginPage() {
           font-family:'Saira Expanded',sans-serif;
           font-size:9px; font-weight:600; letter-spacing:3px;
           text-transform:uppercase;
-          color:rgba(255,255,255,0.28);
+          color:rgba(255,255,255,0.55);
           transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
           pointer-events:none;
         }
@@ -1193,12 +1193,12 @@ export default function LoginPage() {
         .v3-underline-input {
           width:100%; padding:20px 0 8px 0;
           background:transparent; border:none; outline:none;
-          border-bottom:1px solid rgba(255,255,255,0.10);
-          color:#fff; font-size:15px; font-family:'Open Sans',sans-serif;
+          border-bottom:1px solid rgba(255,255,255,0.15);
+          color:#fff; font-size:15px; font-family:'Saira Expanded',sans-serif;
           font-weight:400; letter-spacing:0.02em;
           transition:border-color 0.3s;
         }
-        .v3-underline-input::placeholder { color:rgba(255,255,255,0.18); font-weight:300; }
+        .v3-underline-input::placeholder { color:rgba(255,255,255,0.45); font-weight:300; }
         .v3-underline-input:focus { border-bottom-color:transparent; }
         .v3-underline-input:-webkit-autofill,
         .v3-underline-input:-webkit-autofill:hover,
@@ -1282,7 +1282,7 @@ export default function LoginPage() {
       {/* Azul escuro */}
       <div style={{ flex: 1, background: '#002A68' }} />
 
-      {/* ══════ SPLIT CARD ══════ */}
+      {/* ══════ SPLIT CARD — liquid glass puro ══════ */}
       <div style={{
         position: 'absolute',
         top: '50%',
@@ -1292,12 +1292,19 @@ export default function LoginPage() {
         display: 'flex',
         width: 620,
         minHeight: 360,
-        borderRadius: 16,
-        background: 'linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%)',
-        outline: '1px solid rgba(255,255,255,0.10)',
-        backdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
-        WebkitBackdropFilter: 'blur(14px) brightness(1.12) saturate(0.45)',
-        boxShadow: '0 24px 48px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.18)',
+        borderRadius: 28,
+        background: 'rgba(255,255,255,0.03)',
+        border: 'none',
+        backdropFilter: 'blur(2px) brightness(1.25) saturate(30%)',
+        WebkitBackdropFilter: 'blur(2px) brightness(1.25) saturate(30%)',
+        boxShadow: `
+          inset 0 0.5px 0 0 rgba(255,255,255,0.35),
+          inset 0 -0.5px 0 0 rgba(255,255,255,0.08),
+          inset 0.5px 0 0 0 rgba(255,255,255,0.12),
+          inset -0.5px 0 0 0 rgba(255,255,255,0.06),
+          0 1px 2px rgba(0,0,0,0.08),
+          0 12px 32px rgba(0,0,0,0.12)
+        `,
         overflow: 'hidden',
       }}>
 
@@ -1342,9 +1349,9 @@ export default function LoginPage() {
               <span style={{ color: '#FDC24E' }}>ferroviária</span>
             </h3>
             <p style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: 11, color: 'rgba(255,255,255,0.30)',
-              lineHeight: 1.6, margin: 0,
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 10, color: 'rgba(255,255,255,0.50)',
+              lineHeight: 1.6, margin: 0, letterSpacing: '0.3px',
             }}>
               Porto de Santos<br />
               Sistema integrado
@@ -1398,8 +1405,8 @@ export default function LoginPage() {
             Acessar sistema
           </h2>
           <p style={{
-            fontFamily: "'Open Sans', sans-serif",
-            fontSize: 12, color: 'rgba(255,255,255,0.25)',
+            fontFamily: "'Saira Expanded', sans-serif",
+            fontSize: 12, color: 'rgba(255,255,255,0.50)',
             margin: '0 0 32px',
           }}>
             Identifique-se para continuar
@@ -1429,14 +1436,14 @@ export default function LoginPage() {
                   Senha
                 </label>
                 <a href="#" onClick={e => e.preventDefault()} style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: 10, color: 'rgba(253,194,78,0.45)',
-                  textDecoration: 'none', letterSpacing: '0.3px',
+                  fontFamily: "'Saira Expanded', sans-serif",
+                  fontSize: 9, color: 'rgba(253,194,78,0.70)',
+                  textDecoration: 'none', letterSpacing: '0.5px',
                   transition: 'color 0.2s',
                   position: 'relative', zIndex: 2,
                 }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#FDC24E' }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(253,194,78,0.45)' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(253,194,78,0.70)' }}
                 >
                   Esqueceu?
                 </a>
@@ -1578,9 +1585,9 @@ export default function LoginPage() {
               <span style={{ color: '#FDC24E' }}>ferroviária</span>
             </h3>
             <p style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: 11, color: 'rgba(255,255,255,0.30)',
-              lineHeight: 1.6, margin: 0,
+              fontFamily: "'Saira Expanded', sans-serif",
+              fontSize: 10, color: 'rgba(255,255,255,0.50)',
+              lineHeight: 1.6, margin: 0, letterSpacing: '0.3px',
             }}>
               Porto de Santos<br />
               Sistema integrado
