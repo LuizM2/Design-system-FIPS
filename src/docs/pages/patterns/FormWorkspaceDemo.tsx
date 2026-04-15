@@ -5,6 +5,7 @@ import {
   CheckCircle2,
   ChevronRight,
   Clock,
+  ClipboardList,
   FolderKanban,
   Layers,
   ListTree,
@@ -255,7 +256,7 @@ export default function FormWorkspaceDemo() {
           {/* ═══════ HERO HEADER ═══════ */}
           <Card className="overflow-hidden">
             <div
-              className="relative overflow-hidden border-b border-[var(--color-border)] px-7 py-8"
+              className="relative overflow-hidden border-b border-[var(--color-border)] px-7 py-5"
               style={{
                 background: 'linear-gradient(135deg, #004B9B 0%, #002A68 60%, #001A4A 100%)',
               }}
@@ -268,15 +269,33 @@ export default function FormWorkspaceDemo() {
                 <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
               </svg>
 
-              <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
-                <div className="max-w-3xl">
-                  <Badge variant="default">Abertura de demanda</Badge>
-                  <h2 className="mt-3 font-heading text-3xl font-semibold text-white">
-                    Workspace de Solicitação
-                  </h2>
-                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/60">
-                    Organize cabeçalho, classificação, contexto operacional e detalhes financeiros em um único fluxo de preenchimento com forte apoio visual.
-                  </p>
+              <div className="relative flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
+                <div className="flex max-w-3xl items-center gap-4">
+                  <div
+                    className="flex shrink-0 items-center justify-center rounded-[11px]"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      background: 'rgba(253,194,78,0.18)',
+                      border: '1px solid rgba(253,194,78,0.19)',
+                    }}
+                  >
+                    <ClipboardList className="h-5 w-5" style={{ color: '#FDC24E' }} />
+                  </div>
+                  <div>
+                    <h2
+                      className="font-heading font-bold text-white"
+                      style={{ fontSize: 21, lineHeight: 1.15, letterSpacing: '-0.2px', margin: 0 }}
+                    >
+                      Workspace de Solicitação
+                    </h2>
+                    <p
+                      className="text-white/[.66]"
+                      style={{ fontSize: 12, margin: '4px 0 0', lineHeight: 1.4 }}
+                    >
+                      Organize cabeçalho, classificação, contexto operacional e detalhes financeiros · FIPS
+                    </p>
+                  </div>
                 </div>
 
                 {/* Metric cards — glass cards */}
