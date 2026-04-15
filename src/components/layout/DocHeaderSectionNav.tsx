@@ -3,9 +3,6 @@ import type { LucideIcon } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '../../lib/cn'
 import {
-  docHeaderNeuAccentBgHover,
-  docHeaderNeuAccentBorderHover,
-  docHeaderNeuShimmerOnAccent,
   docHeaderTabsNavSeparatorClass,
   docHeaderTabsSurface,
   docHeaderTabsUnderlineMd,
@@ -44,7 +41,7 @@ function iconClassInactive(dark: boolean) {
   return cn('shrink-0 transition-colors duration-200', dark ? 'text-[#71717A]' : 'text-[#7B8C96]')
 }
 
-/** Ícone ativo: azulejo amarelo FIPS + sweep shimmer. */
+/** Ícone da tab — cor muda para laranja (#F6921E) quando ativo, seguindo o padrão Underline. */
 function SectionTabIcon({
   icon: Icon,
   active,
@@ -56,44 +53,18 @@ function SectionTabIcon({
   dark: boolean
   sizePx: number
 }) {
-  if (!active) {
-    return (
-      <Icon
-        className={iconClassInactive(dark)}
-        style={{ width: sizePx, height: sizePx }}
-        strokeWidth={1.5}
-        aria-hidden
-      />
-    )
-  }
-  const pad = 4
-  const box = sizePx + pad * 2
   return (
-    <span
-      className="relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-md"
-      style={{
-        width: box,
-        height: box,
-        border: `1px solid ${docHeaderNeuAccentBorderHover}`,
-        boxShadow: '0 2px 8px -2px rgba(246,146,30,0.45)',
-      }}
-    >
-      <span className="absolute inset-0 rounded-[5px]" style={{ background: docHeaderNeuAccentBgHover }} aria-hidden />
-      <span
-        className="pointer-events-none absolute inset-0 rounded-[5px]"
-        style={{
-          background: docHeaderNeuShimmerOnAccent,
-          animation: 'shimmerSweep 0.55s ease forwards',
-        }}
-        aria-hidden
-      />
-      <Icon
-        className="relative z-[1] shrink-0 text-[#002A68]"
-        style={{ width: sizePx, height: sizePx }}
-        strokeWidth={1.5}
-        aria-hidden
-      />
-    </span>
+    <Icon
+      className={cn(
+        'shrink-0 transition-colors duration-200',
+        active
+          ? 'text-[#F6921E]'
+          : iconClassInactive(dark),
+      )}
+      style={{ width: sizePx, height: sizePx }}
+      strokeWidth={1.5}
+      aria-hidden
+    />
   )
 }
 

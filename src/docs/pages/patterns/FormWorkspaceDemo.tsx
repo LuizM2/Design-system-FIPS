@@ -257,59 +257,52 @@ export default function FormWorkspaceDemo() {
             <div
               className="relative overflow-hidden border-b border-[var(--color-border)] px-7 py-8"
               style={{
-                background: 'linear-gradient(135deg, rgba(0,42,104,0.07) 0%, rgba(0,144,208,0.09) 40%, rgba(253,194,78,0.08) 100%)',
+                background: 'linear-gradient(135deg, #004B9B 0%, #002A68 60%, #001A4A 100%)',
               }}
             >
-              {/* Decorative track lines */}
-              <svg
-                viewBox="0 0 800 200"
-                fill="none"
-                className="pointer-events-none absolute -right-20 top-0 h-full w-[500px] opacity-[0.04]"
-              >
-                <path d="M0 60H200C230 60 230 60 260 35L380 35H800" stroke="var(--color-fips-blue-950)" strokeWidth="5" strokeLinecap="round" />
-                <path d="M0 60H200C230 60 230 60 260 85L380 85H800" stroke="var(--color-fips-blue-950)" strokeWidth="5" strokeLinecap="round" />
-                <path d="M0 140H120C150 140 150 140 180 115L300 115H800" stroke="var(--color-fips-blue-950)" strokeWidth="5" strokeLinecap="round" />
-                <path d="M0 140H120C150 140 150 140 180 165L300 165H800" stroke="var(--color-fips-blue-950)" strokeWidth="5" strokeLinecap="round" />
+              {/* Junction lines SVG */}
+              <svg viewBox="0 0 320 200" fill="none" className="pointer-events-none absolute -right-6 -top-3" style={{ width: 400, height: 250, opacity: 0.07 }}>
+                <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+                <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+                <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+                <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
               </svg>
 
               <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
                 <div className="max-w-3xl">
                   <Badge variant="default">Abertura de demanda</Badge>
-                  <h2 className="mt-3 font-heading text-3xl font-semibold text-[var(--color-fg)]">
+                  <h2 className="mt-3 font-heading text-3xl font-semibold text-white">
                     Workspace de Solicitação
                   </h2>
-                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/60">
                     Organize cabeçalho, classificação, contexto operacional e detalhes financeiros em um único fluxo de preenchimento com forte apoio visual.
                   </p>
                 </div>
 
-                {/* Metric cards */}
-                <div className="grid gap-3 sm:grid-cols-2 xl:min-w-[420px]">
-                  {([
-                    { label: 'Obrigatórios', value: '8/10', helper: 'campos essenciais preenchidos', icon: FileCheck, color: 'var(--color-primary)' },
-                    { label: 'Locais', value: '3 pares', helper: 'local e sublocal mapeados', icon: MapPin, color: 'var(--color-secondary)' },
-                    { label: 'Cadeia', value: 'Pronta', helper: 'aprovador de área definido', icon: CheckCircle2, color: 'var(--color-success)' },
-                    { label: 'RC SAP', value: 'Depois', helper: 'informado após a criação', icon: Clock, color: 'var(--color-accent-strong)' },
-                  ] as const).map(({ label, value, helper, icon: Icon, color }) => (
-                    <div
-                      key={label}
-                      className="ws-metric-card rounded-2xl border border-[var(--color-border)] bg-white/95 p-4 shadow-[var(--shadow-field)]"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="flex h-6 w-6 items-center justify-center rounded-lg"
-                          style={{ background: `color-mix(in srgb, ${color} 12%, transparent)` }}
-                        >
-                          <Icon className="h-3.5 w-3.5" style={{ color }} />
+                {/* Metric cards — glass cards */}
+                <div className="xl:min-w-[340px]">
+                  <div className="relative grid gap-2 sm:grid-cols-2">
+                    {([
+                      { label: 'Obrigatórios', value: '8/10', helper: 'campos essenciais', icon: FileCheck, color: '#93BDE4' },
+                      { label: 'Locais', value: '3 pares', helper: 'local e sublocal', icon: MapPin, color: '#658EC9' },
+                      { label: 'Cadeia', value: 'Pronta', helper: 'aprovador definido', icon: CheckCircle2, color: '#00C64C' },
+                      { label: 'RC SAP', value: 'Depois', helper: 'informado após criação', icon: Clock, color: '#FDC24E' },
+                    ] as const).map(({ label, value, helper, icon: Icon, color }) => (
+                      <div
+                        key={label}
+                        className="rounded-lg border border-white/10 bg-white/[0.07] px-2.5 py-1.5 backdrop-blur-sm"
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <Icon className="h-3 w-3 shrink-0" style={{ color }} />
+                          <span className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/50">
+                            {label}
+                          </span>
                         </div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-fg-muted)]">
-                          {label}
-                        </p>
+                        <p className="mt-0.5 text-sm font-bold text-white">{value}</p>
+                        <p className="text-[10px] leading-tight text-white/40">{helper}</p>
                       </div>
-                      <p className="mt-2 font-heading text-2xl font-semibold text-[var(--color-fg)]">{value}</p>
-                      <p className="mt-1 text-sm text-[var(--color-fg-muted)]">{helper}</p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
