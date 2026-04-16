@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, createContext, type ReactNode } from 'react'
 import { BookOpen, ChevronDown, ChevronRight, LogOut, Sparkles, Timer, type LucideIcon } from 'lucide-react'
 import { matchPath, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useFipsTheme } from '../../hooks/useFipsTheme'
 import {
   Dialog,
   DialogContent,
@@ -50,7 +51,7 @@ type SidebarTheme = {
 
 const TN: SidebarTheme = {
   border: 'rgba(255,255,255,0.06)',
-  iconBorderIdle: 'rgba(255,255,255,0.16)',
+  iconBorderIdle: '#1a3d6e',
   textMuted: 'rgba(255,255,255,0.75)',
   textHover: 'rgba(255,255,255,0.92)',
   textActive: '#fafafa',
@@ -59,7 +60,7 @@ const TN: SidebarTheme = {
   accentBorderStrong: 'rgba(246,146,30,0.58)',
   iconActive: C.azulEscuro,
   chevron: 'rgba(255,255,255,0.55)',
-  idleShadow: '0 1px 2px rgba(0,42,104,0.3)',
+  idleShadow: '0 3px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.45) inset',
   hoverShadow:
     '0 10px 20px -10px rgba(246,146,30,0.55), 0 2px 3px rgba(0,42,104,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 4px rgba(140,72,0,0.28)',
   activeShadow:
@@ -117,8 +118,13 @@ function SidebarNeuIcon36({
   shimmerLoop?: boolean
   hovered?: boolean
 }) {
+  const { dark } = useFipsTheme()
   const lit = isActive
   const shimmerHover = hovered && !isActive && !shimmerLoop
+  const idleBg = dark
+    ? 'linear-gradient(160deg, #303036 0%, #222226 55%, #1c1c20 100%)'
+    : 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)'
+  const idleBorder = dark ? '#3f3f46' : '#1a3d6e'
   return (
     <div
       className="relative flex shrink-0 items-center justify-center overflow-hidden"
@@ -126,11 +132,11 @@ function SidebarNeuIcon36({
         width: 36,
         height: 36,
         borderRadius: 10,
-        border: `1px solid ${isActive || shimmerHover ? theme.accentBorderStrong : theme.iconBorderIdle}`,
+        border: `1px solid ${isActive || shimmerHover ? theme.accentBorderStrong : idleBorder}`,
         background:
           lit || shimmerHover
             ? `linear-gradient(145deg, ${theme.accentTo} 0%, #f7ad45 34%, ${theme.accentFrom} 64%, #cf730d 100%)`
-            : 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 56%, rgba(0,24,58,0.18) 100%)',
+            : idleBg,
         boxShadow: isActive ? theme.activeShadow : shimmerHover ? theme.hoverShadow : theme.idleShadow,
         transform: shimmerHover ? 'translateY(-1px)' : 'none',
         transition: 'all 0.25s ease',

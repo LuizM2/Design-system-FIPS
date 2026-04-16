@@ -225,11 +225,11 @@ function MockupFrame({
 
 /* ─── Neumorphic icon tile (mesmo padrão DocsNeuSidebar) ─── */
 const NEU = {
-  borderIdle: 'rgba(255,255,255,0.16)',
+  borderIdle: '#1a3d6e',
   borderAccent: 'rgba(246,146,30,0.58)',
-  bgIdle: 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 56%, rgba(0,24,58,0.18) 100%)',
+  bgIdle: 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)',
   bgAccent: 'linear-gradient(145deg, #FFD37B 0%, #f7ad45 34%, #F6921E 64%, #cf730d 100%)',
-  shadowIdle: '0 1px 2px rgba(0,42,104,0.3)',
+  shadowIdle: '0 3px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.45) inset',
   shadowHover: '0 10px 20px -10px rgba(246,146,30,0.55), 0 2px 3px rgba(0,42,104,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 4px rgba(140,72,0,0.28)',
   shadowActive: '0 12px 24px -12px rgba(246,146,30,0.62), 0 2px 4px rgba(0,42,104,0.38), inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -3px 6px rgba(120,64,0,0.36)',
   iconIdle: 'rgba(255,255,255,0.75)',

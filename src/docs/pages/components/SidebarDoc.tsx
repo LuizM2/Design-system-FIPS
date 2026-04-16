@@ -94,7 +94,7 @@ const TN_DARK: SidebarTheme = {
   bg: '#002A68',
   border: 'rgba(255,255,255,0.06)',
   iconBgIdle: 'rgba(255,255,255,0.08)',
-  iconBorderIdle: 'rgba(255,255,255,0.16)',
+  iconBorderIdle: '#1a3d6e',
   textMuted: 'rgba(255,255,255,0.75)',
   textHover: 'rgba(255,255,255,0.92)',
   textActive: '#fafafa',
@@ -105,7 +105,7 @@ const TN_DARK: SidebarTheme = {
   accentGlow: 'rgba(246,146,30,0.42)',
   iconActive: C.azulEscuro,
   chevron: 'rgba(255,255,255,0.55)',
-  idleShadow: '0 1px 2px rgba(0,42,104,0.3)',
+  idleShadow: '0 3px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.45) inset',
   hoverShadow:
     '0 10px 20px -10px rgba(246,146,30,0.55), 0 2px 3px rgba(0,42,104,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 4px rgba(140,72,0,0.28)',
   activeShadow:
@@ -369,7 +369,7 @@ function SidebarNeuIcon36({
         border: `1px solid ${isActive || shimmerHover ? theme.accentBorderStrong : theme.iconBorderIdle}`,
         background: lit || shimmerHover
           ? `linear-gradient(145deg, ${theme.accentTo} 0%, #f7ad45 34%, ${theme.accentFrom} 64%, #cf730d 100%)`
-          : 'linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 56%, rgba(0,24,58,0.18) 100%)',
+          : 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)',
         boxShadow: isActive ? theme.activeShadow : shimmerHover ? theme.hoverShadow : theme.idleShadow,
         transform: shimmerHover ? 'translateY(-1px)' : 'none',
         transition: 'all 0.25s ease',

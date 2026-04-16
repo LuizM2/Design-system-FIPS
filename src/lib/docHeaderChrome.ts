@@ -37,7 +37,7 @@ export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-2 pb-0`
 /** Separador sob o `nav` de abas. */
 export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[var(--color-border)]'
 
-/* ─── Neumorphic: azulejo claro (repouso na faixa #f5f5f5) ─── */
+/* ─── Neumorphic: azulejo claro (repouso na faixa #f5f5f5 — mesmo padrão Tecnopano) ─── */
 export const docHeaderNeuLightBorderIdle = 'rgba(0,0,0,0.10)'
 export const docHeaderNeuLightBgIdle =
   'linear-gradient(145deg, #ffffff 0%, #ebebeb 55%, #e0e0e0 100%)'
