@@ -542,10 +542,9 @@ export default function Login(){
           <p style={{
             fontFamily: "'Open Sans', sans-serif",
             fontSize: 15, color: 'rgba(255,255,255,0.45)',
-            lineHeight: 1.7, margin: '0 0 16px', maxWidth: 320,
+            lineHeight: 1.7, margin: '12px 0 16px', maxWidth: 320,
           }}>
             Sistema integrado da Ferrovia Interna do Porto de Santos.
-            Gestão ferroviária com precisão e segurança.
           </p>
 
           {/* Train route - Principios FIPS */}
