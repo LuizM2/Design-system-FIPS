@@ -3,7 +3,6 @@ import { Bell, ChevronDown, ShieldCheck, AlertTriangle, ArrowUpFromLine, Sparkle
 import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
-import { FipsLogo } from '../../../components/brand/FipsLogo'
 import { PageHero, PAGE_HERO_DEFAULT_DECORATION } from '../../../composites/PageHero'
 import { cn } from '../../../lib/cn'
 
@@ -86,46 +85,6 @@ function HeroHeaderDemo() {
             {glass ? 'Glass (topo)' : 'Branco (rolado)'}
           </span>
         </div>
-      </div>
-    </div>
-  )
-}
-
-// ─── Diagrama de estados ─────────────────────────────────────────────────────
-
-function StateCard({
-  label,
-  sublabel,
-  glass,
-}: {
-  label: string
-  sublabel: string
-  glass: boolean
-}) {
-  return (
-    <div className="flex-1 overflow-hidden rounded-2xl border border-[var(--color-border)] shadow-sm">
-      <div className={cn('h-24 relative', glass ? 'bg-[#002a68]' : 'bg-white border-b border-gray-100')}>
-        {glass && (
-          <div className="absolute inset-0 bg-[linear-gradient(118deg,rgba(0,19,56,0.94),rgba(0,144,208,0.60))]" />
-        )}
-        <div className={cn(
-          'relative z-10 h-10 flex items-center justify-between px-3 border-b transition-all',
-          glass
-            ? 'bg-white/[0.07] backdrop-blur-md border-white/[0.14]'
-            : 'bg-white border-gray-200 shadow-sm',
-        )}>
-          <div className="flex items-center gap-1.5">
-            <div className="h-5 w-5 rounded bg-white/90 flex items-center justify-center">
-              <Sparkles className="h-3 w-3 text-[#002a68]" />
-            </div>
-            <span className={cn('text-xs font-semibold', glass ? 'text-white' : 'text-[#002a68]')}>FIPS</span>
-          </div>
-          <Bell className={cn('h-4 w-4', glass ? 'text-white/70' : 'text-gray-400')} />
-        </div>
-      </div>
-      <div className="bg-[var(--color-surface)] p-3">
-        <p className="text-sm font-semibold text-[var(--color-fg)]">{label}</p>
-        <p className="mt-0.5 text-xs text-[var(--color-fg-muted)]">{sublabel}</p>
       </div>
     </div>
   )
