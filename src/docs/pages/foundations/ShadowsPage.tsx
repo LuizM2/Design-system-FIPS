@@ -66,7 +66,7 @@ export default function DSFIPSShadows(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Escala visual" desc="6 níveis de sombra do mais sutil ao mais profundo. Compare lado a lado.">
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":w<900?"repeat(3,1fr)":"repeat(6,1fr)",gap:mob?12:16}}>
             {shadowOrder.map((key,i)=>{const sh=shadows[key as keyof typeof shadows];return(

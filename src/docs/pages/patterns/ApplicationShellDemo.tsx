@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-react'
 import {
   AppWindow,
   Bell,
+  BookOpen,
   Briefcase,
   ChevronDown,
   ChevronLeft,
@@ -22,12 +23,15 @@ import {
   SunMoon,
   Timer,
   Wrench,
+  ShieldCheck,
+  AlertTriangle,
+  ArrowUpFromLine,
 } from 'lucide-react'
-import { DemoSection, DocPage } from '../../components/DocPage'
-import { PatternGuidelines } from '../../components/PatternGuidelines'
+import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { DocHeaderNeuIconButton } from '../../../components/layout/DocHeaderNeuIconButton'
 import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
+import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
 import { SearchPill as SearchPillComponent } from '../../../components/layout/SearchPill'
 import { UserChip as UserChipComponent } from '../../../components/layout/UserChip'
 import { Button } from '../../../components/ui/button'
@@ -102,7 +106,13 @@ const groupedItems: ShellGroup[] = [
 
 const footerItems: ShellItem[] = [{ icon: Settings, label: 'Ajustes' }]
 
-const headerTabs = ['Home', 'Menu 1', 'Menu 2', 'Menu 3', 'Menu 4']
+const shellSectionTabs: Array<{ id: string; label: string; active: boolean; icon: LucideIcon }> = [
+  { id: 'start', label: 'Início', active: false, icon: Home },
+  { id: 'patterns', label: 'Padrões', active: true, icon: LayoutDashboard },
+  { id: 'foundations', label: 'Fundamentos', active: false, icon: Settings },
+  { id: 'components', label: 'Componentes', active: false, icon: AppWindow },
+  { id: 'meta', label: 'Projeto', active: false, icon: BookOpen },
+]
 
 const heroCards: MetricCard[] = [
   {
@@ -636,6 +646,12 @@ function ShellCanvas({
           </div>
         </header>
 
+        {!isMobile ? (
+          <div className="z-20 shrink-0">
+            <DocHeaderSectionNavDemo tabs={shellSectionTabs} />
+          </div>
+        ) : null}
+
         <div className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img
@@ -801,41 +817,54 @@ export default function ApplicationShellDemo() {
   }
 
   return (
-    <DocPage
-      title="Padrão: Application Shell"
-      description="Shell base para produtos FIPS com foco em impacto visual: fundo institucional contínuo atrás do cabeçalho, textos genéricos, sidebar aprovada e família completa de mockups responsivos. O recolhimento manual continua sendo o padrão documentado."
-    >
-      <DemoSection
-        title="Preview interativo"
-        className="!p-0 overflow-hidden"
-      >
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] px-5 py-4">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-[var(--color-fg)]">Família responsiva com mockups</p>
-            <p className="mt-1 text-sm text-[var(--color-fg-muted)]">
-              A demo usa textos neutros, fundo institucional contínuo atrás do cabeçalho e visualizações separadas para desktop, tablet e celular. O recolhimento manual é a referência principal; automações de fechamento ficam só como comportamento opcional fora deste padrão.
-            </p>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #F2F4F8 0%, #D3E3F444 50%, #F2F4F8 100%)', fontFamily: "'Open Sans', sans-serif", color: '#333B41' }}>
+      {/* HEADER HERO */}
+      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+        <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+          <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+        <div style={{ position: 'relative' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#FDC24E', fontFamily: "'Saira Expanded', sans-serif", marginBottom: 16 }}>
+            <LayoutDashboard size={14} color="#FDC24E" /> Design System FIPS
           </div>
+          <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', margin: '0 0 10px', fontFamily: "'Saira Expanded', sans-serif" }}>Application Shell</h1>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', lineHeight: 1.6, maxWidth: 700, margin: 0, fontFamily: "'Open Sans', sans-serif" }}>
+            Shell base para produtos FIPS com foco em impacto visual: fundo institucional contínuo, sidebar aprovada e família completa de mockups responsivos.
+          </p>
+        </div>
+      </header>
 
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant={desktopCollapsed ? 'secondary' : 'primary'}
-              size="sm"
-              onClick={() => setDesktopCollapsed((value) => !value)}
-            >
-              {desktopCollapsed ? 'Expandir sidebar' : 'Recolher sidebar'}
-            </Button>
-            <Button
-              variant={mobileDrawerOpen ? 'primary' : 'secondary'}
-              size="sm"
-              onClick={() => setMobileDrawerOpen((value) => !value)}
-            >
-              {mobileDrawerOpen ? 'Fechar drawer mobile' : 'Abrir drawer mobile'}
-            </Button>
+      <div style={{ padding: '36px 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
+
+      <RuleCards cards={[
+        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Estrutura fixa do shell', desc: 'Todo produto FIPS segue a mesma hierarquia visual: sidebar de navegação à esquerda, header com toolbar no topo, hero institucional com foto e degradê, e área de conteúdo abaixo. Essa ordem nunca muda.' },
+        { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Layout base de todo produto', desc: 'O Application Shell é o ponto de partida obrigatório para qualquer tela de produto FIPS. Ele garante consistência entre módulos diferentes — navegação, identidade visual e hierarquia de informação já vêm resolvidas.' },
+        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Responsividade em três faixas', desc: 'No desktop a sidebar fica sempre visível e pode ser recolhida. No tablet ela aparece como rail compacto (só ícones). No celular a sidebar desaparece e vira um drawer que abre por cima do conteúdo.' },
+      ]} />
+
+      {/* Banner de Conteúdo */}
+      <div style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 60%, #001A4A 100%)', borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,42,104,.12)', marginTop: 32, marginBottom: 32 }}>
+        <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.06, position: 'absolute', top: -10, right: -20, width: 360, height: 200 }}>
+          <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ width: 44, height: 44, borderRadius: 11, background: 'rgba(253,194,78,0.09)', border: '1px solid rgba(253,194,78,0.19)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <PanelLeft size={20} color="#FDC24E" />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h2 style={{ fontSize: 21, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0, lineHeight: 1.15, letterSpacing: '-0.2px' }}>Preview interativo</h2>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', fontFamily: "'Open Sans', sans-serif", margin: '4px 0 0', lineHeight: 1.4 }}>Família responsiva com mockups para desktop, tablet e celular</p>
           </div>
         </div>
+      </div>
 
-        <div className="space-y-8 p-5">
+        <div className="space-y-8">
           <MockupFrame
             viewport="desktop"
             label="Desktop"
@@ -890,34 +919,11 @@ export default function ApplicationShellDemo() {
             </div>
           </MockupFrame>
         </div>
-      </DemoSection>
 
-      <PatternGuidelines
-        rules={[
-          'O header é um bloco separado acima do hero — toolbar cinza #f5f5f5 com botões neumorphic amarelos FIPS.',
-          'Header e hero são blocos distintos: header nunca sobreposto à imagem.',
-          'Sidebar com ícones neumorphic quadrados (36×36, shimmer sweep no hover, gradiente amarelo FIPS).',
-          'Botão PanelLeft (colapsar sidebar) sempre visível no header.',
-          'Desktop, tablet e celular devem aparecer em mockups dedicados.',
-        ]}
-        required={[
-          'Overlay azul no hero com transparência suficiente para deixar a foto perceptível.',
-          'Sidebar com neumorphic tiles alinhados ao DocsNeuSidebar (logo App FIPS + "Design System" no topo).',
-          'Botões do header usam DocHeaderNeuIconButton com shimmer sweep.',
-          'UserChip e SearchPill no header com estilo neumorphic.',
-        ]}
-        optional={[
-          'Botão SunMoon para alternar dark/light mode no header.',
-          'Menu automático no rodapé da sidebar.',
-          'Drawer aberto no celular para revisão do menu.',
-          'Blocos secundários de conteúdo para demonstrar profundidade visual.',
-        ]}
-        avoid={[
-          'Sobrepor o header sobre o hero (ambos são blocos separados).',
-          'Usar ícones flat na sidebar (sempre usar neumorphic tiles).',
-          'Aplicar textos escuros diretamente sobre o degradê azul do hero.',
-        ]}
-      />
-    </DocPage>
+        <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
+          <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+        </div>
+      </div>
+    </div>
   )
 }

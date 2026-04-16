@@ -177,7 +177,7 @@ export default function DataListingDemo() {
   );
 
   return(
-    <div style={{minHeight:"100vh",background:C.bg,fontFamily:Fn.body,color:C.cinzaEscuro}}>
+    <div style={{minHeight:"100vh",background:`linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         @keyframes popIn{from{opacity:0;transform:scale(.95) translateY(-4px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -187,16 +187,16 @@ export default function DataListingDemo() {
         .ds-btn-wrap:hover::after{animation:dsShimmer 0.65s ease-out forwards}
       `}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 60%,#001A4A 100%)`,padding:mob?"28px 16px":"40px 40px 36px",position:"relative",overflow:"hidden"}}>
-        <JunctionLines style={{position:"absolute",top:-20,right:-30,width:mob?220:500,height:280,opacity:.07}}/>
-        <div style={{position:"relative",maxWidth:1200}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.amareloOuro}20`,border:`1px solid ${C.amareloOuro}40`,borderRadius:20,padding:"4px 12px",fontSize:10,fontWeight:600,color:C.amareloOuro,fontFamily:Fn.body,marginBottom:10}}>Padrões DS-FIPS</div>
-          <h1 style={{fontSize:mob?24:34,fontWeight:700,color:C.branco,margin:"0 0 6px",fontFamily:Fn.title,lineHeight:1.1}}>Data <span style={{color:C.amareloOuro}}>List</span></h1>
-          <p style={{fontSize:mob?12:14,color:`${C.branco}99`,margin:0,fontFamily:Fn.body,maxWidth:680,lineHeight:1.55}}>Padrão completo do DS-FIPS para Painéis de Relatórios e Ações: Header → KPIs → Toolbar → Table. Sequência fixa, elementos documentados.</p>
+      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+        <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
+        <div style={{position:"relative"}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
+          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Data Listing</h1>
+          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Padrão completo para painéis de relatórios e ações: Header → KPIs → Toolbar → Table. Sequência fixa e elementos documentados para listagem de dados administrativos.</p>
         </div>
       </header>
 
-      <div style={{padding:mob?"20px 12px 40px":"32px 40px 60px",maxWidth:1200}}>
+      <div style={{padding:mob?"20px 12px 40px":"32px 40px 60px",maxWidth:1200,margin:"0 auto"}}>
 
         {/* ═══ 01 — Data listing completo ═══ */}
         <Section n="01" title="Painel de Relatório completo" desc="Padrão completo de Painel de Relatório seguindo a ordem obrigatória: Header → KPIs → Toolbar → Table. Use esse padrão sempre que precisar exibir dados administrativos com ações principais, métricas e listagem.">

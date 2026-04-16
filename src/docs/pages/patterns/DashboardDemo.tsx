@@ -346,30 +346,23 @@ export default function DSFIPSDashboard(){
   const Avatar=({name}:{name:string})=>{const p=(name||"").split(" ").filter(Boolean);const ini=p.length>=2?`${p[0][0]}${p[p.length-1][0]}`:p[0]?p[0][0]:"?";return <div style={{width:32,height:32,borderRadius:"50%",background:C.bg,border:`1px solid ${C.cardBorder}`,color:C.cinzaChumbo,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,fontFamily:Fn.title,flexShrink:0,letterSpacing:".5px"}}>{ini.toUpperCase()}</div>};
 
   return(
-    <div style={{minHeight:"100vh",background:C.bg,fontFamily:Fn.body,color:C.cinzaEscuro}}>
+    <div style={{minHeight:"100vh",background:`linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
       `}</style>
 
       {/* ═══ HERO ═══ */}
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 60%,#001A4A 100%)`,padding:mob?"24px 16px":"36px 40px 32px",position:"relative",overflow:"hidden"}}>
-        <JunctionLines style={{position:"absolute",top:-20,right:-30,width:mob?220:500,height:280,opacity:.07}}/>
-        <svg viewBox="0 0 600 100" fill="none" style={{position:"absolute",bottom:0,right:mob?-80:20,width:mob?250:420,height:mob?50:85,opacity:.04}}><rect x="50" y="20" width="380" height="50" rx="8" fill={C.branco}/><rect x="60" y="5" width="70" height="15" rx="3" fill={C.branco}/><circle cx="100" cy="80" r="12" fill={C.branco}/><circle cx="190" cy="80" r="12" fill={C.branco}/><circle cx="340" cy="80" r="12" fill={C.branco}/></svg>
-        <div style={{position:"relative",display:"flex",alignItems:mob?"flex-start":"center",justifyContent:"space-between",flexDirection:mob?"column":"row",gap:mob?12:0}}>
-          <div>
-            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.amareloOuro}20`,border:`1px solid ${C.amareloOuro}40`,borderRadius:20,padding:"4px 12px",fontSize:10,fontWeight:600,color:C.amareloOuro,fontFamily:Fn.body,marginBottom:8}}>App Suprimentos</div>
-            <h1 style={{fontSize:mob?22:30,fontWeight:700,color:C.branco,margin:"0 0 4px",fontFamily:Fn.title,lineHeight:1.15}}>Painel de <span style={{color:C.amareloOuro}}>Requisições</span></h1>
-            <p style={{fontSize:mob?11:13,color:`${C.branco}80`,margin:0,fontFamily:Fn.body}}>Clique nos gráficos para filtrar · {allData.length} registros</p>
-          </div>
-          <div style={{display:"flex",gap:8}}>
-            <button style={{display:"inline-flex",alignItems:"center",gap:6,padding:"9px 16px",fontSize:12,fontWeight:700,fontFamily:Fn.body,color:C.azulEscuro,background:C.amareloOuro,border:"none",borderRadius:8,cursor:"pointer"}}>{Ic.doc(14,C.azulEscuro)} Nova requisição</button>
-            <button style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:36,height:36,background:"transparent",border:`1px solid ${C.branco}25`,borderRadius:8,cursor:"pointer"}}>{Ic.settings(16,`${C.branco}A0`)}</button>
-          </div>
+      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+        <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
+        <div style={{position:"relative"}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
+          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Dashboard</h1>
+          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Padrão de painel operacional com KPIs, gráficos interativos, barra de filtros e tabela de dados. Estrutura fixa para relatórios e visões consolidadas de módulos FIPS.</p>
         </div>
       </header>
 
-      <div style={{padding:mob?"16px 12px 32px":"24px 40px 48px",maxWidth:1200}}>
+      <div style={{padding:mob?"16px 12px 32px":"24px 40px 48px",maxWidth:1200,margin:"0 auto"}}>
 
         {/* ═══ BARRA DE FILTROS ═══ */}
         <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?"12px":"14px 20px",marginBottom:mob?16:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>

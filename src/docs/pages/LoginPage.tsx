@@ -40,7 +40,7 @@ function SignalDot({ color, active, delay }: { color: string; active: boolean; d
 }
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
-export default function LoginPage(){
+export default function Login(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
@@ -504,7 +504,7 @@ export default function LoginPage(){
 
   /* ── Reusable login V1 renderer ── */
   const renderLoginV1 = () => (
-    <div className="login-v1-container relative flex" style={{minHeight:'calc(100svh - 120px)',overflow:'hidden'}}>
+    <div className="login-container login-v1-container relative flex" style={{minHeight:'calc(100svh - 120px)',overflow:'hidden'}}>
       {/* LEFT -- Branding */}
       <div className="login-left">
         <svg viewBox="0 0 400 200" fill="none" style={{opacity:0.07,position:'absolute',top:0,right:0,width:500}}>
@@ -644,7 +644,7 @@ export default function LoginPage(){
 
       {/* RIGHT -- Login form */}
       <div className="login-right">
-        <div className="liquid-card" style={{
+        <div className="liquid-card login-card" style={{
           position:'relative',zIndex:10,
           animation: mounted ? 'slideInRight 0.7s ease-out 0.2s both' : 'none',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
@@ -666,7 +666,7 @@ export default function LoginPage(){
                 <User size={18} strokeWidth={1.6} className="icon" />
                 <input
                   type="text"
-                  placeholder="email@fips.app.br"
+                  placeholder="nome.sobrenome@agfips.com.br"
                   value={csEmail}
                   onChange={e => setCsEmail(e.target.value)}
                   onFocus={() => setFocused('user')}
@@ -751,7 +751,7 @@ export default function LoginPage(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 -- PLAYGROUND INTERATIVO */}
         <Section n="01" title="Playground interativo" desc="Login V1 completo com painel de branding à esquerda e formulário liquid glass à direita. Filtro background padrão 1, borda animada dourada, ícones amarelos e textos brancos. Interaja com os inputs, toggle de senha e validação CS/Email.">
@@ -811,7 +811,7 @@ export default function LoginPage(){
                     position:"absolute",inset:0,
                     background:"linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%)",
                   }}/>
-                  <div className="liquid-card" style={{
+                  <div className="liquid-card login-card" style={{
                     position:"relative",zIndex:10,
                     display:"flex",flexDirection:"column",alignItems:"center",
                     width:"100%",maxWidth:340,margin:"0 auto",
@@ -828,7 +828,7 @@ export default function LoginPage(){
                         <label style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"#FFFFFF",marginBottom:4,marginLeft:12,display:"block"}}>CS ou E-mail</label>
                         <div style={{display:"flex",alignItems:"center",gap:10,height:38,padding:"0 12px",borderRadius:8,background:"rgba(255,255,255,0.07)",border:"1.5px solid rgba(253,194,78,0.30)"}}>
                           <User size={15} strokeWidth={1.6} style={{color:"#FDC24E",flexShrink:0}} />
-                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>email@fips.app.br</span>
+                          <span style={{fontSize:12,color:"rgba(255,255,255,0.45)",fontFamily:"'Open Sans',sans-serif"}}>nome.sobrenome@agfips.com.br</span>
                         </div>
                       </div>
                       <div>

@@ -118,7 +118,7 @@ export default function ToastDoc(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — PLAYGROUND */}
         <Section n="01" title="Playground interativo" desc="Clique nos botões para disparar toasts reais no canto superior direito. Timer visual, empilhamento até 5, X para fechar.">

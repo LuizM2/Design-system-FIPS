@@ -627,58 +627,36 @@ export function DocsNeuSidebar({
               theme={theme}
             />
           ))}
-          <div style={{ borderTop: `1px solid ${theme.border}`, margin: '8px 8px 0', paddingTop: 8 }}>
+          <div style={{ borderTop: `1px solid ${theme.border}`, margin: '8px 0 0', padding: '8px 0 0' }}>
             {bottomNavItems.map((item) => (
               <BottomNavLink key={item.to} item={item} collapsed={collapsed} pathname={pathname} onItemNavigate={onNavigate} theme={theme} />
             ))}
             <button
               type="button"
               onClick={() => onMenuBehaviorOpenChange(true)}
-              onMouseEnter={() => setMenuTriggerHovered(true)}
-              onMouseLeave={() => setMenuTriggerHovered(false)}
+              onMouseEnter={(e) => { e.currentTarget.style.color = theme.accentFrom }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = theme.chevron }}
               aria-expanded={menuBehaviorOpen}
               aria-haspopup="dialog"
               id="docs-sidebar-menu-behavior-trigger"
+              className="flex cursor-pointer items-center rounded-lg transition-colors"
               style={{
-                display: 'flex',
-                width: collapsed ? 52 : '100%',
-                maxWidth: collapsed ? 52 : '100%',
-                minWidth: 0,
-                margin: collapsed ? '1px auto' : '1px 8px',
-                marginBottom: 8,
-                alignItems: 'center',
+                color: theme.chevron,
                 justifyContent: collapsed ? 'center' : 'flex-start',
                 gap: collapsed ? 0 : 12,
                 padding: collapsed ? '6px 0' : '6px 12px',
-                borderRadius: 8,
+                width: collapsed ? 52 : undefined,
+                maxWidth: collapsed ? 52 : '100%',
+                margin: collapsed ? '1px auto' : '1px 8px',
                 border: 'none',
                 background: 'transparent',
-                cursor: 'pointer',
               }}
             >
-              <SidebarNeuIcon36 theme={theme} isActive={menuBehaviorOpen} shimmerLoop={menuBehaviorOpen} hovered={menuTriggerHovered}>
-                <Timer
-                  size={17}
-                  strokeWidth={1.9}
-                  style={{ color: menuBehaviorOpen || menuTriggerHovered ? theme.iconActive : theme.textMuted, transition: 'color 0.2s ease' }}
-                  aria-hidden
-                />
-              </SidebarNeuIcon36>
+              <span className="flex shrink-0 items-center justify-center" style={{ width: 36, height: 36 }}>
+                <Timer size={17} aria-hidden />
+              </span>
               {!collapsed ? (
-                <span
-                  style={{
-                    fontSize: 13,
-                    fontWeight: menuBehaviorOpen ? 500 : 400,
-                    letterSpacing: '0.01em',
-                    flex: 1,
-                    color: menuBehaviorOpen ? theme.textActive : menuTriggerHovered ? theme.textHover : theme.textMuted,
-                    fontFamily: F.body,
-                    textAlign: 'left',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                <span className="text-[13px] font-normal" style={{ fontFamily: F.body }}>
                   Menu automático
                 </span>
               ) : null}
@@ -759,12 +737,15 @@ export function DocsNeuSidebar({
               href="https://github.com/LuizM2/Design-system-FIPS"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex cursor-pointer items-center rounded-lg py-2 transition-colors no-underline [color:inherit]"
+              className="flex cursor-pointer items-center rounded-lg transition-colors no-underline [color:inherit]"
               style={{
                 color: theme.chevron,
                 justifyContent: collapsed ? 'center' : 'flex-start',
-                paddingLeft: collapsed ? 0 : 8,
                 gap: collapsed ? 0 : 12,
+                padding: collapsed ? '6px 0' : '6px 12px',
+                width: collapsed ? 52 : undefined,
+                maxWidth: collapsed ? 52 : '100%',
+                margin: collapsed ? '1px auto' : '1px 8px',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = theme.accentFrom
@@ -773,7 +754,9 @@ export function DocsNeuSidebar({
                 e.currentTarget.style.color = theme.chevron
               }}
             >
-              <LogOut size={17} aria-hidden />
+              <span className="flex shrink-0 items-center justify-center" style={{ width: 36, height: 36 }}>
+                <LogOut size={17} aria-hidden />
+              </span>
               {!collapsed ? (
                 <span className="text-[13px] font-normal" style={{ fontFamily: F.body }}>
                   Repositório
@@ -782,11 +765,21 @@ export function DocsNeuSidebar({
             </a>
 
             <div
-              className={`flex items-center gap-2 rounded-lg px-3 py-2 transition-colors ${collapsed ? 'justify-center' : 'justify-start'}`}
-              style={{ color: 'rgba(255,255,255,0.5)' }}
+              className="flex items-center rounded-lg transition-colors"
+              style={{
+                color: 'rgba(255,255,255,0.5)',
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                gap: collapsed ? 0 : 12,
+                padding: collapsed ? '6px 0' : '6px 12px',
+                width: collapsed ? 52 : undefined,
+                maxWidth: collapsed ? 52 : '100%',
+                margin: collapsed ? '1px auto' : '1px 8px',
+              }}
               title="Versão da documentação"
             >
-              <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              <span className="flex shrink-0 items-center justify-center" style={{ width: 36, height: 36 }}>
+                <Sparkles className="h-3.5 w-3.5" aria-hidden />
+              </span>
               {!collapsed ? <span className="text-xs">{docVersion}</span> : null}
             </div>
           </div>

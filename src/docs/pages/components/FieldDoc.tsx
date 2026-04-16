@@ -143,7 +143,7 @@ export default function FieldDoc(){
       </header>
 
       {/* ══════ BODY ══════ */}
-      <div style={{padding:"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — CADASTRO DESKTOP */}
         <Section n="01" title="Cadastro desktop de referência" desc="Formulário completo usando Field como camada de composição. Cada campo é Field + componente base (input, select, textarea).">

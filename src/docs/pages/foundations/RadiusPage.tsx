@@ -75,7 +75,7 @@ export default function DSFIPSRadius(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Escala simétrica" desc="Raios uniformes para elementos menores. Do zero ao circular.">
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":w<900?"repeat(4,1fr)":"repeat(8,1fr)",gap:mob?10:14}}>
             {symmetricScale.map((r,i)=>{const isHov=hovRadius===r.token;const isCircle=r.px==="50%";return(

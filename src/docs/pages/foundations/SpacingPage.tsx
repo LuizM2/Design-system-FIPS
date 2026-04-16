@@ -97,7 +97,7 @@ export default function DSFIPSSpacing(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         <Section n="01" title="Escala visual" desc="8 valores de espaçamento. Barras proporcionais ao tamanho real.">
           <DSCard mob={mob}>

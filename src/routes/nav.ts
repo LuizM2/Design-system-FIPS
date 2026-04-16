@@ -61,8 +61,8 @@ export const navGroups: NavGroup[] = [
       { label: 'Dashboard', to: '/docs/patterns/dashboard', icon: LayoutDashboard },
       { label: 'Data Listing', to: '/docs/patterns/data-listing', icon: TableProperties },
       { label: 'Form Workspace', to: '/docs/patterns/form-workspace', icon: FormInput },
-      { label: 'Modal Workflow', to: '/docs/patterns/modal-workflow', icon: ScanText },
       { label: 'Hero', to: '/docs/patterns/hero', icon: MonitorSmartphone },
+      { label: 'Banner', to: '/docs/patterns/hero-banner', icon: PanelTop },
     ],
   },
   {
