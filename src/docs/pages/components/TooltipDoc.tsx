@@ -112,7 +112,7 @@ export default function TooltipDoc(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — PLAYGROUND POSIÇÕES */}
         <Section n="01" title="Posições" desc="Passe o mouse sobre cada elemento para ver o tooltip na posição indicada. Seta aponta para o elemento de origem.">

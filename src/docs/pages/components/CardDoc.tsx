@@ -208,7 +208,7 @@ export default function CardDoc(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* ════════════════════════════════════════════════════
            FAMÍLIA 1: DASHBOARD
@@ -417,6 +417,41 @@ export default function CardDoc(){
               <TokenRow label="Status desktop" value="5 colunas"/>
               <TokenRow label="Resumo/Ação" value="2 colunas"/>
               <TokenRow label="Gap" value="16px"/>
+            </div>
+          </DSCard>
+        </Section>
+
+        <Section n="10" title="Card Regra (Rule Card)" desc="Card com cabeçalho colorido, ícone em container branco, tag de identificação e corpo descritivo. Para documentar regras, princípios obrigatórios e diretrizes de governança. Usado nas páginas de padrões do DS.">
+          <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
+            {[
+              {icon:Ic.check(20,C.azulProfundo),color:C.azulProfundo,bg:`${C.azulProfundo}08`,tag:"REGRA 1",title:"Título da regra",desc:"Descrição da regra ou princípio. Texto descritivo que explica o contexto, a motivação e como aplicar no dia a dia do projeto."},
+              {icon:Ic.alert(20,C.amareloEscuro),color:C.amareloEscuro,bg:`${C.amareloEscuro}08`,tag:"REGRA 2",title:"Título do alerta",desc:"Descrição de algo a observar ou evitar. O tom é de atenção — não proibição absoluta, mas cuidado redobrado na implementação."},
+              {icon:Ic.fire(20,C.azulEscuro),color:C.azulEscuro,bg:`${C.azulEscuro}08`,tag:"REGRA 3",title:"Título da evolução",desc:"Descrição de como evoluir o sistema quando surgir um caso não coberto. Processo, documentação e validação antes de usar."},
+            ].map((p,i)=>(
+              <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 2px 8px rgba(0,75,155,.05)"}}>
+                <div style={{background:p.bg,padding:mob?"16px 16px 14px":"20px 22px 16px",borderBottom:`1px solid ${C.cardBorder}`}}>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
+                    <div style={{width:42,height:42,borderRadius:12,background:C.cardBg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 6px rgba(0,75,155,.06)"}}>{p.icon}</div>
+                    <span style={{fontSize:9,fontWeight:700,letterSpacing:"1.5px",fontFamily:Fn.title,color:p.color,background:C.cardBg,padding:"3px 8px",borderRadius:4,border:`1px solid ${p.color}20`}}>{p.tag}</span>
+                  </div>
+                  <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
+                </div>
+                <div style={{padding:mob?"14px 16px":"16px 22px 20px"}}>
+                  <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:0,fontFamily:Fn.body}}>{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <DSCard mob={mob} s={{marginTop:16}}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
+              <div>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,display:"block",marginBottom:8}}>Quando usar</span>
+                <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:0,fontFamily:Fn.body}}>Páginas de padrões (Banner, Application Shell, Hero, Form Workspace), governança e qualquer documentação que precise destacar regras obrigatórias com hierarquia visual clara.</p>
+              </div>
+              <div>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,display:"block",marginBottom:8}}>Anatomia</span>
+                <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:0,fontFamily:Fn.body}}>Cabeçalho com fundo semitransparente (cor 8% opacity), ícone em container branco 42×42 r12, tag de identificação à direita, título Saira 700 16px. Corpo com descrição Open Sans 13px.</p>
+              </div>
             </div>
           </DSCard>
         </Section>

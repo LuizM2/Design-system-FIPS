@@ -79,7 +79,7 @@ export default function DSFIPSTypography(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Famílias tipográficas" desc="Cada família tem função exclusiva. Specimens, pesos disponíveis e character set.">
           <div style={{display:"flex",flexDirection:"column",gap:16}}>
             {families.map((f)=>(

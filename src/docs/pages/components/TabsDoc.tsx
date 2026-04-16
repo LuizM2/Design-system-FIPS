@@ -225,7 +225,7 @@ export default function TabsDoc(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — PLAYGROUND */}
         <Section n="01" title="Playground interativo" desc="Clique nas abas — o indicador desliza suavemente e o conteúdo aparece com fade. Hover muda o fundo da aba.">

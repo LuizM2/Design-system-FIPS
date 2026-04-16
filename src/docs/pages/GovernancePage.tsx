@@ -47,7 +47,7 @@ export default function DSFIPSGovernance(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — PRINCÍPIOS OBRIGATÓRIOS */}
         <Section n="01" title="Princípios obrigatórios" desc="Três regras inegociáveis. Se um projeto não segue estas regras, a tela volta pra correção.">

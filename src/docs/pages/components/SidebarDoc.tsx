@@ -492,7 +492,7 @@ function SidebarItem({
           size={17}
           strokeWidth={1.9}
           style={{
-            color: isActive ? theme.iconActive : theme.textMuted,
+            color: isActive || hovered ? theme.iconActive : theme.textMuted,
             transition: 'color 0.2s ease',
           }}
           aria-hidden
@@ -789,17 +789,17 @@ function SidebarDemo({
             cursor: 'pointer',
           }}
         >
-          <SidebarNeuIcon36 theme={theme} isActive={menuBehaviorOpen} shimmerLoop={menuBehaviorOpen} hovered={menuTriggerHovered}>
-            <Timer size={17} strokeWidth={1.9} style={{ color: menuBehaviorOpen || menuTriggerHovered ? theme.iconActive : theme.textMuted, transition: 'color 0.2s ease' }} aria-hidden />
-          </SidebarNeuIcon36>
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, flexShrink: 0, color: menuTriggerHovered ? theme.accentFrom : theme.chevron, transition: 'color 0.2s ease' }}>
+            <Timer size={17} aria-hidden />
+          </span>
           {!collapsed ? (
             <span
               style={{
                 fontSize: 13,
-                fontWeight: menuBehaviorOpen ? 500 : 400,
+                fontWeight: 400,
                 letterSpacing: '0.01em',
                 flex: 1,
-                color: menuBehaviorOpen ? theme.textActive : menuTriggerHovered ? theme.textHover : theme.textMuted,
+                color: menuTriggerHovered ? theme.accentFrom : theme.chevron,
                 fontFamily: F.body,
                 textAlign: 'left',
                 whiteSpace: 'nowrap',
@@ -929,7 +929,7 @@ export default function SidebarDoc() {
   const xl = w >= 1400
   const xxl = w >= 1800
 
-  const tokenGrid = mob ? '1fr' : tab ? '1fr 1fr' : xl ? '1fr 1fr 1fr 1fr' : '1fr 1fr 1fr 1fr'
+  const tokenGrid = mob ? '1fr' : tab ? '1fr 1fr' : 'repeat(2, 1fr)'
   const tokenGap = mob ? 24 : xl ? 32 : 24
 
   const [demoPath, setDemoPath] = useState('/')

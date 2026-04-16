@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { Bell, ChevronDown, Sparkles } from 'lucide-react'
-import { DocPage, DemoSection } from '../../components/DocPage'
-import { PatternGuidelines } from '../../components/PatternGuidelines'
+import { Bell, ChevronDown, ShieldCheck, AlertTriangle, ArrowUpFromLine, Sparkles, LayoutGrid } from 'lucide-react'
+import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { FipsLogo } from '../../../components/brand/FipsLogo'
@@ -45,8 +44,7 @@ function HeroHeaderDemo() {
               <div className="absolute inset-0 bg-[linear-gradient(118deg,rgba(0,19,56,0.94)_0%,rgba(0,63,138,0.84)_44%,rgba(0,144,208,0.60)_100%)]" />
             </div>
 
-            {/* Espaço do header (pt-14) + conteúdo hero */}
-            <div className="relative z-10 px-6 pt-20 pb-14 text-center">
+            <div className="relative z-10 px-6 pt-10 pb-14 text-center">
               <Badge className="mb-4 border-0 bg-[rgba(246,146,30,0.95)] text-white shadow-[0_8px_20px_rgba(246,146,30,0.28)]">
                 Sistema de Exemplo
               </Badge>
@@ -75,39 +73,6 @@ function HeroHeaderDemo() {
             ))}
           </div>
         </div>
-
-        {/* Header sobreposto (absolute) */}
-        <header
-          className={cn(
-            'pointer-events-none absolute inset-x-0 top-0 z-20 h-14 flex items-center justify-between px-4',
-            'transition-all duration-300',
-            glass
-              ? 'bg-white/[0.07] backdrop-blur-md border-b border-white/[0.14]'
-              : 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm',
-          )}
-        >
-          <div className="flex items-center gap-2">
-            <FipsLogo />
-            <span className={cn('text-lg font-light transition-colors duration-300', glass ? 'text-white/40' : 'text-gray-300')}>|</span>
-            <span className={cn('text-base font-semibold transition-colors duration-300', glass ? 'text-white' : 'text-[#002a68]')}>
-              Aplicativo FIPS
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className={cn('flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-300', glass ? 'text-white/80' : 'text-gray-500')}>
-              <Bell className="h-5 w-5" />
-            </div>
-            <div className={cn('flex items-center gap-1.5 rounded-full px-2 py-1 transition-colors duration-300', glass ? 'border border-white/20 bg-white/10' : 'border border-gray-200 bg-gray-50')}>
-              <div className="h-6 w-6 rounded-full bg-[#002a68] flex items-center justify-center text-xs font-semibold text-white">
-                AF
-              </div>
-              <span className={cn('text-xs font-medium hidden sm:block transition-colors duration-300', glass ? 'text-white/90' : 'text-gray-700')}>
-                Usuário
-              </span>
-              <ChevronDown className={cn('h-3.5 w-3.5 transition-colors duration-300', glass ? 'text-white/60' : 'text-gray-400')} />
-            </div>
-          </div>
-        </header>
 
         {/* Badge de estado */}
         <div className="pointer-events-none absolute bottom-4 right-4 z-30">
@@ -172,35 +137,38 @@ function StateCard({
 
 export default function HeroHeaderDoc() {
   return (
-    <DocPage
-      title="Hero"
-      description="Padrão da Home: barra superior da aplicação sobre o hero com vidro (glass) e transição para branco ao rolar — não confundir com o header da documentação (DocLayout). Nas demais rotas (módulos), use PageHero com faixa azul e trem sutil (veja seção abaixo e padrão Dashboard)."
-    >
-      <PatternGuidelines
-        rules={[
-          'Aplique somente na página Home. Todas as outras páginas usam header branco estático.',
-          'O threshold de 60 px foi calibrado para a transição ocorrer antes do conteúdo branco chegar sob o header.',
-          'Mantenha transition-all duration-300 para suavidade; nunca remova a transição.',
-          'O header deve ser absolute (não fixed) para ficar contido no flex-container da sidebar.',
-          'O conteúdo do hero precisa de pt-28 / md:pt-32 para não ficar oculto atrás do header absolute.',
-          'Ícones e textos do header recebem prop inverted={glass} — branco no topo, cinza ao rolar.',
-        ]}
-        required={[
-          'Estado headerScrolled + listener no scroll do <main ref={mainRef}>.',
-          'Reset do estado ao trocar de rota (useEffect em [location.pathname]).',
-          'Header absolute na home; flex-shrink-0 normal nas outras páginas.',
-          'FipsLogo sempre em container branco — funciona em qualquer fundo.',
-        ]}
-        optional={[
-          'Ajustar threshold (padrão 60 px) se o hero for mais alto ou mais curto.',
-          'Adicionar sombra extra no estado rolado com shadow-[0_2px_12px_rgba(0,0,0,0.08)].',
-        ]}
-      />
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #F2F4F8 0%, #D3E3F444 50%, #F2F4F8 100%)', fontFamily: "'Open Sans', sans-serif", color: '#333B41' }}>
+      {/* HEADER HERO */}
+      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+        <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+          <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+        <div style={{ position: 'relative' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#FDC24E', fontFamily: "'Saira Expanded', sans-serif", marginBottom: 16 }}>
+            <LayoutGrid size={14} color="#FDC24E" /> Design System FIPS
+          </div>
+          <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', margin: '0 0 10px', fontFamily: "'Saira Expanded', sans-serif" }}>Hero</h1>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', lineHeight: 1.6, maxWidth: 700, margin: 0, fontFamily: "'Open Sans', sans-serif" }}>
+            Padrão da Home: barra superior da aplicação sobre o hero com vidro (glass) e transição para branco ao rolar — não confundir com o header da documentação (DocLayout). Nas demais rotas (módulos), use PageHero com faixa azul e trem sutil.
+          </p>
+        </div>
+      </header>
 
-      <DemoSection
-        title="PageHero — faixa de módulo (não é este padrão)"
-      >
-        <p className="mb-4 text-sm text-[var(--color-fg-muted)]">
+      <div style={{ padding: '36px 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
+
+      <RuleCards cards={[
+        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Header adaptativo glass-to-white', desc: 'Na Home, o header começa transparente com efeito vidro (glass) sobre a imagem do hero, criando imersão visual. Ao rolar a página, ele transiciona suavemente para fundo branco sólido com sombra.' },
+        { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Exclusivo da página Home', desc: 'Este padrão de header glass só deve ser usado na Home do aplicativo. Todas as outras rotas (módulos, formulários, listagens) usam o header branco estático padrão — nunca aplique glass fora da Home.' },
+        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Transição suave ao rolar', desc: 'A mudança de glass para branco acontece quando o usuário rola além de 60px. A animação dura 300ms e é fluida. Isso garante que o header fique legível tanto sobre a imagem do hero quanto sobre o conteúdo claro abaixo.' },
+      ]} />
+
+      {/* PageHero — faixa de módulo */}
+      <section style={{ marginTop: 36 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>PageHero — faixa de módulo (não é este padrão)</h2>
+        <p style={{ fontSize: 14, color: '#7B8C96', marginBottom: 16, lineHeight: 1.55 }}>
           Produção, Governança e demais telas internas usam esta faixa azul padrão — não o header glass da
           Home. O trem/trilhos vêm da mesma arte base ({PAGE_HERO_DEFAULT_DECORATION}).
         </p>
@@ -215,38 +183,28 @@ export default function HeroHeaderDoc() {
             </div>
           </PageHero>
         </div>
-      </DemoSection>
+      </section>
 
-      <DemoSection title="Demo interativa — role o conteúdo">
+      {/* Demo interativa */}
+      <section style={{ marginTop: 36 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Demo interativa — role o conteúdo</h2>
         <HeroHeaderDemo />
-      </DemoSection>
+      </section>
 
-      <DemoSection title="Estados da barra no hero">
-        <div className="flex gap-4">
-          <StateCard
-            label="Glass — no topo"
-            sublabel="scrollTop ≤ 60 px · bg-white/7 backdrop-blur-md"
-            glass
-          />
-          <StateCard
-            label="Branco — após rolar"
-            sublabel="scrollTop > 60 px · bg-white/95 backdrop-blur-sm shadow"
-            glass={false}
-          />
-        </div>
-      </DemoSection>
 
-      <DemoSection
-        title="Implementação"
-      >
-        <p className="text-sm text-[var(--color-fg-muted)]">
+      {/* Implementação */}
+      <section style={{ marginTop: 36 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Implementação</h2>
+        <p style={{ fontSize: 14, color: '#7B8C96', lineHeight: 1.55 }}>
           O padrão está implementado no <strong>fips-suprimentos</strong> (App.tsx + Home.tsx)
           e segue o mesmo layout do <strong>ApplicationShell</strong>.
           Copie o bloco acima como ponto de partida para novos produtos FIPS.
         </p>
-      </DemoSection>
+      </section>
 
-      <DemoSection title="Regra de cores por fundo">
+      {/* Regra de cores por fundo */}
+      <section style={{ marginTop: 36 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Regra de cores por fundo</h2>
         <div className="overflow-hidden rounded-2xl border border-[var(--color-border)]">
           <table className="w-full text-sm">
             <thead>
@@ -273,7 +231,12 @@ export default function HeroHeaderDoc() {
             </tbody>
           </table>
         </div>
-      </DemoSection>
-    </DocPage>
+      </section>
+
+        <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
+          <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+        </div>
+      </div>
+    </div>
   )
 }

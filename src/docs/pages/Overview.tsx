@@ -120,7 +120,7 @@ export default function DSFIPSOverview(){
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"40px 40px 60px",maxWidth:1100}}>
+      <div style={{padding:mob?"24px 16px 40px":"40px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Princípios de design" desc="Quatro pilares que guiam todas as decisões visuais e de interação do ecossistema FIPS.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"1fr 1fr 1fr 1fr",gap:mob?10:16}}>
             {principles.map((p,i)=>(

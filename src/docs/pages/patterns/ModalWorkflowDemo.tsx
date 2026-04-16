@@ -16,9 +16,12 @@ import {
   Wrench,
   X,
   Zap,
+  ShieldCheck,
+  AlertTriangle,
+  ArrowUpFromLine,
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
-import { PatternGuidelines } from '../../components/PatternGuidelines'
+import { RuleCards } from '../../components/RuleCards'
 import { Button } from '../../../components/ui/button'
 import {
   Dialog,
@@ -382,36 +385,11 @@ export default function ModalWorkflowDemo() {
         </Dialog>
       </DemoSection>
 
-      <PatternGuidelines
-        rules={[
-          'Tabs segmentadas no topo com bg-muted/50 rounded-xl — ativo fica branco com shadow-sm.',
-          'Campos usam space-y-1 entre label e input, seções usam space-y-3.',
-          'Labels sempre text-xs font-semibold ml-1.5, obrigatório com asterisco text-destructive.',
-          'Inputs h-9 rounded-xl border-border/60, ícone h-3.5 w-3.5 posicionado left-3 com pl-9.',
-          'Prioridade é grid-cols-4 gap-1.5 com border-2 e dot w-1.5 h-1.5 rounded-full.',
-          'Progresso usa input[type=range] com thumb bg-primary shadow-lg rounded-full.',
-          'Chips usam bg-primary/10 text-primary border border-primary/20 rounded-full text-[11px].',
-        ]}
-        required={[
-          'Header com icon-circle (bg-primary/10 rounded-full), título font-bold e subtítulo text-xs.',
-          'Body com max-h-[calc(90vh-140px)] overflow-y-auto para scroll interno.',
-          'Grid 2 colunas: sm:grid-cols-2 gap-3 sm:gap-x-5 sm:gap-y-3.',
-          'Footer com border-t border-border/50, bg-muted/20, shortcut hint com <kbd> e ações.',
-          'Botão primário h-9 px-4 text-sm font-semibold rounded-xl.',
-        ]}
-        optional={[
-          'Combobox com Command/Popover para busca de empresa.',
-          'Checkbox "Acompanhar esta tarefa" em bg-blue-50 border-blue-200.',
-          'Campos de horário e plataforma para tipo Reunião.',
-          'Counter badge em documentos (bg-primary/10 text-primary rounded-full).',
-        ]}
-        avoid={[
-          'Reproduzir formulário de tela inteira dentro do modal.',
-          'Usar select para prioridade — sempre botões segmentados com dots.',
-          'Misturar componentes DS-FIPS (Field/FieldLabel) com inline labels neste pattern — usar o padrão CONTPIX inline.',
-          'Criar mais de 4 tabs no primeiro nível do modal.',
-        ]}
-      />
+      <RuleCards cards={[
+        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Modal estruturado com abas', desc: 'O Modal Workflow é um diálogo modal com abas segmentadas que organiza formulários de criação e edição em etapas claras. As abas permitem dividir campos relacionados sem sobrecarregar a tela.' },
+        { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Três blocos obrigatórios', desc: 'Todo modal workflow tem header (ícone + título + subtítulo), corpo com abas e campos em grid de duas colunas, e footer com ações (cancelar + salvar). Nenhum desses blocos pode ser omitido.' },
+        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Quando usar este padrão', desc: 'Use o Modal Workflow para criar novos registros, editar formulários complexos ou coletar dados em múltiplas seções sem sair da página atual. Se o formulário for extenso demais para um modal, use o Form Workspace.' },
+      ]} />
     </DocPage>
   )
 }

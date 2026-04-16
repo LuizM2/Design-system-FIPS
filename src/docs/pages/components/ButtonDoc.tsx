@@ -287,7 +287,7 @@ export default function DSFIPSButtons() {
       </header>
 
       {/* BODY */}
-      <div style={{ padding: "36px 40px 60px", maxWidth: 1100 }}>
+      <div style={{ padding: "36px 40px 60px", maxWidth: 1100, margin: "0 auto" }}>
 
         <Section number="01" title="Variantes do sistema" desc="Cada variante comunica uma intenção diferente. Passe o mouse para ver o estado hover.">
           <Card>

@@ -34,6 +34,7 @@ const DataListingDemo = lazy(() => import('./docs/pages/patterns/DataListingDemo
 const FormWorkspaceDemo = lazy(() => import('./docs/pages/patterns/FormWorkspaceDemo'))
 const ModalWorkflowDemo = lazy(() => import('./docs/pages/patterns/ModalWorkflowDemo'))
 const HeroHeaderDoc = lazy(() => import('./docs/pages/patterns/HeroHeaderDoc'))
+const HeroBannerDoc = lazy(() => import('./docs/pages/patterns/HeroBannerDoc'))
 
 function RouteFallback() {
   return (
@@ -82,6 +83,7 @@ export default function App() {
         <Route path="patterns/form-workspace" element={renderLazyRoute(<FormWorkspaceDemo />)} />
         <Route path="patterns/modal-workflow" element={renderLazyRoute(<ModalWorkflowDemo />)} />
         <Route path="patterns/hero" element={renderLazyRoute(<HeroHeaderDoc />)} />
+        <Route path="patterns/hero-banner" element={renderLazyRoute(<HeroBannerDoc />)} />
         <Route path="patterns/hero-header" element={<Navigate to="/docs/patterns/hero" replace />} />
         <Route path="patterns/certificados" element={<Navigate to="/docs/patterns/data-listing" replace />} />
         <Route path="patterns/modal-form" element={<Navigate to="/docs/patterns/modal-workflow" replace />} />

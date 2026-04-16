@@ -19,9 +19,11 @@ import {
   AlertTriangle,
   FileCheck,
   Zap,
+  ShieldCheck,
+  ArrowUpFromLine,
+  LayoutGrid,
 } from 'lucide-react'
-import { DemoSection, DocPage } from '../../components/DocPage'
-import { PatternGuidelines } from '../../components/PatternGuidelines'
+import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
@@ -243,13 +245,30 @@ export default function FormWorkspaceDemo() {
   const [progress] = useState(82)
 
   return (
-    <DocPage
-      title="Padrão: Form Workspace"
-      description="Workspace de formulário para fluxos densos: resumo no topo, seções claras, grid principal + painel contextual lateral. Todos os campos seguem a composição oficial Field + controle base, sem styling local de componente."
-    >
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #F2F4F8 0%, #D3E3F444 50%, #F2F4F8 100%)', fontFamily: "'Open Sans', sans-serif", color: '#333B41' }}>
+      {/* HEADER HERO */}
+      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+        <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+          <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+          <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+        <div style={{ position: 'relative' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#FDC24E', fontFamily: "'Saira Expanded', sans-serif", marginBottom: 16 }}>
+            <LayoutGrid size={14} color="#FDC24E" /> Design System FIPS
+          </div>
+          <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', margin: '0 0 10px', fontFamily: "'Saira Expanded', sans-serif" }}>Form Workspace</h1>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', lineHeight: 1.6, maxWidth: 700, margin: 0, fontFamily: "'Open Sans', sans-serif" }}>
+            Workspace de formulário para fluxos densos: resumo no topo, seções claras, grid principal + painel contextual lateral. Todos os campos seguem a composição oficial Field + controle base, sem styling local de componente.
+          </p>
+        </div>
+      </header>
+
+      <div style={{ padding: '36px 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
       <style>{workspaceStyles}</style>
 
-      <DemoSection title="Preview" className="!p-0 overflow-hidden">
+      <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #E2E8F0', marginBottom: 32 }}>
         <div className="space-y-6 bg-[var(--color-surface-muted)] p-6">
 
           {/* ═══════ HERO HEADER ═══════ */}
@@ -585,32 +604,18 @@ export default function FormWorkspaceDemo() {
             </div>
           </div>
         </div>
-      </DemoSection>
+      </div>
 
-      <PatternGuidelines
-        rules={[
-          'Use um card-resumo no topo com métricas curtas e progresso visível.',
-          'Separe o conteúdo principal em seções numeradas com título + descrição.',
-          'Mantenha um painel lateral para navegação, checklist e saúde do formulário.',
-          'As ações principais devem morar em rodapé persistente com destaque visual.',
-        ]}
-        required={[
-          'Grid principal com formulário à esquerda e contexto à direita em telas largas.',
-          'Campos agrupados por semântica, não apenas por largura visual.',
-          'Checklist e status operacionais em cards independentes do formulário.',
-          'Resumo inicial deve explicar o fluxo antes do usuário entrar nos campos.',
-        ]}
-        optional={[
-          'Mini cards de métricas com ícones e indicadores coloridos no topo.',
-          'Barra de progresso com checkpoints por seção.',
-          'Botões rápidos de seção no painel lateral com indicador de hover.',
-        ]}
-        avoid={[
-          'Formulários inteiros sem divisão por seções.',
-          'Misturar checklist dentro do corpo dos campos.',
-          'Ocultar ações primárias apenas no topo da página.',
-        ]}
-      />
-    </DocPage>
+      <RuleCards cards={[
+        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Formulário em página inteira com seções', desc: 'O Form Workspace é um layout de página inteira para formulários densos. O conteúdo é dividido em seções numeradas (01, 02, 03...), cada uma com título e descrição, e um card de resumo no topo mostra o progresso geral.' },
+        { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Formulário à esquerda, contexto à direita', desc: 'Em telas largas, o layout se divide em duas colunas: o formulário principal ocupa a esquerda e o painel de contexto (navegação rápida, checklist, status) fica à direita. Em telas menores, tudo empilha verticalmente.' },
+        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Quando usar em vez do modal', desc: 'Use o Form Workspace quando o formulário tem muitas seções, campos complementares e contexto lateral que não cabem em um modal. Ideal para cadastros complexos, solicitações com múltiplas etapas e fluxos que exigem visão completa dos dados.' },
+      ]} />
+
+        <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
+          <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+        </div>
+      </div>
+    </div>
   )
 }

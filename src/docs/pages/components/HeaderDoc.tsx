@@ -190,7 +190,7 @@ export default function HeaderDoc() {
         </div>
       </header>
 
-      <div style={{ padding: mob ? '24px 16px 40px' : '36px 40px 60px', maxWidth: 1100 }}>
+      <div style={{ padding: mob ? '24px 16px 40px' : '36px 40px 60px', maxWidth: 1100, margin: "0 auto" }}>
         <Section
           n="01"
           title="Finalidade"

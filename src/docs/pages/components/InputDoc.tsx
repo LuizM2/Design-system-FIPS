@@ -218,7 +218,7 @@ export default function InputDoc() {
       </header>
 
       {/* ══════ BODY ══════ */}
-      <div style={{ padding:"36px 40px 60px", maxWidth:1100 }}>
+      <div style={{ padding:"36px 40px 60px", maxWidth:1100, margin:"0 auto" }}>
 
         {/* 01 — FORMULÁRIO PADRÃO */}
         <Section number="01" title="Formulário padrão" desc="Padrão oficial para formulários completos e cadastros. Cada input possui ícone contextual à esquerda que reforça o tipo de dado esperado.">
