@@ -460,7 +460,6 @@ export function DocsNeuSidebar({
   const { pathname } = useLocation()
   const menuTree = useMemo(() => buildMenuTree(navGroups), [])
   const [menuBehaviorOpen, setMenuBehaviorOpen] = useState(false)
-  const [menuTriggerHovered, setMenuTriggerHovered] = useState(false)
   const [autoCollapse, setAutoCollapse] = useState(false)
   const [collapseSeconds, setCollapseSeconds] = useState(3)
   const collapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
