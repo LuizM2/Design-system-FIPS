@@ -251,7 +251,7 @@ function AdminTablePagination({
             density="compact"
             aria-label="Itens por página"
             value={String(itemsPerPage)}
-            onChange={(event) => onItemsPerPageChange(Number(event.target.value))}
+            onChange={(value) => onItemsPerPageChange(Number(value))}
           >
             {itemsPerPageOptions.map((option) => (
               <option key={option} value={option}>
