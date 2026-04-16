@@ -5,8 +5,6 @@ import {
   Bell,
   Briefcase,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   FilePlus,
   FileText,
   FolderOpen,
@@ -15,7 +13,6 @@ import {
   LayoutDashboard,
   Menu,
   PanelLeft,
-  Search,
   Settings,
   Shield,
   Sparkles,
@@ -32,7 +29,6 @@ import { SearchPill as SearchPillComponent } from '../../../components/layout/Se
 import { UserChip as UserChipComponent } from '../../../components/layout/UserChip'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent } from '../../../components/ui/card'
-import { FipsLogo } from '../../../components/brand/FipsLogo'
 import { cn } from '../../../lib/cn'
 
 type ViewportMode = 'desktop' | 'tablet' | 'mobile'
@@ -99,10 +95,6 @@ const groupedItems: ShellGroup[] = [
     ],
   },
 ]
-
-const footerItems: ShellItem[] = [{ icon: Settings, label: 'Ajustes' }]
-
-const headerTabs = ['Home', 'Menu 1', 'Menu 2', 'Menu 3', 'Menu 4']
 
 const heroCards: MetricCard[] = [
   {
@@ -374,7 +366,6 @@ function ShellSidebar({
   drawer = false,
   expandedGroups,
   onToggleGroup,
-  onToggleSidebar,
 }: {
   collapsed: boolean
   drawer?: boolean
@@ -510,32 +501,6 @@ function ShellSidebar({
         </div>
       </div>
     </aside>
-  )
-}
-
-function SearchPill({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      className={cn(
-        'hidden items-center gap-2 rounded-2xl border border-white/[0.16] bg-white/[0.1] text-white/[0.72] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm',
-        compact ? 'sm:flex w-[210px] px-3 py-2.5' : 'md:flex w-[270px] px-4 py-3',
-      )}
-    >
-      <Search className="h-4 w-4 text-white/[0.65]" aria-hidden />
-      <span className="truncate text-sm">Buscar...</span>
-    </div>
-  )
-}
-
-function UserChip({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.09] px-2 py-1.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm">
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-semibold text-[var(--color-primary)]">
-        AF
-      </span>
-      {!compact ? <span className="text-sm text-white/[0.82]">Usuário</span> : null}
-      <ChevronDown className="h-4 w-4 text-white/[0.65]" aria-hidden />
-    </div>
   )
 }
 

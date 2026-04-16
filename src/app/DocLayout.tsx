@@ -20,7 +20,7 @@ export function DocLayout() {
   const { dark, toggle } = useFipsTheme()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [sidebarAutoMenu, setSidebarAutoMenu] = useState(false)
+  const [_sidebarAutoMenu, setSidebarAutoMenu] = useState(false)
   const [isLg, setIsLg] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false,
   )
