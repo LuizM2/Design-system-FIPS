@@ -19,6 +19,10 @@ const C = {
   cardBorder: '#E2E8F0',
   textMuted: '#64748B',
   amareloEscuro: '#F6921E',
+  /* Dialog tokens (via CSS vars para dark mode) */
+  dialogBorder: 'var(--color-border)',
+  dialogFg: 'var(--color-fg)',
+  dialogFgMuted: 'var(--color-fg-muted)',
 }
 
 const F = {
@@ -538,7 +542,7 @@ export function DocsNeuSidebar({
         style={{
           width,
           flexShrink: 0,
-          backgroundColor: '#002A68',
+          backgroundColor: 'inherit',
           borderRight: `1px solid ${theme.border}`,
           transition: 'width 0.25s cubic-bezier(0.4,0,0.2,1)',
           minHeight: 0,
@@ -687,8 +691,8 @@ export function DocsNeuSidebar({
                       width: 44,
                       height: 24,
                       borderRadius: 12,
-                      border: `1px solid ${autoCollapse ? C.azulProfundo : C.cardBorder}`,
-                      background: autoCollapse ? C.azulProfundo : C.neutro,
+                      border: `1px solid ${autoCollapse ? C.azulProfundo : 'var(--color-border)'}`,
+                      background: autoCollapse ? C.azulProfundo : 'var(--color-surface-muted)',
                     }}
                   >
                     <span
@@ -708,7 +712,7 @@ export function DocsNeuSidebar({
                     <span className="text-[13px]" style={{ fontFamily: F.body, color: 'var(--color-fg-muted)' }}>
                       Tempo para fechar
                     </span>
-                    <span className="text-sm font-bold" style={{ fontFamily: F.body, color: C.azulEscuro }}>
+                    <span className="text-sm font-bold" style={{ fontFamily: F.body, color: 'var(--color-fg)' }}>
                       {collapseSeconds}s
                     </span>
                   </div>
@@ -725,7 +729,7 @@ export function DocsNeuSidebar({
                       background: `linear-gradient(to right, ${C.azulProfundo} 0%, ${C.azulProfundo} ${rangePct}%, ${C.azulCeuClaro} ${rangePct}%, ${C.azulCeuClaro} 100%)`,
                     }}
                   />
-                  <div className="mt-2 flex justify-between text-[11px]" style={{ fontFamily: F.body, color: C.textMuted }}>
+                  <div className="mt-2 flex justify-between text-[11px]" style={{ fontFamily: F.body, color: 'var(--color-fg-muted)' }}>
                     <span>1s</span>
                     <span>30s</span>
                   </div>

@@ -73,7 +73,8 @@ export function DocLayout() {
       <aside
         id="docs-app-sidebar"
         className={cn(
-          'fixed inset-y-0 left-0 z-40 overflow-hidden bg-[#002a68] shadow-[4px_0_32px_rgba(0,26,64,0.36)] transition-[width,transform] duration-300 ease-in-out lg:relative lg:inset-auto',
+          'fixed inset-y-0 left-0 z-40 overflow-hidden shadow-[4px_0_32px_rgba(0,26,64,0.36)] transition-[width,transform] duration-300 ease-in-out lg:relative lg:inset-auto',
+          dark ? 'bg-[var(--color-surface-muted)] shadow-[4px_0_32px_rgba(0,0,0,0.5)]' : 'bg-[#002a68]',
           collapsed ? 'w-[68px]' : 'w-64',
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         )}
@@ -114,7 +115,7 @@ export function DocLayout() {
             className={cn(
               'relative z-10',
               dark
-                ? 'border-b border-white/[0.08] bg-[#1A1A1A]'
+                ? 'border-b border-white/[0.08] bg-[var(--color-surface-muted)]'
                 : docHeaderBarTop,
             )}
           >
@@ -127,7 +128,7 @@ export function DocLayout() {
                   'lg:hidden',
                   dark
                     ? 'border border-[#3F3F46] bg-[#27272A] text-[#E2E2E8] hover:bg-[#323236]'
-                    : 'border border-black/[0.10] bg-white/90 text-neutral-800 hover:bg-white',
+                    : 'border border-[var(--color-border)]/60 bg-[var(--color-surface)]/90 text-[var(--color-fg)] hover:bg-[var(--color-surface)]',
                 )}
                 onClick={() => setMobileOpen(true)}
                 aria-label="Abrir menu"
@@ -180,7 +181,7 @@ export function DocLayout() {
                   <SunMoon className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.85} />
                 </DocHeaderNeuIconButton>
                 <div
-                  className={cn('mx-0.5 hidden h-6 w-px shrink-0 sm:block', dark ? 'bg-[#52525B]' : 'bg-neutral-300')}
+                  className={cn('mx-0.5 hidden h-6 w-px shrink-0 sm:block', dark ? 'bg-[#52525B]' : 'bg-[var(--color-border)]')}
                 />
                 <UserChip variant="docHeader" dark={dark} />
               </div>
@@ -188,8 +189,8 @@ export function DocLayout() {
           </div>
           <div
             className={cn(
-              'relative z-10 hidden px-4 sm:px-6 lg:block',
-              dark ? '!bg-transparent' : docHeaderBarTabs,
+              'relative z-10 hidden lg:block',
+              dark ? '!bg-transparent !px-0' : cn(docHeaderBarTabs, 'px-4 sm:px-6'),
             )}
           >
             <DocHeaderSectionNav
@@ -201,7 +202,7 @@ export function DocLayout() {
           </div>
         </header>
 
-        <main className="flex-1 bg-[radial-gradient(circle_at_top,rgba(147,189,228,0.18),transparent_30%),linear-gradient(180deg,var(--color-surface-muted),var(--color-surface-muted))]">
+        <main className={cn('flex-1', dark ? 'bg-[var(--color-surface-muted)]' : 'bg-[radial-gradient(circle_at_top,rgba(147,189,228,0.18),transparent_30%),linear-gradient(180deg,var(--color-surface-muted),var(--color-surface-muted))]')}>
           <Outlet />
         </main>
       </div>

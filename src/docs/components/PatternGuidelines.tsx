@@ -22,7 +22,7 @@ function PatternList({
   const tones = {
     primary: 'text-[var(--color-primary)] bg-[var(--color-fips-blue-200)]/55',
     success: 'text-[var(--color-success-strong)] bg-[var(--color-success)]/12',
-    danger: 'text-[var(--color-danger)] bg-[var(--color-fips-red-100)]',
+    danger: 'text-[var(--color-danger)] bg-[var(--color-badge-danger-bg)]',
     muted: 'text-[var(--color-fg-muted)] bg-[var(--color-surface-muted)]',
   } as const
 

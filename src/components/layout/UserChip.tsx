@@ -37,7 +37,7 @@ export function UserChip({
       <button
         type="button"
         className={cn(
-          'flex h-[35px] max-w-[220px] items-center gap-2 rounded-full border border-[#3F3F46] bg-[#27272A] px-2.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:bg-[#323236] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F6921E]/30 focus-visible:ring-offset-0',
+          'flex h-[35px] max-w-[220px] cursor-pointer items-center gap-2 rounded-full border border-[#3F3F46] bg-[#27272A] px-2.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-200 hover:border-[#F6921E]/40 hover:bg-[#323236] hover:shadow-[0_4px_14px_rgba(246,146,30,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F6921E]/30 focus-visible:ring-offset-0',
           className,
         )}
         aria-label={`Conta: ${name}`}
@@ -101,7 +101,7 @@ export function UserChip({
         <span
           className={cn(
             'relative z-[1] hidden min-w-0 flex-1 truncate text-left font-sans text-[13px] leading-none sm:block',
-            hovered ? 'text-[#002A68]' : 'text-neutral-800',
+            hovered ? 'text-[#002A68]' : 'text-[var(--color-fg)]',
           )}
         >
           {name}
@@ -109,7 +109,7 @@ export function UserChip({
         <ChevronDown
           className={cn(
             'relative z-[1] h-3.5 w-3.5 shrink-0',
-            hovered ? 'text-[#002A68]' : 'text-neutral-500',
+            hovered ? 'text-[#002A68]' : 'text-[var(--color-fg-muted)]',
           )}
           strokeWidth={1.5}
           aria-hidden

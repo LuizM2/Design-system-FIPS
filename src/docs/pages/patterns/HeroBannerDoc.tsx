@@ -2,7 +2,7 @@ import { useState, useEffect, type ReactNode } from 'react'
 import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFromLine } from 'lucide-react'
 import { RuleCards } from '../../components/RuleCards'
 
-const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulClaro: '#658EC9', cinzaChumbo: '#7B8C96', cinzaEscuro: '#333B41', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: '#00904C', danger: '#DC3545', branco: '#FFFFFF', bg: '#F2F4F8', cardBg: '#FFFFFF', cardBorder: '#E2E8F0', azulCeuClaro: '#D3E3F4', textLight: '#94A3B8', neutro: '#E8EBFF' }
+const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulClaro: '#658EC9', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: '#00904C', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: '#E8EBFF' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif", mono: "'Fira Code', monospace" }
 
 /* ─── Junction Lines SVG ─── */

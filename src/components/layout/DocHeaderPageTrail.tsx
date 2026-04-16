@@ -15,7 +15,7 @@ export function DocHeaderPageTrail({
 }) {
   const titleClass = cn(
     'min-w-0 truncate font-heading text-base font-semibold leading-snug tracking-tight sm:text-lg',
-    dark ? 'text-[#fafafa]' : 'text-[#171717]',
+    dark ? 'text-[#fafafa]' : 'text-[var(--color-fg)]',
   )
 
   if (groupLabel === pageTitle) {
@@ -32,7 +32,7 @@ export function DocHeaderPageTrail({
         <li
           className={cn(
             'min-w-0 max-w-[min(11rem,42vw)] shrink truncate font-sans text-[13px] font-medium leading-snug sm:max-w-[13rem] sm:text-sm',
-            dark ? 'text-[#A1A1AA]' : 'text-neutral-600',
+            dark ? 'text-[#A1A1AA]' : 'text-[var(--color-fg-muted)]',
           )}
         >
           {groupLabel}
@@ -41,7 +41,7 @@ export function DocHeaderPageTrail({
           aria-hidden
           className={cn(
             'shrink-0 select-none font-sans text-[13px] font-light leading-none sm:text-sm',
-            dark ? 'text-[#52525B]' : 'text-neutral-300',
+            dark ? 'text-[#52525B]' : 'text-[var(--color-border-strong)]',
           )}
         >
           /

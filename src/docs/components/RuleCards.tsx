@@ -10,10 +10,10 @@ export type RuleCard = {
 }
 
 const C = {
-  cardBg: '#FFFFFF',
-  cardBorder: '#E2E8F0',
-  azulEscuro: '#002A68',
-  cinzaChumbo: '#7B8C96',
+  cardBg: 'var(--color-surface)',
+  cardBorder: 'var(--color-border)',
+  azulEscuro: 'var(--color-fg)',
+  cinzaChumbo: 'var(--color-fg-muted)',
 }
 
 const Fn = {

@@ -30,15 +30,15 @@ function tabLinkClass(active: boolean, dark: boolean) {
         )
       : cn(
           active
-            ? 'font-semibold text-[#002A68] focus-visible:ring-[#F6921E]/35'
-            : 'font-normal text-[#7B8C96] hover:bg-[#002a68]/[0.04] hover:text-[#333B41] focus-visible:ring-[#F6921E]/28',
+            ? 'font-semibold text-[var(--color-fg)] focus-visible:ring-[#F6921E]/35'
+            : 'font-normal text-[var(--color-fg-muted)] hover:bg-[var(--color-primary)]/[0.04] hover:text-[var(--color-fg)] focus-visible:ring-[#F6921E]/28',
           'focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
         ),
   )
 }
 
 function iconClassInactive(dark: boolean) {
-  return cn('shrink-0 transition-colors duration-200', dark ? 'text-[#71717A]' : 'text-[#7B8C96]')
+  return cn('shrink-0 transition-colors duration-200', dark ? 'text-[#71717A]' : 'text-[var(--color-fg-muted)]')
 }
 
 /** Ícone da tab — cor muda para laranja (#F6921E) quando ativo, seguindo o padrão Underline. */

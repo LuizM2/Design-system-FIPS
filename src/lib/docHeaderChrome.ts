@@ -23,19 +23,19 @@ export const docHeaderArtWash =
 export const docHeaderArtDepth =
   'bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.5),transparent_48%),radial-gradient(circle_at_100%_100%,rgba(0,0,0,0.06),transparent_40%)]'
 
-export const docHeaderBarSurface = 'bg-[#f5f5f5]'
+export const docHeaderBarSurface = 'bg-[var(--color-surface-soft)]'
 
 /** Primeira faixa (toolbar): trilho, busca, ações — cinza claro como Tecnopano. */
-export const docHeaderBarTop = `border-b border-[#e5e5e5] ${docHeaderBarSurface}`
+export const docHeaderBarTop = `border-b border-[var(--color-border)] ${docHeaderBarSurface}`
 
 /** Superfície clara da faixa de abas. */
-export const docHeaderTabsSurface = 'bg-white'
+export const docHeaderTabsSurface = 'bg-[var(--color-surface)]'
 
 /** Faixa das abas de secção. */
 export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-2 pb-0`
 
 /** Separador sob o `nav` de abas. */
-export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[#E2E8F0]'
+export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[var(--color-border)]'
 
 /* ─── Neumorphic: azulejo claro (repouso na faixa #f5f5f5) ─── */
 export const docHeaderNeuLightBorderIdle = 'rgba(0,0,0,0.10)'
@@ -88,4 +88,4 @@ export const docHeaderTabsUnderlineMd = {
 
 /** Input de busca no header claro. */
 export const docHeaderSearchInputLightClass =
-  'h-[35px] w-full rounded-lg border border-black/[0.10] bg-white py-0 pl-9 pr-3 font-sans text-[13px] leading-normal text-neutral-800 shadow-[0_1px_2px_rgba(0,0,0,0.04)] placeholder:text-neutral-500 focus-visible:outline-none focus-visible:border-[#a3a3a3] focus-visible:ring-2 focus-visible:ring-[#2563EB]/20 focus-visible:ring-offset-0'
+  'h-[35px] w-full rounded-lg border border-[var(--color-border)]/60 bg-[var(--color-surface)] py-0 pl-9 pr-3 font-sans text-[13px] leading-normal text-[var(--color-fg)] shadow-[0_1px_2px_rgba(0,0,0,0.04)] placeholder:text-[var(--color-fg-muted)] focus-visible:outline-none focus-visible:border-[var(--color-border-strong)] focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]/20 focus-visible:ring-offset-0'

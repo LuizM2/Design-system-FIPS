@@ -12,8 +12,8 @@ export const badgeVariants = cva(
         success:
           'border-transparent bg-[var(--color-success)]/14 text-[var(--color-success-strong)]',
         warning:
-          'border-transparent bg-[var(--color-fips-orange-100)] text-[var(--color-accent-strong)]',
-        danger: 'border-transparent bg-[var(--color-fips-red-100)] text-[var(--color-danger)]',
+          'border-transparent bg-[var(--color-badge-warning-bg)] text-[var(--color-accent-strong)]',
+        danger: 'border-transparent bg-[var(--color-badge-danger-bg)] text-[var(--color-danger)]',
         outline: 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]',
         info: 'border-transparent bg-[var(--color-fips-blue-200)]/65 text-[var(--color-primary)]',
       },

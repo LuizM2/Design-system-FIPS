@@ -127,9 +127,39 @@
     --color-fg: var(--color-fips-gray-900);
     --color-fg-muted: #6b7784;
     --color-ring: var(--color-fips-sky-600);
+    --color-badge-warning-bg: var(--color-fips-orange-100);
+    --color-badge-danger-bg: var(--color-fips-red-100);
     --color-sidebar: var(--color-fips-blue-950);
     --color-sidebar-deep: var(--color-fips-blue-950);
     --color-sidebar-soft: var(--color-fips-blue-900);
+  }
+
+  /* ─── Dark mode (extraído do Tecnopano 3.0 DashboardAdmin) ─── */
+  .dark {
+    color-scheme: dark;
+    --color-primary: var(--color-fips-blue-900);
+    --color-primary-hover: var(--color-fips-blue-950);
+    --color-secondary: var(--color-fips-sky-600);
+    --color-secondary-hover: #007ab1;
+    --color-accent: var(--color-fips-yellow-400);
+    --color-accent-strong: var(--color-fips-yellow-600);
+    --color-success: var(--color-fips-green-500);
+    --color-success-strong: var(--color-fips-green-700);
+    --color-warning: var(--color-fips-yellow-600);
+    --color-danger: var(--color-fips-red-600);
+    --color-surface: #222222;
+    --color-surface-soft: #252525;
+    --color-surface-muted: #1A1A1A;
+    --color-border: #2E2E2E;
+    --color-border-strong: #3a3a3a;
+    --color-fg: #E2E2E8;
+    --color-fg-muted: #A1A1AA;
+    --color-ring: var(--color-fips-yellow-600);
+    --color-badge-warning-bg: rgba(246, 146, 30, 0.14);
+    --color-badge-danger-bg: rgba(239, 68, 68, 0.14);
+    --color-sidebar: #1A1A1A;
+    --color-sidebar-deep: #0a0c10;
+    --color-sidebar-soft: #222222;
   }
 
   html {
