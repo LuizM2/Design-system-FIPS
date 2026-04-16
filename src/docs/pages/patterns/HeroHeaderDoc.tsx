@@ -96,7 +96,7 @@ function HeroHeaderDemo() {
 
 export default function HeroHeaderDoc() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #F2F4F8 0%, #D3E3F444 50%, #F2F4F8 100%)', fontFamily: "'Open Sans', sans-serif", color: '#333B41' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
       <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>

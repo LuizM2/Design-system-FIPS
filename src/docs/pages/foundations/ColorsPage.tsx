@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import { fipsPalette, semanticColors } from '../../../tokens/colors'
 
-const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulCeuClaro: '#D3E3F4', amareloOuro: '#FDC24E', cinzaChumbo: '#7B8C96', cinzaEscuro: '#333B41', branco: '#FFFFFF', bg: '#F2F4F8', cardBg: '#FFFFFF', cardBorder: '#E2E8F0', textLight: '#94A3B8' }
+const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulCeuClaro: '#D3E3F4', amareloOuro: '#FDC24E', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', branco: '#FFFFFF', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', textLight: 'var(--color-fg-muted)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif" }
 
 function JunctionLines({ style }: { style?: React.CSSProperties }) {
@@ -68,7 +68,7 @@ export default function ColorsPage() {
   const mob = w < 640
 
   return (
-    <div style={{ minHeight: '100vh', background: `linear-gradient(160deg, ${C.bg} 0%, ${C.azulCeuClaro}44 50%, ${C.bg} 100%)`, fontFamily: Fn.body, color: C.cinzaEscuro }}>
+    <div style={{ minHeight: '100vh', background: "var(--color-surface-muted)", fontFamily: Fn.body, color: C.cinzaEscuro }}>
 
       <header style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 100%)`, padding: mob ? '32px 20px' : '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: mob ? 250 : 400, height: 250 }} />

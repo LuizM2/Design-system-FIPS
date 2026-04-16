@@ -5,14 +5,14 @@ import { useState, useRef } from "react";
    ═══════════════════════════════════════════ */
 const C = {
   azulProfundo: "#004B9B", azulEscuro: "#002A68", azulClaro: "#658EC9",
-  cinzaChumbo: "#7B8C96", cinzaEscuro: "#333B41", cinzaClaro: "#C0CCD2",
+  cinzaChumbo: "var(--color-fg-muted)", cinzaEscuro: "var(--color-fg)", cinzaClaro: "#C0CCD2",
   azulCeu: "#93BDE4", azulCeuClaro: "#D3E3F4",
   amareloOuro: "#FDC24E", amareloEscuro: "#F6921E",
   verdeFloresta: "#00C64C", verdeEscuro: "#00904C",
   danger: "#DC3545", dangerDark: "#C82333", dangerBg: "#FEF2F2",
-  neutro: "#E8EBFF", branco: "#FFFFFF",
-  bg: "#F2F4F8", cardBg: "#FFFFFF", cardBorder: "#E2E8F0",
-  textMuted: "#64748B", textLight: "#94A3B8",
+  neutro: "var(--color-surface-soft)", branco: "#FFFFFF",
+  bg: "var(--color-surface-muted)", cardBg: "var(--color-surface)", cardBorder: "var(--color-border)",
+  textMuted: "var(--color-fg-muted)", textLight: "var(--color-fg-muted)",
   inputBorder: "#CBD5E1", inputBorderHover: "#93BDE4",
   inputBg: "#FFFFFF", inputBgDisabled: "#F1F5F9",
 };
@@ -181,7 +181,7 @@ export default function InputDoc() {
   const [scenarioEmail, setScenarioEmail] = useState("");
 
   return (
-    <div style={{ minHeight:"100vh", background:`linear-gradient(160deg, ${C.bg} 0%, ${C.azulCeuClaro}44 50%, ${C.bg} 100%)`, fontFamily:F.body, color:C.cinzaEscuro }}>
+    <div style={{ minHeight:"100vh", background:"var(--color-surface-muted)", fontFamily:F.body, color:C.cinzaEscuro }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         input::placeholder { color: ${C.textLight}; }

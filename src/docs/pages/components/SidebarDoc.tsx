@@ -42,8 +42,8 @@ const C = {
   azulProfundo: '#004B9B',
   azulEscuro: '#002A68',
   azulClaro: '#658EC9',
-  cinzaChumbo: '#7B8C96',
-  cinzaEscuro: '#333B41',
+  cinzaChumbo: 'var(--color-fg-muted)',
+  cinzaEscuro: 'var(--color-fg)',
   cinzaClaro: '#C0CCD2',
   azulCeu: '#93BDE4',
   azulCeuClaro: '#D3E3F4',
@@ -52,13 +52,13 @@ const C = {
   verdeFloresta: '#00C64C',
   verdeEscuro: '#00904C',
   danger: '#DC3545',
-  neutro: '#E8EBFF',
+  neutro: 'var(--color-surface-soft)',
   branco: '#FFFFFF',
-  bg: '#F2F4F8',
-  cardBg: '#FFFFFF',
-  cardBorder: '#E2E8F0',
-  textMuted: '#64748B',
-  textLight: '#94A3B8',
+  bg: 'var(--color-surface-muted)',
+  cardBg: 'var(--color-surface)',
+  cardBorder: 'var(--color-border)',
+  textMuted: 'var(--color-fg-muted)',
+  textLight: 'var(--color-fg-muted)',
 }
 
 const F = {
@@ -1008,7 +1008,7 @@ export default function SidebarDoc() {
     <div
       style={{
         minHeight: '100vh',
-        background: `linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,
+        background: "var(--color-surface-muted)",
         fontFamily: F.body,
         color: C.cinzaEscuro,
       }}

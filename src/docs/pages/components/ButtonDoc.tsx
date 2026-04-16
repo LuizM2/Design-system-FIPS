@@ -9,8 +9,8 @@ const C = {
   azulProfundo:   "#004B9B",
   azulEscuro:     "#002A68",
   azulClaro:      "#658EC9",
-  cinzaChumbo:    "#7B8C96",
-  cinzaEscuro:    "#333B41",
+  cinzaChumbo:    "var(--color-fg-muted)",
+  cinzaEscuro:    "var(--color-fg)",
   cinzaClaro:     "#C0CCD2",
   azulCeu:        "#93BDE4",
   azulCeuClaro:   "#D3E3F4",
@@ -20,15 +20,15 @@ const C = {
   verdeEscuro:    "#00904C",
   verdeSuave:     "#8BE5AD",
   azulCeuForte:   "#0090D0",
-  neutro:         "#E8EBFF",
+  neutro:         "var(--color-surface-soft)",
   branco:         "#FFFFFF",
   danger:         "#DC3545",
   dangerDark:     "#C82333",
-  bg:             "#F2F4F8",
-  cardBg:         "#FFFFFF",
-  cardBorder:     "#E2E8F0",
-  textMuted:      "#64748B",
-  textLight:      "#94A3B8",
+  bg:             "var(--color-surface-muted)",
+  cardBg:         "var(--color-surface)",
+  cardBorder:     "var(--color-border)",
+  textMuted:      "var(--color-fg-muted)",
+  textLight:      "var(--color-fg-muted)",
 };
 
 const FONTS = {
@@ -242,7 +242,7 @@ const guideExemplo: React.CSSProperties = {
 
 export default function DSFIPSButtons() {
   return (
-    <div style={{ minHeight: "100vh", background: `linear-gradient(160deg, ${C.bg} 0%, ${C.azulCeuClaro}44 50%, ${C.bg} 100%)`, fontFamily: FONTS.body, color: C.cinzaEscuro }}>
+    <div style={{ minHeight: "100vh", background: "var(--color-surface-muted)", fontFamily: FONTS.body, color: C.cinzaEscuro }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         @keyframes dsSpin { to { transform: rotate(360deg); } }

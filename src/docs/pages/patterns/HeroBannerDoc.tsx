@@ -2,7 +2,7 @@ import { useState, useEffect, type ReactNode } from 'react'
 import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFromLine } from 'lucide-react'
 import { RuleCards } from '../../components/RuleCards'
 
-const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulClaro: '#658EC9', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: '#00904C', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: '#E8EBFF' }
+const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulClaro: '#658EC9', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: '#00904C', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: 'var(--color-surface-soft)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif", mono: "'Fira Code', monospace" }
 
 /* ─── Junction Lines SVG ─── */
@@ -166,7 +166,7 @@ export default function HeroBannerDoc() {
   const mob = w < 640
 
   return (
-    <div style={{ minHeight: '100vh', background: `linear-gradient(160deg, ${C.bg} 0%, ${C.azulCeuClaro}44 50%, ${C.bg} 100%)`, fontFamily: Fn.body, color: C.cinzaEscuro }}>
+    <div style={{ minHeight: '100vh', background: "var(--color-surface-muted)", fontFamily: Fn.body, color: C.cinzaEscuro }}>
 
       {/* HEADER HERO */}
       <header style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 100%)`, padding: mob ? '32px 20px' : '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
