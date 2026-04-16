@@ -1,31 +1,15 @@
 import { useState, useEffect, useMemo, useRef } from "react";
+import { motion } from "framer-motion";
+import { LuLayoutGrid, LuCircleCheck, LuClock, LuTriangleAlert, LuFileText, LuList, LuChartColumnIncreasing, LuArrowUp, LuArrowDown, LuX, LuBuilding2, LuCalendar, LuUser, LuFlag, LuFileSpreadsheet, LuFileDown, LuChevronDown, LuCheck } from "react-icons/lu";
+import { PieChart, Pie, Cell } from "recharts";
 
 const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"#E8EBFF",branco:"#FFFFFF",bg:"#F2F4F8",cardBg:"#FFFFFF",cardBorder:"#E2E8F0",textMuted:"#64748B",textLight:"#94A3B8"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
-const Ic={
-  grid:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
-  checkCircle:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke={c} strokeWidth="1.5"/><path d="M7 10l2 2 4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  clock:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke={c} strokeWidth="1.5"/><path d="M10 5.5V10l3 2" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  alert:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L1.5 17h17L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 8v4M10 14v.5" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  doc:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 2v5h5" stroke={c} strokeWidth="1.5"/></svg>,
-  list:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 4h12M6 10h12M6 16h12" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><circle cx="2.5" cy="4" r="1" fill={c}/><circle cx="2.5" cy="10" r="1" fill={c}/><circle cx="2.5" cy="16" r="1" fill={c}/></svg>,
-  chart:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="3" y="10" width="3" height="7" rx="1" stroke={c} strokeWidth="1.3"/><rect x="8.5" y="6" width="3" height="11" rx="1" stroke={c} strokeWidth="1.3"/><rect x="14" y="3" width="3" height="14" rx="1" stroke={c} strokeWidth="1.3"/></svg>,
-  arrowUp:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 12V4M5 7l3-3 3 3" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  arrowDown:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M8 4v8M5 9l3 3 3-3" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  settings:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke={c} strokeWidth="1.5"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3M3.9 3.9l2.1 2.1M14 14l2.1 2.1M16.1 3.9l-2.1 2.1M6 14l-2.1 2.1" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
-  x:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={c} strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  edificio:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="1.5" stroke={c} strokeWidth="1.5"/><path d="M7 6h2M11 6h2M7 10h2M11 10h2M8 14h4v4H8z" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
-  calendario:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="14" rx="2" stroke={c} strokeWidth="1.5"/><path d="M2 8h16M6 2v4M14 2v4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  pessoa:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke={c} strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  flag:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M4 2v16M4 2h10l-3 4 3 4H4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  excel:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="2" stroke={c} strokeWidth="1.4"/><path d="M7 7l6 6M13 7l-6 6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  pdf:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M6 2h6l5 5v10a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z" stroke={c} strokeWidth="1.4" strokeLinejoin="round"/><path d="M12 2v5h5" stroke={c} strokeWidth="1.4"/><path d="M8 12h4M8 15h2" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
-};
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const r=(size-stroke)/2;const circ=2*Math.PI*r;const off=circ-(pct/100)*circ;return <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform:"rotate(-90deg)"}}><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={`${color}18`} strokeWidth={stroke}/><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth={stroke} strokeDasharray={circ} strokeDashoffset={off} strokeLinecap="round"/></svg>}
+function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const data=[{value:pct},{value:100-pct}];return <PieChart width={size} height={size}><Pie data={data} cx={size/2-1} cy={size/2-1} innerRadius={(size-stroke*2)/2-stroke} outerRadius={(size-stroke)/2} startAngle={90} endAngle={-270} dataKey="value" stroke="none" isAnimationActive={false}><Cell fill={color}/><Cell fill={`${color}18`}/></Pie></PieChart>}
 
 const BV: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},Aguardando:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},Recusada:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},"Em análise":{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu}};
 function Badge({variant,children,dot}:{variant:string,children:React.ReactNode,dot?:boolean}){const v=BV[variant]||BV.Finalizada;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 6px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>}
@@ -73,12 +57,12 @@ function DSSelect({label,value,onChange,options,placeholder="Todos",icon}:{label
       <div onClick={()=>setOpen(!open)} style={{display:"flex",alignItems:"center",gap:8,height:30,padding:"0 12px",background:C.branco,border:`1.5px solid ${bc}`,borderRadius:open?"8px 8px 0 0":8,transition:"all .18s",boxShadow:open?"0 0 0 3px rgba(147,189,228,0.35)":"none",cursor:"pointer",fontFamily:Fn.body,fontSize:12,userSelect:"none"}}>
         {icon&&<span style={{display:"flex",flexShrink:0,opacity:.55}}>{icon}</span>}
         <span style={{flex:1,color:value?C.cinzaEscuro:C.textLight,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{display}</span>
-        <svg width={14} height={14} viewBox="0 0 20 20" fill="none" style={{flexShrink:0,opacity:.45,transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0)"}}><path d="M6 8l4 4 4-4" stroke={C.cinzaChumbo} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        <LuChevronDown size={14} color={C.cinzaChumbo} style={{flexShrink:0,opacity:.45,transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0)"}}/>
       </div>
       {open&&<div style={{position:"absolute",top:"100%",left:0,right:0,zIndex:20,background:C.branco,border:`1.5px solid ${C.azulProfundo}`,borderTop:"none",borderRadius:"0 0 8px 8px",boxShadow:"0 6px 20px rgba(0,75,155,.12)",maxHeight:200,overflowY:"auto"}}>
         <div onClick={()=>{onChange(null);setOpen(false)}} onMouseEnter={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:!value?C.azulProfundo:C.cinzaEscuro,fontWeight:!value?600:400,background:!value?C.azulCeuClaro:"transparent",cursor:"pointer"}}>{placeholder}</div>
         {options.map((o,i)=>{const sel=o===value;return <div key={o} onClick={()=>{onChange(o);setOpen(false)}} onMouseEnter={()=>setHi(i)} onMouseLeave={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:sel?C.azulProfundo:C.cinzaEscuro,fontWeight:sel?600:400,background:sel?C.azulCeuClaro:i===hi?C.bg:"transparent",cursor:"pointer",display:"flex",alignItems:"center",gap:8}}>
-          {sel&&<svg width={12} height={12} viewBox="0 0 16 16" fill="none" style={{marginLeft:-14,flexShrink:0}}><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+          {sel&&<LuCheck size={12} color={C.azulProfundo} style={{marginLeft:-14,flexShrink:0}}/>}
           {o}
         </div>})}
       </div>}
@@ -167,7 +151,7 @@ function ChartTooltip({title,color,rows,x,y,total}:{title:string,color:string,ro
   if(!rows)return null;
   const maxVal=Math.max(...rows.map(r=>r.value),1);
   return(
-    <div style={{position:"fixed",left:x+12,top:y-10,zIndex:50,pointerEvents:"none",animation:"fadeUp .15s ease"}}>
+    <motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.15,ease:"easeOut"}} style={{position:"fixed",left:x+12,top:y-10,zIndex:50,pointerEvents:"none"}}>
       <div style={{background:C.branco,borderRadius:"8px 8px 8px 14px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 8px 30px rgba(0,42,104,.18),0 2px 8px rgba(0,0,0,.08)",minWidth:180,maxWidth:260,overflow:"hidden"}}>
         <div style={{background:color,padding:"8px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <span style={{fontSize:12,fontWeight:700,color:C.branco,fontFamily:Fn.title}}>{title}</span>
@@ -185,11 +169,8 @@ function ChartTooltip({title,color,rows,x,y,total}:{title:string,color:string,ro
             </div>
           ))}
         </div>
-        <div style={{borderTop:`1px solid ${C.cardBorder}`,padding:"6px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-          <span style={{fontSize:9,color:C.textMuted,fontFamily:Fn.body}}>Passe o mouse para detalhar</span>
-        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -336,10 +317,10 @@ export default function DSFIPSDashboard(){
   },[hovStacked,stackedData]);
 
   const kpis=[
-    {label:"Solicitações",value:total,delta:`${total>150?"+":""}${Math.round((total/allData.length)*100)}%`,up:true,icon:Ic.doc,color:C.azulProfundo,spark:sparkByMonth,deltaDesc:"do total filtrado"},
-    {label:"Finalizadas",value:finalizadas,delta:total?`${Math.round(finalizadas/total*100)}%`:"0%",up:true,icon:Ic.checkCircle,color:C.verdeFloresta,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.status==="Finalizada").length),deltaDesc:"taxa de conclusão"},
-    {label:"Aguardando",value:aguardando,delta:total?`${Math.round(aguardando/total*100)}%`:"0%",up:false,icon:Ic.clock,color:C.amareloEscuro,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.status==="Aguardando").length),deltaDesc:"em análise ou aprovação"},
-    {label:"Atrasadas",value:atrasadas,delta:total?`${Math.round(atrasadas/total*100)}%`:"0%",up:true,icon:Ic.alert,color:C.danger,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.sla<50).length),deltaDesc:"SLA abaixo de 50%"},
+    {label:"Solicitações",value:total,delta:`${total>150?"+":""}${Math.round((total/allData.length)*100)}%`,up:true,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>,color:C.azulProfundo,spark:sparkByMonth,deltaDesc:"do total filtrado"},
+    {label:"Finalizadas",value:finalizadas,delta:total?`${Math.round(finalizadas/total*100)}%`:"0%",up:true,icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>,color:C.verdeFloresta,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.status==="Finalizada").length),deltaDesc:"taxa de conclusão"},
+    {label:"Aguardando",value:aguardando,delta:total?`${Math.round(aguardando/total*100)}%`:"0%",up:false,icon:(s:number,c:string)=><LuClock size={s} color={c}/>,color:C.amareloEscuro,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.status==="Aguardando").length),deltaDesc:"em análise ou aprovação"},
+    {label:"Atrasadas",value:atrasadas,delta:total?`${Math.round(atrasadas/total*100)}%`:"0%",up:true,icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>,color:C.danger,spark:MONTHS.map(m=>allData.filter(r=>r.month===m&&r.sla<50).length),deltaDesc:"SLA abaixo de 50%"},
   ];
 
   const tableData=filtered.slice(-8).reverse();
@@ -349,14 +330,13 @@ export default function DSFIPSDashboard(){
     <div style={{minHeight:"100vh",background:`linear-gradient(160deg,${C.bg} 0%,${C.azulCeuClaro}44 50%,${C.bg} 100%)`,fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
       `}</style>
 
       {/* ═══ HERO ═══ */}
       <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}><LuLayoutGrid size={14} color={C.amareloOuro}/> Design System FIPS</div>
           <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Dashboard</h1>
           <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Padrão de painel operacional com KPIs, gráficos interativos, barra de filtros e tabela de dados. Estrutura fixa para relatórios e visões consolidadas de módulos FIPS.</p>
         </div>
@@ -368,22 +348,22 @@ export default function DSFIPSDashboard(){
         <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?"12px":"14px 20px",marginBottom:mob?16:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:8}}>
-              {Ic.grid(16,C.azulProfundo)}
+              <LuLayoutGrid size={16} color={C.azulProfundo}/>
               <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Filtros</span>
               {hasFilter&&<span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>· {filtered.length} de {allData.length}</span>}
             </div>
             <div style={{display:"flex",alignItems:"center",gap:6}}>
-              <button onClick={()=>exportPDF(filtered,filter,{valor:filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")})} style={{display:"inline-flex",alignItems:"center",gap:4,padding:"4px 10px",fontSize:10,fontWeight:600,color:C.danger,background:`${C.danger}08`,border:`1px solid ${C.danger}20`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}} title="Gerar relatório PDF">{Ic.pdf(12,C.danger)} Relatório</button>
-              {hasFilter&&<button onClick={clearAll} style={{display:"inline-flex",alignItems:"center",gap:4,padding:"4px 10px",fontSize:10,fontWeight:600,color:C.cinzaChumbo,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}>{Ic.x(10,C.cinzaChumbo)} Limpar</button>}
+              <button onClick={()=>exportPDF(filtered,filter,{valor:filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")})} style={{display:"inline-flex",alignItems:"center",gap:4,padding:"4px 10px",fontSize:10,fontWeight:600,color:C.danger,background:`${C.danger}08`,border:`1px solid ${C.danger}20`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}} title="Gerar relatório PDF"><LuFileDown size={12} color={C.danger}/> Relatório</button>
+              {hasFilter&&<button onClick={clearAll} style={{display:"inline-flex",alignItems:"center",gap:4,padding:"4px 10px",fontSize:10,fontWeight:600,color:C.cinzaChumbo,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}><LuX size={10} color={C.cinzaChumbo}/> Limpar</button>}
             </div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr 1fr":"repeat(6,1fr)",gap:mob?8:12}}>
-            <DSSelect label="Área / Processo" value={filter.dept} onChange={v=>setF("dept",v)} options={DEPTS} icon={Ic.edificio(14,C.cinzaChumbo)}/>
-            <DSSelect label="Ano" value={filter.year} onChange={v=>setF("year",v)} options={YEARS} icon={Ic.calendario(14,C.cinzaChumbo)}/>
-            <DSSelect label="Mês" value={filter.month} onChange={v=>setF("month",v)} options={MONTHS} icon={Ic.calendario(14,C.cinzaChumbo)}/>
-            <DSSelect label="Solicitante" value={filter.sol} onChange={v=>setF("sol",v)} options={NAMES} icon={Ic.pessoa(14,C.cinzaChumbo)}/>
-            <DSSelect label="Prioridade" value={filter.priority} onChange={v=>setF("priority",v)} options={PRIORITIES} placeholder="Todas" icon={Ic.flag(14,C.cinzaChumbo)}/>
-            <DSSelect label="Status" value={filter.status} onChange={v=>setF("status",v)} options={STATUSES} icon={Ic.checkCircle(14,C.cinzaChumbo)}/>
+            <DSSelect label="Área / Processo" value={filter.dept} onChange={v=>setF("dept",v)} options={DEPTS} icon={<LuBuilding2 size={14} color={C.cinzaChumbo}/>}/>
+            <DSSelect label="Ano" value={filter.year} onChange={v=>setF("year",v)} options={YEARS} icon={<LuCalendar size={14} color={C.cinzaChumbo}/>}/>
+            <DSSelect label="Mês" value={filter.month} onChange={v=>setF("month",v)} options={MONTHS} icon={<LuCalendar size={14} color={C.cinzaChumbo}/>}/>
+            <DSSelect label="Solicitante" value={filter.sol} onChange={v=>setF("sol",v)} options={NAMES} icon={<LuUser size={14} color={C.cinzaChumbo}/>}/>
+            <DSSelect label="Prioridade" value={filter.priority} onChange={v=>setF("priority",v)} options={PRIORITIES} placeholder="Todas" icon={<LuFlag size={14} color={C.cinzaChumbo}/>}/>
+            <DSSelect label="Status" value={filter.status} onChange={v=>setF("status",v)} options={STATUSES} icon={<LuCircleCheck size={14} color={C.cinzaChumbo}/>}/>
           </div>
         </div>
 
@@ -410,14 +390,14 @@ export default function DSFIPSDashboard(){
             const uid=k.color.replace('#','')+'k'+i;
             const hovPt=hovKpiPt&&hovKpiPt.c===i?hovKpiPt.p:-1;
             return(
-              <div key={i} onMouseEnter={()=>setHovKpiCard(i)} onMouseLeave={()=>setHovKpiCard(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,animation:`fadeUp .35s ease ${i*0.06}s both`,position:"relative"}}>
+              <motion.div key={i} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.35,delay:i*0.06,ease:"easeOut"}} onMouseEnter={()=>setHovKpiCard(i)} onMouseLeave={()=>setHovKpiCard(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,position:"relative"}}>
                 <div style={{padding:mob?"14px 12px 6px":"18px 20px 6px",position:"relative",zIndex:2}}>
                   <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:`${k.color}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,k.color)}</div>
                   <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:mob?6:8}}>{k.label}</span>
                   <div style={{display:"flex",alignItems:"baseline",gap:8}}>
                     <span style={{fontSize:mob?22:28,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,lineHeight:1}}>{k.value}</span>
                     <span onMouseEnter={()=>setHovDelta(i)} onMouseLeave={()=>setHovDelta(-1)} style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:600,fontFamily:Fn.mono,color:k.color!==C.danger?dc:C.danger,cursor:"help",position:"relative"}}>
-                      {k.up?Ic.arrowUp(10,k.color!==C.danger?dc:C.danger):Ic.arrowDown(10,dc)}{k.delta}
+                      {k.up?<LuArrowUp size={10} color={k.color!==C.danger?dc:C.danger}/>:<LuArrowDown size={10} color={dc}/>}{k.delta}
                       {hovDelta===i&&<span style={{position:"absolute",bottom:"100%",left:"50%",transform:"translateX(-50%)",marginBottom:6,background:C.azulEscuro,color:C.branco,padding:"5px 10px",borderRadius:6,fontSize:10,fontFamily:Fn.body,whiteSpace:"nowrap",zIndex:20,boxShadow:"0 4px 12px rgba(0,0,0,.2)"}}>{k.delta} {k.deltaDesc}<span style={{position:"absolute",top:"100%",left:"50%",transform:"translateX(-50%)",width:0,height:0,borderLeft:"4px solid transparent",borderRight:"4px solid transparent",borderTop:`4px solid ${C.azulEscuro}`}}/></span>}
                     </span>
                   </div>
@@ -438,7 +418,7 @@ export default function DSFIPSDashboard(){
                   </svg>
                 </div>
                 {hovKpiCard===i&&tipKpiCard&&<ChartTooltip {...tipKpiCard} x={tipPos.x} y={tipPos.y}/>}
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -454,7 +434,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por mês</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.chart(14,C.azulProfundo)}</div>
+                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",justifyContent:"center"}}>
                   <svg width={chartW} height={chartH+40} viewBox={`0 -20 ${chartW} ${chartH+40}`}>
@@ -485,7 +465,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.status?STATUS_COLOR[filter.status]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por status</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.amareloEscuro}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.grid(14,C.amareloEscuro)}</div>
+                  <div style={{width:30,height:30,borderRadius:8,background:`${C.amareloEscuro}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuLayoutGrid size={14} color={C.amareloEscuro}/></div>
                 </div>
                 <div style={{display:"flex",alignItems:"center",gap:mob?12:20,justifyContent:"center"}}>
                   <div style={{position:"relative"}}>
@@ -523,7 +503,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.dept?DEPT_COLOR[filter.dept]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por departamento</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.list(14,C.azulProfundo)}</div>
+                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:8}}>
                   {byDept.map((d,i)=>{
@@ -548,7 +528,7 @@ export default function DSFIPSDashboard(){
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.priority?PRIO_COLOR[filter.priority]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
               <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>SLA por prioridade</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-              <div style={{width:30,height:30,borderRadius:8,background:`${C.verdeFloresta}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.checkCircle(14,C.verdeFloresta)}</div>
+              <div style={{width:30,height:30,borderRadius:8,background:`${C.verdeFloresta}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuCircleCheck size={14} color={C.verdeFloresta}/></div>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:12}}>
               {byPrio.map((d,i)=>{
@@ -681,12 +661,12 @@ export default function DSFIPSDashboard(){
           <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
-                <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.list(20,C.azulProfundo)}</div>
+                <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={C.azulProfundo}/></div>
                 <div><span style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Requisições {hasFilter?"(filtradas)":""}</span><span style={{fontSize:12,color:C.cinzaChumbo,display:"block",marginTop:2}}>{tableData.length} mais recentes</span></div>
               </div>
               <div style={{display:"flex",gap:6}}>
-                <button style={{display:"inline-flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:"#1D6F42",background:"#1D6F4210",border:"1px solid #1D6F4225",borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Exportar Excel">{Ic.excel(14,"#1D6F42")} <span style={{display:mob?"none":"inline"}}>Excel</span></button>
-                <button onClick={()=>exportPDF(filtered,filter,{valor:filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")})} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.danger,background:`${C.danger}08`,border:`1px solid ${C.danger}20`,borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Exportar PDF">{Ic.pdf(14,C.danger)} <span style={{display:mob?"none":"inline"}}>PDF</span></button>
+                <button style={{display:"inline-flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:"#1D6F42",background:"#1D6F4210",border:"1px solid #1D6F4225",borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Exportar Excel"><LuFileSpreadsheet size={14} color="#1D6F42"/> <span style={{display:mob?"none":"inline"}}>Excel</span></button>
+                <button onClick={()=>exportPDF(filtered,filter,{valor:filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")})} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.danger,background:`${C.danger}08`,border:`1px solid ${C.danger}20`,borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Exportar PDF"><LuFileDown size={14} color={C.danger}/> <span style={{display:mob?"none":"inline"}}>PDF</span></button>
               </div>
             </div>
             <div style={{overflowX:"auto"}}>
@@ -745,10 +725,10 @@ export default function DSFIPSDashboard(){
             <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
               <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Atividade</span>
               {[
-                {text:`${finalizadas} requisições finalizadas`,time:"este período",color:C.verdeFloresta,icon:Ic.checkCircle},
-                {text:`${atrasadas} com SLA crítico`,time:"abaixo de 50%",color:C.danger,icon:Ic.alert},
-                {text:`${aguardando} aguardando decisão`,time:"em análise",color:C.amareloEscuro,icon:Ic.clock},
-                {text:`R$ ${Math.round(filtered.reduce((a,r)=>a+r.valor,0)/1000)}k em valor total`,time:"filtrado",color:C.azulProfundo,icon:Ic.doc},
+                {text:`${finalizadas} requisições finalizadas`,time:"este período",color:C.verdeFloresta,icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {text:`${atrasadas} com SLA crítico`,time:"abaixo de 50%",color:C.danger,icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
+                {text:`${aguardando} aguardando decisão`,time:"em análise",color:C.amareloEscuro,icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
+                {text:`R$ ${Math.round(filtered.reduce((a,r)=>a+r.valor,0)/1000)}k em valor total`,time:"filtrado",color:C.azulProfundo,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
               ].map((a,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:i<3?10:0}}>
                   <div style={{width:22,height:22,borderRadius:6,background:`${a.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{a.icon(11,a.color)}</div>
@@ -769,7 +749,7 @@ export default function DSFIPSDashboard(){
                 <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
                     <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Tendência mensal</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique no ponto para filtrar</span></div>
-                    <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.chart(12,C.azulProfundo)}</div>
+                    <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
                   </div>
                   <svg width="100%" height={cH+18} viewBox={`0 0 ${cW} ${cH+18}`} preserveAspectRatio="xMidYMid meet">
                     <defs><linearGradient id="lgLine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.azulProfundo} stopOpacity=".15"/><stop offset="100%" stopColor={C.azulProfundo} stopOpacity="0"/></linearGradient></defs>
@@ -808,7 +788,7 @@ export default function DSFIPSDashboard(){
         {/* ═══ STATUS D ═══ */}
         <div style={{marginTop:mob?16:24}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:mob?10:14}}>
-            <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.chart(14,C.azulProfundo)}</div>
+            <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
             <div><span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Status das solicitações</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Distribuição por situação atual</span></div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?10:16}}>
@@ -839,7 +819,7 @@ export default function DSFIPSDashboard(){
         {/* ═══ DOCUMENTAÇÃO DO PADRÃO ═══ */}
         <div style={{marginTop:mob?24:40}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20}}>
-            <div style={{width:36,height:36,borderRadius:10,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.doc(18,C.azulProfundo)}</div>
+            <div style={{width:36,height:36,borderRadius:10,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={C.azulProfundo}/></div>
             <div>
               <span style={{fontSize:16,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Regras do padrão Dashboard</span>
               <span style={{fontSize:11,color:C.cinzaChumbo}}>Diretrizes obrigatórias para todos os dashboards FIPS</span>
@@ -854,13 +834,13 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
-                {r:"Posição fixa entre o Hero e os KPIs — nunca abaixo dos gráficos",icon:Ic.chart},
-                {r:"Usar o componente DSSelect do catálogo (custom dropdown, não nativo do navegador)",icon:Ic.list},
-                {r:"Cada select com ícone à esquerda (edificio, calendario, pessoa, flag, checkCircle)",icon:Ic.grid},
-                {r:"Mínimo: Área/Processo, Ano, Mês, Solicitante, Prioridade, Status",icon:Ic.doc},
-                {r:"Badges de filtros ativos abaixo da barra com cor semântica por categoria",icon:Ic.checkCircle},
-                {r:"Botão 'Limpar' vermelho visível quando qualquer filtro está ativo",icon:Ic.x},
-                {r:"Contador 'X de Y registros' sempre visível na barra",icon:Ic.alert},
+                {r:"Posição fixa entre o Hero e os KPIs — nunca abaixo dos gráficos",icon:(s:number,c:string)=><LuChartColumnIncreasing size={s} color={c}/>},
+                {r:"Usar o componente DSSelect do catálogo (custom dropdown, não nativo do navegador)",icon:(s:number,c:string)=><LuList size={s} color={c}/>},
+                {r:"Cada select com ícone à esquerda (edificio, calendario, pessoa, flag, checkCircle)",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
+                {r:"Mínimo: Área/Processo, Ano, Mês, Solicitante, Prioridade, Status",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {r:"Badges de filtros ativos abaixo da barra com cor semântica por categoria",icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {r:"Botão 'Limpar' vermelho visível quando qualquer filtro está ativo",icon:(s:number,c:string)=><LuX size={s} color={c}/>},
+                {r:"Contador 'X de Y registros' sempre visível na barra",icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
                   <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.azulProfundo)}</div>
@@ -878,14 +858,14 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
-                {r:"Todo gráfico clicável deve filtrar os demais (padrão Power BI cross-filter)",icon:Ic.chart},
-                {r:"Clicar no mesmo elemento de novo remove o filtro (toggle)",icon:Ic.grid},
-                {r:"Elemento ativo: opacidade 100% + borda/anel de destaque",icon:Ic.checkCircle},
-                {r:"Elementos inativos (dimmed): opacidade 15–30%",icon:Ic.clock},
-                {r:"Borda do card muda para a cor do filtro quando ativo",icon:Ic.doc},
-                {r:"Filtros dos gráficos e dos selects são sincronizados (mesmo state)",icon:Ic.list},
-                {r:"Todos os KPIs, tabela, sidebar e Status D recalculam com o filtro",icon:Ic.alert},
-                {r:"Hit areas transparentes maiores que o elemento visual (mínimo r=12 em SVG)",icon:Ic.grid},
+                {r:"Todo gráfico clicável deve filtrar os demais (padrão Power BI cross-filter)",icon:(s:number,c:string)=><LuChartColumnIncreasing size={s} color={c}/>},
+                {r:"Clicar no mesmo elemento de novo remove o filtro (toggle)",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
+                {r:"Elemento ativo: opacidade 100% + borda/anel de destaque",icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {r:"Elementos inativos (dimmed): opacidade 15–30%",icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
+                {r:"Borda do card muda para a cor do filtro quando ativo",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {r:"Filtros dos gráficos e dos selects são sincronizados (mesmo state)",icon:(s:number,c:string)=><LuList size={s} color={c}/>},
+                {r:"Todos os KPIs, tabela, sidebar e Status D recalculam com o filtro",icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
+                {r:"Hit areas transparentes maiores que o elemento visual (mínimo r=12 em SVG)",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
                   <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.verdeFloresta)}</div>
@@ -903,14 +883,14 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
-                {r:"Bar chart: valor numérico acima de cada barra — sempre visível",icon:Ic.chart},
-                {r:"Line chart: valor nos pontos (hover ou sempre, conforme espaço disponível)",icon:Ic.doc},
-                {r:"Donut: valor e % no centro ao passar mouse no segmento",icon:Ic.grid},
-                {r:"Horizontal bar: valor + percentual à direita da barra",icon:Ic.list},
-                {r:"SLA: fração (ok/total) + percentual colorido por faixa (verde ≥90, amarelo ≥70, vermelho <70)",icon:Ic.checkCircle},
-                {r:"KPI sparkline: meses visíveis embaixo (a cada 2), valores no hover do ponto",icon:Ic.clock},
-                {r:"Delta (%) do KPI: tooltip explicando a comparação ao passar mouse",icon:Ic.alert},
-                {r:"ViewBox do SVG deve ter padding suficiente para não cortar rótulos",icon:Ic.grid},
+                {r:"Bar chart: valor numérico acima de cada barra — sempre visível",icon:(s:number,c:string)=><LuChartColumnIncreasing size={s} color={c}/>},
+                {r:"Line chart: valor nos pontos (hover ou sempre, conforme espaço disponível)",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {r:"Donut: valor e % no centro ao passar mouse no segmento",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
+                {r:"Horizontal bar: valor + percentual à direita da barra",icon:(s:number,c:string)=><LuList size={s} color={c}/>},
+                {r:"SLA: fração (ok/total) + percentual colorido por faixa (verde ≥90, amarelo ≥70, vermelho <70)",icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {r:"KPI sparkline: meses visíveis embaixo (a cada 2), valores no hover do ponto",icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
+                {r:"Delta (%) do KPI: tooltip explicando a comparação ao passar mouse",icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
+                {r:"ViewBox do SVG deve ter padding suficiente para não cortar rótulos",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
                   <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.amareloEscuro)}</div>
@@ -928,13 +908,13 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
-                {r:"Toda área clicável deve ter cursor: pointer",icon:Ic.grid},
-                {r:"Transições suaves em todas as mudanças visuais (transition: 0.12s–0.18s)",icon:Ic.clock},
-                {r:"Barras: opacidade aumenta no hover, borda tracejada ao selecionar",icon:Ic.chart},
-                {r:"Line chart: dot cresce no hover + valor aparece",icon:Ic.doc},
-                {r:"Donut: stroke expande (+4) no hover, legenda destaca com fundo",icon:Ic.checkCircle},
-                {r:"Horizontal bar: barra cresce (6→10px), label muda para cor da barra",icon:Ic.list},
-                {r:"Tabela: zebra azulCeu + hover amareloOuro por linha",icon:Ic.grid},
+                {r:"Toda área clicável deve ter cursor: pointer",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
+                {r:"Transições suaves em todas as mudanças visuais (transition: 0.12s–0.18s)",icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
+                {r:"Barras: opacidade aumenta no hover, borda tracejada ao selecionar",icon:(s:number,c:string)=><LuChartColumnIncreasing size={s} color={c}/>},
+                {r:"Line chart: dot cresce no hover + valor aparece",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {r:"Donut: stroke expande (+4) no hover, legenda destaca com fundo",icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {r:"Horizontal bar: barra cresce (6→10px), label muda para cor da barra",icon:(s:number,c:string)=><LuList size={s} color={c}/>},
+                {r:"Tabela: zebra azulCeu + hover amareloOuro por linha",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
                   <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.azulCeu)}</div>
@@ -952,14 +932,14 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
-                {r:"Hero navy com título, subtítulo e botão de ação principal (amareloOuro)",icon:Ic.doc},
-                {r:"KPIs em grid 4 colunas (2 no mobile) com sparkline de ponta a ponta",icon:Ic.chart},
-                {r:"Charts em grid 2 colunas (1 no mobile) — evitar 3 colunas se donut ficar apertado",icon:Ic.grid},
-                {r:"Tabela: headers centralizados, avatar do solicitante, zebra, SLA com barra de progresso",icon:Ic.list},
-                {r:"Sidebar: fluxo (steps), atividade, gráfico de tendência e mini-bar",icon:Ic.clock},
-                {r:"Status D no final: cards clicáveis que filtram por status",icon:Ic.checkCircle},
-                {r:"Botões de exportação (Excel + PDF) no header da tabela com ícones coloridos",icon:Ic.alert},
-                {r:"PDF funcional: gera no client via Blob, inclui filtros ativos, paginação e footer FIPS",icon:Ic.doc},
+                {r:"Hero navy com título, subtítulo e botão de ação principal (amareloOuro)",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {r:"KPIs em grid 4 colunas (2 no mobile) com sparkline de ponta a ponta",icon:(s:number,c:string)=><LuChartColumnIncreasing size={s} color={c}/>},
+                {r:"Charts em grid 2 colunas (1 no mobile) — evitar 3 colunas se donut ficar apertado",icon:(s:number,c:string)=><LuLayoutGrid size={s} color={c}/>},
+                {r:"Tabela: headers centralizados, avatar do solicitante, zebra, SLA com barra de progresso",icon:(s:number,c:string)=><LuList size={s} color={c}/>},
+                {r:"Sidebar: fluxo (steps), atividade, gráfico de tendência e mini-bar",icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
+                {r:"Status D no final: cards clicáveis que filtram por status",icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
+                {r:"Botões de exportação (Excel + PDF) no header da tabela com ícones coloridos",icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
+                {r:"PDF funcional: gera no client via Blob, inclui filtros ativos, paginação e footer FIPS",icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
                   <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.danger)}</div>
