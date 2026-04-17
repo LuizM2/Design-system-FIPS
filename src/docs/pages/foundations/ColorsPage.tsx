@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
-import { fipsPalette, semanticColors } from '../../../tokens/colors'
+import { fipsPalette, semanticColors, darkSemanticColors } from '../../../tokens/colors'
+import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
 const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulCeuClaro: '#D3E3F4', amareloOuro: '#FDC24E', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', branco: '#FFFFFF', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', textLight: 'var(--color-fg-muted)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif" }
@@ -114,6 +115,71 @@ export default function ColorsPage() {
                 <CopyHex hex={hex} />
               </div>
             ))}
+          </div>
+        </Section>
+
+        <Section n="03" title="Paleta Dark Mode" desc="Tokens semânticos do modo escuro. Estas cores são aplicadas automaticamente quando o tema dark está ativo. Use como referência ao estilizar componentes para ambos os modos.">
+          <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 12 }}>
+            {(Object.entries(darkSemanticColors) as [string, string][]).map(([name, hex]) => (
+              <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, borderRadius: 10, border: `1px solid ${C.cardBorder}`, background: C.cardBg }}>
+                <div style={{ width: 40, height: 40, borderRadius: 8, background: hex, border: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: C.cinzaEscuro, margin: '0 0 2px', fontFamily: Fn.title }}>
+                    {String(name).replace(/([a-z])([A-Z])/g, '$1 $2')}
+                  </p>
+                  <p style={{ fontSize: 11, fontFamily: "'Fira Code', monospace", color: C.cinzaChumbo, margin: 0 }}>{hex}</p>
+                </div>
+                <CopyHex hex={hex} />
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section n="04" title="Mapeamento Light → Dark" desc="Referência rápida de como cada token semântico muda entre os modos. Use esta tabela ao implementar componentes dark-aware.">
+          <div style={{ background: C.cardBg, borderRadius: '10px 10px 10px 18px', border: `1px solid ${C.cardBorder}`, overflow: 'hidden' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: Fn.body, fontSize: 12 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${C.cardBorder}` }}>
+                  <th style={{ padding: '10px 16px', textAlign: 'left', fontFamily: Fn.title, fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: C.cinzaChumbo }}>Token</th>
+                  <th style={{ padding: '10px 16px', textAlign: 'left', fontFamily: Fn.title, fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: C.cinzaChumbo }}>Light</th>
+                  <th style={{ padding: '10px 16px', textAlign: 'left', fontFamily: Fn.title, fontWeight: 600, fontSize: 11, letterSpacing: '1px', textTransform: 'uppercase', color: C.cinzaChumbo }}>Dark</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { token: 'surface', light: '#FFFFFF', dark: '#222222' },
+                  { token: 'surface-muted', light: '#F5F8FC', dark: '#1A1A1A' },
+                  { token: 'border', light: '#D7E0EA', dark: '#2E2E2E' },
+                  { token: 'foreground', light: '#333B41', dark: '#E2E2E8' },
+                  { token: 'fg-muted', light: '#6B7784', dark: '#A1A1AA' },
+                  { token: 'primary', light: '#004B9B', dark: '#93BDE4' },
+                  { token: 'accent', light: '#FDC24E', dark: '#FDC24E' },
+                  { token: 'success', light: '#00C64C', dark: '#8BE5AD' },
+                  { token: 'danger', light: '#EF4444', dark: '#FCA5A5' },
+                  { token: 'input-border', light: '#D7E0EA', dark: '#3A3A3A' },
+                  { token: 'input-focus', light: '#004B9B', dark: '#93BDE4' },
+                  { token: 'badge-success-bg', light: 'rgba(0,198,76,0.14)', dark: 'rgba(0,198,76,0.14)' },
+                  { token: 'badge-warning-bg', light: 'rgba(246,146,30,0.14)', dark: 'rgba(246,146,30,0.14)' },
+                  { token: 'badge-danger-bg', light: 'rgba(239,68,68,0.14)', dark: 'rgba(239,68,68,0.14)' },
+                ].map((r, i) => (
+                  <tr key={r.token} style={{ borderBottom: `1px solid ${C.cardBorder}` }}>
+                    <td style={{ padding: '8px 16px', fontFamily: "'Fira Code', monospace", fontWeight: 600, color: C.cinzaEscuro }}>{r.token}</td>
+                    <td style={{ padding: '8px 16px' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ width: 16, height: 16, borderRadius: 4, background: r.light, border: '1px solid rgba(0,0,0,0.1)', flexShrink: 0 }} />
+                        <code style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: C.cinzaChumbo }}>{r.light}</code>
+                      </span>
+                    </td>
+                    <td style={{ padding: '8px 16px' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ width: 16, height: 16, borderRadius: 4, background: r.dark, border: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
+                        <code style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: C.cinzaChumbo }}>{r.dark}</code>
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Section>
 

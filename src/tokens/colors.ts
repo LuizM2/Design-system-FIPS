@@ -41,3 +41,38 @@ export const semanticColors = {
   sidebar: fipsPalette.azulProfundo,
   sidebarMuted: fipsPalette.azulProfundoDark,
 } as const
+
+/**
+ * Tokens semânticos para dark mode.
+ * Mapeia cada token do light mode para o valor equivalente no tema escuro.
+ */
+export const darkSemanticColors = {
+  surface: '#222222',
+  surfaceSoft: '#252525',
+  surfaceMuted: '#1A1A1A',
+  border: '#2E2E2E',
+  borderStrong: '#3a3a3a',
+  foreground: '#E2E2E8',
+  foregroundMuted: '#A1A1AA',
+  primary: '#93BDE4',
+  primaryHover: '#658EC9',
+  secondary: '#0090D0',
+  accent: '#FDC24E',
+  accentStrong: '#F6921E',
+  success: '#8BE5AD',
+  successStrong: '#00C64C',
+  danger: '#FCA5A5',
+  info: '#93BDE4',
+  warning: '#FDC24E',
+  sidebar: '#1A1A1A',
+  sidebarDeep: '#0a0c10',
+  sidebarSoft: '#222222',
+  inputBorder: '#3a3a3a',
+  inputBorderHover: '#4a4a4a',
+  inputBorderFocus: '#93BDE4',
+  inputBg: '#252525',
+  badgeSuccessBg: 'rgba(0,198,76,0.14)',
+  badgeWarningBg: 'rgba(246,146,30,0.14)',
+  badgeDangerBg: 'rgba(239,68,68,0.14)',
+  badgeInfoBg: 'rgba(147,189,228,0.14)',
+} as const
