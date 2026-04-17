@@ -47,24 +47,25 @@ function seed(): Row[]{
 
 /* ═══════════════════ DSSelect ═══════════════════ */
 function DSSelect({label,value,onChange,options,placeholder="Todos",icon}:{label?:string,value:string|null,onChange:(v:string|null)=>void,options:string[],placeholder?:string,icon?:React.ReactNode}){
+  const {dark}=useFipsTheme();
   const [open,setOpen]=useState(false);
   const [hi,setHi]=useState(-1);
   const ref=useRef<HTMLDivElement>(null);
   useEffect(()=>{const h=(e:MouseEvent)=>{if(ref.current&&!ref.current.contains(e.target as Node))setOpen(false)};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h)},[]);
   const display=value||placeholder;
-  const bc=open?C.azulProfundo:"#CBD5E1";
+  const bc=open?(dark?"#93BDE4":C.azulProfundo):(dark?"#4A5568":"#CBD5E1");
   return(
     <div ref={ref} style={{display:"flex",flexDirection:"column",minWidth:0,position:"relative",zIndex:open?30:1}}>
       {label&&<label style={{fontSize:11,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,marginBottom:1,marginLeft:7}}>{label}</label>}
-      <div onClick={()=>setOpen(!open)} style={{display:"flex",alignItems:"center",gap:8,height:30,padding:"0 12px",background:C.branco,border:`1.5px solid ${bc}`,borderRadius:open?"8px 8px 0 0":8,transition:"all .18s",boxShadow:open?"0 0 0 3px rgba(147,189,228,0.35)":"none",cursor:"pointer",fontFamily:Fn.body,fontSize:12,userSelect:"none"}}>
+      <div onClick={()=>setOpen(!open)} style={{display:"flex",alignItems:"center",gap:8,height:30,padding:"0 12px",background:dark?"var(--color-surface)":C.branco,border:`1.5px solid ${bc}`,borderRadius:open?"8px 8px 0 0":8,transition:"all .18s",boxShadow:open?"0 0 0 3px rgba(147,189,228,0.35)":"none",cursor:"pointer",fontFamily:Fn.body,fontSize:12,userSelect:"none"}}>
         {icon&&<span style={{display:"flex",flexShrink:0,opacity:.55}}>{icon}</span>}
         <span style={{flex:1,color:value?C.cinzaEscuro:C.textLight,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{display}</span>
         <LuChevronDown size={14} color={C.cinzaChumbo} style={{flexShrink:0,opacity:.45,transition:"transform .2s",transform:open?"rotate(180deg)":"rotate(0)"}}/>
       </div>
-      {open&&<div style={{position:"absolute",top:"100%",left:0,right:0,zIndex:20,background:C.branco,border:`1.5px solid ${C.azulProfundo}`,borderTop:"none",borderRadius:"0 0 8px 8px",boxShadow:"0 6px 20px rgba(0,75,155,.12)",maxHeight:200,overflowY:"auto"}}>
-        <div onClick={()=>{onChange(null);setOpen(false)}} onMouseEnter={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:!value?C.azulProfundo:C.cinzaEscuro,fontWeight:!value?600:400,background:!value?C.azulCeuClaro:"transparent",cursor:"pointer"}}>{placeholder}</div>
-        {options.map((o,i)=>{const sel=o===value;return <div key={o} onClick={()=>{onChange(o);setOpen(false)}} onMouseEnter={()=>setHi(i)} onMouseLeave={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:sel?C.azulProfundo:C.cinzaEscuro,fontWeight:sel?600:400,background:sel?C.azulCeuClaro:i===hi?C.bg:"transparent",cursor:"pointer",display:"flex",alignItems:"center",gap:8}}>
-          {sel&&<LuCheck size={12} color={C.azulProfundo} style={{marginLeft:-14,flexShrink:0}}/>}
+      {open&&<div style={{position:"absolute",top:"100%",left:0,right:0,zIndex:20,background:dark?"var(--color-surface)":C.branco,border:`1.5px solid ${dark?"#93BDE4":C.azulProfundo}`,borderTop:"none",borderRadius:"0 0 8px 8px",boxShadow:dark?"0 6px 20px rgba(0,0,0,.3)":"0 6px 20px rgba(0,75,155,.12)",maxHeight:200,overflowY:"auto"}}>
+        <div onClick={()=>{onChange(null);setOpen(false)}} onMouseEnter={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:!value?(dark?"#93BDE4":C.azulProfundo):C.cinzaEscuro,fontWeight:!value?600:400,background:!value?(dark?"rgba(147,189,228,0.14)":C.azulCeuClaro):"transparent",cursor:"pointer"}}>{placeholder}</div>
+        {options.map((o,i)=>{const sel=o===value;return <div key={o} onClick={()=>{onChange(o);setOpen(false)}} onMouseEnter={()=>setHi(i)} onMouseLeave={()=>setHi(-1)} style={{padding:"6px 14px",paddingLeft:icon?20:14,fontSize:12,fontFamily:Fn.body,color:sel?(dark?"#93BDE4":C.azulProfundo):C.cinzaEscuro,fontWeight:sel?600:400,background:sel?(dark?"rgba(147,189,228,0.14)":C.azulCeuClaro):i===hi?C.bg:"transparent",cursor:"pointer",display:"flex",alignItems:"center",gap:8}}>
+          {sel&&<LuCheck size={12} color={dark?"#93BDE4":C.azulProfundo} style={{marginLeft:-14,flexShrink:0}}/>}
           {o}
         </div>})}
       </div>}
@@ -150,11 +151,12 @@ function exportPDF(data: Row[], filters: Record<string,string|null>, totals: {va
 
 /* ═══════════════════ ChartTooltip ═══════════════════ */
 function ChartTooltip({title,color,rows,x,y,total}:{title:string,color:string,rows:{label:string,value:number,color?:string}[],x:number,y:number,total?:number}){
+  const {dark:dk}=useFipsTheme();
   if(!rows)return null;
   const maxVal=Math.max(...rows.map(r=>r.value),1);
   return(
     <motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.15,ease:"easeOut"}} style={{position:"fixed",left:x+12,top:y-10,zIndex:50,pointerEvents:"none"}}>
-      <div style={{background:C.branco,borderRadius:"8px 8px 8px 14px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 8px 30px rgba(0,42,104,.18),0 2px 8px rgba(0,0,0,.08)",minWidth:180,maxWidth:260,overflow:"hidden"}}>
+      <div style={{background:dk?"var(--color-surface)":C.branco,borderRadius:"8px 8px 8px 14px",border:`1px solid ${C.cardBorder}`,boxShadow:dk?"0 8px 30px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.2)":"0 8px 30px rgba(0,42,104,.18),0 2px 8px rgba(0,0,0,.08)",minWidth:180,maxWidth:260,overflow:"hidden"}}>
         <div style={{background:color,padding:"8px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <span style={{fontSize:12,fontWeight:700,color:C.branco,fontFamily:Fn.title}}>{title}</span>
           {total!=null&&<span style={{fontSize:11,fontWeight:700,color:`${C.branco}CC`,fontFamily:Fn.mono}}>{total}</span>}
@@ -255,8 +257,8 @@ export default function DSFIPSDashboard(){
   const tipBar=useMemo(()=>{
     if(hovBar===null)return null;
     const m=MONTHS[hovBar];const mData=allData.filter(r=>r.month===m);
-    return{title:m,color:C.azulProfundo,total:mData.length,rows:STATUSES.map(s=>({label:s,value:mData.filter(r=>r.status===s).length,color:STATUS_COLOR[s]}))};
-  },[hovBar,allData]);
+    return{title:m,color:dkc(C.azulProfundo),total:mData.length,rows:STATUSES.map(s=>({label:s,value:mData.filter(r=>r.status===s).length,color:STATUS_COLOR[s]}))};
+  },[hovBar,allData,dark]);
 
   const tipDonutData=useMemo(()=>{
     if(hovDonut===null)return null;
@@ -285,42 +287,42 @@ export default function DSFIPSDashboard(){
     const lists: Record<string,string[]>={status:STATUSES,dept:DEPTS,priority:PRIORITIES};
     const src=meta.slaFilter?filtered.filter(r=>r.sla<50):meta.statusFilter?filtered.filter(r=>r.status===meta.statusFilter):filtered;
     const keys=lists[meta.breakdown];const clrs=colors[meta.breakdown];
-    return{title:meta.label,color:meta.color,total:src.length,rows:keys.map(k=>({label:k,value:src.filter(r=>getRowBreakdownValue(r,meta.breakdown)===k).length,color:clrs[k]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
-  },[hovKpiCard,filtered]);
+    return{title:meta.label,color:dkc(meta.color),total:src.length,rows:keys.map(k=>({label:k,value:src.filter(r=>getRowBreakdownValue(r,meta.breakdown)===k).length,color:clrs[k]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
+  },[hovKpiCard,filtered,dark]);
 
   const tipStatusD=useMemo(()=>{
     if(hovStatusD<0)return null;
     const meta=STATUS_D_META[hovStatusD];
     const src=meta.filterKey?filtered.filter(r=>r.status===meta.filterKey):filtered;
-    return{title:meta.label,color:[C.azulProfundo,C.verdeFloresta,C.amareloEscuro,C.danger][hovStatusD],total:src.length,rows:DEPTS.map(d=>({label:d,value:src.filter(r=>r.dept===d).length,color:DEPT_COLOR[d]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
+    return{title:meta.label,color:[dkc(C.azulProfundo),C.verdeFloresta,C.amareloEscuro,C.danger][hovStatusD],total:src.length,rows:DEPTS.map(d=>({label:d,value:src.filter(r=>r.dept===d).length,color:DEPT_COLOR[d]})).filter(r=>r.value>0).sort((a,b)=>b.value-a.value).slice(0,5)};
   },[hovStatusD,filtered]);
 
   const tipSideLine=useMemo(()=>{
     if(hovSideLine<0)return null;
     const m=MONTHS[hovSideLine];const mData=allData.filter(r=>r.month===m);
-    return{title:`${m} — Tendência`,color:C.azulProfundo,total:mData.length,rows:STATUSES.map(s=>({label:s,value:mData.filter(r=>r.status===s).length,color:STATUS_COLOR[s]}))};
-  },[hovSideLine,allData]);
+    return{title:`${m} — Tendência`,color:dkc(C.azulProfundo),total:mData.length,rows:STATUSES.map(s=>({label:s,value:mData.filter(r=>r.status===s).length,color:STATUS_COLOR[s]}))};
+  },[hovSideLine,allData,dark]);
 
   const sideBarVals=useMemo(()=>DAYS_LABELS.map(()=>Math.round(filtered.length*(0.15+Math.random()*0.12))),[filtered.length]);
   const tipSideBarData=useMemo(()=>{
     if(hovSideBar<0)return null;
     const d=DAYS_LABELS[hovSideBar];
-    return{title:`${d} — Requisições`,color:C.azulProfundo,total:Math.round(filtered.length*0.2),rows:[{label:"Manhã (8h–12h)",value:Math.round(filtered.length*0.09),color:C.azulCeu},{label:"Tarde (13h–17h)",value:Math.round(filtered.length*0.08),color:C.azulProfundo},{label:"Noite (18h+)",value:Math.round(filtered.length*0.03),color:C.azulEscuro}]};
-  },[hovSideBar,filtered]);
+    return{title:`${d} — Requisições`,color:dkc(C.azulProfundo),total:Math.round(filtered.length*0.2),rows:[{label:"Manhã (8h–12h)",value:Math.round(filtered.length*0.09),color:C.azulCeu},{label:"Tarde (13h–17h)",value:Math.round(filtered.length*0.08),color:dkc(C.azulProfundo)},{label:"Noite (18h+)",value:Math.round(filtered.length*0.03),color:dkc(C.azulEscuro)}]};
+  },[hovSideBar,filtered,dark]);
 
   const comboData=useMemo(()=>MONTHS.map(m=>{const mf=filtered.filter(r=>r.month===m);return{l:m,abertas:mf.length,concluidas:mf.filter(r=>r.status==="Finalizada").length,sla:mf.length?Math.round(mf.reduce((a,r)=>a+r.sla,0)/mf.length):0}}),[filtered]);
   const tipCombo=useMemo(()=>{
     if(hovCombo<0)return null;
     const d=comboData[hovCombo];
-    return{title:d.l,color:C.azulProfundo,total:d.abertas,rows:[{label:"Abertas",value:d.abertas,color:C.azulProfundo},{label:"Concluídas",value:d.concluidas,color:C.verdeFloresta},{label:"SLA médio",value:d.sla,color:d.sla>=70?C.verdeFloresta:d.sla>=50?C.amareloEscuro:C.danger}]};
-  },[hovCombo,comboData]);
+    return{title:d.l,color:dkc(C.azulProfundo),total:d.abertas,rows:[{label:"Abertas",value:d.abertas,color:dkc(C.azulProfundo)},{label:"Concluídas",value:d.concluidas,color:C.verdeFloresta},{label:"SLA médio",value:d.sla,color:d.sla>=70?C.verdeFloresta:d.sla>=50?C.amareloEscuro:C.danger}]};
+  },[hovCombo,comboData,dark]);
 
   const stackedData=useMemo(()=>MONTHS.map(m=>{const mf=filtered.filter(r=>r.month===m);return{l:m,segs:STATUSES.map(s=>({s,v:mf.filter(r=>r.status===s).length,color:STATUS_COLOR[s]}))}}),[filtered]);
   const tipStacked=useMemo(()=>{
     if(hovStacked<0)return null;
     const d=stackedData[hovStacked];const tot=d.segs.reduce((a,s)=>a+s.v,0);
-    return{title:d.l,color:C.azulProfundo,total:tot,rows:d.segs.filter(s=>s.v>0).map(s=>({label:s.s,value:s.v,color:s.color}))};
-  },[hovStacked,stackedData]);
+    return{title:d.l,color:dkc(C.azulProfundo),total:tot,rows:d.segs.filter(s=>s.v>0).map(s=>({label:s.s,value:s.v,color:s.color}))};
+  },[hovStacked,stackedData,dark]);
 
   const kpis=[
     {label:"Solicitações",value:total,delta:`${total>150?"+":""}${Math.round((total/allData.length)*100)}%`,up:true,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>,color:C.azulProfundo,spark:sparkByMonth,deltaDesc:"do total filtrado"},
@@ -354,7 +356,7 @@ export default function DSFIPSDashboard(){
         <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?"12px":"14px 20px",marginBottom:mob?16:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:8}}>
-              <LuLayoutGrid size={16} color={C.azulProfundo}/>
+              <LuLayoutGrid size={16} color={dark?"#93BDE4":C.azulProfundo}/>
               <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filtros</span>
               {hasFilter&&<span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>· {filtered.length} de {allData.length}</span>}
             </div>
@@ -376,10 +378,10 @@ export default function DSFIPSDashboard(){
         {/* ═══ FILTROS ATIVOS (badges) ═══ */}
         {hasFilter&&(
           <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,flexWrap:"wrap"}}>
-            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
-            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
+            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:dark?"rgba(147,189,228,0.06)":`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
+            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:dark?"rgba(147,189,228,0.06)":`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
             {filter.dept&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:DEPT_COLOR[filter.dept],background:`${DEPT_COLOR[filter.dept]}10`,borderRadius:4,fontFamily:Fn.body}}>Área: {filter.dept}</span>}
-            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulEscuro}10`,borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
+            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:dark?"rgba(101,142,201,0.06)":`${C.azulEscuro}10`,borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
             {filter.priority&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:PRIO_COLOR[filter.priority],background:`${PRIO_COLOR[filter.priority]}10`,borderRadius:4,fontFamily:Fn.body}}>Prioridade: {filter.priority}</span>}
             {filter.status&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:STATUS_COLOR[filter.status],background:`${STATUS_COLOR[filter.status]}10`,borderRadius:4,fontFamily:Fn.body}}>Status: {filter.status}</span>}
           </div>
@@ -398,13 +400,13 @@ export default function DSFIPSDashboard(){
             return(
               <motion.div key={i} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.35,delay:i*0.06,ease:"easeOut"}} onMouseEnter={()=>setHovKpiCard(i)} onMouseLeave={()=>setHovKpiCard(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,position:"relative"}}>
                 <div style={{padding:mob?"14px 12px 6px":"18px 20px 6px",position:"relative",zIndex:2}}>
-                  <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:`${k.color}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,k.color)}</div>
+                  <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:`${dkc(k.color)}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,dkc(k.color))}</div>
                   <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:mob?6:8}}>{k.label}</span>
                   <div style={{display:"flex",alignItems:"baseline",gap:8}}>
                     <span style={{fontSize:mob?22:28,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{k.value}</span>
                     <span onMouseEnter={()=>setHovDelta(i)} onMouseLeave={()=>setHovDelta(-1)} style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:600,fontFamily:Fn.mono,color:k.color!==C.danger?dc:C.danger,cursor:"help",position:"relative"}}>
                       {k.up?<LuArrowUp size={10} color={k.color!==C.danger?dc:C.danger}/>:<LuArrowDown size={10} color={dc}/>}{k.delta}
-                      {hovDelta===i&&<span style={{position:"absolute",bottom:"100%",left:"50%",transform:"translateX(-50%)",marginBottom:6,background:C.azulEscuro,color:C.branco,padding:"5px 10px",borderRadius:6,fontSize:10,fontFamily:Fn.body,whiteSpace:"nowrap",zIndex:20,boxShadow:"0 4px 12px rgba(0,0,0,.2)"}}>{k.delta} {k.deltaDesc}<span style={{position:"absolute",top:"100%",left:"50%",transform:"translateX(-50%)",width:0,height:0,borderLeft:"4px solid transparent",borderRight:"4px solid transparent",borderTop:`4px solid ${C.azulEscuro}`}}/></span>}
+                      {hovDelta===i&&<span style={{position:"absolute",bottom:"100%",left:"50%",transform:"translateX(-50%)",marginBottom:6,background:dark?"#658EC9":C.azulEscuro,color:C.branco,padding:"5px 10px",borderRadius:6,fontSize:10,fontFamily:Fn.body,whiteSpace:"nowrap",zIndex:20,boxShadow:"0 4px 12px rgba(0,0,0,.2)"}}>{k.delta} {k.deltaDesc}<span style={{position:"absolute",top:"100%",left:"50%",transform:"translateX(-50%)",width:0,height:0,borderLeft:"4px solid transparent",borderRight:"4px solid transparent",borderTop:`4px solid ${dark?"#658EC9":C.azulEscuro}`}}/></span>}
                     </span>
                   </div>
                 </div>
@@ -437,10 +439,10 @@ export default function DSFIPSDashboard(){
             const max=Math.max(...byMonth.map(d=>d.v),1);
             const bw=28,gp=10,chartW=byMonth.length*(bw+gp)-gp,chartH=100;
             return(
-              <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
+              <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?(dark?"#93BDE4":C.azulProfundo):C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por mês</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
+                  <div style={{width:30,height:30,borderRadius:8,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={dark?"#93BDE4":C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",justifyContent:"center"}}>
                   <svg width={chartW} height={chartH+40} viewBox={`0 -20 ${chartW} ${chartH+40}`}>
@@ -509,7 +511,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.dept?DEPT_COLOR[filter.dept]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por departamento</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={C.azulProfundo}/></div>
+                  <div style={{width:30,height:30,borderRadius:8,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={dark?"#93BDE4":C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:8}}>
                   {byDept.map((d,i)=>{
@@ -578,7 +580,7 @@ export default function DSFIPSDashboard(){
                     <span style={{fontSize:10,color:C.cinzaChumbo}}>Duas colunas + linha SLA</span>
                   </div>
                   <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
-                    <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.cinzaEscuro,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:C.azulProfundo}}/>Abertas</span>
+                    <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.cinzaEscuro,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:dark?"#93BDE4":C.azulProfundo}}/>Abertas</span>
                     <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:C.verdeFloresta}}/>Concluídas</span>
                     <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.amareloEscuro,fontFamily:Fn.body}}><span style={{width:10,height:2,borderRadius:1,background:C.amareloEscuro}}/>SLA</span>
                   </div>
@@ -600,9 +602,9 @@ export default function DSFIPSDashboard(){
                       <rect x={x} y={-18} width={pair} height={cH+58} fill="transparent"/>
                       <rect x={x} y={cH-bh1} width={pw} height={bh1} rx={3} fill={barColor} opacity={isDimmed?.15:isH||isActive?1:.85}/>
                       <rect x={x+pw+3} y={cH-bh2} width={pw} height={bh2} rx={3} fill={C.verdeFloresta} opacity={isDimmed?.15:isH||isActive?1:.85}/>
-                      <text x={x+pw/2} y={cH-bh1-3} textAnchor="middle" fontSize="7" fontWeight="700" fill={isDimmed?C.textLight:C.azulProfundo} fontFamily={Fn.mono}>{d.abertas}</text>
+                      <text x={x+pw/2} y={cH-bh1-3} textAnchor="middle" fontSize="7" fontWeight="700" fill={isDimmed?C.textLight:barColor} fontFamily={Fn.mono}>{d.abertas}</text>
                       <text x={x+pw+3+pw/2} y={cH-bh2-3} textAnchor="middle" fontSize="7" fontWeight="700" fill={isDimmed?C.textLight:C.verdeFloresta} fontFamily={Fn.mono}>{d.concluidas}</text>
-                      <text x={x+pair/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
+                      <text x={x+pair/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?barColor:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
                       {isActive&&<rect x={x-2} y={cH-Math.max(bh1,bh2)-2} width={pair+4} height={Math.max(bh1,bh2)+4} rx={4} fill="none" stroke={barColor} strokeWidth="1.5" strokeDasharray="4 2"/>}
                     </g>;
                   })}
@@ -648,8 +650,8 @@ export default function DSFIPSDashboard(){
                     return <g key={mi} onClick={()=>toggle("month",d.l)} onMouseEnter={()=>setHovStacked(mi)} onMouseLeave={()=>setHovStacked(-1)} style={{cursor:"pointer"}}>
                       <rect x={x} y={-18} width={bw} height={cH+58} fill="transparent"/>
                       {d.segs.map((s,si)=>{const sh2=stTotal?Math.max(s.v>0?2:0,(s.v/maxS)*cH):0;cy2-=sh2;return <rect key={si} x={x} y={cy2} width={bw} height={sh2} rx={si===0?3:0} fill={s.color} opacity={isDimmed?.15:isH||isActive?1:.75}/>})}
-                      <text x={x+bw/2} y={cH-((stTotal/maxS)*cH)-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={isDimmed?C.textLight:C.azulEscuro} fontFamily={Fn.mono}>{stTotal}</text>
-                      <text x={x+bw/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
+                      <text x={x+bw/2} y={cH-((stTotal/maxS)*cH)-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={isDimmed?C.textLight:barLabelColor} fontFamily={Fn.mono}>{stTotal}</text>
+                      <text x={x+bw/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?barColor:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
                       {isActive&&<rect x={x-2} y={cH-((stTotal/maxS)*cH)-2} width={bw+4} height={((stTotal/maxS)*cH)+4} rx={4} fill="none" stroke={barColor} strokeWidth="1.5" strokeDasharray="4 2"/>}
                     </g>;
                   })}
@@ -667,7 +669,7 @@ export default function DSFIPSDashboard(){
           <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
-                <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={C.azulProfundo}/></div>
+                <div style={{width:48,height:48,borderRadius:14,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={dark?"#93BDE4":C.azulProfundo}/></div>
                 <div><span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Requisições {hasFilter?"(filtradas)":""}</span><span style={{fontSize:12,color:C.cinzaChumbo,display:"block",marginTop:2}}>{tableData.length} mais recentes</span></div>
               </div>
               <div style={{display:"flex",gap:6}}>
@@ -711,7 +713,7 @@ export default function DSFIPSDashboard(){
             <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
               <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Fluxo</span>
               {[
-                {step:"1",label:"Solicitação",count:total,color:C.azulProfundo},
+                {step:"1",label:"Solicitação",count:total,color:dark?"#93BDE4":C.azulProfundo},
                 {step:"2",label:"Triagem",count:aguardando,color:C.azulCeu},
                 {step:"3",label:"Aprovação",count:finalizadas,color:C.amareloEscuro},
                 {step:"4",label:"Compra",count:Math.round(finalizadas*.8),color:C.verdeFloresta},
@@ -734,7 +736,7 @@ export default function DSFIPSDashboard(){
                 {text:`${finalizadas} requisições finalizadas`,time:"este período",color:C.verdeFloresta,icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
                 {text:`${atrasadas} com SLA crítico`,time:"abaixo de 50%",color:C.danger,icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
                 {text:`${aguardando} aguardando decisão`,time:"em análise",color:C.amareloEscuro,icon:(s:number,c:string)=><LuClock size={s} color={c}/>},
-                {text:`R$ ${Math.round(filtered.reduce((a,r)=>a+r.valor,0)/1000)}k em valor total`,time:"filtrado",color:C.azulProfundo,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
+                {text:`R$ ${Math.round(filtered.reduce((a,r)=>a+r.valor,0)/1000)}k em valor total`,time:"filtrado",color:dark?"#93BDE4":C.azulProfundo,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
               ].map((a,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:i<3?10:0}}>
                   <div style={{width:22,height:22,borderRadius:6,background:`${a.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{a.icon(11,a.color)}</div>
@@ -752,10 +754,10 @@ export default function DSFIPSDashboard(){
               const area=`0,${cH} ${line} ${cW},${cH}`;
               const activeIdx=filter.month?MONTHS.indexOf(filter.month):-1;
               return(
-                <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
+                <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?(dark?"#93BDE4":C.azulProfundo):C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
                     <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Tendência mensal</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique no ponto para filtrar</span></div>
-                    <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
+                    <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={dark?"#93BDE4":C.azulProfundo}/></div>
                   </div>
                   <svg width="100%" height={cH+18} viewBox={`0 0 ${cW} ${cH+18}`} preserveAspectRatio="xMidYMid meet">
                     <defs><linearGradient id="lgLine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={barColor} stopOpacity=".15"/><stop offset="100%" stopColor={barColor} stopOpacity="0"/></linearGradient></defs>
@@ -765,9 +767,9 @@ export default function DSFIPSDashboard(){
                       const isActive=activeIdx===i;const isDimmed=filter.month&&!isActive;
                       return <g key={i} onClick={()=>toggle("month",MONTHS[i])} onMouseEnter={()=>setHovSideLine(i)} onMouseLeave={()=>setHovSideLine(-1)} style={{cursor:"pointer"}}>
                         <circle cx={p.x} cy={p.y} r="12" fill="transparent"/>
-                        <circle cx={p.x} cy={p.y} r={isActive?5:hovSideLine===i?4:2.5} fill={isDimmed?C.textLight:isActive?C.azulProfundo:hovSideLine===i?C.azulProfundo:C.cardBg} stroke={isDimmed?C.textLight:C.azulProfundo} strokeWidth={isActive?2.5:1.5} style={{transition:"all .15s"}}/>
+                        <circle cx={p.x} cy={p.y} r={isActive?5:hovSideLine===i?4:2.5} fill={isDimmed?C.textLight:isActive?barColor:hovSideLine===i?barColor:C.cardBg} stroke={isDimmed?C.textLight:barColor} strokeWidth={isActive?2.5:1.5} style={{transition:"all .15s"}}/>
                         {isActive&&<><circle cx={p.x} cy={p.y} r="9" fill="none" stroke={barColor} strokeWidth="1" strokeDasharray="3 2" opacity=".5"/><text x={p.x} y={p.y-10} textAnchor="middle" fontSize="9" fontWeight="700" fill={barLabelColor} fontFamily={Fn.mono}>{data[i]}</text></>}
-                        {i%2===0&&<text x={p.x} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{MONTHS[i]}</text>}
+                        {i%2===0&&<text x={p.x} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?barColor:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{MONTHS[i]}</text>}
                       </g>;
                     })}
                   </svg>
@@ -784,7 +786,7 @@ export default function DSFIPSDashboard(){
                 const vals=sideBarVals;
                 const max2=Math.max(...vals,1);
                 const bw=36,gp=12,cW=days.length*(bw+gp)-gp;
-                return <svg width="100%" height={80} viewBox={`0 -12 ${cW} 92`} preserveAspectRatio="xMidYMid meet">{vals.map((v,i)=>{const bh=Math.max(4,(v/max2)*50);const isH=hovSideBar===i;return <g key={i} onMouseEnter={()=>setHovSideBar(i)} onMouseLeave={()=>setHovSideBar(-1)} style={{cursor:"pointer"}}><rect x={i*(bw+gp)} y={-12} width={bw} height={92} fill="transparent"/><rect x={i*(bw+gp)} y={50-bh+12} width={bw} height={bh} rx={5} fill={barColor} opacity={isH?1:.6+(.4*v/max2)}/><text x={i*(bw+gp)+bw/2} y={50-bh+6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isH?C.azulProfundo:C.azulEscuro} fontFamily={Fn.mono}>{v}</text><text x={i*(bw+gp)+bw/2} y={75} textAnchor="middle" fontSize="10" fill={isH?C.azulProfundo:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isH?700:400}>{days[i]}</text></g>})}</svg>;
+                return <svg width="100%" height={80} viewBox={`0 -12 ${cW} 92`} preserveAspectRatio="xMidYMid meet">{vals.map((v,i)=>{const bh=Math.max(4,(v/max2)*50);const isH=hovSideBar===i;return <g key={i} onMouseEnter={()=>setHovSideBar(i)} onMouseLeave={()=>setHovSideBar(-1)} style={{cursor:"pointer"}}><rect x={i*(bw+gp)} y={-12} width={bw} height={92} fill="transparent"/><rect x={i*(bw+gp)} y={50-bh+12} width={bw} height={bh} rx={5} fill={barColor} opacity={isH?1:.6+(.4*v/max2)}/><text x={i*(bw+gp)+bw/2} y={50-bh+6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isH?barColor:barLabelColor} fontFamily={Fn.mono}>{v}</text><text x={i*(bw+gp)+bw/2} y={75} textAnchor="middle" fontSize="10" fill={isH?barColor:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isH?700:400}>{days[i]}</text></g>})}</svg>;
               })()}
               {tipSideBarData&&<ChartTooltip {...tipSideBarData} x={tipPos.x} y={tipPos.y}/>}
             </div>
@@ -794,12 +796,12 @@ export default function DSFIPSDashboard(){
         {/* ═══ STATUS D ═══ */}
         <div style={{marginTop:mob?16:24}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:mob?10:14}}>
-            <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
+            <div style={{width:30,height:30,borderRadius:8,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={dark?"#93BDE4":C.azulProfundo}/></div>
             <div><span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Status das solicitações</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Distribuição por situação atual</span></div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?10:16}}>
             {[
-              {label:"Solicitadas",value:total,color:C.azulProfundo,pct:100,filterVal:null as string|null},
+              {label:"Solicitadas",value:total,color:dark?"#93BDE4":C.azulProfundo,pct:100,filterVal:null as string|null},
               {label:"Concluídas",value:finalizadas,color:C.verdeFloresta,pct:total?Math.round(finalizadas/total*100):0,filterVal:"Finalizada"},
               {label:"Em andamento",value:aguardando,color:C.amareloEscuro,pct:total?Math.round(aguardando/total*100):0,filterVal:"Aguardando"},
               {label:"Pendentes",value:filtered.filter(r=>r.status==="Recusada"||r.status==="Em análise").length,color:C.danger,pct:total?Math.round(filtered.filter(r=>r.status==="Recusada"||r.status==="Em análise").length/total*100):0,filterVal:"Recusada"},
@@ -825,7 +827,7 @@ export default function DSFIPSDashboard(){
         {/* ═══ DOCUMENTAÇÃO DO PADRÃO ═══ */}
         <div style={{marginTop:mob?24:40}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20}}>
-            <div style={{width:36,height:36,borderRadius:10,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={C.azulProfundo}/></div>
+            <div style={{width:36,height:36,borderRadius:10,background:dark?"rgba(147,189,228,0.04)":`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={dark?"#93BDE4":C.azulProfundo}/></div>
             <div>
               <span style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Regras do padrão Dashboard</span>
               <span style={{fontSize:11,color:C.cinzaChumbo}}>Diretrizes obrigatórias para todos os dashboards FIPS</span>
@@ -835,7 +837,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 1 — Filtros */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>1</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.07)":`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>1</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Barra de filtros sempre no topo</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -849,7 +851,7 @@ export default function DSFIPSDashboard(){
                 {r:"Contador 'X de Y registros' sempre visível na barra",icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
               ].map((item,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0"}}>
-                  <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,C.azulProfundo)}</div>
+                  <div style={{width:20,height:20,borderRadius:6,background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{item.icon(11,dark?"#93BDE4":C.azulProfundo)}</div>
                   <span style={{fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.5}}>{item.r}</span>
                 </div>
               ))}
@@ -859,7 +861,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 2 — Cross-filter */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>2</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.07)":`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>2</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Todos os gráficos com interação de filtro</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -884,7 +886,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 3 — Rótulos de dados */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>3</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.07)":`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>3</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Rótulos de dados obrigatórios</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -909,7 +911,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 4 — Hover e feedback */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>4</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.07)":`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>4</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Hover e feedback visual</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -933,7 +935,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 5 — Layout e exportação */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>5</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:dark?"rgba(147,189,228,0.07)":`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>5</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Layout, tabela e exportação</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
