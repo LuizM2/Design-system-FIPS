@@ -8,7 +8,7 @@ const C = {
   amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",
   verdeFloresta:"#00C64C",verdeEscuro:"#00904C",
   danger:"#DC3545",
-  neutro:"var(--color-surface-soft)",branco:"var(--color-surface)",
+  neutro:"var(--color-surface-soft)",branco:"#FFFFFF",
   bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",
   textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",
 };

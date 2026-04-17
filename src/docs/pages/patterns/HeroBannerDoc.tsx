@@ -3,7 +3,7 @@ import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFr
 import { RuleCards } from '../../components/RuleCards'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
-const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulClaro: 'var(--color-gov-azul-claro)', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: 'var(--color-gov-verde-escuro)', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: 'var(--color-surface-soft)', gradFrom: 'var(--color-gov-gradient-from)', gradTo: 'var(--color-gov-gradient-to)' }
+const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulClaro: 'var(--color-gov-azul-claro)', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: 'var(--color-gov-verde-escuro)', danger: '#DC3545', branco: '#FFFFFF', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: 'var(--color-surface-soft)', gradFrom: 'var(--color-gov-gradient-from)', gradTo: 'var(--color-gov-gradient-to)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif", mono: "'Fira Code', monospace" }
 const alpha = (c: string, a: number) => `color-mix(in srgb, ${c} ${Math.round(a * 100)}%, transparent)`
 
