@@ -198,13 +198,23 @@ function getRowBreakdownValue(row: Row, breakdown: "status" | "dept" | "priority
 }
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
-/* SVG stopColor/fill não aceita CSS variables — mapa hex para SVGs */
-const SVG_COLOR_LIGHT:Record<string,string>={[C.azulProfundo]:"#004B9B",[C.azulEscuro]:"#002A68",[C.verdeFloresta]:"#00C64C",[C.verdeEscuro]:"#00904C",[C.amareloEscuro]:"#F6921E",[C.danger]:"#DC3545",[C.azulCeu]:"#93BDE4"};
-const SVG_COLOR_DARK:Record<string,string>={[C.azulProfundo]:"#93BDE4",[C.azulEscuro]:"#658EC9",[C.verdeFloresta]:"#00C64C",[C.verdeEscuro]:"#8BE5AD",[C.amareloEscuro]:"#F6921E",[C.danger]:"#DC3545",[C.azulCeu]:"#93BDE4"};
+/* SVG stopColor/fill não aceita CSS variables — resolve para hex */
+function svgHex(c:string,dark:boolean):string{
+  if(!c.startsWith("var("))return c;
+  const map:Record<string,{l:string,d:string}>={
+    "var(--color-gov-azul-profundo)":{l:"#004B9B",d:"#93BDE4"},
+    "var(--color-gov-azul-escuro)":{l:"#002A68",d:"#658EC9"},
+    "var(--color-gov-azul-claro)":{l:"#658EC9",d:"#93BDE4"},
+    "var(--color-gov-verde-escuro)":{l:"#00904C",d:"#8BE5AD"},
+    "var(--color-fg-muted)":{l:"#6b7784",d:"#A1A1AA"},
+    "var(--color-fg)":{l:"#333B41",d:"#E2E2E8"},
+  };
+  const m=map[c];return m?(dark?m.d:m.l):c;
+}
 
 export default function DSFIPSDashboard(){
   const {dark}=useFipsTheme();
-  const svgC=(c:string)=>(dark?SVG_COLOR_DARK:SVG_COLOR_LIGHT)[c]||c;
+  const svgC=(c:string)=>svgHex(c,dark);
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
