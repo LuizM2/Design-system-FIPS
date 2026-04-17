@@ -37,7 +37,7 @@ export function PageHero({
       )}
     >
       <div
-        className="absolute inset-0 bg-gradient-to-br from-[#031a3d] via-[var(--color-fips-blue-900)] to-[#1b6fd4]"
+        className="absolute inset-0 bg-gradient-to-br from-[#031a3d] via-[var(--color-fips-blue-900)] to-[#1b6fd4] dark:bg-[#333B41] dark:bg-none"
         aria-hidden
       />
       <div

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Saira+Expanded:wght@500;600;700&display=swap');
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
   --font-heading: 'Saira Expanded', 'Open Sans', ui-sans-serif, system-ui, sans-serif;
@@ -160,6 +162,28 @@
     --color-sidebar: #1A1A1A;
     --color-sidebar-deep: #0a0c10;
     --color-sidebar-soft: #222222;
+  }
+
+  /* ─── Dark mode: hero banner das doc pages ─── */
+  .dark main > div > header:first-of-type {
+    background: #333B41 !important;
+  }
+
+  /* Junction lines SVG — stroke ouro visível no fundo escuro */
+  .dark main > div > header:first-of-type > svg path {
+    stroke: #FDC24E !important;
+  }
+
+  /* ─── Dark mode: doc page section titles (h2) azul → light ─── */
+  .dark main h2[style*="color: rgb(0, 42, 104)"],
+  .dark main h2[style*="color:#002A68"],
+  .dark main h2[style*="#002A68"] {
+    color: #E2E2E8 !important;
+  }
+
+  /* ─── Dark mode: guide cards (ButtonDoc, etc.) label azulClaro ─── */
+  .dark main [style*="letter-spacing: 1.2px"][style*="uppercase"] {
+    color: #93BDE4 !important;
   }
 
   html {

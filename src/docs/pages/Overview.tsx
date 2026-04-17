@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import { useFipsTheme } from "../../hooks/useFipsTheme";
 
 const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+
+/* ─── Dark mode: remapeia azuis escuros para tons visíveis ─── */
+const _darkMap:Record<string,string>={"#004B9B":"#93BDE4","#002A68":"#658EC9","#00904C":"#8BE5AD"};
+function dk(color:string,dark:boolean):string{return dark?(_darkMap[color]??color):color;}
 
 const Ic={
   grid:(s:number=14,c:string=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
@@ -100,6 +105,7 @@ export default function DSFIPSOverview(){
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
   const [hovComp,setHovComp]=useState(-1);
+  const {dark}=useFipsTheme();
 
   return(
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
@@ -123,16 +129,16 @@ export default function DSFIPSOverview(){
       <div style={{padding:mob?"24px 16px 40px":"40px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Princípios de design" desc="Quatro pilares que guiam todas as decisões visuais e de interação do ecossistema FIPS.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"1fr 1fr 1fr 1fr",gap:mob?10:16}}>
-            {principles.map((p,i)=>(
-              <div key={i} style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden",boxShadow:"0 2px 8px rgba(0,75,155,.05)"}}>
-                <div style={{height:3,background:`linear-gradient(90deg,${p.color},${p.color}60)`}}/>
+            {principles.map((p,i)=>{const c=dk(p.color,dark);return(
+              <div key={i} style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden",boxShadow:dark?"0 2px 12px rgba(0,0,0,.25)":"0 2px 8px rgba(0,75,155,.05)"}}>
+                <div style={{height:3,background:`linear-gradient(90deg,${c},${c}60)`}}/>
                 <div style={{padding:mob?"14px 12px":"20px 20px 18px",textAlign:"center"}}>
-                  <div style={{width:mob?40:50,height:mob?40:50,borderRadius:"50%",background:C.bg,border:`1.5px solid ${C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>{p.icon(mob?18:22,p.color)}</div>
+                  <div style={{width:mob?40:50,height:mob?40:50,borderRadius:"50%",background:dark?`${c}12`:C.bg,border:`1.5px solid ${dark?`${c}25`:C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>{p.icon(mob?18:22,c)}</div>
                   <h3 style={{fontSize:mob?12:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{p.title}</h3>
                   <p style={{fontSize:mob?10:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body}}>{p.desc}</p>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </Section>
 
@@ -243,15 +249,15 @@ export default function DSFIPSOverview(){
 
         <Section n="05" title="Catálogo de componentes" desc="14 componentes documentados com playground interativo, variantes, cenários de negócio e tokens de referência.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:0,border:`1px solid ${C.cardBorder}`,borderRadius:"12px 12px 12px 24px",overflow:"hidden",background:C.cardBg}}>
-            {components.map((comp,i)=>{const isHov=hovComp===i;return(
-              <div key={comp.name} onMouseEnter={()=>setHovComp(i)} onMouseLeave={()=>setHovComp(-1)} style={{display:"flex",alignItems:"center",gap:14,padding:"14px 18px",cursor:"pointer",transition:"all .15s",background:isHov?`${comp.color}08`:"transparent",borderBottom:((!mob&&i>=12)||(mob&&i===components.length-1))?"none":`1px solid ${C.cardBorder}`,borderRight:!mob&&i%2===0?`1px solid ${C.cardBorder}`:"none"}}>
-                <span style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:isHov?comp.color:C.textLight,minWidth:20,transition:"color .15s"}}>{String(i+1).padStart(2,"0")}</span>
-                <div style={{width:32,height:32,borderRadius:8,background:`${comp.color}${isHov?"20":"0D"}`,display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",flexShrink:0}}>{comp.icon(16,comp.color)}</div>
+            {components.map((comp,i)=>{const isHov=hovComp===i;const cc=dk(comp.color,dark);return(
+              <div key={comp.name} onMouseEnter={()=>setHovComp(i)} onMouseLeave={()=>setHovComp(-1)} style={{display:"flex",alignItems:"center",gap:14,padding:"14px 18px",cursor:"pointer",transition:"all .15s",background:isHov?`${cc}08`:"transparent",borderBottom:((!mob&&i>=12)||(mob&&i===components.length-1))?"none":`1px solid ${C.cardBorder}`,borderRight:!mob&&i%2===0?`1px solid ${C.cardBorder}`:"none"}}>
+                <span style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:isHov?cc:C.textLight,minWidth:20,transition:"color .15s"}}>{String(i+1).padStart(2,"0")}</span>
+                <div style={{width:32,height:32,borderRadius:8,background:`${cc}${isHov?"20":"0D"}`,display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",flexShrink:0}}>{comp.icon(16,cc)}</div>
                 <div style={{flex:1,minWidth:0}}>
-                  <span style={{fontSize:13,fontWeight:700,color:isHov?comp.color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",transition:"color .15s"}}>{comp.name}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:isHov?cc:C.cinzaEscuro,fontFamily:Fn.title,display:"block",transition:"color .15s"}}>{comp.name}</span>
                   <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",display:"block"}}>{comp.desc}</span>
                 </div>
-                <div style={{opacity:isHov?1:0,transition:"opacity .15s",flexShrink:0}}>{Ic.arrow(12,comp.color)}</div>
+                <div style={{opacity:isHov?1:0,transition:"opacity .15s",flexShrink:0}}>{Ic.arrow(12,cc)}</div>
               </div>
             )})}
           </div>
