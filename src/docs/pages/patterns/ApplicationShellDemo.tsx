@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
+import { useFipsTheme } from '../../../hooks/useFipsTheme'
 import {
   AppWindow,
   Bell,
@@ -166,6 +167,7 @@ function MockupFrame({
   className?: string
   children: ReactNode
 }) {
+  const { dark } = useFipsTheme()
   const shellClasses =
     viewport === 'desktop'
       ? 'rounded-[38px] border border-[#16345f] bg-[#081426] p-3'
@@ -210,7 +212,7 @@ function MockupFrame({
           </div>
         ) : null}
 
-        <div className={cn('overflow-hidden bg-[#eef4fb]', screenClasses, viewport !== 'desktop' && 'mt-4')}>
+        <div className={cn('overflow-hidden', dark ? 'bg-[#1A1A1A]' : 'bg-[#eef4fb]', screenClasses, viewport !== 'desktop' && 'mt-4')}>
           {children}
         </div>
       </div>
@@ -519,16 +521,17 @@ function ShellSidebar({
 }
 
 function HeroMetricCard({ metric }: { metric: MetricCard }) {
+  const { dark } = useFipsTheme()
   const Icon = metric.icon
 
   return (
-    <Card className={cn('border-l-4 bg-white/[0.96] shadow-[0_16px_40px_rgba(6,37,74,0.14)] backdrop-blur-sm', metric.border)}>
+    <Card className={cn('border-l-4 backdrop-blur-sm', dark ? 'bg-[#222222] shadow-[0_16px_40px_rgba(0,0,0,0.3)]' : 'bg-white/[0.96] shadow-[0_16px_40px_rgba(6,37,74,0.14)]', metric.border)}>
       <CardContent className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-medium text-[var(--color-fg-muted)]">{metric.label}</p>
           <p className="mt-1 text-3xl font-semibold text-[var(--color-primary)]">{metric.value}</p>
         </div>
-        <div className={cn('flex h-11 w-11 items-center justify-center rounded-2xl', metric.iconBg, metric.iconColor)}>
+        <div className={cn('flex h-11 w-11 items-center justify-center rounded-2xl', dark ? 'bg-white/[0.06]' : metric.iconBg, metric.iconColor)}>
           <Icon className="h-5 w-5" aria-hidden />
         </div>
       </CardContent>
@@ -553,6 +556,7 @@ function ShellCanvas({
   onToggleDesktopSidebar: () => void
   onToggleMobileDrawer: () => void
 }) {
+  const { dark } = useFipsTheme()
   const isDesktop = viewport === 'desktop'
   const isTablet = viewport === 'tablet'
   const isMobile = viewport === 'mobile'
@@ -560,7 +564,7 @@ function ShellCanvas({
   const sidebarCollapsed = isTablet || desktopCollapsed
 
   return (
-    <div className="relative flex h-full overflow-hidden bg-[#eef4fb]">
+    <div className={cn('relative flex h-full overflow-hidden', dark ? 'bg-[#1A1A1A]' : 'bg-[#eef4fb]')}>
       {showPersistentSidebar ? (
         <ShellSidebar
           collapsed={sidebarCollapsed}
@@ -572,12 +576,12 @@ function ShellCanvas({
 
       <div className="relative flex min-w-0 flex-1 flex-col">
         {/* Header — bloco separado estilo Tecnopano */}
-        <header className="z-20 flex shrink-0 items-center gap-3 border-b border-[#e5e5e5] bg-[#f5f5f5] px-4 py-2.5">
+        <header className={cn('z-20 flex shrink-0 items-center gap-3 border-b px-4 py-2.5', dark ? 'border-[#2E2E2E] bg-[#252525]' : 'border-[#e5e5e5] bg-[#f5f5f5]')}>
           {isMobile ? (
             <button
               type="button"
               onClick={onToggleMobileDrawer}
-              className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-black/[0.10] bg-white/90 text-neutral-800"
+              className={cn('flex h-9 w-9 items-center justify-center rounded-[10px] border', dark ? 'border-[#3a3a3a] bg-[#222222] text-[#E2E2E8]' : 'border-black/[0.10] bg-white/90 text-neutral-800')}
               aria-label="Abrir menu"
             >
               <Menu className="h-[17px] w-[17px]" aria-hidden />
@@ -685,7 +689,7 @@ function ShellCanvas({
 
         <div className={cn('no-scrollbar flex-1 overflow-auto', isDesktop ? 'px-6 pb-6 pt-2' : isTablet ? 'px-5 pb-5 pt-2' : 'px-4 pb-5 pt-2')}>
           <div className={cn('grid gap-4', isDesktop ? 'lg:grid-cols-[minmax(0,1.45fr)_0.92fr]' : 'grid-cols-1')}>
-            <Card className="border-white/[0.8] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
+            <Card className="border-[var(--color-border)] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
               <CardContent className="space-y-4">
                 <div>
                   <p className="text-sm font-semibold text-[var(--color-fg)]">Área principal</p>
@@ -732,7 +736,7 @@ function ShellCanvas({
               </CardContent>
             </Card>
 
-            <Card className="border-white/[0.8] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
+            <Card className="border-[var(--color-border)] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
               <CardContent className="space-y-3">
                 <p className="text-sm font-semibold text-[var(--color-fg)]">Notas visuais</p>
                 {secondaryNotes.map((item) => (
