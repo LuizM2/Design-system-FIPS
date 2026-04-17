@@ -8,8 +8,9 @@ import {
   LuUser, LuBuilding2, LuMail,
 } from "react-icons/lu";
 
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 
 const iconMap: Record<string, IconType> = {
   home: LuHouse, grid: LuLayoutGrid, list: LuList, chart: LuChartColumnIncreasing,
@@ -70,7 +71,7 @@ export default function DSFIPSIconography(){
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,var(--color-gov-gradient-from) 0%,var(--color-gov-gradient-to) 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}><LuLayoutGrid size={14} color={C.amareloOuro} /> Design System FIPS</div>
@@ -94,7 +95,7 @@ export default function DSFIPSIconography(){
                 <div style={{display:"grid",gridTemplateColumns:mob?"repeat(3,1fr)":"repeat(6,1fr)",gap:8}}>
                   {cat.icons.map(ic=>{const isHov=hovIcon===ic.id;return(
                     <div key={ic.id} onMouseEnter={()=>setHovIcon(ic.id)} onMouseLeave={()=>setHovIcon(null)} style={{background:C.cardBg,border:`1px solid ${isHov?C.azulProfundo:C.cardBorder}`,borderRadius:10,padding:"16px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:8,cursor:"default",transition:"all .15s",boxShadow:isHov?"0 4px 12px rgba(0,75,155,.08)":"none"}}>
-                      <div style={{width:selSize+16,height:selSize+16,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:8,background:isHov?`${C.azulProfundo}08`:C.bg,transition:"background .15s"}}>
+                      <div style={{width:selSize+16,height:selSize+16,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:8,background:isHov?alpha(C.azulProfundo,0.03):C.bg,transition:"background .15s"}}>
                         <Ic id={ic.id} size={selSize} color={isHov?C.azulProfundo:C.cinzaEscuro} />
                       </div>
                       <span style={{fontSize:10,fontWeight:600,color:isHov?C.azulProfundo:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",transition:"color .15s"}}>{ic.label}</span>
@@ -159,14 +160,14 @@ export default function DSFIPSIconography(){
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",padding:mob?16:20}}>
               <span style={{fontSize:11,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:12}}>Header de modal</span>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
-                <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><Ic id="doc" size={24} color={C.azulProfundo} /></div>
+                <div style={{width:48,height:48,borderRadius:14,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><Ic id="doc" size={24} color={C.azulProfundo} /></div>
                 <div><span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Nova Requisição</span><span style={{fontSize:12,color:C.cinzaChumbo}}>Preencha os dados abaixo</span></div>
               </div>
             </div>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",padding:mob?16:20}}>
               <span style={{fontSize:11,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:12}}>Containers com fundo</span>
               <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
-                {[{bg:`${C.azulProfundo}0A`,ic:C.azulProfundo,l:"Info"},{bg:`${C.verdeFloresta}0A`,ic:C.verdeFloresta,l:"Sucesso"},{bg:`${C.amareloEscuro}0A`,ic:C.amareloEscuro,l:"Atenção"},{bg:`${C.danger}0A`,ic:C.danger,l:"Destrutivo"}].map(c=>(
+                {[{bg:alpha(C.azulProfundo,0.04),ic:C.azulProfundo,l:"Info"},{bg:`${C.verdeFloresta}0A`,ic:C.verdeFloresta,l:"Sucesso"},{bg:`${C.amareloEscuro}0A`,ic:C.amareloEscuro,l:"Atenção"},{bg:`${C.danger}0A`,ic:C.danger,l:"Destrutivo"}].map(c=>(
                   <div key={c.l} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:6}}>
                     <div style={{width:48,height:48,borderRadius:14,background:c.bg,display:"flex",alignItems:"center",justifyContent:"center"}}><Ic id="bell" size={22} color={c.ic} /></div>
                     <span style={{fontSize:10,color:C.cinzaChumbo,fontFamily:Fn.body}}>{c.l}</span>

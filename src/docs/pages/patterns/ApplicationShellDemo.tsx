@@ -788,7 +788,7 @@ export default function ApplicationShellDemo() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
-      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+      <header style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
           <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
           <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
@@ -809,13 +809,13 @@ export default function ApplicationShellDemo() {
       <div style={{ padding: '36px 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
 
       <RuleCards cards={[
-        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Estrutura fixa do shell', desc: 'Todo produto FIPS segue a mesma hierarquia visual: sidebar de navegação à esquerda, header com toolbar no topo, hero institucional com foto e degradê, e área de conteúdo abaixo. Essa ordem nunca muda.' },
+        { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Estrutura fixa do shell', desc: 'Todo produto FIPS segue a mesma hierarquia visual: sidebar de navegação à esquerda, header com toolbar no topo, hero institucional com foto e degradê, e área de conteúdo abaixo. Essa ordem nunca muda.' },
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Layout base de todo produto', desc: 'O Application Shell é o ponto de partida obrigatório para qualquer tela de produto FIPS. Ele garante consistência entre módulos diferentes — navegação, identidade visual e hierarquia de informação já vêm resolvidas.' },
-        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Responsividade em três faixas', desc: 'No desktop a sidebar fica sempre visível e pode ser recolhida. No tablet ela aparece como rail compacto (só ícones). No celular a sidebar desaparece e vira um drawer que abre por cima do conteúdo.' },
+        { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Responsividade em três faixas', desc: 'No desktop a sidebar fica sempre visível e pode ser recolhida. No tablet ela aparece como rail compacto (só ícones). No celular a sidebar desaparece e vira um drawer que abre por cima do conteúdo.' },
       ]} />
 
       {/* Banner de Conteúdo */}
-      <div style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 60%, #001A4A 100%)', borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,42,104,.12)', marginTop: 32, marginBottom: 32 }}>
+      <div style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 60%, #001A4A 100%)', borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,42,104,.12)', marginTop: 32, marginBottom: 32 }}>
         <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.06, position: 'absolute', top: -10, right: -20, width: 360, height: 200 }}>
           <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
           <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />

@@ -1,9 +1,11 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFromLine } from 'lucide-react'
 import { RuleCards } from '../../components/RuleCards'
+import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
-const C = { azulProfundo: '#004B9B', azulEscuro: '#002A68', azulClaro: '#658EC9', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: '#00904C', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: 'var(--color-surface-soft)' }
+const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulClaro: 'var(--color-gov-azul-claro)', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', amareloOuro: '#FDC24E', amareloEscuro: '#F6921E', verdeFloresta: '#00C64C', verdeEscuro: 'var(--color-gov-verde-escuro)', danger: '#DC3545', branco: 'var(--color-surface)', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', azulCeuClaro: '#D3E3F4', textLight: 'var(--color-fg-muted)', neutro: 'var(--color-surface-soft)', gradFrom: 'var(--color-gov-gradient-from)', gradTo: 'var(--color-gov-gradient-to)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif", mono: "'Fira Code', monospace" }
+const alpha = (c: string, a: number) => `color-mix(in srgb, ${c} ${Math.round(a * 100)}%, transparent)`
 
 /* ─── Junction Lines SVG ─── */
 function JunctionLines({ style }: { style?: React.CSSProperties }) {
@@ -39,7 +41,7 @@ function DSCard({ children, s, mob: m }: { children: ReactNode; s?: React.CSSPro
 /* ─── Banner Padrão de Página (modelo da Overview) ─── */
 function BannerPadrao() {
   return (
-    <div style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 100%)`, padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', borderRadius: 12 }}>
+    <div style={{ background: `linear-gradient(135deg, ${C.gradFrom} 0%, ${C.gradTo} 100%)`, padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', borderRadius: 12 }}>
       <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 400, height: 250 }} />
       <div style={{ position: 'relative' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: C.amareloOuro, fontFamily: Fn.title, marginBottom: 16 }}>
@@ -67,7 +69,7 @@ function BannerPadrao() {
 /* ─── Banner de Página com Badges ─── */
 function BannerPaginaComBadges() {
   return (
-    <div style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 100%)`, padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', borderRadius: 12 }}>
+    <div style={{ background: `linear-gradient(135deg, ${C.gradFrom} 0%, ${C.gradTo} 100%)`, padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', borderRadius: 12 }}>
       <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 400, height: 250 }} />
       <div style={{ position: 'relative' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: C.amareloOuro, fontFamily: Fn.title, marginBottom: 16 }}>
@@ -101,9 +103,10 @@ function BannerPaginaComBadges() {
 
 /* ─── Banner de Conteúdo — Opção 1 (compacto, CTA à direita) ─── */
 function BannerConteudo1() {
+  const { dark } = useFipsTheme()
   return (
-    <div style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 60%, #001A4A 100%)`, borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,42,104,.12)' }}>
-      <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 360, height: 200, opacity: 0.06 }} />
+    <div style={{ background: dark ? 'linear-gradient(135deg, #1e2a3a 0%, #162030 50%, #1a2840 100%)' : `linear-gradient(135deg, ${C.gradFrom} 0%, ${C.gradTo} 60%, #001A4A 100%)`, borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: dark ? '0 4px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04)' : '0 4px 20px rgba(0,42,104,.12)', border: dark ? '1px solid rgba(147,189,228,0.08)' : 'none' }}>
+      <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 360, height: 200, opacity: dark ? 0.04 : 0.06 }} />
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
         <div style={{ width: 44, height: 44, borderRadius: 11, background: `${C.amareloOuro}18`, border: `1px solid ${C.amareloOuro}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <FileDown size={20} color={C.amareloOuro} />
@@ -122,6 +125,7 @@ function BannerConteudo1() {
 
 /* ─── Banner de Conteúdo — Opção 2 (fluxo com status badges) ─── */
 function BannerConteudo2() {
+  const { dark } = useFipsTheme()
   const stats = [
     { label: 'TOTAL', value: '1012', color: C.verdeFloresta },
     { label: 'AGUARDANDO', value: '1004', color: C.amareloEscuro },
@@ -129,8 +133,8 @@ function BannerConteudo2() {
     { label: 'ENTREGUES', value: '2', color: C.danger },
   ]
   return (
-    <div style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 60%, #001A4A 100%)`, borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,42,104,.12)' }}>
-      <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 360, height: 200, opacity: 0.06 }} />
+    <div style={{ background: dark ? 'linear-gradient(135deg, #1e2a3a 0%, #162030 50%, #1a2840 100%)' : `linear-gradient(135deg, ${C.gradFrom} 0%, ${C.gradTo} 60%, #001A4A 100%)`, borderRadius: '12px 12px 12px 24px', padding: '22px 26px', position: 'relative', overflow: 'hidden', boxShadow: dark ? '0 4px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04)' : '0 4px 20px rgba(0,42,104,.12)', border: dark ? '1px solid rgba(147,189,228,0.08)' : 'none' }}>
+      <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: 360, height: 200, opacity: dark ? 0.04 : 0.06 }} />
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 10 }}>
@@ -169,14 +173,14 @@ export default function HeroBannerDoc() {
     <div style={{ minHeight: '100vh', background: "var(--color-surface-muted)", fontFamily: Fn.body, color: C.cinzaEscuro }}>
 
       {/* HEADER HERO */}
-      <header style={{ background: `linear-gradient(135deg, ${C.azulProfundo} 0%, ${C.azulEscuro} 100%)`, padding: mob ? '32px 20px' : '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+      <header style={{ background: `linear-gradient(135deg, ${C.gradFrom} 0%, ${C.gradTo} 100%)`, padding: mob ? '32px 20px' : '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: mob ? 250 : 400, height: 250 }} />
         <div style={{ position: 'relative' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: `${C.branco}10`, border: `1px solid ${C.branco}18`, borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: C.amareloOuro, fontFamily: Fn.title, marginBottom: 16 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: C.amareloOuro, fontFamily: Fn.title, marginBottom: 16 }}>
             <LayoutGrid size={14} color={C.amareloOuro} /> Design System FIPS
           </div>
           <h1 style={{ fontSize: mob ? 30 : 44, fontWeight: 700, color: C.branco, margin: '0 0 10px', fontFamily: Fn.title }}>Banner</h1>
-          <p style={{ fontSize: 16, color: `${C.branco}B0`, lineHeight: 1.6, maxWidth: 700, margin: 0, fontFamily: Fn.body }}>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', lineHeight: 1.6, maxWidth: 700, margin: 0, fontFamily: Fn.body }}>
             Catálogo de banners padronizados do DS-FIPS. Três variantes para cobrir desde landing pages até módulos operacionais com fluxos e KPIs. Degradê azul institucional como fundo obrigatório.
           </p>
         </div>
@@ -186,9 +190,9 @@ export default function HeroBannerDoc() {
 
         <div style={{ marginBottom: 44 }}>
           <RuleCards mob={mob} cards={[
-            { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Banner de Página', desc: 'Hero completo com título grande, descrição, badges e arte decorativa. Usado em landing pages, visões gerais de módulo e páginas de documentação standalone que precisam de impacto visual.' },
+            { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: alpha(C.azulProfundo, 0.03), tag: 'REGRA 1', title: 'Banner de Página', desc: 'Hero completo com título grande, descrição, badges e arte decorativa. Usado em landing pages, visões gerais de módulo e páginas de documentação standalone que precisam de impacto visual.' },
             { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Banner de Conteúdo', desc: 'Faixa compacta de uma linha com ícone à esquerda, título + subtítulo e botão de ação à direita. Ideal para cabeçalhos de módulos operacionais como Requisições, Cadastros ou qualquer tela com ação primária.' },
-            { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Banner de Fluxo', desc: 'Variante com badges de status e cadeia de etapas visível (ex: Solicitação → Aprovação → Entrega). Usado em módulos com fluxo sequencial e KPIs por etapa, como Pedidos, Produção e Aprovações.' },
+            { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: alpha(C.azulEscuro, 0.03), tag: 'REGRA 3', title: 'Banner de Fluxo', desc: 'Variante com badges de status e cadeia de etapas visível (ex: Solicitação → Aprovação → Entrega). Usado em módulos com fluxo sequencial e KPIs por etapa, como Pedidos, Produção e Aprovações.' },
           ]} />
         </div>
 

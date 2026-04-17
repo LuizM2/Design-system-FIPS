@@ -116,7 +116,7 @@ const workspaceStyles = `
   }
 
   .ws-footer {
-    background: linear-gradient(135deg, #002a68 0%, #004b9b 50%, #0090d0 100%);
+    background: linear-gradient(135deg, var(--color-gov-gradient-to) 0%, var(--color-gov-gradient-from) 50%, #0090d0 100%);
     position: relative;
     overflow: hidden;
   }
@@ -247,7 +247,7 @@ export default function FormWorkspaceDemo() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
-      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+      <header style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
           <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
           <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
@@ -276,7 +276,7 @@ export default function FormWorkspaceDemo() {
             <div
               className="relative overflow-hidden border-b border-[var(--color-border)] px-7 py-5"
               style={{
-                background: 'linear-gradient(135deg, #004B9B 0%, #002A68 60%, #001A4A 100%)',
+                background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 60%, #001A4A 100%)',
               }}
             >
               {/* Junction lines SVG */}
@@ -321,7 +321,7 @@ export default function FormWorkspaceDemo() {
                   <div className="relative grid gap-2 sm:grid-cols-2">
                     {([
                       { label: 'Obrigatórios', value: '8/10', helper: 'campos essenciais', icon: FileCheck, color: '#93BDE4' },
-                      { label: 'Locais', value: '3 pares', helper: 'local e sublocal', icon: MapPin, color: '#658EC9' },
+                      { label: 'Locais', value: '3 pares', helper: 'local e sublocal', icon: MapPin, color: 'var(--color-gov-azul-claro)' },
                       { label: 'Cadeia', value: 'Pronta', helper: 'aprovador definido', icon: CheckCircle2, color: '#00C64C' },
                       { label: 'RC SAP', value: 'Depois', helper: 'informado após criação', icon: Clock, color: '#FDC24E' },
                     ] as const).map(({ label, value, helper, icon: Icon, color }) => (
@@ -607,9 +607,9 @@ export default function FormWorkspaceDemo() {
       </div>
 
       <RuleCards cards={[
-        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Formulário em página inteira com seções', desc: 'O Form Workspace é um layout de página inteira para formulários densos. O conteúdo é dividido em seções numeradas (01, 02, 03...), cada uma com título e descrição, e um card de resumo no topo mostra o progresso geral.' },
+        { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Formulário em página inteira com seções', desc: 'O Form Workspace é um layout de página inteira para formulários densos. O conteúdo é dividido em seções numeradas (01, 02, 03...), cada uma com título e descrição, e um card de resumo no topo mostra o progresso geral.' },
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Formulário à esquerda, contexto à direita', desc: 'Em telas largas, o layout se divide em duas colunas: o formulário principal ocupa a esquerda e o painel de contexto (navegação rápida, checklist, status) fica à direita. Em telas menores, tudo empilha verticalmente.' },
-        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Quando usar em vez do modal', desc: 'Use o Form Workspace quando o formulário tem muitas seções, campos complementares e contexto lateral que não cabem em um modal. Ideal para cadastros complexos, solicitações com múltiplas etapas e fluxos que exigem visão completa dos dados.' },
+        { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Quando usar em vez do modal', desc: 'Use o Form Workspace quando o formulário tem muitas seções, campos complementares e contexto lateral que não cabem em um modal. Ideal para cadastros complexos, solicitações com múltiplas etapas e fluxos que exigem visão completa dos dados.' },
       ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>

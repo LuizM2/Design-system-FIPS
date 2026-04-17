@@ -98,7 +98,7 @@ export default function HeroHeaderDoc() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
-      <header style={{ background: 'linear-gradient(135deg, #004B9B 0%, #002A68 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
+      <header style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
         <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
           <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
           <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
@@ -119,14 +119,14 @@ export default function HeroHeaderDoc() {
       <div style={{ padding: '36px 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
 
       <RuleCards cards={[
-        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Header adaptativo glass-to-white', desc: 'Na Home, o header começa transparente com efeito vidro (glass) sobre a imagem do hero, criando imersão visual. Ao rolar a página, ele transiciona suavemente para fundo branco sólido com sombra.' },
+        { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Header adaptativo glass-to-white', desc: 'Na Home, o header começa transparente com efeito vidro (glass) sobre a imagem do hero, criando imersão visual. Ao rolar a página, ele transiciona suavemente para fundo branco sólido com sombra.' },
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Exclusivo da página Home', desc: 'Este padrão de header glass só deve ser usado na Home do aplicativo. Todas as outras rotas (módulos, formulários, listagens) usam o header branco estático padrão — nunca aplique glass fora da Home.' },
-        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Transição suave ao rolar', desc: 'A mudança de glass para branco acontece quando o usuário rola além de 60px. A animação dura 300ms e é fluida. Isso garante que o header fique legível tanto sobre a imagem do hero quanto sobre o conteúdo claro abaixo.' },
+        { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Transição suave ao rolar', desc: 'A mudança de glass para branco acontece quando o usuário rola além de 60px. A animação dura 300ms e é fluida. Isso garante que o header fique legível tanto sobre a imagem do hero quanto sobre o conteúdo claro abaixo.' },
       ]} />
 
       {/* PageHero — faixa de módulo */}
       <section style={{ marginTop: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>PageHero — faixa de módulo (não é este padrão)</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>PageHero — faixa de módulo (não é este padrão)</h2>
         <p style={{ fontSize: 14, color: '#7B8C96', marginBottom: 16, lineHeight: 1.55 }}>
           Produção, Governança e demais telas internas usam esta faixa azul padrão — não o header glass da
           Home. O trem/trilhos vêm da mesma arte base ({PAGE_HERO_DEFAULT_DECORATION}).
@@ -146,14 +146,14 @@ export default function HeroHeaderDoc() {
 
       {/* Demo interativa */}
       <section style={{ marginTop: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Demo interativa — role o conteúdo</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Demo interativa — role o conteúdo</h2>
         <HeroHeaderDemo />
       </section>
 
 
       {/* Implementação */}
       <section style={{ marginTop: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Implementação</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Implementação</h2>
         <p style={{ fontSize: 14, color: '#7B8C96', lineHeight: 1.55 }}>
           O padrão está implementado no <strong>fips-suprimentos</strong> (App.tsx + Home.tsx)
           e segue o mesmo layout do <strong>ApplicationShell</strong>.
@@ -163,7 +163,7 @@ export default function HeroHeaderDoc() {
 
       {/* Regra de cores por fundo */}
       <section style={{ marginTop: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#002A68', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Regra de cores por fundo</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Regra de cores por fundo</h2>
         <div className="overflow-hidden rounded-2xl border border-[var(--color-border)]">
           <table className="w-full text-sm">
             <thead>

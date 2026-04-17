@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useFipsTheme } from "../../hooks/useFipsTheme";
 
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",gradFrom:"var(--color-gov-gradient-from)",gradTo:"var(--color-gov-gradient-to)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
-/* ─── Dark mode: remapeia azuis escuros para tons visíveis ─── */
-const _darkMap:Record<string,string>={"#004B9B":"#93BDE4","#002A68":"#658EC9","#00904C":"#8BE5AD"};
-function dk(color:string,dark:boolean):string{return dark?(_darkMap[color]??color):color;}
+/* ─── Helper: alpha channel via color-mix (works with CSS vars) ─── */
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 
 const Ic={
   grid:(s:number=14,c:string=C.amareloOuro)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
@@ -38,10 +37,10 @@ function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSPropert
 function TokenRow({label,value,color}:{label:string,value:string,color?:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:140}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
 const principles=[
-  {icon:Ic.link,title:"Consistência",desc:"Todos os apps FIPS compartilham os mesmos tokens, componentes e padrões de interação. Um usuário do App Suprimentos se sente em casa no App Ocorrências.",color:C.azulProfundo,bg:`${C.azulProfundo}18`},
-  {icon:Ic.eye,title:"Acessibilidade",desc:"Contrastes WCAG AA, tamanhos mínimos de toque 42px no mobile, labels sempre visíveis, estados de foco em todos os interativos.",color:C.verdeFloresta,bg:`${C.verdeFloresta}18`},
-  {icon:Ic.zap,title:"Eficiência",desc:"Componentes prontos para uso com opções claras de personalização. Menos tempo projetando, mais tempo resolvendo problemas do negócio ferroviário.",color:C.amareloEscuro,bg:`${C.amareloEscuro}18`},
-  {icon:Ic.train,title:"Identidade Ferroviária",desc:"Elemento caixa, linhas de junção, cores do Brandbook FIPS. Cada tela carrega a identidade da Ferrovia Interna do Porto de Santos.",color:C.azulCeu,bg:`${C.azulCeu}25`},
+  {icon:Ic.link,title:"Consistência",desc:"Todos os apps FIPS compartilham os mesmos tokens, componentes e padrões de interação. Um usuário do App Suprimentos se sente em casa no App Ocorrências.",color:C.azulProfundo,bg:alpha(C.azulProfundo,.09)},
+  {icon:Ic.eye,title:"Acessibilidade",desc:"Contrastes WCAG AA, tamanhos mínimos de toque 42px no mobile, labels sempre visíveis, estados de foco em todos os interativos.",color:C.verdeFloresta,bg:alpha(C.verdeFloresta,.09)},
+  {icon:Ic.zap,title:"Eficiência",desc:"Componentes prontos para uso com opções claras de personalização. Menos tempo projetando, mais tempo resolvendo problemas do negócio ferroviário.",color:C.amareloEscuro,bg:alpha(C.amareloEscuro,.09)},
+  {icon:Ic.train,title:"Identidade Ferroviária",desc:"Elemento caixa, linhas de junção, cores do Brandbook FIPS. Cada tela carrega a identidade da Ferrovia Interna do Porto de Santos.",color:C.azulCeu,bg:alpha(C.azulCeu,.15)},
 ];
 
 const colors={
@@ -111,17 +110,17 @@ export default function DSFIPSOverview(){
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}`}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"40px 20px 36px":"64px 40px 56px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 100%)`,padding:mob?"40px 20px 36px":"64px 40px 56px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:500,height:300}}/>
         <JunctionLines style={{position:"absolute",bottom:-40,left:-60,width:300,height:200,transform:"scaleX(-1)"}}/>
         <div style={{position:"relative",maxWidth:800}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:20}}>{Ic.grid(14,C.amareloOuro)} Visão Geral</div>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:20}}>{Ic.grid(14,C.amareloOuro)} Visão Geral</div>
           <h1 style={{fontSize:mob?32:52,fontWeight:800,color:C.branco,margin:"0 0 12px",fontFamily:Fn.title,lineHeight:1.1,letterSpacing:"-0.5px"}}>Design System<br/><span style={{color:C.amareloOuro}}>FIPS</span></h1>
-          <p style={{fontSize:mob?15:18,color:`${C.branco}B8`,lineHeight:1.65,margin:"0 0 24px",fontFamily:Fn.body,maxWidth:650}}>Sistema de design unificado da Ferrovia Interna do Porto de Santos. Componentes, tokens e padrões para construir aplicações consistentes, acessíveis e com identidade ferroviária.</p>
+          <p style={{fontSize:mob?15:18,color:alpha(C.branco,.72),lineHeight:1.65,margin:"0 0 24px",fontFamily:Fn.body,maxWidth:650}}>Sistema de design unificado da Ferrovia Interna do Porto de Santos. Componentes, tokens e padrões para construir aplicações consistentes, acessíveis e com identidade ferroviária.</p>
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
-            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.verdeFloresta}30`,border:`1px solid ${C.verdeFloresta}50`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:600,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:6,height:6,borderRadius:"50%",background:C.verdeFloresta,animation:"pulse 2s infinite"}}/>v0.4.0</div>
-            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:`${C.branco}CC`,fontFamily:Fn.body}}>14 componentes</div>
-            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:`${C.branco}CC`,fontFamily:Fn.body}}>React + Tailwind</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.verdeFloresta,.19),border:`1px solid ${alpha(C.verdeFloresta,.31)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:600,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:6,height:6,borderRadius:"50%",background:C.verdeFloresta,animation:"pulse 2s infinite"}}/>v0.4.0</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>14 componentes</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>React + Tailwind</div>
           </div>
         </div>
       </header>
@@ -129,11 +128,11 @@ export default function DSFIPSOverview(){
       <div style={{padding:mob?"24px 16px 40px":"40px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Princípios de design" desc="Quatro pilares que guiam todas as decisões visuais e de interação do ecossistema FIPS.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"1fr 1fr 1fr 1fr",gap:mob?10:16}}>
-            {principles.map((p,i)=>{const c=dk(p.color,dark);return(
+            {principles.map((p,i)=>{const c=p.color;return(
               <div key={i} style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden",boxShadow:dark?"0 2px 12px rgba(0,0,0,.25)":"0 2px 8px rgba(0,75,155,.05)"}}>
-                <div style={{height:3,background:`linear-gradient(90deg,${c},${c}60)`}}/>
+                <div style={{height:3,background:`linear-gradient(90deg,${c},${alpha(c,.38)})`}}/>
                 <div style={{padding:mob?"14px 12px":"20px 20px 18px",textAlign:"center"}}>
-                  <div style={{width:mob?40:50,height:mob?40:50,borderRadius:"50%",background:dark?`${c}12`:C.bg,border:`1.5px solid ${dark?`${c}25`:C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>{p.icon(mob?18:22,c)}</div>
+                  <div style={{width:mob?40:50,height:mob?40:50,borderRadius:"50%",background:dark?alpha(c,.07):C.bg,border:`1.5px solid ${dark?alpha(c,.15):C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>{p.icon(mob?18:22,c)}</div>
                   <h3 style={{fontSize:mob?12:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{p.title}</h3>
                   <p style={{fontSize:mob?10:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body}}>{p.desc}</p>
                 </div>
@@ -192,7 +191,7 @@ export default function DSFIPSOverview(){
         <Section n="03" title="Tipografia" desc="Três famílias tipográficas com funções específicas: títulos com personalidade, corpo legível e código técnico.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
             <DSCard mob={mob}>
-              <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.azulProfundo}12`,color:C.cinzaEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Títulos</code>
+              <code style={{fontSize:10,fontFamily:Fn.mono,background:alpha(C.azulProfundo,.07),color:C.cinzaEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Títulos</code>
               <span style={{fontSize:28,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Saira Expanded</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Headers de seção, títulos de página, badges de navegação e labels de destaque.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
@@ -203,7 +202,7 @@ export default function DSFIPSOverview(){
               </div>
             </DSCard>
             <DSCard mob={mob}>
-              <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.verdeFloresta}12`,color:C.verdeEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Corpo</code>
+              <code style={{fontSize:10,fontFamily:Fn.mono,background:alpha(C.verdeFloresta,.07),color:C.verdeEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Corpo</code>
               <span style={{fontSize:28,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.body,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Open Sans</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Textos de corpo, descrições, labels de formulário, conteúdo de tabela e parágrafos.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
@@ -213,7 +212,7 @@ export default function DSFIPSOverview(){
               </div>
             </DSCard>
             <DSCard mob={mob}>
-              <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.amareloEscuro}15`,color:C.amareloEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Mono</code>
+              <code style={{fontSize:10,fontFamily:Fn.mono,background:alpha(C.amareloEscuro,.08),color:C.amareloEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Mono</code>
               <span style={{fontSize:28,fontWeight:500,color:C.cinzaEscuro,fontFamily:Fn.mono,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Fira Code</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Valores numéricos, códigos, IDs, tokens de referência e snippets técnicos.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
@@ -231,17 +230,17 @@ export default function DSFIPSOverview(){
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Elemento Caixa</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.55,margin:"0 0 20px",fontFamily:Fn.body}}>Border-radius assimétrico: três cantos arredondados + canto inferior esquerdo maior. Aplicado em cards, containers, modais e tabelas.</p>
               <div style={{display:"flex",gap:16,alignItems:"center",flexWrap:"wrap"}}>
-                <div style={{width:100,height:70,borderRadius:"12px 12px 12px 24px",background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:10,color:`${C.branco}90`,fontFamily:Fn.mono}}>12 12 12 24</span></div>
-                <div style={{width:80,height:56,borderRadius:"10px 10px 10px 18px",background:`linear-gradient(135deg,${C.verdeFloresta},${C.verdeEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:9,color:`${C.branco}90`,fontFamily:Fn.mono}}>10 10 10 18</span></div>
-                <div style={{width:60,height:42,borderRadius:"8px 8px 8px 14px",background:`linear-gradient(135deg,${C.amareloOuro},${C.amareloEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:8,color:`${C.branco}90`,fontFamily:Fn.mono}}>8 8 8 14</span></div>
+                <div style={{width:100,height:70,borderRadius:"12px 12px 12px 24px",background:`linear-gradient(135deg,${C.gradFrom},${C.gradTo})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:10,color:alpha(C.branco,.56),fontFamily:Fn.mono}}>12 12 12 24</span></div>
+                <div style={{width:80,height:56,borderRadius:"10px 10px 10px 18px",background:`linear-gradient(135deg,${C.verdeFloresta},${C.verdeEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:9,color:alpha(C.branco,.56),fontFamily:Fn.mono}}>10 10 10 18</span></div>
+                <div style={{width:60,height:42,borderRadius:"8px 8px 8px 14px",background:`linear-gradient(135deg,${C.amareloOuro},${C.amareloEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:8,color:alpha(C.branco,.56),fontFamily:Fn.mono}}>8 8 8 14</span></div>
               </div>
             </DSCard>
             <DSCard mob={mob}>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Linhas de Junção Ferroviária</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.55,margin:"0 0 16px",fontFamily:Fn.body}}>Linhas que se dividem em bifurcações, remetendo aos trilhos da ferrovia. Usadas como elemento decorativo em headers e backgrounds.</p>
-              <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"10px 10px 10px 18px",padding:"16px 12px",position:"relative",overflow:"hidden",height:100}}>
+              <div style={{background:`linear-gradient(135deg,${C.gradFrom},${C.gradTo})`,borderRadius:"10px 10px 10px 18px",padding:"16px 12px",position:"relative",overflow:"hidden",height:100}}>
                 <JunctionLines style={{position:"absolute",top:-10,left:-10,width:"120%",height:"120%",opacity:.25}}/>
-                <span style={{position:"relative",fontSize:10,color:`${C.branco}70`,fontFamily:Fn.mono}}>header background pattern</span>
+                <span style={{position:"relative",fontSize:10,color:alpha(C.branco,.44),fontFamily:Fn.mono}}>header background pattern</span>
               </div>
             </DSCard>
           </div>
@@ -249,10 +248,10 @@ export default function DSFIPSOverview(){
 
         <Section n="05" title="Catálogo de componentes" desc="14 componentes documentados com playground interativo, variantes, cenários de negócio e tokens de referência.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:0,border:`1px solid ${C.cardBorder}`,borderRadius:"12px 12px 12px 24px",overflow:"hidden",background:C.cardBg}}>
-            {components.map((comp,i)=>{const isHov=hovComp===i;const cc=dk(comp.color,dark);return(
-              <div key={comp.name} onMouseEnter={()=>setHovComp(i)} onMouseLeave={()=>setHovComp(-1)} style={{display:"flex",alignItems:"center",gap:14,padding:"14px 18px",cursor:"pointer",transition:"all .15s",background:isHov?`${cc}08`:"transparent",borderBottom:((!mob&&i>=12)||(mob&&i===components.length-1))?"none":`1px solid ${C.cardBorder}`,borderRight:!mob&&i%2===0?`1px solid ${C.cardBorder}`:"none"}}>
+            {components.map((comp,i)=>{const isHov=hovComp===i;const cc=comp.color;return(
+              <div key={comp.name} onMouseEnter={()=>setHovComp(i)} onMouseLeave={()=>setHovComp(-1)} style={{display:"flex",alignItems:"center",gap:14,padding:"14px 18px",cursor:"pointer",transition:"all .15s",background:isHov?alpha(cc,.03):"transparent",borderBottom:((!mob&&i>=12)||(mob&&i===components.length-1))?"none":`1px solid ${C.cardBorder}`,borderRight:!mob&&i%2===0?`1px solid ${C.cardBorder}`:"none"}}>
                 <span style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:isHov?cc:C.textLight,minWidth:20,transition:"color .15s"}}>{String(i+1).padStart(2,"0")}</span>
-                <div style={{width:32,height:32,borderRadius:8,background:`${cc}${isHov?"20":"0D"}`,display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",flexShrink:0}}>{comp.icon(16,cc)}</div>
+                <div style={{width:32,height:32,borderRadius:8,background:alpha(cc,isHov?.13:.05),display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",flexShrink:0}}>{comp.icon(16,cc)}</div>
                 <div style={{flex:1,minWidth:0}}>
                   <span style={{fontSize:13,fontWeight:700,color:isHov?cc:C.cinzaEscuro,fontFamily:Fn.title,display:"block",transition:"color .15s"}}>{comp.name}</span>
                   <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",display:"block"}}>{comp.desc}</span>
@@ -287,13 +286,13 @@ export default function DSFIPSOverview(){
         </Section>
 
         <Section n="07" title="Baixar pacotes para IA" desc="Baixe a documentação consolidada ou a skill portátil para usar este design system fora deste projeto.">
-          <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"12px 12px 12px 24px",padding:mob?"24px 20px":"32px 36px",position:"relative",overflow:"hidden"}}>
+          <div style={{background:`linear-gradient(135deg,${C.gradFrom},${C.gradTo})`,borderRadius:"12px 12px 12px 24px",padding:mob?"24px 20px":"32px 36px",position:"relative",overflow:"hidden"}}>
             <JunctionLines style={{position:"absolute",top:-20,right:-30,width:350,height:250,opacity:.08}}/>
             <div style={{position:"relative",display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
               {downloadPackages.map((pkg)=>(
-                <div key={pkg.file} style={{background:`${C.branco}08`,borderRadius:"10px 10px 10px 20px",padding:mob?"18px 16px":"22px 22px 20px",border:`1px solid ${C.branco}10`,display:"flex",flexDirection:"column",gap:16}}>
+                <div key={pkg.file} style={{background:alpha(C.branco,.03),borderRadius:"10px 10px 10px 20px",padding:mob?"18px 16px":"22px 22px 20px",border:`1px solid ${alpha(C.branco,.06)}`,display:"flex",flexDirection:"column",gap:16}}>
                   <div style={{display:"flex",alignItems:"flex-start",gap:14}}>
-                    <div style={{width:52,height:52,borderRadius:16,background:`${C.branco}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <div style={{width:52,height:52,borderRadius:16,background:alpha(C.branco,.08),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                       {pkg.kind==="skill" ? (
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                           <path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" stroke={pkg.accent} strokeWidth="1.8" strokeLinejoin="round"/>
@@ -308,19 +307,19 @@ export default function DSFIPSOverview(){
                       )}
                     </div>
                     <div style={{flex:1,minWidth:0}}>
-                      <span style={{display:"inline-flex",alignItems:"center",gap:6,background:`${pkg.accent}20`,color:pkg.accent,border:`1px solid ${pkg.accent}35`,borderRadius:999,padding:"4px 10px",fontSize:10,fontWeight:700,letterSpacing:"1.1px",textTransform:"uppercase",fontFamily:Fn.title,marginBottom:10}}>
+                      <span style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(pkg.accent,.13),color:pkg.accent,border:`1px solid ${alpha(pkg.accent,.21)}`,borderRadius:999,padding:"4px 10px",fontSize:10,fontWeight:700,letterSpacing:"1.1px",textTransform:"uppercase",fontFamily:Fn.title,marginBottom:10}}>
                         {pkg.kind==="skill"?"Skill":"Documentação"}
                       </span>
                       <span style={{fontSize:18,fontWeight:700,color:C.branco,fontFamily:Fn.title,display:"block",marginBottom:4}}>{pkg.title}</span>
-                      <span style={{fontSize:12,color:`${C.branco}80`,fontFamily:Fn.mono,display:"block",marginBottom:8}}>{pkg.file}</span>
-                      <span style={{fontSize:13,color:`${C.branco}A8`,fontFamily:Fn.body,lineHeight:1.5,display:"block"}}>{pkg.description}</span>
+                      <span style={{fontSize:12,color:alpha(C.branco,.50),fontFamily:Fn.mono,display:"block",marginBottom:8}}>{pkg.file}</span>
+                      <span style={{fontSize:13,color:alpha(C.branco,.66),fontFamily:Fn.body,lineHeight:1.5,display:"block"}}>{pkg.description}</span>
                     </div>
                   </div>
 
                   <a
                     href={pkg.href}
                     download
-                    style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,alignSelf:mob?"stretch":"flex-start",background:pkg.accent,color:pkg.kind==="skill"?C.azulEscuro:C.azulEscuro,padding:"10px 18px",borderRadius:8,fontSize:13,fontWeight:700,fontFamily:Fn.title,textDecoration:"none",boxShadow:`0 4px 12px ${pkg.accent}40`}}
+                    style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,alignSelf:mob?"stretch":"flex-start",background:pkg.accent,color:"#002A68",padding:"10px 18px",borderRadius:8,fontSize:13,fontWeight:700,fontFamily:Fn.title,textDecoration:"none",boxShadow:`0 4px 12px ${alpha(pkg.accent,.25)}`}}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -333,7 +332,7 @@ export default function DSFIPSOverview(){
                     {pkg.bullets.map((item,i)=>(
                       <div key={i} style={{display:"flex",alignItems:"flex-start",gap:8}}>
                         <span style={{color:pkg.accent,fontSize:12,lineHeight:"18px",flexShrink:0}}>✓</span>
-                        <span style={{fontSize:11,color:`${C.branco}90`,fontFamily:Fn.body,lineHeight:1.45}}>{item}</span>
+                        <span style={{fontSize:11,color:alpha(C.branco,.56),fontFamily:Fn.body,lineHeight:1.45}}>{item}</span>
                       </div>
                     ))}
                   </div>

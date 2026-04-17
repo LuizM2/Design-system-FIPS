@@ -3,17 +3,18 @@ import { motion } from "framer-motion";
 import { LuLayoutGrid, LuCircleCheck, LuClock, LuTriangleAlert, LuFileText, LuList, LuChartColumnIncreasing, LuArrowUp, LuArrowDown, LuX, LuBuilding2, LuCalendar, LuUser, LuFlag, LuFileSpreadsheet, LuFileDown, LuChevronDown, LuCheck } from "react-icons/lu";
 import { PieChart, Pie, Cell } from "recharts";
 
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",gradFrom:"var(--color-gov-gradient-from)",gradTo:"var(--color-gov-gradient-to)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const data=[{value:pct},{value:100-pct}];return <PieChart width={size} height={size}><Pie data={data} cx={size/2-1} cy={size/2-1} innerRadius={(size-stroke*2)/2-stroke} outerRadius={(size-stroke)/2} startAngle={90} endAngle={-270} dataKey="value" stroke="none" isAnimationActive={false}><Cell fill={color}/><Cell fill={`${color}18`}/></Pie></PieChart>}
+function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const data=[{value:pct},{value:100-pct}];return <PieChart width={size} height={size}><Pie data={data} cx={size/2-1} cy={size/2-1} innerRadius={(size-stroke*2)/2-stroke} outerRadius={(size-stroke)/2} startAngle={90} endAngle={-270} dataKey="value" stroke="none" isAnimationActive={false}><Cell fill={color}/><Cell fill={alpha(color,0.09)}/></Pie></PieChart>}
 
 const BV: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},Aguardando:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},Recusada:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},"Em análise":{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu}};
 function Badge({variant,children,dot}:{variant:string,children:React.ReactNode,dot?:boolean}){const v=BV[variant]||BV.Finalizada;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 6px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>}
-function MiniProgress({value=0}:{value?:number}){const color=value>=90?C.verdeEscuro:value>=60?C.verdeFloresta:value>=30?C.amareloEscuro:C.danger;return <div style={{display:"flex",alignItems:"center",gap:6}}><div style={{flex:1,height:4,borderRadius:2,background:`${color}20`}}><div style={{height:4,borderRadius:2,background:color,width:`${value}%`}}/></div><span style={{fontSize:10,fontWeight:600,color,fontFamily:Fn.mono,minWidth:28,textAlign:"right"}}>{value}%</span></div>}
+function MiniProgress({value=0}:{value?:number}){const color=value>=90?C.verdeEscuro:value>=60?C.verdeFloresta:value>=30?C.amareloEscuro:C.danger;return <div style={{display:"flex",alignItems:"center",gap:6}}><div style={{flex:1,height:4,borderRadius:2,background:alpha(color,0.13)}}><div style={{height:4,borderRadius:2,background:color,width:`${value}%`}}/></div><span style={{fontSize:10,fontWeight:600,color,fontFamily:Fn.mono,minWidth:28,textAlign:"right"}}>{value}%</span></div>}
 
 /* ═══════════════════════════════════════════ DATASET ═══════════════════════════════════════════ */
 const MONTHS=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
@@ -162,7 +163,7 @@ function ChartTooltip({title,color,rows,x,y,total}:{title:string,color:string,ro
             <div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"4px 14px"}}>
               <div style={{width:6,height:6,borderRadius:"50%",background:r.color||color,flexShrink:0}}/>
               <span style={{fontSize:11,color:C.cinzaEscuro,fontFamily:Fn.body,flex:1,whiteSpace:"nowrap"}}>{r.label}</span>
-              <div style={{width:50,height:4,borderRadius:2,background:`${r.color||color}15`,flexShrink:0}}>
+              <div style={{width:50,height:4,borderRadius:2,background:alpha(r.color||color,0.08),flexShrink:0}}>
                 <div style={{height:4,borderRadius:2,background:r.color||color,width:`${(r.value/maxVal)*100}%`}}/>
               </div>
               <span style={{fontSize:11,fontWeight:700,color:r.color||color,fontFamily:Fn.mono,minWidth:22,textAlign:"right"}}>{r.value}</span>
@@ -333,7 +334,7 @@ export default function DSFIPSDashboard(){
       `}</style>
 
       {/* ═══ HERO ═══ */}
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}><LuLayoutGrid size={14} color={C.amareloOuro}/> Design System FIPS</div>
@@ -370,12 +371,12 @@ export default function DSFIPSDashboard(){
         {/* ═══ FILTROS ATIVOS (badges) ═══ */}
         {hasFilter&&(
           <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,flexWrap:"wrap"}}>
-            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
-            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
-            {filter.dept&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:DEPT_COLOR[filter.dept],background:`${DEPT_COLOR[filter.dept]}10`,borderRadius:4,fontFamily:Fn.body}}>Área: {filter.dept}</span>}
-            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulEscuro}10`,borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
-            {filter.priority&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:PRIO_COLOR[filter.priority],background:`${PRIO_COLOR[filter.priority]}10`,borderRadius:4,fontFamily:Fn.body}}>Prioridade: {filter.priority}</span>}
-            {filter.status&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:STATUS_COLOR[filter.status],background:`${STATUS_COLOR[filter.status]}10`,borderRadius:4,fontFamily:Fn.body}}>Status: {filter.status}</span>}
+            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:alpha(C.azulProfundo,0.06),borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
+            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:alpha(C.azulProfundo,0.06),borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
+            {filter.dept&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:DEPT_COLOR[filter.dept],background:alpha(DEPT_COLOR[filter.dept],0.06),borderRadius:4,fontFamily:Fn.body}}>Área: {filter.dept}</span>}
+            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:alpha(C.azulEscuro,0.06),borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
+            {filter.priority&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:PRIO_COLOR[filter.priority],background:alpha(PRIO_COLOR[filter.priority],0.06),borderRadius:4,fontFamily:Fn.body}}>Prioridade: {filter.priority}</span>}
+            {filter.status&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:STATUS_COLOR[filter.status],background:alpha(STATUS_COLOR[filter.status],0.06),borderRadius:4,fontFamily:Fn.body}}>Status: {filter.status}</span>}
           </div>
         )}
 
@@ -392,7 +393,7 @@ export default function DSFIPSDashboard(){
             return(
               <motion.div key={i} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.35,delay:i*0.06,ease:"easeOut"}} onMouseEnter={()=>setHovKpiCard(i)} onMouseLeave={()=>setHovKpiCard(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,position:"relative"}}>
                 <div style={{padding:mob?"14px 12px 6px":"18px 20px 6px",position:"relative",zIndex:2}}>
-                  <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:`${k.color}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,k.color)}</div>
+                  <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:alpha(k.color,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,k.color)}</div>
                   <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:mob?6:8}}>{k.label}</span>
                   <div style={{display:"flex",alignItems:"baseline",gap:8}}>
                     <span style={{fontSize:mob?22:28,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{k.value}</span>
@@ -434,7 +435,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por mês</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
+                  <div style={{width:30,height:30,borderRadius:8,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",justifyContent:"center"}}>
                   <svg width={chartW} height={chartH+40} viewBox={`0 -20 ${chartW} ${chartH+40}`}>
@@ -479,7 +480,7 @@ export default function DSFIPSDashboard(){
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:6}}>
                     {byStatus.map((s,i)=>{const isActive=filter.status===s.label;const isDimmed=filter.status&&!isActive;return(
-                      <div key={i} onClick={()=>toggle("status",s.label)} onMouseEnter={()=>setHovDonut(i)} onMouseLeave={()=>setHovDonut(null)} style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer",padding:"2px 4px",borderRadius:4,background:isActive?`${s.color}10`:hovDonut===i?`${s.color}08`:"transparent",transition:"background .12s",opacity:isDimmed?.4:1}}>
+                      <div key={i} onClick={()=>toggle("status",s.label)} onMouseEnter={()=>setHovDonut(i)} onMouseLeave={()=>setHovDonut(null)} style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer",padding:"2px 4px",borderRadius:4,background:isActive?alpha(s.color,0.06):hovDonut===i?alpha(s.color,0.03):"transparent",transition:"background .12s",opacity:isDimmed?.4:1}}>
                         <div style={{width:8,height:8,borderRadius:"50%",background:s.color,flexShrink:0}}/>
                         <span style={{fontSize:11,color:isActive||hovDonut===i?s.color:C.cinzaEscuro,fontFamily:Fn.body,fontWeight:isActive?700:400,transition:"all .12s"}}>{s.label}</span>
                         <code style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:s.color,marginLeft:"auto"}}>{s.value}</code>
@@ -503,7 +504,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.dept?DEPT_COLOR[filter.dept]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
                   <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por departamento</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={C.azulProfundo}/></div>
+                  <div style={{width:30,height:30,borderRadius:8,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:8}}>
                   {byDept.map((d,i)=>{
@@ -511,7 +512,7 @@ export default function DSFIPSDashboard(){
                     return(
                       <div key={i} onClick={()=>toggle("dept",d.l)} onMouseEnter={()=>setHovHbar(i)} onMouseLeave={()=>setHovHbar(null)} style={{display:"flex",alignItems:"center",gap:10,cursor:"pointer",padding:"2px 0",opacity:isDimmed?.3:1,transition:"opacity .15s"}}>
                         <span style={{fontSize:11,fontWeight:isActive||isH?700:600,color:isActive?d.color:C.cinzaEscuro,fontFamily:Fn.body,minWidth:70,transition:"all .12s"}}>{d.l}</span>
-                        <div style={{flex:1,height:isH||isActive?10:8,borderRadius:4,background:`${d.color}12`,transition:"height .12s"}}>
+                        <div style={{flex:1,height:isH||isActive?10:8,borderRadius:4,background:alpha(d.color,0.07),transition:"height .12s"}}>
                           <div style={{height:"100%",borderRadius:4,background:d.color,width:`${(d.v/max)*100}%`,transition:"width .3s",opacity:isActive?1:.8}}/>
                         </div>
                         <code style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:d.color,minWidth:50,textAlign:"right"}}>{d.v}{(isH||isActive)?` (${Math.round(d.v/totalH*100)}%)`:""}</code>
@@ -543,7 +544,7 @@ export default function DSFIPSDashboard(){
                       </div>
                       <span style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo}}>{d.ok}/{d.total} <span style={{fontWeight:700,color:pct>=90?C.verdeFloresta:pct>=70?C.amareloEscuro:C.danger}}>{pct}%</span>{(isH||isActive)&&<span style={{fontSize:9,color:C.textMuted}}> no prazo</span>}</span>
                     </div>
-                    <div style={{height:isActive?10:isH?8:6,borderRadius:3,background:`${d.color}12`,transition:"height .12s"}}>
+                    <div style={{height:isActive?10:isH?8:6,borderRadius:3,background:alpha(d.color,0.07),transition:"height .12s"}}>
                       <div style={{height:"100%",borderRadius:3,background:d.color,width:`${pct}%`,opacity:isActive?1:pct>=90?1:.8}}/>
                     </div>
                     {isActive&&<div style={{height:2,borderRadius:1,background:d.color,marginTop:2,opacity:.4}}/>}
@@ -661,7 +662,7 @@ export default function DSFIPSDashboard(){
           <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
-                <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={C.azulProfundo}/></div>
+                <div style={{width:48,height:48,borderRadius:14,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={C.azulProfundo}/></div>
                 <div><span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Requisições {hasFilter?"(filtradas)":""}</span><span style={{fontSize:12,color:C.cinzaChumbo,display:"block",marginTop:2}}>{tableData.length} mais recentes</span></div>
               </div>
               <div style={{display:"flex",gap:6}}>
@@ -712,7 +713,7 @@ export default function DSFIPSDashboard(){
               ].map((s,i)=>(
                 <div key={i}>
                   <div style={{display:"flex",alignItems:"center",gap:10,padding:"7px 0"}}>
-                    <div style={{width:24,height:24,borderRadius:"50%",background:`${s.color}15`,border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:10,fontWeight:800,fontFamily:Fn.title,color:s.color}}>{s.step}</span></div>
+                    <div style={{width:24,height:24,borderRadius:"50%",background:alpha(s.color,0.08),border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:10,fontWeight:800,fontFamily:Fn.title,color:s.color}}>{s.step}</span></div>
                     <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,flex:1}}>{s.label}</span>
                     <code style={{fontSize:11,fontWeight:700,fontFamily:Fn.mono,color:s.color}}>{s.count}</code>
                   </div>
@@ -731,7 +732,7 @@ export default function DSFIPSDashboard(){
                 {text:`R$ ${Math.round(filtered.reduce((a,r)=>a+r.valor,0)/1000)}k em valor total`,time:"filtrado",color:C.azulProfundo,icon:(s:number,c:string)=><LuFileText size={s} color={c}/>},
               ].map((a,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:i<3?10:0}}>
-                  <div style={{width:22,height:22,borderRadius:6,background:`${a.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{a.icon(11,a.color)}</div>
+                  <div style={{width:22,height:22,borderRadius:6,background:alpha(a.color,0.04),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{a.icon(11,a.color)}</div>
                   <div style={{flex:1}}><span style={{fontSize:11,color:C.cinzaEscuro,fontFamily:Fn.body,display:"block",lineHeight:1.4}}>{a.text}</span><span style={{fontSize:9,color:C.textMuted}}>{a.time}</span></div>
                 </div>
               ))}
@@ -749,7 +750,7 @@ export default function DSFIPSDashboard(){
                 <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
                     <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Tendência mensal</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique no ponto para filtrar</span></div>
-                    <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
+                    <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
                   </div>
                   <svg width="100%" height={cH+18} viewBox={`0 0 ${cW} ${cH+18}`} preserveAspectRatio="xMidYMid meet">
                     <defs><linearGradient id="lgLine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.azulProfundo} stopOpacity=".15"/><stop offset="100%" stopColor={C.azulProfundo} stopOpacity="0"/></linearGradient></defs>
@@ -788,7 +789,7 @@ export default function DSFIPSDashboard(){
         {/* ═══ STATUS D ═══ */}
         <div style={{marginTop:mob?16:24}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:mob?10:14}}>
-            <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
+            <div style={{width:30,height:30,borderRadius:8,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
             <div><span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Status das solicitações</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Distribuição por situação atual</span></div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?10:16}}>
@@ -800,7 +801,7 @@ export default function DSFIPSDashboard(){
             ].map((k,i)=>{
               const isActive=k.filterVal&&filter.status===k.filterVal;
               return(
-                <div key={i} onClick={()=>k.filterVal&&toggle("status",k.filterVal)} onMouseEnter={()=>setHovStatusD(i)} onMouseLeave={()=>setHovStatusD(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${isActive?k.color:C.cardBorder}`,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:isActive?`0 4px 16px ${k.color}15`:"0 1px 3px rgba(0,75,155,.04)",cursor:k.filterVal?"pointer":"default",transition:"all .15s",position:"relative"}}>
+                <div key={i} onClick={()=>k.filterVal&&toggle("status",k.filterVal)} onMouseEnter={()=>setHovStatusD(i)} onMouseLeave={()=>setHovStatusD(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${isActive?k.color:C.cardBorder}`,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:isActive?`0 4px 16px $alpha(k.color,0.08)`:"0 1px 3px rgba(0,75,155,.04)",cursor:k.filterVal?"pointer":"default",transition:"all .15s",position:"relative"}}>
                   <div>
                     <span style={{fontSize:10,fontWeight:600,color:isActive?k.color:C.cinzaChumbo,display:"block",marginBottom:3,textTransform:"uppercase",letterSpacing:".5px",transition:"color .15s"}}>{k.label}</span>
                     <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,display:"block",lineHeight:1}}>{k.value}</span>
@@ -819,7 +820,7 @@ export default function DSFIPSDashboard(){
         {/* ═══ DOCUMENTAÇÃO DO PADRÃO ═══ */}
         <div style={{marginTop:mob?24:40}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20}}>
-            <div style={{width:36,height:36,borderRadius:10,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={C.azulProfundo}/></div>
+            <div style={{width:36,height:36,borderRadius:10,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={C.azulProfundo}/></div>
             <div>
               <span style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Regras do padrão Dashboard</span>
               <span style={{fontSize:11,color:C.cinzaChumbo}}>Diretrizes obrigatórias para todos os dashboards FIPS</span>
@@ -829,7 +830,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 1 — Filtros */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>1</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.07),display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>1</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Barra de filtros sempre no topo</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -853,7 +854,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 2 — Cross-filter */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>2</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.07),display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>2</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Todos os gráficos com interação de filtro</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -878,7 +879,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 3 — Rótulos de dados */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>3</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.07),display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>3</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Rótulos de dados obrigatórios</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -903,7 +904,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 4 — Hover e feedback */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>4</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.07),display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>4</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Hover e feedback visual</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -927,7 +928,7 @@ export default function DSFIPSDashboard(){
           {/* Regra 5 — Layout e exportação */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>5</span></div>
+              <div style={{width:26,height:26,borderRadius:7,background:alpha(C.azulProfundo,0.07),display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>5</span></div>
               <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Layout, tabela e exportação</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -950,7 +951,7 @@ export default function DSFIPSDashboard(){
           </div>
 
           {/* Checklist */}
-          <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"10px 10px 10px 18px",padding:mob?16:24,position:"relative",overflow:"hidden"}}>
+          <div style={{background:`linear-gradient(135deg,${C.gradFrom},${C.gradTo})`,borderRadius:"10px 10px 10px 18px",padding:mob?16:24,position:"relative",overflow:"hidden"}}>
             <JunctionLines style={{position:"absolute",top:-10,right:-20,width:300,height:180,opacity:.06}}/>
             <div style={{position:"relative"}}>
               <span style={{fontSize:14,fontWeight:700,color:C.amareloOuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Checklist antes de publicar</span>

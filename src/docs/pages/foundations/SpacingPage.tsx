@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 
 const Ic={
   grid:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
@@ -88,7 +89,7 @@ export default function DSFIPSSpacing(){
         @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
       `}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,var(--color-gov-gradient-from) 0%,var(--color-gov-gradient-to) 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
@@ -128,7 +129,7 @@ export default function DSFIPSSpacing(){
               <div style={{background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`,padding:4}}>
                 <div style={{background:C.cardBg,borderRadius:6,border:`2px dashed ${C.azulCeu}`,padding:playPad,transition:"padding .3s ease"}}>
                   <div style={{display:"flex",alignItems:"center",gap:8}}>
-                    <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.eye(16,C.azulProfundo)}</div>
+                    <div style={{width:32,height:32,borderRadius:8,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.eye(16,C.azulProfundo)}</div>
                     <div>
                       <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span>
                       <span style={{fontSize:11,color:C.cinzaChumbo}}>padding: {playPad}px</span>
@@ -191,7 +192,7 @@ export default function DSFIPSSpacing(){
                   </div>
                   <div style={{flex:1,display:"flex",alignItems:mob?"flex-start":"center",gap:8,flexWrap:"wrap"}}>
                     <span style={{fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body}}>{g.context}</span>
-                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,background:`${C.azulProfundo}08`,padding:"1px 6px",borderRadius:3}}>{g.token}</code>
+                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,background:alpha(C.azulProfundo,0.03),padding:"1px 6px",borderRadius:3}}>{g.token}</code>
                   </div>
                 </div>
               ))}

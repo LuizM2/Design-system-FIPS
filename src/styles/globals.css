@@ -134,6 +134,12 @@
     --color-sidebar: var(--color-fips-blue-950);
     --color-sidebar-deep: var(--color-fips-blue-950);
     --color-sidebar-soft: var(--color-fips-blue-900);
+    --color-gov-azul-profundo: #004B9B;
+    --color-gov-azul-escuro: #002A68;
+    --color-gov-azul-claro: #658EC9;
+    --color-gov-verde-escuro: #00904C;
+    --color-gov-gradient-from: #004B9B;
+    --color-gov-gradient-to: #002A68;
   }
 
   /* ─── Dark mode (extraído do Tecnopano 3.0 DashboardAdmin) ─── */
@@ -159,9 +165,16 @@
     --color-ring: var(--color-fips-yellow-600);
     --color-badge-warning-bg: rgba(246, 146, 30, 0.14);
     --color-badge-danger-bg: rgba(239, 68, 68, 0.14);
-    --color-sidebar: #1A1A1A;
-    --color-sidebar-deep: #0a0c10;
-    --color-sidebar-soft: #222222;
+    --color-sidebar: var(--color-fips-blue-950);
+    --color-sidebar-deep: var(--color-fips-blue-950);
+    --color-sidebar-soft: var(--color-fips-blue-900);
+    /* ─── GovernancePage + doc pages accent colors ─── */
+    --color-gov-azul-profundo: #93BDE4;
+    --color-gov-azul-escuro: #658EC9;
+    --color-gov-azul-claro: #93BDE4;
+    --color-gov-verde-escuro: #8BE5AD;
+    --color-gov-gradient-from: #333B41;
+    --color-gov-gradient-to: #2a2f35;
   }
 
   /* ─── Dark mode: hero banner das doc pages ─── */

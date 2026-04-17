@@ -39,9 +39,9 @@ import { bottomNavItems } from '../../../routes/nav'
 
 /* ═══════════════════════════════════════════ TOKENS (página — mesmo padrão SelectDoc) ═══════════════════════════════════════════ */
 const C = {
-  azulProfundo: '#004B9B',
-  azulEscuro: '#002A68',
-  azulClaro: '#658EC9',
+  azulProfundo: 'var(--color-gov-azul-profundo)',
+  azulEscuro: 'var(--color-gov-azul-escuro)',
+  azulClaro: 'var(--color-gov-azul-claro)',
   cinzaChumbo: 'var(--color-fg-muted)',
   cinzaEscuro: 'var(--color-fg)',
   cinzaClaro: '#C0CCD2',
@@ -103,7 +103,7 @@ const TN_DARK: SidebarTheme = {
   accentBorderStrong: 'rgba(246,146,30,0.58)',
   accentBorderSoft: 'rgba(253,194,78,0.50)',
   accentGlow: 'rgba(246,146,30,0.42)',
-  iconActive: C.azulEscuro,
+  iconActive: '#002A68',
   chevron: 'rgba(255,255,255,0.55)',
   idleShadow: '0 3px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.45) inset',
   hoverShadow:
@@ -111,6 +111,31 @@ const TN_DARK: SidebarTheme = {
   activeShadow:
     '0 12px 24px -12px rgba(246,146,30,0.62), 0 2px 4px rgba(0,42,104,0.38), inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -3px 6px rgba(120,64,0,0.36)',
   tooltipBg: '#002A68',
+  tooltipText: '#fafafa',
+}
+
+/* Sidebar theme (Dark Mode — fundo escuro neumórfico) */
+const TN_DARKMODE: SidebarTheme = {
+  bg: '#1A1A1A',
+  border: 'rgba(255,255,255,0.06)',
+  iconBgIdle: 'rgba(255,255,255,0.06)',
+  iconBorderIdle: '#3f3f46',
+  textMuted: 'rgba(255,255,255,0.65)',
+  textHover: 'rgba(255,255,255,0.88)',
+  textActive: '#fafafa',
+  accentFrom: C.amareloEscuro,
+  accentTo: '#FFD37B',
+  accentBorderStrong: 'rgba(246,146,30,0.58)',
+  accentBorderSoft: 'rgba(253,194,78,0.50)',
+  accentGlow: 'rgba(246,146,30,0.42)',
+  iconActive: '#1A1A1A',
+  chevron: 'rgba(255,255,255,0.45)',
+  idleShadow: '0 3px 10px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.05) inset, 0 -1px 0 rgba(0,0,0,0.55) inset',
+  hoverShadow:
+    '0 10px 20px -10px rgba(246,146,30,0.50), 0 2px 3px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -2px 4px rgba(140,72,0,0.28)',
+  activeShadow:
+    '0 12px 24px -12px rgba(246,146,30,0.55), 0 2px 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -3px 6px rgba(120,64,0,0.36)',
+  tooltipBg: '#333B41',
   tooltipText: '#fafafa',
 }
 
@@ -369,7 +394,9 @@ function SidebarNeuIcon36({
         border: `1px solid ${isActive || shimmerHover ? theme.accentBorderStrong : theme.iconBorderIdle}`,
         background: lit || shimmerHover
           ? `linear-gradient(145deg, ${theme.accentTo} 0%, #f7ad45 34%, ${theme.accentFrom} 64%, #cf730d 100%)`
-          : 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)',
+          : theme === TN_DARKMODE
+            ? 'linear-gradient(160deg, #303036 0%, #222226 55%, #1c1c20 100%)'
+            : 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)',
         boxShadow: isActive ? theme.activeShadow : shimmerHover ? theme.hoverShadow : theme.idleShadow,
         transform: shimmerHover ? 'translateY(-1px)' : 'none',
         transition: 'all 0.25s ease',
@@ -623,6 +650,7 @@ function SidebarDemo({
   onMenuBehaviorOpenChange,
   onSidebarPointerEnter,
   onSidebarPointerLeave,
+  themeOverride,
 }: {
   location: string
   onNavigate: (href: string) => void
@@ -634,10 +662,11 @@ function SidebarDemo({
   onMenuBehaviorOpenChange: (open: boolean) => void
   onSidebarPointerEnter: () => void
   onSidebarPointerLeave: () => void
+  themeOverride?: SidebarTheme
 }) {
   const badges = useDemoSidebarBadges()
   const { collapsed } = useContext(SidebarCtx)
-  const theme = TN_DARK
+  const theme = themeOverride ?? TN_DARK
   const filteredMenu = MENU
   const [menuTriggerHovered, setMenuTriggerHovered] = useState(false)
 
@@ -917,6 +946,95 @@ function SidebarDemo({
 }
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
+function SidebarDarkPlayground({ mob }: { mob: boolean }) {
+  const [demoPath2, setDemoPath2] = useState('/')
+  const [collapsed2, setCollapsed2] = useState(false)
+  const [autoCollapse2, setAutoCollapse2] = useState(false)
+  const [collapseSeconds2, setCollapseSeconds2] = useState(3)
+  const [menuBehaviorOpen2, setMenuBehaviorOpen2] = useState(false)
+  const collapseTimer2 = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const sidebarPtrRef2 = useRef(false)
+  const menuOpenRef2 = useRef(false)
+  const skipEffect2 = useRef(true)
+
+  const clearTimer2 = useCallback(() => {
+    if (collapseTimer2.current) { clearTimeout(collapseTimer2.current); collapseTimer2.current = null }
+  }, [])
+
+  const scheduleLeave2 = useCallback(() => {
+    clearTimer2()
+    if (!autoCollapse2) return
+    collapseTimer2.current = setTimeout(() => setCollapsed2(true), collapseSeconds2 * 1000)
+  }, [autoCollapse2, collapseSeconds2, clearTimer2])
+
+  const handleEnter2 = useCallback(() => { sidebarPtrRef2.current = true; clearTimer2(); setCollapsed2(false) }, [clearTimer2])
+  const handleLeave2 = useCallback(() => { sidebarPtrRef2.current = false; if (menuOpenRef2.current) return; scheduleLeave2() }, [scheduleLeave2])
+
+  const onMenuOpen2 = useCallback((open: boolean) => {
+    menuOpenRef2.current = open; setMenuBehaviorOpen2(open)
+    if (open) clearTimer2()
+    else queueMicrotask(() => { if (!sidebarPtrRef2.current) scheduleLeave2() })
+  }, [clearTimer2, scheduleLeave2])
+
+  useEffect(() => {
+    if (skipEffect2.current) { skipEffect2.current = false; return }
+    if (sidebarPtrRef2.current || menuBehaviorOpen2) return
+    clearTimer2(); scheduleLeave2()
+  }, [collapseSeconds2, autoCollapse2, menuBehaviorOpen2, clearTimer2, scheduleLeave2])
+
+  useEffect(() => () => clearTimer2(), [clearTimer2])
+  useEffect(() => { if (!autoCollapse2) clearTimer2() }, [autoCollapse2, clearTimer2])
+
+  return (
+    <Section
+      n="02"
+      title="Playground interativo — Dark Mode"
+      desc="Mesma sidebar com tema escuro: fundo #1A1A1A, tiles neumórficos adaptados, accent laranja mantido. Compare com o Sidebar 1 acima."
+    >
+      <Card mob={mob}>
+        <SidebarCtx.Provider value={{ collapsed: collapsed2 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: mob ? 'column' : 'row',
+              border: `1px solid ${C.cardBorder}`,
+              borderRadius: 12,
+              overflow: 'visible',
+              background: '#1A1A1A',
+            }}
+          >
+            <SidebarDemo
+              location={demoPath2}
+              onNavigate={setDemoPath2}
+              autoCollapse={autoCollapse2}
+              collapseSeconds={collapseSeconds2}
+              onAutoCollapseChange={setAutoCollapse2}
+              onCollapseSecondsChange={setCollapseSeconds2}
+              menuBehaviorOpen={menuBehaviorOpen2}
+              onMenuBehaviorOpenChange={onMenuOpen2}
+              onSidebarPointerEnter={handleEnter2}
+              onSidebarPointerLeave={handleLeave2}
+              themeOverride={TN_DARKMODE}
+            />
+            <div style={{ flex: 1, padding: mob ? 16 : 24, minHeight: 200, fontFamily: F.body }}>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#E2E2E8', fontFamily: F.title }}>Área de conteúdo (demo dark)</p>
+              <p style={{ margin: '8px 0 0', fontSize: 13, color: '#A1A1AA', lineHeight: 1.55 }}>
+                Rota simulada:{' '}
+                <code style={{ background: '#252525', padding: '2px 8px', borderRadius: 4, fontFamily: F.mono, fontSize: 12, color: '#E2E2E8' }}>
+                  {demoPath2 || '—'}
+                </code>
+              </p>
+              <p style={{ margin: '12px 0 0', fontSize: 12, color: '#A1A1AA', lineHeight: 1.5 }}>
+                Versão dark mode do sidebar: fundo <code style={{ ...gk, background: '#252525', color: '#E2E2E8' }}>#1A1A1A</code>, tiles neumórficos com sombras adaptadas, bordas <code style={{ ...gk, background: '#252525', color: '#E2E2E8' }}>#3f3f46</code> e tooltip cinza escuro.
+              </p>
+            </div>
+          </div>
+        </SidebarCtx.Provider>
+      </Card>
+    </Section>
+  )
+}
+
 export default function SidebarDoc() {
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
   useEffect(() => {
@@ -1190,8 +1308,10 @@ export default function SidebarDoc() {
           </Card>
         </Section>
 
+        <SidebarDarkPlayground mob={mob} />
+
         <Section
-          n="02"
+          n="03"
           title="Arquitetura funcional do Sidebar"
           desc="Modelo de arquitetura oficial do Sidebar DS-FIPS: camadas de responsabilidade, estados, efeitos visuais e integração com o Dialog padrão do design system."
         >
@@ -1264,7 +1384,7 @@ export default function SidebarDoc() {
         </Section>
 
         <Section
-          n="03"
+          n="04"
           title="Blueprint de implementação em produção"
           desc="Passo a passo para implantar Sidebar DS-FIPS em aplicações reais, incluindo auto-colapso, shimmer e modal de configuração."
         >

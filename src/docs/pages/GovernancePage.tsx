@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",gradientFrom:"var(--color-gov-gradient-from)",gradientTo:"var(--color-gov-gradient-to)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb,${c} ${Math.round(a*100)}%,transparent)`;
 
 const Ic={
   grid:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
@@ -38,7 +39,7 @@ export default function DSFIPSGovernance(){
       `}</style>
 
       {/* HEADER */}
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,${C.gradientFrom} 0%,${C.gradientTo} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
@@ -53,15 +54,15 @@ export default function DSFIPSGovernance(){
         <Section n="01" title="Princípios obrigatórios" desc="Três regras inegociáveis. Se um projeto não segue estas regras, a tela volta pra correção.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
             {[
-              {icon:Ic.shield,color:C.azulProfundo,bg:`${C.azulProfundo}08`,title:"Use o componente, não invente",desc:"Precisa de um botão? Use o Button do DS. Precisa de uma tabela? Use o Table do DS. Nunca crie um componente visual do zero — sempre parta do que já existe aqui.",tag:"REGRA 1"},
-              {icon:Ic.alert,color:C.amareloEscuro,bg:`${C.amareloEscuro}08`,title:"Não mude o visual por fora",desc:"Proibido alterar borda, raio, sombra, cor, fonte ou padding de um componente do DS com CSS externo no projeto. Se o visual não atende, peça uma evolução — não conserte por fora.",tag:"REGRA 2"},
-              {icon:Ic.scale,color:C.azulEscuro,bg:`${C.azulEscuro}08`,title:"Evoluir antes de usar",desc:"Surgiu um caso que o DS não cobre? Primeiro crie a variante oficial aqui, documente, e só depois use no projeto. Nenhuma solução visual nasce escondida dentro de uma tela.",tag:"REGRA 3"},
+              {icon:Ic.shield,color:C.azulProfundo,bg:alpha(C.azulProfundo,0.03),title:"Use o componente, não invente",desc:"Precisa de um botão? Use o Button do DS. Precisa de uma tabela? Use o Table do DS. Nunca crie um componente visual do zero — sempre parta do que já existe aqui.",tag:"REGRA 1"},
+              {icon:Ic.alert,color:C.amareloEscuro,bg:alpha(C.amareloEscuro,0.03),title:"Não mude o visual por fora",desc:"Proibido alterar borda, raio, sombra, cor, fonte ou padding de um componente do DS com CSS externo no projeto. Se o visual não atende, peça uma evolução — não conserte por fora.",tag:"REGRA 2"},
+              {icon:Ic.scale,color:C.azulEscuro,bg:alpha(C.azulEscuro,0.03),title:"Evoluir antes de usar",desc:"Surgiu um caso que o DS não cobre? Primeiro crie a variante oficial aqui, documente, e só depois use no projeto. Nenhuma solução visual nasce escondida dentro de uma tela.",tag:"REGRA 3"},
             ].map((p,i)=>(
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 2px 8px rgba(0,75,155,.05)",animation:`fadeUp .4s ease ${i*0.08}s both`}}>
                 <div style={{background:p.bg,padding:mob?"16px 16px 14px":"20px 22px 16px",borderBottom:`1px solid ${C.cardBorder}`}}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
                     <div style={{width:42,height:42,borderRadius:12,background:C.cardBg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 6px rgba(0,75,155,.06)"}}>{p.icon(20,p.color)}</div>
-                    <span style={{fontSize:9,fontWeight:700,letterSpacing:"1.5px",fontFamily:Fn.title,color:p.color,background:C.cardBg,padding:"3px 8px",borderRadius:4,border:`1px solid ${p.color}20`}}>{p.tag}</span>
+                    <span style={{fontSize:9,fontWeight:700,letterSpacing:"1.5px",fontFamily:Fn.title,color:p.color,background:C.cardBg,padding:"3px 8px",borderRadius:4,border:`1px solid ${alpha(p.color,0.13)}`}}>{p.tag}</span>
                   </div>
                   <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
                 </div>
@@ -84,7 +85,7 @@ export default function DSFIPSGovernance(){
                 {text:"CSS externo no projeto só serve para posicionamento: grid, flex, margem, largura. Nunca use CSS externo para mudar cor, borda, raio, sombra ou fonte de um componente do DS.",icon:Ic.lock,color:C.cinzaChumbo},
               ].map((r,i)=>(
                 <div key={i} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"12px 16px",background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
-                  <div style={{width:32,height:32,borderRadius:8,background:`${r.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{r.icon(16,r.color)}</div>
+                  <div style={{width:32,height:32,borderRadius:8,background:alpha(r.color,0.04),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{r.icon(16,r.color)}</div>
                   <span style={{fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.55}}>{r.text}</span>
                 </div>
               ))}
@@ -96,7 +97,7 @@ export default function DSFIPSGovernance(){
         <Section n="03" title="Faça, pode fazer e nunca faça" desc="Referência rápida para saber o que é obrigatório, o que é flexível e o que é proibido.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
-              <div style={{padding:"14px 20px",background:`${C.verdeFloresta}08`,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
+              <div style={{padding:"14px 20px",background:alpha(C.verdeFloresta,0.03),borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
                 {Ic.check(20,C.verdeFloresta)}
                 <span style={{fontSize:14,fontWeight:700,color:C.verdeEscuro,fontFamily:Fn.title}}>Sempre faça</span>
               </div>
@@ -112,7 +113,7 @@ export default function DSFIPSGovernance(){
               </div>
             </div>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
-              <div style={{padding:"14px 20px",background:`${C.azulCeu}10`,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
+              <div style={{padding:"14px 20px",background:alpha(C.azulCeu,0.06),borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
                 {Ic.eye(20,C.azulProfundo)}
                 <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Pode fazer</span>
               </div>
@@ -123,7 +124,7 @@ export default function DSFIPSGovernance(){
               </div>
             </div>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
-              <div style={{padding:"14px 20px",background:`${C.danger}06`,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
+              <div style={{padding:"14px 20px",background:alpha(C.danger,0.02),borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
                 {Ic.ban(20,C.danger)}
                 <span style={{fontSize:14,fontWeight:700,color:C.danger,fontFamily:Fn.title}}>Nunca faça</span>
               </div>
@@ -143,7 +144,7 @@ export default function DSFIPSGovernance(){
 
         {/* 04 — APLICAÇÃO PRÁTICA */}
         <Section n="04" title="A regra de ouro" desc="Se você ler só uma coisa nesta página, leia isso.">
-          <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"12px 12px 12px 24px",padding:mob?"24px 20px":"36px 40px",position:"relative",overflow:"hidden"}}>
+          <div style={{background:`linear-gradient(135deg,${C.gradientFrom},${C.gradientTo})`,borderRadius:"12px 12px 12px 24px",padding:mob?"24px 20px":"36px 40px",position:"relative",overflow:"hidden"}}>
             <JunctionLines style={{position:"absolute",bottom:-30,right:-40,width:400,height:250,opacity:.06}}/>
             <div style={{position:"relative"}}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
@@ -171,12 +172,12 @@ export default function DSFIPSGovernance(){
                 <div key={i} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",padding:mob?"16px 12px":"16px 20px",position:"relative"}}>
                   {i<3&&!mob&&<div style={{position:"absolute",right:0,top:"50%",width:1,height:"60%",transform:"translateY(-50%)",background:`${C.cardBorder}`}}/>}
                   {i<3&&!mob&&<div style={{position:"absolute",right:-4,top:"50%",transform:"translateY(-50%)",width:0,height:0,borderTop:"5px solid transparent",borderBottom:"5px solid transparent",borderLeft:`6px solid ${C.cardBorder}`}}/>}
-                  <div style={{width:36,height:36,borderRadius:"50%",background:`${s.color}12`,border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>
+                  <div style={{width:36,height:36,borderRadius:"50%",background:alpha(s.color,0.07),border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>
                     <span style={{fontSize:14,fontWeight:800,fontFamily:Fn.title,color:s.color}}>{s.step}</span>
                   </div>
                   <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,textAlign:"center",marginBottom:6}}>{s.title}</span>
                   <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",lineHeight:1.45,marginBottom:10}}>{s.desc}</span>
-                  <div style={{background:`${s.color}08`,borderRadius:6,padding:"6px 10px",border:`1px solid ${s.color}20`}}>
+                  <div style={{background:alpha(s.color,0.03),borderRadius:6,padding:"6px 10px",border:`1px solid ${alpha(s.color,0.13)}`}}>
                     <span style={{fontSize:11,fontWeight:600,color:s.color,fontFamily:Fn.body}}>{s.answer}</span>
                   </div>
                 </div>

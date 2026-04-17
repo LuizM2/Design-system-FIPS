@@ -95,13 +95,13 @@ export function UserChip({
           }}
           aria-hidden
         />
-        <span className="relative z-[1] flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[12px] font-semibold text-[#002A68]">
+        <span className="relative z-[1] flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[12px] font-semibold text-[var(--color-gov-azul-escuro)]">
           {initials}
         </span>
         <span
           className={cn(
             'relative z-[1] hidden min-w-0 flex-1 truncate text-left font-sans text-[13px] leading-none sm:block',
-            hovered ? 'text-[#002A68]' : 'text-[var(--color-fg)]',
+            hovered ? 'text-[var(--color-gov-azul-escuro)]' : 'text-[var(--color-fg)]',
           )}
         >
           {name}
@@ -109,7 +109,7 @@ export function UserChip({
         <ChevronDown
           className={cn(
             'relative z-[1] h-3.5 w-3.5 shrink-0',
-            hovered ? 'text-[#002A68]' : 'text-[var(--color-fg-muted)]',
+            hovered ? 'text-[var(--color-gov-azul-escuro)]' : 'text-[var(--color-fg-muted)]',
           )}
           strokeWidth={1.5}
           aria-hidden

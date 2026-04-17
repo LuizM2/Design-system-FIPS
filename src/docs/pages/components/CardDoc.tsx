@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C = {
-  azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",
+  azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",
   cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",
   azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",
   amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",
@@ -424,9 +424,9 @@ export default function CardDoc(){
         <Section n="10" title="Card Regra (Rule Card)" desc="Card com cabeçalho colorido, ícone em container branco, tag de identificação e corpo descritivo. Para documentar regras, princípios obrigatórios e diretrizes de governança. Usado nas páginas de padrões do DS.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
             {[
-              {icon:Ic.check(20,C.azulProfundo),color:C.azulProfundo,bg:`${C.azulProfundo}08`,tag:"REGRA 1",title:"Título da regra",desc:"Descrição da regra ou princípio. Texto descritivo que explica o contexto, a motivação e como aplicar no dia a dia do projeto."},
+              {icon:Ic.check(20,C.azulProfundo),color:C.azulProfundo,bg:`color-mix(in srgb, ${C.azulProfundo} 3%, transparent)`,tag:"REGRA 1",title:"Título da regra",desc:"Descrição da regra ou princípio. Texto descritivo que explica o contexto, a motivação e como aplicar no dia a dia do projeto."},
               {icon:Ic.alert(20,C.amareloEscuro),color:C.amareloEscuro,bg:`${C.amareloEscuro}08`,tag:"REGRA 2",title:"Título do alerta",desc:"Descrição de algo a observar ou evitar. O tom é de atenção — não proibição absoluta, mas cuidado redobrado na implementação."},
-              {icon:Ic.fire(20,C.azulEscuro),color:C.azulEscuro,bg:`${C.azulEscuro}08`,tag:"REGRA 3",title:"Título da evolução",desc:"Descrição de como evoluir o sistema quando surgir um caso não coberto. Processo, documentação e validação antes de usar."},
+              {icon:Ic.fire(20,C.azulEscuro),color:C.azulEscuro,bg:`color-mix(in srgb, ${C.azulEscuro} 3%, transparent)`,tag:"REGRA 3",title:"Título da evolução",desc:"Descrição de como evoluir o sistema quando surgir um caso não coberto. Processo, documentação e validação antes de usar."},
             ].map((p,i)=>(
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",boxShadow:"0 2px 8px rgba(0,75,155,.05)"}}>
                 <div style={{background:p.bg,padding:mob?"16px 16px 14px":"20px 22px 16px",borderBottom:`1px solid ${C.cardBorder}`}}>

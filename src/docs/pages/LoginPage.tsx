@@ -5,7 +5,7 @@ import { Eye, EyeOff, ArrowRight, User, CheckCircle2 } from 'lucide-react'
 const BG = '/backgrounds/app-shell-home-trains.png'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -983,7 +983,7 @@ export default function Login(){
                       </div>
                     </div>
                   </div>
-                  <div style={{marginTop:12,padding:"12px 16px",borderRadius:10,background:`${C.azulProfundo}08`,border:`1px solid ${C.azulProfundo}15`}}>
+                  <div style={{marginTop:12,padding:"12px 16px",borderRadius:10,background:`color-mix(in srgb, ${C.azulProfundo} 3%, transparent)`,border:`1px solid color-mix(in srgb, ${C.azulProfundo} 8%, transparent)`}}>
                     <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,lineHeight:1.8,display:"block",wordBreak:"break-all" as const}}>
                       background: linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%);
                     </code>

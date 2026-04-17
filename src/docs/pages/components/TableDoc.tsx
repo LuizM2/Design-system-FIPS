@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import type { CSSProperties } from 'react'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -438,7 +438,7 @@ export default function TableDoc() {
             title="Requisições de compra"
             subtitle="Lista de requisições do módulo Suprimentos."
             icon={<svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M14 6h14l10 10v24a2 2 0 01-2 2H14a2 2 0 01-2-2V8a2 2 0 012-2z" stroke={C.azulProfundo} strokeWidth="2.5" strokeLinejoin="round"/><path d="M28 6v10h10M20 24h8M20 30h12M20 36h6" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round"/></svg>}
-            iconBg={`${C.azulProfundo}0C`}
+            iconBg={`color-mix(in srgb, ${C.azulProfundo} 5%, transparent)`}
             footer={<><span>12 requisições · 4 pendentes</span><span style={{fontWeight:600,color:C.cinzaEscuro}}>Total: R$ 75.930</span></>}
           />
         </Section>
@@ -618,7 +618,7 @@ export default function TableDoc() {
                 {/* Title bar */}
                 <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
                   <div style={{display:"flex",alignItems:"center",gap:14}}>
-                    <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0C`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <div style={{width:48,height:48,borderRadius:14,background:`color-mix(in srgb, ${C.azulProfundo} 5%, transparent)`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                       <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M14 6h14l10 10v24a2 2 0 01-2 2H14a2 2 0 01-2-2V8a2 2 0 012-2z" stroke={C.azulProfundo} strokeWidth="2.5" strokeLinejoin="round"/><path d="M28 6v10h10M20 24h8M20 30h12M20 36h6" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round"/></svg>
                     </div>
                     <div>

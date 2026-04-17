@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Reac
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C = {
-  azulProfundo: '#004B9B',
-  azulEscuro: '#002A68',
-  azulClaro: '#658EC9',
+  azulProfundo: 'var(--color-gov-azul-profundo)',
+  azulEscuro: 'var(--color-gov-azul-escuro)',
+  azulClaro: 'var(--color-gov-azul-claro)',
   cinzaChumbo: 'var(--color-fg-muted)',
   cinzaEscuro: 'var(--color-fg)',
   cinzaClaro: '#C0CCD2',

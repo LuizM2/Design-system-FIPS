@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",inputBorder:"#CBD5E1",focusRing:"rgba(147,189,228,0.35)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",inputBorder:"#CBD5E1",focusRing:"rgba(147,189,228,0.35)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -164,7 +164,7 @@ export default function DialogDoc(){
       </Modal>
 
       {/* 4. INFORMATIVO */}
-      <Modal open={m==="info"} onClose={close} title="Sobre os Fipcoins" subtitle="Sistema de gamificação FIPS" icon={Ic.infoI(28,C.azulProfundo)} iconBg={`${C.azulProfundo}0A`} width={440}
+      <Modal open={m==="info"} onClose={close} title="Sobre os Fipcoins" subtitle="Sistema de gamificação FIPS" icon={Ic.infoI(28,C.azulProfundo)} iconBg={`color-mix(in srgb, ${C.azulProfundo} 4%, transparent)`} width={440}
         footer={<Btn label="Entendi" color={C.azulProfundo} onClick={close}/>}>
         <div style={{display:"flex",flexDirection:"column",gap:14}}>
           <p style={{fontSize:13,color:C.cinzaChumbo,margin:0,lineHeight:1.6}}>Fipcoins são moedas virtuais que você ganha ao submeter ideias aprovadas, completar treinamentos e participar de boas práticas. Acumule pontos e troque por benefícios.</p>
@@ -180,7 +180,7 @@ export default function DialogDoc(){
       </Modal>
 
       {/* 5. FORMULÁRIO — body #fafafa */}
-      <Modal open={m==="form"} onClose={close} title="Atribuir responsável" subtitle="Selecione o colaborador e tipo de atribuição." icon={Ic.pessoaLg(28,C.azulCeu)} iconBg={`${C.azulProfundo}0A`} bodyBg="#fafafa" width={480}
+      <Modal open={m==="form"} onClose={close} title="Atribuir responsável" subtitle="Selecione o colaborador e tipo de atribuição." icon={Ic.pessoaLg(28,C.azulCeu)} iconBg={`color-mix(in srgb, ${C.azulProfundo} 4%, transparent)`} bodyBg="#fafafa" width={480}
         footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Salvar atribuição" color={C.verdeFloresta} onClick={close}/></>}>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
           <FInput label="Responsável" placeholder="Nome do colaborador" required icon={Ic.pessoa(14)}/>

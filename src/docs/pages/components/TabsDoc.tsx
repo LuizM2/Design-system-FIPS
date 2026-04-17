@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -73,7 +73,7 @@ function TabsFilled({tabs=[],active=0,onChange,size="md"}){
         const ic=isA?C.branco:C.cinzaEscuro;
         return(
           <div key={i} onClick={()=>!dis&&onChange?.(i)} style={{padding:`${s.py}px ${s.px}px`,fontSize:s.fs,fontWeight:isA?700:500,fontFamily:Fn.body,color:dis?C.textLight:isA?C.branco:C.cinzaEscuro,background:isA?C.azulProfundo:"transparent",borderRadius:7,cursor:dis?"not-allowed":"pointer",display:"flex",alignItems:"center",gap:6,whiteSpace:"nowrap",transition:"all .25s cubic-bezier(.4,0,.2,1)",opacity:dis?.45:1,boxShadow:isA?"0 2px 8px rgba(0,75,155,.25)":"none"}}
-            onMouseEnter={e=>{if(!dis&&!isA)e.currentTarget.style.background=`${C.azulProfundo}12`}}
+            onMouseEnter={e=>{if(!dis&&!isA)e.currentTarget.style.background=`color-mix(in srgb, ${C.azulProfundo} 7%, transparent)`}}
             onMouseLeave={e=>{if(!dis&&!isA)e.currentTarget.style.background="transparent"}}
           >
             {t.icon&&<span style={{display:"flex"}}>{typeof t.icon==="function"?t.icon(ic):t.icon}</span>}
@@ -141,15 +141,15 @@ function TabsBordered({tabs=[],active=0,onChange,size="md",vertical}){
             padding:`${s.py}px ${s.px}px`,fontSize:s.fs,
             fontWeight:isA?600:400,fontFamily:Fn.body,
             color:dis?C.textLight:isA?C.azulProfundo:C.cinzaChumbo,
-            background:isA?`${C.azulProfundo}06`:"transparent",
-            border:vertical?"none":`1px solid ${isA?`${C.azulProfundo}30`:C.cardBorder}`,
-            borderLeft:vertical?`2px solid ${isA?C.amareloEscuro:"transparent"}`:(isA?`1px solid ${C.azulProfundo}30`:`1px solid ${C.cardBorder}`),
+            background:isA?`color-mix(in srgb, ${C.azulProfundo} 2%, transparent)`:"transparent",
+            border:vertical?"none":`1px solid ${isA?`color-mix(in srgb, ${C.azulProfundo} 19%, transparent)`:C.cardBorder}`,
+            borderLeft:vertical?`2px solid ${isA?C.amareloEscuro:"transparent"}`:(isA?`1px solid color-mix(in srgb, ${C.azulProfundo} 19%, transparent)`:`1px solid ${C.cardBorder}`),
             borderRadius:vertical?"0 6px 6px 0":6,
             cursor:dis?"not-allowed":"pointer",
             display:"flex",alignItems:"center",gap:7,whiteSpace:"nowrap",
             transition:"all .2s ease",opacity:dis?.45:1,
           }}
-            onMouseEnter={e=>{if(!dis&&!isA){e.currentTarget.style.background=`${C.azulProfundo}04`;e.currentTarget.style.color=C.cinzaEscuro}}}
+            onMouseEnter={e=>{if(!dis&&!isA){e.currentTarget.style.background=`color-mix(in srgb, ${C.azulProfundo} 2%, transparent)`;e.currentTarget.style.color=C.cinzaEscuro}}}
             onMouseLeave={e=>{if(!dis&&!isA){e.currentTarget.style.background="transparent";e.currentTarget.style.color=C.cinzaChumbo}}}
           >
             {t.icon&&<span style={{display:"flex",color:isA?C.amareloEscuro:C.cinzaChumbo,transition:"color .2s"}}>{typeof t.icon==="function"?t.icon(ic):t.icon}</span>}

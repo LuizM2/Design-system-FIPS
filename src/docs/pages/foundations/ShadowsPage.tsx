@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 const shadows={
   none:{label:"Nenhuma",value:"none",level:0,token:"shadow-none"},
   card:{label:"Card",value:"0 1px 3px rgba(0,75,155,.04), 0 4px 14px rgba(0,75,155,.03)",level:1,token:"shadow-card"},
@@ -57,7 +58,7 @@ export default function DSFIPSShadows(){
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,var(--color-gov-gradient-from) 0%,var(--color-gov-gradient-to) 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
@@ -72,7 +73,7 @@ export default function DSFIPSShadows(){
             {shadowOrder.map((key,i)=>{const sh=shadows[key as keyof typeof shadows];return(
               <div key={key} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,animation:`fadeUp .35s ease ${i*0.06}s both`}}>
                 <div style={{width:"100%",aspectRatio:"1",background:C.cardBg,borderRadius:"12px 12px 12px 20px",border:key==="none"?`1px solid ${C.cardBorder}`:"1px solid transparent",boxShadow:sh.value,display:"flex",alignItems:"center",justifyContent:"center",transition:"box-shadow .3s"}}>
-                  <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:`${C.azulProfundo}20`}}>{sh.level}</span>
+                  <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:alpha(C.azulProfundo,0.13)}}>{sh.level}</span>
                 </div>
                 <div style={{textAlign:"center"}}>
                   <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{sh.label}</span>
@@ -87,7 +88,7 @@ export default function DSFIPSShadows(){
           <div style={{display:"flex",gap:mob?16:32,flexDirection:mob?"column":"row",alignItems:mob?"stretch":"flex-start"}}>
             <div style={{display:"flex",flexDirection:mob?"row":"column",gap:8,flexWrap:mob?"wrap":"nowrap",minWidth:mob?"auto":180}}>
               {shadowOrder.map(key=>{const sh=shadows[key as keyof typeof shadows];const isActive=playgroundShadow===key;return(
-                <button key={key} onClick={()=>setPlaygroundShadow(key)} style={{display:"flex",alignItems:"center",gap:8,padding:mob?"8px 12px":"10px 16px",fontSize:12,fontWeight:isActive?700:400,fontFamily:Fn.body,color:isActive?C.azulProfundo:C.cinzaChumbo,background:isActive?`${C.azulProfundo}08`:C.cardBg,border:`1px solid ${isActive?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s",textAlign:"left",whiteSpace:"nowrap"}}>
+                <button key={key} onClick={()=>setPlaygroundShadow(key)} style={{display:"flex",alignItems:"center",gap:8,padding:mob?"8px 12px":"10px 16px",fontSize:12,fontWeight:isActive?700:400,fontFamily:Fn.body,color:isActive?C.azulProfundo:C.cinzaChumbo,background:isActive?alpha(C.azulProfundo,0.03):C.cardBg,border:`1px solid ${isActive?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s",textAlign:"left",whiteSpace:"nowrap"}}>
                   <span style={{width:8,height:8,borderRadius:"50%",background:isActive?C.azulProfundo:C.cardBorder,flexShrink:0,transition:"background .15s"}}/>{sh.label}
                 </button>
               )})}
@@ -95,7 +96,7 @@ export default function DSFIPSShadows(){
             <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:mob?200:280,background:`repeating-conic-gradient(${C.bg} 0% 25%, ${C.cardBg} 0% 50%) 0 0 / 20px 20px`,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:mob?20:40}}>
               <div style={{width:mob?"90%":"70%",maxWidth:360,background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${playgroundShadow==="none"?C.cardBorder:"transparent"}`,boxShadow:shadows[playgroundShadow as keyof typeof shadows].value,padding:mob?16:24,transition:"box-shadow .4s ease"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-                  <div style={{width:40,height:40,borderRadius:12,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.card(20,C.azulProfundo)}</div>
+                  <div style={{width:40,height:40,borderRadius:12,background:alpha(C.azulProfundo,0.04),display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.card(20,C.azulProfundo)}</div>
                   <div><span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span><span style={{fontSize:11,color:C.cinzaChumbo}}>Demonstração de sombra</span></div>
                 </div>
                 <div style={{height:1,background:C.cardBorder,marginBottom:12}}/>
@@ -121,7 +122,7 @@ export default function DSFIPSShadows(){
             {componentMap.map((cm,i)=>(
               <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr":"2fr 1fr 3fr",padding:"12px 20px",borderBottom:i<componentMap.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10}}>
-                  <div style={{width:28,height:28,borderRadius:8,background:`${cm.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,any>)[cm.icon](14,cm.color)}</div>
+                  <div style={{width:28,height:28,borderRadius:8,background:alpha(cm.color,0.04),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,any>)[cm.icon](14,cm.color)}</div>
                   <span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{cm.component}</span>
                 </div>
                 <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{shadows[cm.shadow as keyof typeof shadows].token}</code>
@@ -138,7 +139,7 @@ export default function DSFIPSShadows(){
                 <div key={key} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",boxShadow:sh.value,padding:mob?16:20,border:key==="card"?`1px solid ${C.cardBorder}`:"1px solid transparent"}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
                     <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{sh.label}</span>
-                    <span style={{fontSize:18,fontWeight:800,fontFamily:Fn.title,color:`${C.azulProfundo}15`}}>{sh.level}</span>
+                    <span style={{fontSize:18,fontWeight:800,fontFamily:Fn.title,color:alpha(C.azulProfundo,0.08)}}>{sh.level}</span>
                   </div>
                   <div style={{height:1,background:C.cardBorder,marginBottom:8}}/>
                   <code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,lineHeight:1.6,wordBreak:"break-all"}}>{sh.value}</code>
@@ -174,7 +175,7 @@ export default function DSFIPSShadows(){
                     <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{sh.label}</span>
                   </div>
                   <div style={{display:"flex",alignItems:"center",gap:8}}>
-                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,background:`${C.azulProfundo}08`,padding:"2px 8px",borderRadius:4}}>{sh.token}</code>
+                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,background:alpha(C.azulProfundo,0.03),padding:"2px 8px",borderRadius:4}}>{sh.token}</code>
                     <span style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,background:C.bg,padding:"2px 6px",borderRadius:4}}>nível {sh.level}</span>
                   </div>
                   <code style={{fontSize:mob?10:11,fontFamily:Fn.mono,color:C.cinzaChumbo,flex:1,wordBreak:"break-all"}}>{sh.value||"none"}</code>

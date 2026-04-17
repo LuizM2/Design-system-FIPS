@@ -386,9 +386,9 @@ export default function ModalWorkflowDemo() {
       </DemoSection>
 
       <RuleCards cards={[
-        { icon: <ShieldCheck size={20} color="#004B9B" />, color: '#004B9B', bg: '#004B9B08', tag: 'REGRA 1', title: 'Modal estruturado com abas', desc: 'O Modal Workflow é um diálogo modal com abas segmentadas que organiza formulários de criação e edição em etapas claras. As abas permitem dividir campos relacionados sem sobrecarregar a tela.' },
+        { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Modal estruturado com abas', desc: 'O Modal Workflow é um diálogo modal com abas segmentadas que organiza formulários de criação e edição em etapas claras. As abas permitem dividir campos relacionados sem sobrecarregar a tela.' },
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Três blocos obrigatórios', desc: 'Todo modal workflow tem header (ícone + título + subtítulo), corpo com abas e campos em grid de duas colunas, e footer com ações (cancelar + salvar). Nenhum desses blocos pode ser omitido.' },
-        { icon: <ArrowUpFromLine size={20} color="#002A68" />, color: '#002A68', bg: '#002A6808', tag: 'REGRA 3', title: 'Quando usar este padrão', desc: 'Use o Modal Workflow para criar novos registros, editar formulários complexos ou coletar dados em múltiplas seções sem sair da página atual. Se o formulário for extenso demais para um modal, use o Form Workspace.' },
+        { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Quando usar este padrão', desc: 'Use o Modal Workflow para criar novos registros, editar formulários complexos ou coletar dados em múltiplas seções sem sair da página atual. Se o formulário for extenso demais para um modal, use o Form Workspace.' },
       ]} />
     </DocPage>
   )

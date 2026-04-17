@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
+const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 const Ic={
   grid:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke={c} strokeWidth="1.4"/></svg>,
   check:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
@@ -66,7 +67,7 @@ export default function DSFIPSRadius(){
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,var(--color-gov-gradient-from) 0%,var(--color-gov-gradient-to) 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
@@ -97,7 +98,7 @@ export default function DSFIPSRadius(){
                 <span style={{fontSize:11,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:20}}>Anatomia</span>
                 <div style={{display:"flex",justifyContent:"center",marginBottom:20}}>
                   <div style={{position:"relative",width:mob?200:260,height:mob?140:180}}>
-                    <div style={{width:"100%",height:"100%",borderRadius:"12px 12px 12px 24px",background:`linear-gradient(135deg,${C.azulProfundo}10,${C.azulProfundo}05)`,border:`2px dashed ${C.azulProfundo}40`}}/>
+                    <div style={{width:"100%",height:"100%",borderRadius:"12px 12px 12px 24px",background:`linear-gradient(135deg,${alpha(C.azulProfundo,0.06)},${alpha(C.azulProfundo,0.02)})`,border:`2px dashed ${alpha(C.azulProfundo,0.25)}`}}/>
                     <div style={{position:"absolute",top:-8,left:-4,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:4,padding:"2px 6px"}}><code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo,fontWeight:600}}>12px</code></div>
                     <div style={{position:"absolute",top:-8,right:-4,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:4,padding:"2px 6px"}}><code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo,fontWeight:600}}>12px</code></div>
                     <div style={{position:"absolute",bottom:-8,right:-4,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:4,padding:"2px 6px"}}><code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo,fontWeight:600}}>12px</code></div>
@@ -120,13 +121,13 @@ export default function DSFIPSRadius(){
                 <div style={{display:"flex",flexDirection:"column",gap:24}}>
                   {caixaVariations.map(v=>(
                     <div key={v.name} style={{display:"flex",alignItems:"center",gap:mob?12:20}}>
-                      <div style={{width:mob?v.w*0.65:v.w,height:mob?v.h*0.65:v.h,borderRadius:v.radius,background:`linear-gradient(135deg,${v.color},${v.color}CC)`,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <div style={{width:mob?v.w*0.65:v.w,height:mob?v.h*0.65:v.h,borderRadius:v.radius,background:`linear-gradient(135deg,${v.color},${alpha(v.color,0.8)})`,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
                         <code style={{fontSize:mob?9:10,fontFamily:Fn.mono,color:`${C.branco}90`}}>{v.radius}</code>
                       </div>
                       <div>
                         <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
                           <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{v.name}</span>
-                          <code style={{fontSize:10,fontFamily:Fn.mono,color:v.color,fontWeight:600,background:`${v.color}10`,padding:"1px 6px",borderRadius:3}}>{v.token}</code>
+                          <code style={{fontSize:10,fontFamily:Fn.mono,color:v.color,fontWeight:600,background:alpha(v.color,0.06),padding:"1px 6px",borderRadius:3}}>{v.token}</code>
                         </div>
                         <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.4}}>{v.use}</span>
                       </div>

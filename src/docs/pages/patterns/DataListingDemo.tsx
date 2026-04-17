@@ -1,9 +1,11 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useMemo } from 'react'
 import type { CSSProperties } from 'react'
+import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",azulClaro:"#658EC9",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",gradFrom:"var(--color-gov-gradient-from)",gradTo:"var(--color-gov-gradient-to)"};
+const alpha = (c: string, a: number) => `color-mix(in srgb, ${c} ${Math.round(a*100)}%, transparent)`;
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -38,12 +40,13 @@ const Ic={
 function JunctionLines({ style }: { style?: CSSProperties }) {
   return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-const BV={sucesso:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},atencao:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},critico:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},info:{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu}};
-function Badge({variant="info",children,dot}){const v=BV[variant]||BV.info;return(<span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 7px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>)}
+const BV_LIGHT={sucesso:{bg:"#ECFDF5",color:"#00904C",border:"#A7F3D0"},atencao:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},critico:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},info:{bg:"#D3E3F4",color:"#002A68",border:"#93BDE4"}};
+const BV_DARK={sucesso:{bg:"rgba(0,198,76,0.14)",color:"#8BE5AD",border:"rgba(0,198,76,0.28)"},atencao:{bg:"rgba(246,146,30,0.14)",color:"#FDC24E",border:"rgba(246,146,30,0.28)"},critico:{bg:"rgba(239,68,68,0.14)",color:"#FCA5A5",border:"rgba(239,68,68,0.28)"},info:{bg:"rgba(147,189,228,0.14)",color:"#93BDE4",border:"rgba(147,189,228,0.28)"}};
+function Badge({variant="info",children,dot,dark}){const v=(dark?BV_DARK:BV_LIGHT)[variant]||(dark?BV_DARK:BV_LIGHT).info;return(<span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 7px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>)}
 
 function Avatar({name,size=28}){const p=(name||"").split(" ").filter(Boolean);const ini=p.length>=2?`${p[0][0]}${p[p.length-1][0]}`:p[0]?p[0][0]:"?";return <div style={{width:size,height:size,borderRadius:"50%",background:C.bg,border:`1px solid ${C.cardBorder}`,color:C.cinzaChumbo,display:"flex",alignItems:"center",justifyContent:"center",fontSize:Math.round(size*0.36),fontWeight:700,fontFamily:Fn.title,flexShrink:0,letterSpacing:".5px"}}>{ini.toUpperCase()}</div>}
 
-function Checkbox({checked,onChange,size=16}){return(<div onClick={onChange} style={{width:size,height:size,borderRadius:4,border:`1.5px solid ${checked?C.azulProfundo:C.cardBorder}`,background:checked?C.azulProfundo:C.branco,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0,transition:"all .12s"}}>{checked&&Ic.check(Math.round(size*0.65))}</div>)}
+function Checkbox({checked,onChange,size=16}){return(<div onClick={onChange} style={{width:size,height:size,borderRadius:4,border:`1.5px solid ${checked?C.azulProfundo:C.cardBorder}`,background:checked?C.azulProfundo:"var(--color-surface)",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0,transition:"all .12s"}}>{checked&&Ic.check(Math.round(size*0.65))}</div>)}
 
 function Toggle({checked,onChange}){return(<div onClick={onChange} style={{width:30,height:18,borderRadius:9,background:checked?C.azulProfundo:C.cardBorder,position:"relative",cursor:"pointer",transition:"all .15s",flexShrink:0}}><div style={{position:"absolute",top:2,left:checked?14:2,width:14,height:14,borderRadius:"50%",background:C.branco,boxShadow:"0 1px 3px rgba(0,0,0,.15)",transition:"all .15s"}}/></div>)}
 
@@ -88,6 +91,7 @@ const DENSITY={
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DataListingDemo() {
+  const {dark}=useFipsTheme();
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<768;
@@ -187,7 +191,7 @@ export default function DataListingDemo() {
         .ds-btn-wrap:hover::after{animation:dsShimmer 0.65s ease-out forwards}
       `}</style>
 
-      <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
+      <header style={{background:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
@@ -202,8 +206,8 @@ export default function DataListingDemo() {
         <Section n="01" title="Painel de Relatório completo" desc="Padrão completo de Painel de Relatório seguindo a ordem obrigatória: Header → KPIs → Toolbar → Table. Use esse padrão sempre que precisar exibir dados administrativos com ações principais, métricas e listagem.">
 
           {/* HEADER DO PAINEL — navy com ícone + título/subtítulo + CTA */}
-          <div style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 60%,#001A4A 100%)`,borderRadius:"12px 12px 12px 24px",padding:mob?"18px 18px":"22px 26px",position:"relative",overflow:"hidden",marginBottom:mob?12:16,boxShadow:"0 4px 20px rgba(0,42,104,.12)"}}>
-            <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?180:360,height:200,opacity:.06}}/>
+          <div style={{background:dark?`linear-gradient(135deg,#1e2a3a 0%,#162030 50%,#1a2840 100%)`:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 60%,#001A4A 100%)`,borderRadius:"12px 12px 12px 24px",padding:mob?"18px 18px":"22px 26px",position:"relative",overflow:"hidden",marginBottom:mob?12:16,boxShadow:dark?"0 4px 20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04)":"0 4px 20px rgba(0,42,104,.12)",border:dark?"1px solid rgba(147,189,228,0.08)":"none"}}>
+            <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?180:360,height:200,opacity:dark?.04:.06}}/>
             <div style={{position:"relative",display:"flex",alignItems:"center",gap:mob?12:16,flexWrap:"wrap"}}>
               {/* Esquerda: ícone + título + subtítulo */}
               <div style={{width:mob?38:44,height:mob?38:44,borderRadius:11,background:`${C.amareloOuro}18`,border:`1px solid ${C.amareloOuro}30`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.inbox(mob?18:20,C.amareloOuro)}</div>
@@ -253,7 +257,7 @@ export default function DataListingDemo() {
                   return(
                     <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 1px 3px rgba(0,75,155,.04)",position:"relative",overflow:"hidden"}}>
                       <div style={{padding:mob?"14px 14px 4px":"16px 18px 4px"}}>
-                        <div style={{position:"absolute",top:mob?12:14,right:mob?12:14,width:mob?32:36,height:mob?32:36,borderRadius:9,background:`${k.color}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?15:17,k.color)}</div>
+                        <div style={{position:"absolute",top:mob?12:14,right:mob?12:14,width:mob?32:36,height:mob?32:36,borderRadius:9,background:alpha(k.color,0.06),display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?15:17,k.color)}</div>
                         <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:6}}>{k.label}</span>
                         <div style={{display:"flex",alignItems:"baseline",gap:7,minHeight:26}}>
                           {hovPt>=0?
@@ -302,7 +306,7 @@ export default function DataListingDemo() {
                       {STATUSES.map(s=>(
                         <div key={s} onClick={()=>toggleFilter("status",s)} style={{padding:"6px 8px",fontSize:11,color:C.cinzaEscuro,cursor:"pointer",borderRadius:5,display:"flex",alignItems:"center",gap:8}} onMouseEnter={e=>e.currentTarget.style.background=C.bg} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
                           <div style={{width:14,height:14,borderRadius:3,border:`1.5px solid ${filters.status.includes(s)?C.azulProfundo:C.cardBorder}`,background:filters.status.includes(s)?C.azulProfundo:C.branco,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{filters.status.includes(s)&&Ic.check(10)}</div>
-                          <Badge variant={STATUS_COLOR[s]} dot>{s}</Badge>
+                          <Badge variant={STATUS_COLOR[s]} dot dark={dark}>{s}</Badge>
                         </div>
                       ))}
                     </div>
@@ -399,7 +403,7 @@ export default function DataListingDemo() {
           <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,overflow:"visible",boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             {/* Header obrigatório */}
             <div style={{padding:"18px 20px 14px",display:"flex",alignItems:"center",gap:14,borderBottom:`1px solid ${C.cardBorder}`}}>
-              <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,border:`1px solid ${C.azulProfundo}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.inbox(22,C.azulProfundo)}</div>
+              <div style={{width:48,height:48,borderRadius:14,background:alpha(C.azulProfundo,0.04),border:`1px solid ${alpha(C.azulProfundo,0.08)}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.inbox(22,C.azulProfundo)}</div>
               <div style={{flex:1,minWidth:0}}>
                 <h3 style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,margin:0,lineHeight:1.2}}>Requisições</h3>
                 <p style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,margin:"3px 0 0",lineHeight:1.4}}>{data.length} {data.length===1?"registro":"registros"} {(search||totalFilters>0)?"filtrados":"no total"} · Atualizado agora</p>
@@ -487,13 +491,13 @@ export default function DataListingDemo() {
                 </tr></thead>
                 <tbody>{data.map((r,i)=>{
                   const isSel=selected.has(r.id);
-                  const bg=isSel?`${C.azulProfundo}06`:appearance.zebra&&i%2===1?C.azulCeuClaro+"40":"transparent";
+                  const bg=isSel?alpha(C.azulProfundo,0.024):appearance.zebra&&i%2===1?C.azulCeuClaro+"40":"transparent";
                   return(<tr key={r.id} style={{borderBottom:`1px solid ${C.cardBorder}`,background:bg,height:D.rowH,transition:"background .12s",cursor:"pointer"}} onMouseEnter={e=>e.currentTarget.style.background=`${C.amareloOuro}15`} onMouseLeave={e=>e.currentTarget.style.background=bg}>
                     <td style={{padding:`0 ${D.padX}px`}}><Checkbox checked={isSel} onChange={()=>toggleSel(r.id)} size={14}/></td>
                     {visibleCols.has("id")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:600,color:C.cinzaEscuro,whiteSpace:appearance.wrapText?"normal":"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.id}</td>}
                     {visibleCols.has("sol")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Avatar name={r.sol} size={density==="compact"?22:density==="normal"?28:34}/><span style={{fontSize:D.fs,color:C.cinzaEscuro,fontWeight:600,whiteSpace:appearance.wrapText?"normal":"nowrap"}}>{r.sol}</span></div></td>}
                     {visibleCols.has("dept")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,color:C.cinzaChumbo,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.dept}</td>}
-                    {visibleCols.has("status")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><Badge variant={STATUS_COLOR[r.status]} dot>{r.status}</Badge></td>}
+                    {visibleCols.has("status")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><Badge variant={STATUS_COLOR[r.status]} dot dark={dark}>{r.status}</Badge></td>}
                     {visibleCols.has("priority")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:D.fs-1,fontWeight:600,color:PRIO_COLOR[r.priority]}}><span style={{width:6,height:6,borderRadius:"50%",background:PRIO_COLOR[r.priority]}}/>{r.priority}</span></td>}
                     {visibleCols.has("sla")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><div style={{display:"flex",alignItems:"center",gap:6,minWidth:80}}><div style={{flex:1,height:4,borderRadius:2,background:`${r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger}20`}}><div style={{height:4,borderRadius:2,background:r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger,width:`${r.sla}%`}}/></div><span style={{fontSize:9,fontFamily:Fn.mono,fontWeight:700,color:r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger}}>{r.sla}%</span></div></td>}
                     {visibleCols.has("valor")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:700,color:C.cinzaEscuro,textAlign:"right",whiteSpace:"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>R$ {r.valor.toLocaleString("pt-BR")}</td>}
@@ -509,10 +513,10 @@ export default function DataListingDemo() {
 
             {view==="cards"&&<div style={{padding:16,display:"grid",gridTemplateColumns:mob?"1fr":"repeat(auto-fill,minmax(280px,1fr))",gap:12}}>
               {data.map(r=>{const isSel=selected.has(r.id);return(
-                <div key={r.id} onClick={()=>toggleSel(r.id)} style={{padding:14,background:isSel?`${C.azulProfundo}08`:C.cardBg,border:`1px solid ${isSel?C.azulProfundo:C.cardBorder}`,borderRadius:"8px 8px 8px 14px",cursor:"pointer",transition:"all .15s"}}>
+                <div key={r.id} onClick={()=>toggleSel(r.id)} style={{padding:14,background:isSel?alpha(C.azulProfundo,0.03):C.cardBg,border:`1px solid ${isSel?C.azulProfundo:C.cardBorder}`,borderRadius:"8px 8px 8px 14px",cursor:"pointer",transition:"all .15s"}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
                     <span style={{fontSize:10,fontFamily:Fn.mono,fontWeight:700,color:C.cinzaEscuro}}>{r.id}</span>
-                    <Badge variant={STATUS_COLOR[r.status]} dot>{r.status}</Badge>
+                    <Badge variant={STATUS_COLOR[r.status]} dot dark={dark}>{r.status}</Badge>
                   </div>
                   <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
                     <Avatar name={r.sol} size={32}/>
@@ -545,8 +549,8 @@ export default function DataListingDemo() {
         <Section n="02" title="Header do Painel" desc="Faixa navy no topo do painel — identidade do sistema. Sempre presente, à esquerda ícone + título + subtítulo, à direita o CTA principal de criação. Usa o gradient navy padrão FIPS com JunctionLines decorativas.">
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             {/* Mini exemplo do header */}
-            <div style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 60%,#001A4A 100%)`,borderRadius:"10px 10px 10px 18px",padding:"18px 22px",position:"relative",overflow:"hidden",marginBottom:18}}>
-              <JunctionLines style={{position:"absolute",top:-10,right:-20,width:300,height:180,opacity:.06}}/>
+            <div style={{background:dark?`linear-gradient(135deg,#1e2a3a 0%,#162030 50%,#1a2840 100%)`:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 60%,#001A4A 100%)`,borderRadius:"10px 10px 10px 18px",padding:"18px 22px",position:"relative",overflow:"hidden",marginBottom:18,border:dark?"1px solid rgba(147,189,228,0.08)":"none",boxShadow:dark?"0 4px 16px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.04)":"none"}}>
+              <JunctionLines style={{position:"absolute",top:-10,right:-20,width:300,height:180,opacity:dark?.04:.06}}/>
               <div style={{position:"relative",display:"flex",alignItems:"center",gap:14}}>
                 <div style={{width:44,height:44,borderRadius:11,background:`${C.amareloOuro}18`,border:`1px solid ${C.amareloOuro}30`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.inbox(20,C.amareloOuro)}</div>
                 <div style={{flex:1,minWidth:0}}>
@@ -626,9 +630,9 @@ export default function DataListingDemo() {
                 {n:"CardResumo",label:"Resumo com badges",desc:"Título, descrição, badges e footer customizável.",color:C.azulClaro,icon:Ic.doc},
                 {n:"CardLista",label:"Lista de itens",desc:"Lista vertical com label + valor por linha.",color:C.cinzaChumbo,icon:Ic.list},
               ].map((c,i)=>(
-                <div key={i} style={{padding:14,background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`,display:"flex",flexDirection:"column",gap:8,transition:"all .15s",cursor:"default"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=c.color;e.currentTarget.style.background=`${c.color}06`}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.cardBorder;e.currentTarget.style.background=C.bg}}>
+                <div key={i} style={{padding:14,background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`,display:"flex",flexDirection:"column",gap:8,transition:"all .15s",cursor:"default"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=c.color;e.currentTarget.style.background=alpha(c.color,0.024)}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.cardBorder;e.currentTarget.style.background=C.bg}}>
                   <div style={{display:"flex",alignItems:"center",gap:8}}>
-                    <div style={{width:28,height:28,borderRadius:7,background:`${c.color}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{c.icon(14,c.color)}</div>
+                    <div style={{width:28,height:28,borderRadius:7,background:alpha(c.color,0.08),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{c.icon(14,c.color)}</div>
                     <div style={{flex:1,minWidth:0}}>
                       <div style={{fontSize:11,fontFamily:Fn.mono,fontWeight:700,color:c.color}}>{c.n}</div>
                       <div style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{c.label}</div>
@@ -652,7 +656,7 @@ export default function DataListingDemo() {
             ].map((r,i)=>(
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-                  <div style={{width:32,height:32,borderRadius:9,background:`${r.color}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(16,r.color)}</div>
+                  <div style={{width:32,height:32,borderRadius:9,background:alpha(r.color,0.06),display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(16,r.color)}</div>
                   <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{r.title}</span>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:6}}>
@@ -680,7 +684,7 @@ export default function DataListingDemo() {
               </div>
             </div>
             <div style={{padding:"12px 14px",background:C.bg,borderRadius:8,marginBottom:18,display:"flex",alignItems:"center",gap:12}}>
-              <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{viewDemo==="table"?Ic.list(16,C.azulProfundo):Ic.grid(16,C.azulProfundo)}</div>
+              <div style={{width:32,height:32,borderRadius:8,background:alpha(C.azulProfundo,0.06),display:"flex",alignItems:"center",justifyContent:"center"}}>{viewDemo==="table"?Ic.list(16,C.azulProfundo):Ic.grid(16,C.azulProfundo)}</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Estado: <span style={{color:C.cinzaEscuro}}>{viewDemo==="table"?"Tabela":"Cards"}</span></div>
                 <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2}}>{viewDemo==="table"?"Linhas estruturadas — análise comparativa":"Grid de cards — leitura rápida em mobile"}</div>
@@ -721,7 +725,7 @@ export default function DataListingDemo() {
                   </div>
                   <div style={{padding:"14px 16px",minHeight:120,display:"flex",alignItems:"center",justifyContent:"center"}}>
                     <div style={{textAlign:"center"}}>
-                      <div style={{width:36,height:36,borderRadius:9,background:`${C.azulProfundo}0F`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:8}}>{configTab==="colunas"?Ic.columns(18,C.azulProfundo):configTab==="densidade"?Ic.density(18,C.azulProfundo):Ic.grid(18,C.azulProfundo)}</div>
+                      <div style={{width:36,height:36,borderRadius:9,background:alpha(C.azulProfundo,0.06),display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:8}}>{configTab==="colunas"?Ic.columns(18,C.azulProfundo):configTab==="densidade"?Ic.density(18,C.azulProfundo):Ic.grid(18,C.azulProfundo)}</div>
                       <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Aba {configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</div>
                       <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2,maxWidth:220}}>{configTab==="colunas"?"Visibilidade e ordem das colunas":configTab==="densidade"?"Altura das linhas (3 níveis)":"Zebra, bordas, header fixo, wrap"}</div>
                     </div>
@@ -734,7 +738,7 @@ export default function DataListingDemo() {
               </div>
             </div>
             <div style={{padding:"12px 14px",background:C.bg,borderRadius:8,marginBottom:18,display:"flex",alignItems:"center",gap:12}}>
-              <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0F`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.settings(16,C.azulProfundo)}</div>
+              <div style={{width:32,height:32,borderRadius:8,background:alpha(C.azulProfundo,0.06),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.settings(16,C.azulProfundo)}</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{showConfigDemo?<>Popover aberto · Aba <span style={{color:C.cinzaEscuro}}>{configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</span></>:"Clique no botão acima para abrir o popover"}</div>
                 <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2}}>Popover ancorado no botão · 3 abas (Colunas, Densidade, Aparência) · Footer com Restaurar padrão e Aplicar · Fecha ao clicar fora</div>
@@ -765,7 +769,7 @@ export default function DataListingDemo() {
             ].map((r,i)=>(
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-                  <div style={{width:30,height:30,borderRadius:8,background:`${r.color}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(14,r.color)}</div>
+                  <div style={{width:30,height:30,borderRadius:8,background:alpha(r.color,0.06),display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(14,r.color)}</div>
                   <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{r.title}</span>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:5}}>
@@ -784,7 +788,7 @@ export default function DataListingDemo() {
         {/* ═══ 06 — Regras gerais ═══ */}
         <Section n="06" title="Regras gerais do Painel" desc="Diretrizes obrigatórias para qualquer Painel de Relatório no DS-FIPS. A ordem dos elementos é fixa, não pode ser invertida nem ter elementos pulados.">
           {/* Card destacado com a ordem obrigatória */}
-          <div style={{background:`linear-gradient(135deg,${C.azulProfundo}08 0%,${C.amareloOuro}10 100%)`,border:`2px solid ${C.amareloOuro}`,borderRadius:"12px 12px 12px 24px",padding:mob?16:20,marginBottom:14}}>
+          <div style={{background:`linear-gradient(135deg,${alpha(C.azulProfundo,0.03)} 0%,${C.amareloOuro}10 100%)`,border:`2px solid ${C.amareloOuro}`,borderRadius:"12px 12px 12px 24px",padding:mob?16:20,marginBottom:14}}>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
               <div style={{width:34,height:34,borderRadius:9,background:C.amareloOuro,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.list(17,C.azulEscuro)}</div>
               <div>
