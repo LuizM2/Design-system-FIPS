@@ -116,7 +116,7 @@ const heroCards: MetricCard[] = [
     value: '08',
     icon: LayoutDashboard,
     border: 'border-l-[#2c74ff]',
-    iconBg: 'bg-[#eaf1ff]',
+    iconBg: 'bg-[color-mix(in_srgb,#2c74ff_12%,var(--color-surface))]',
     iconColor: 'text-[#2c74ff]',
   },
   {
@@ -124,7 +124,7 @@ const heroCards: MetricCard[] = [
     value: '12',
     icon: Sparkles,
     border: 'border-l-[#00c64c]',
-    iconBg: 'bg-[#e8fbef]',
+    iconBg: 'bg-[color-mix(in_srgb,#00c64c_12%,var(--color-surface))]',
     iconColor: 'text-[#00a843]',
   },
   {
@@ -132,7 +132,7 @@ const heroCards: MetricCard[] = [
     value: '04',
     icon: FileText,
     border: 'border-l-[#a855f7]',
-    iconBg: 'bg-[#f4eafe]',
+    iconBg: 'bg-[color-mix(in_srgb,#a855f7_12%,var(--color-surface))]',
     iconColor: 'text-[#9333ea]',
   },
   {
@@ -140,7 +140,7 @@ const heroCards: MetricCard[] = [
     value: '19',
     icon: Menu,
     border: 'border-l-[var(--color-accent-strong)]',
-    iconBg: 'bg-[#fff2df]',
+    iconBg: 'bg-[color-mix(in_srgb,var(--color-accent-strong)_12%,var(--color-surface))]',
     iconColor: 'text-[var(--color-accent-strong)]',
   },
 ]
@@ -210,7 +210,7 @@ function MockupFrame({
           </div>
         ) : null}
 
-        <div className={cn('overflow-hidden bg-[#eef4fb]', screenClasses, viewport !== 'desktop' && 'mt-4')}>
+        <div className={cn('overflow-hidden bg-[var(--color-surface-muted)]', screenClasses, viewport !== 'desktop' && 'mt-4')}>
           {children}
         </div>
       </div>
@@ -522,7 +522,7 @@ function HeroMetricCard({ metric }: { metric: MetricCard }) {
   const Icon = metric.icon
 
   return (
-    <Card className={cn('border-l-4 bg-white/[0.96] shadow-[0_16px_40px_rgba(6,37,74,0.14)] backdrop-blur-sm', metric.border)}>
+    <Card className={cn('border-l-4 bg-[var(--color-surface)] shadow-[0_16px_40px_rgba(6,37,74,0.14)] backdrop-blur-sm', metric.border)}>
       <CardContent className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-medium text-[var(--color-fg-muted)]">{metric.label}</p>
@@ -560,7 +560,7 @@ function ShellCanvas({
   const sidebarCollapsed = isTablet || desktopCollapsed
 
   return (
-    <div className="relative flex h-full overflow-hidden bg-[#eef4fb]">
+    <div className="relative flex h-full overflow-hidden bg-[var(--color-surface-muted)]">
       {showPersistentSidebar ? (
         <ShellSidebar
           collapsed={sidebarCollapsed}
@@ -572,12 +572,12 @@ function ShellCanvas({
 
       <div className="relative flex min-w-0 flex-1 flex-col">
         {/* Header — bloco separado estilo Tecnopano */}
-        <header className="z-20 flex shrink-0 items-center gap-3 border-b border-[#e5e5e5] bg-[#f5f5f5] px-4 py-2.5">
+        <header className="z-20 flex shrink-0 items-center gap-3 border-b border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-2.5">
           {isMobile ? (
             <button
               type="button"
               onClick={onToggleMobileDrawer}
-              className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-black/[0.10] bg-white/90 text-neutral-800"
+              className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]"
               aria-label="Abrir menu"
             >
               <Menu className="h-[17px] w-[17px]" aria-hidden />
@@ -685,7 +685,7 @@ function ShellCanvas({
 
         <div className={cn('no-scrollbar flex-1 overflow-auto', isDesktop ? 'px-6 pb-6 pt-2' : isTablet ? 'px-5 pb-5 pt-2' : 'px-4 pb-5 pt-2')}>
           <div className={cn('grid gap-4', isDesktop ? 'lg:grid-cols-[minmax(0,1.45fr)_0.92fr]' : 'grid-cols-1')}>
-            <Card className="border-white/[0.8] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
+            <Card className="border-[var(--color-border)] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
               <CardContent className="space-y-4">
                 <div>
                   <p className="text-sm font-semibold text-[var(--color-fg)]">Área principal</p>
@@ -732,7 +732,7 @@ function ShellCanvas({
               </CardContent>
             </Card>
 
-            <Card className="border-white/[0.8] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
+            <Card className="border-[var(--color-border)] shadow-[0_24px_60px_rgba(6,37,74,0.08)]">
               <CardContent className="space-y-3">
                 <p className="text-sm font-semibold text-[var(--color-fg)]">Notas visuais</p>
                 {secondaryNotes.map((item) => (
