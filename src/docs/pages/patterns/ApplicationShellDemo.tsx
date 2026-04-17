@@ -27,11 +27,7 @@ import {
 } from 'lucide-react'
 import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
-import { DocHeaderNeuIconButton } from '../../../components/layout/DocHeaderNeuIconButton'
-import { DocHeaderPageTrail } from '../../../components/layout/DocHeaderPageTrail'
 import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
-import { SearchPill as SearchPillComponent } from '../../../components/layout/SearchPill'
-import { UserChip as UserChipComponent } from '../../../components/layout/UserChip'
 import { Button } from '../../../components/ui/button'
 import { Card, CardContent } from '../../../components/ui/card'
 import { cn } from '../../../lib/cn'
@@ -612,39 +608,39 @@ function ShellCanvas({
           ) : null}
           <div className="flex min-w-0 flex-1 items-center gap-2">
             {!isMobile ? (
-              <DocHeaderNeuIconButton ariaLabel="Recolher menu" onClick={isDesktop ? onToggleDesktopSidebar : undefined}>
+              <button type="button" onClick={isDesktop ? onToggleDesktopSidebar : undefined} className={cn('flex h-8 w-8 items-center justify-center rounded-lg border transition-colors', dark ? 'border-[#3a3a3a] bg-[#2a2a2a] text-[#A1A1AA] hover:bg-[#333]' : 'border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50')} aria-label="Recolher menu">
                 <PanelLeft className={cn('h-[17px] w-[17px] transition-transform duration-200', isDesktop && desktopCollapsed && 'rotate-180')} aria-hidden strokeWidth={1.9} />
-              </DocHeaderNeuIconButton>
+              </button>
             ) : null}
-            <DocHeaderPageTrail groupLabel="Padrões" pageTitle="Home" />
+            <div className="flex items-center gap-1.5 text-sm">
+              <span className={dark ? 'text-[#A1A1AA]' : 'text-neutral-400'}>Padrões</span>
+              <span className={dark ? 'text-[#3a3a3a]' : 'text-neutral-300'}>/</span>
+              <span className={cn('font-semibold', dark ? 'text-[#E2E2E8]' : 'text-neutral-800')}>Home</span>
+            </div>
           </div>
           {!isMobile ? (
-            <div className="hidden w-full max-w-[160px] md:block">
-              <SearchPillComponent variant="docHeader" placeholder="Buscar..." />
+            <div className={cn('hidden h-8 w-full max-w-[160px] items-center gap-2 rounded-lg border px-3 text-sm md:flex', dark ? 'border-[#3a3a3a] bg-[#2a2a2a] text-[#A1A1AA]' : 'border-neutral-200 bg-white text-neutral-400')}>
+              <span className="text-xs">Q</span> Buscar...
             </div>
           ) : null}
           <div className="flex shrink-0 items-center gap-2">
-            <DocHeaderNeuIconButton ariaLabel="Notificações">
-              <Bell className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
-            </DocHeaderNeuIconButton>
-            {!isMobile ? (
-              <>
-                <DocHeaderNeuIconButton ariaLabel="Tutorial">
-                  <GraduationCap className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
-                </DocHeaderNeuIconButton>
-                <DocHeaderNeuIconButton ariaLabel="Tema">
-                  <SunMoon className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.85} />
-                </DocHeaderNeuIconButton>
-              </>
-            ) : null}
-            <div className={cn('mx-0.5 h-6 w-px shrink-0 bg-neutral-300', isMobile && 'hidden')} />
-            <UserChipComponent variant="docHeader" />
+            {[Bell, ...(isMobile ? [] : [GraduationCap, SunMoon])].map((Icon, i) => (
+              <button key={i} type="button" className={cn('flex h-8 w-8 items-center justify-center rounded-lg border transition-colors', dark ? 'border-[#3a3a3a] bg-[#2a2a2a] text-[#A1A1AA] hover:bg-[#333]' : 'border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50')}>
+                <Icon className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
+              </button>
+            ))}
+            <div className={cn('mx-0.5 h-6 w-px shrink-0', dark ? 'bg-[#3a3a3a]' : 'bg-neutral-300', isMobile && 'hidden')} />
+            <div className={cn('flex h-8 items-center gap-2 rounded-lg border px-2 text-xs font-semibold', dark ? 'border-[#3a3a3a] bg-[#2a2a2a] text-[#E2E2E8]' : 'border-neutral-200 bg-white text-neutral-700')}>
+              <span className={cn('flex h-5 w-5 items-center justify-center rounded text-[10px] font-bold text-white', dark ? 'bg-[#F6921E]' : 'bg-[#F6921E]')}>AF</span>
+              {!isMobile && <span>Usuário</span>}
+              {!isMobile && <ChevronDown className="h-3 w-3 opacity-40" />}
+            </div>
           </div>
         </header>
 
         {!isMobile ? (
           <div className="z-20 shrink-0">
-            <DocHeaderSectionNavDemo tabs={shellSectionTabs} />
+            <DocHeaderSectionNavDemo tabs={shellSectionTabs} dark={dark} />
           </div>
         ) : null}
 
