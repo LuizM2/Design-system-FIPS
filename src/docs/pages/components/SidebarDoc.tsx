@@ -433,17 +433,25 @@ function SidebarNeuIcon36({
   )
 }
 
-function getBadgeTone(item: MenuItem): { bg: string; shadow: string; border: string } {
+function getBadgeTone(item: MenuItem, dark: boolean): { bg: string; color: string; shadow: string; border: string } {
   if (item.badge === 'financeiroPendente') {
-    return { bg: C.amareloEscuro, shadow: 'rgba(246,146,30,0.45)', border: 'rgba(253,194,78,0.6)' }
+    return dark
+      ? { bg: 'rgba(246,146,30,0.14)', color: '#FDC24E', shadow: 'rgba(246,146,30,0.25)', border: 'rgba(246,146,30,0.28)' }
+      : { bg: C.amareloEscuro, color: '#FFFFFF', shadow: 'rgba(246,146,30,0.45)', border: 'rgba(253,194,78,0.6)' }
   }
   if (item.badge === 'notaPendente') {
-    return { bg: C.azulProfundo, shadow: 'rgba(0,75,155,0.45)', border: 'rgba(147,189,228,0.5)' }
+    return dark
+      ? { bg: 'rgba(147,189,228,0.14)', color: '#93BDE4', shadow: 'rgba(147,189,228,0.25)', border: 'rgba(147,189,228,0.28)' }
+      : { bg: C.azulProfundo, color: '#FFFFFF', shadow: 'rgba(0,75,155,0.45)', border: 'rgba(147,189,228,0.5)' }
   }
   if (item.badge === 'producaoEmAndamento') {
-    return { bg: C.verdeFloresta, shadow: 'rgba(0,198,76,0.42)', border: 'rgba(167,243,208,0.55)' }
+    return dark
+      ? { bg: 'rgba(0,198,76,0.14)', color: '#8BE5AD', shadow: 'rgba(0,198,76,0.25)', border: 'rgba(0,198,76,0.28)' }
+      : { bg: C.verdeFloresta, color: '#FFFFFF', shadow: 'rgba(0,198,76,0.42)', border: 'rgba(167,243,208,0.55)' }
   }
-  return { bg: C.danger, shadow: 'rgba(220,53,69,0.45)', border: 'rgba(254,202,202,0.55)' }
+  return dark
+    ? { bg: 'rgba(239,68,68,0.14)', color: '#FCA5A5', shadow: 'rgba(239,68,68,0.25)', border: 'rgba(239,68,68,0.28)' }
+    : { bg: C.danger, color: '#FFFFFF', shadow: 'rgba(220,53,69,0.45)', border: 'rgba(254,202,202,0.55)' }
 }
 
 function SidebarItem({
@@ -463,6 +471,7 @@ function SidebarItem({
   onNavigate: (href: string) => void
   theme: SidebarTheme
 }) {
+  const { dark } = useFipsTheme()
   const [hovered, setHovered] = useState(false)
   const hasChildren = !!item.children?.length
   const [open, setOpen] = useState(() => {
@@ -547,7 +556,7 @@ function SidebarItem({
 
       {badgeCount > 0 ? (
         <span
-          className="flex items-center justify-center rounded-full font-bold text-white"
+          className="flex items-center justify-center rounded-full font-bold"
           style={
             collapsed
               ? {
@@ -558,8 +567,9 @@ function SidebarItem({
                   height: 16,
                   padding: '0 4px',
                   fontSize: 9,
-                  background: getBadgeTone(item).bg,
-                  boxShadow: `0 0 0 1px ${getBadgeTone(item).border}, 0 8px 18px -10px ${getBadgeTone(item).shadow}`,
+                  color: getBadgeTone(item, dark).color,
+                  background: getBadgeTone(item, dark).bg,
+                  boxShadow: `0 0 0 1px ${getBadgeTone(item, dark).border}, 0 8px 18px -10px ${getBadgeTone(item, dark).shadow}`,
                   animation: 'sidebarAlertPulse 2.2s ease-in-out infinite',
                 }
               : {
@@ -568,8 +578,9 @@ function SidebarItem({
                   height: 20,
                   padding: '0 6px',
                   fontSize: 10,
-                  background: getBadgeTone(item).bg,
-                  boxShadow: `0 0 0 1px ${getBadgeTone(item).border}, 0 8px 18px -10px ${getBadgeTone(item).shadow}`,
+                  color: getBadgeTone(item, dark).color,
+                  background: getBadgeTone(item, dark).bg,
+                  boxShadow: `0 0 0 1px ${getBadgeTone(item, dark).border}, 0 8px 18px -10px ${getBadgeTone(item, dark).shadow}`,
                   animation: 'sidebarAlertPulse 2.2s ease-in-out infinite',
                 }
           }
