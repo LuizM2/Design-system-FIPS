@@ -74,7 +74,7 @@ const BV={sucesso:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},atencao:{b
 function Badge({variant="default",children,dot,size="md"}){const v=BV[variant]||BV.default;return(<span style={{display:"inline-flex",alignItems:"center",gap:5,padding:`2px ${size==="sm"?6:8}px`,fontSize:size==="sm"?10:11,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:6,height:6,borderRadius:"50%",background:v.color,opacity:.85}}/>}{children}</span>)}
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -148,7 +148,7 @@ export default function TooltipDoc(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             {/* Em ícone de ajuda */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Ícone de ajuda (?)</span><code style={gk}>mais comum</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Ícone de ajuda (?)</span><code style={gk}>mais comum</code></div>
               <div style={{...gb,display:"flex",flexDirection:"column",gap:16}}>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
                   <span style={{fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body}}>Código CNPJ</span>
@@ -164,7 +164,7 @@ export default function TooltipDoc(){
 
             {/* Em botão */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Botão com tooltip</span><code style={gk}>disabled + ação</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Botão com tooltip</span><code style={gk}>disabled + ação</code></div>
               <div style={{...gb,display:"flex",flexDirection:"column",gap:16}}>
                 <div style={{display:"flex",gap:10,alignItems:"center"}}>
                   <Tooltip text="Clique para aprovar esta requisição." position="bottom">
@@ -180,7 +180,7 @@ export default function TooltipDoc(){
 
             {/* Em badge */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Badge com tooltip</span><code style={gk}>status detalhado</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Badge com tooltip</span><code style={gk}>status detalhado</code></div>
               <div style={{...gb,display:"flex",flexDirection:"column",gap:16}}>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
                   <Tooltip text="Empresa ativa no sistema. Última atualização: 28/03/2026." variant="sucesso"><Badge variant="sucesso" dot>Ativo</Badge></Tooltip>
@@ -193,7 +193,7 @@ export default function TooltipDoc(){
 
             {/* Rico com título */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Tooltip rico</span><code style={gk}>título + descrição</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Tooltip rico</span><code style={gk}>título + descrição</code></div>
               <div style={{...gb,display:"flex",flexDirection:"column",gap:16}}>
                 <div style={{display:"flex",gap:12,alignItems:"center"}}>
                   <Tooltip title="Fipcoins" text="Sistema de gamificação da FIPS. Colaboradores ganham moedas por ideias aprovadas e boas práticas." variant="dark" maxW={280}><span style={{display:"flex",cursor:"help"}}>{Ic.star(18,C.amareloOuro)}</span></Tooltip>
@@ -206,7 +206,7 @@ export default function TooltipDoc(){
 
             {/* Header de tabela */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Header de tabela</span><code style={gk}>colunas com dica</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Header de tabela</span><code style={gk}>colunas com dica</code></div>
               <div style={gb}>
                 <div style={{border:`1px solid ${C.cardBorder}`,borderRadius:6,overflow:"hidden"}}>
                   <div style={{display:"flex",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`}}>
@@ -232,7 +232,7 @@ export default function TooltipDoc(){
 
             {/* Em formulário */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Campo de formulário</span><code style={gk}>help inline</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Campo de formulário</span><code style={gk}>help inline</code></div>
               <div style={gb}>
                 <div style={{display:"flex",flexDirection:"column",gap:4}}>
                   <div style={{display:"flex",alignItems:"center",gap:4}}>
@@ -261,7 +261,7 @@ export default function TooltipDoc(){
               {name:"Sucesso",c:C.verdeFloresta,badge:"confirmação",desc:"Fundo verde claro. Confirmação positiva ou validação OK.",when:"Status ativo com detalhes, campo validado, ação disponível com contexto.",ex:"Badge 'Ativo' com data; campo validado com check; permissão concedida."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span><code style={gk}>{t.badge}</code></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span><code style={gk}>{t.badge}</code></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Quando usar</div><p style={gt}>{t.when}</p>
@@ -277,7 +277,7 @@ export default function TooltipDoc(){
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
                   {l:"Fundo",v:"Cor da variante (dark = #333B41)"},
                   {l:"Texto",v:"12px Open Sans, line-height 1.4"},
@@ -296,7 +296,7 @@ export default function TooltipDoc(){
                 ))}
               </div>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
                 {[
                   {l:"Trigger",v:"mouseEnter (hover)"},
                   {l:"Delay entrada",v:"200ms (evita flash acidental)"},
@@ -321,7 +321,7 @@ export default function TooltipDoc(){
         <Section n="06" title="Cenários de negócio" desc="Exemplos reais de tooltips nos apps FIPS. Passe o mouse para testar.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Visitante</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Visitante</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Help em campos do formulário</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",flexDirection:"column",gap:12}}>
                 <div style={{display:"flex",alignItems:"center",gap:4}}>
@@ -337,7 +337,7 @@ export default function TooltipDoc(){
             </div>
 
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Tooltips em ações e status</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
                 <Tooltip text="Aprovar e encaminhar para compra." variant="sucesso" position="bottom">
@@ -353,7 +353,7 @@ export default function TooltipDoc(){
             </div>
 
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ideias</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ideias</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Dica sobre sistema de gamificação</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",alignItems:"center",gap:10}}>
                 <Tooltip title="Fipcoins" text="Moeda virtual da FIPS. Ganhe por ideias aprovadas, boas práticas e participação." variant="dark" maxW={260}>
@@ -366,13 +366,13 @@ export default function TooltipDoc(){
             </div>
 
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Dashboard / Power BI</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Dashboard / Power BI</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Tooltip em KPIs e métricas</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",gap:16,alignItems:"center"}}>
                 <Tooltip title="SLA" text="Service Level Agreement. Meta: 90%. Cálculo: entregas no prazo / total de entregas." variant="dark" maxW={280}>
                   <div style={{cursor:"help"}}>
                     <span style={{fontSize:11,color:C.cinzaChumbo,display:"block"}}>SLA</span>
-                    <span style={{fontSize:24,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>94%</span>
+                    <span style={{fontSize:24,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>94%</span>
                   </div>
                 </Tooltip>
                 <Tooltip title="Ocorrências" text="Ocorrências SSMA abertas. Críticas: 2, Pendentes: 3, Em análise: 2." variant="atencao" maxW={260}>

@@ -12,7 +12,7 @@ const Ic={
   shield:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5.5v5c0 4 3.5 6.5 7 7.5 3.5-1 7-3.5 7-7.5v-5L10 2z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/></svg>,
 };
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value}:{label:string,value:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}><span style={{color:C.cinzaChumbo,minWidth:160}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -88,21 +88,21 @@ export default function DSFIPSTypography(){
                   <div style={{flex:1}}>
                     <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
                       <code style={{fontSize:10,fontFamily:Fn.mono,background:`${f.tagColor}12`,color:f.tagColor,padding:"3px 8px",borderRadius:4,fontWeight:600}}>{f.tag}</code>
-                      <span style={{fontSize:mob?20:28,fontWeight:700,color:C.azulEscuro,fontFamily:f.family,lineHeight:1.2}}>{f.name}</span>
+                      <span style={{fontSize:mob?20:28,fontWeight:700,color:C.cinzaEscuro,fontFamily:f.family,lineHeight:1.2}}>{f.name}</span>
                     </div>
                     <p style={{fontSize:13,color:C.cinzaChumbo,margin:0,lineHeight:1.55,fontFamily:Fn.body}}>{f.desc}</p>
                   </div>
                 </div>
                 <div style={{background:C.bg,borderRadius:8,padding:mob?12:16,marginBottom:16}}>
-                  <span style={{fontSize:mob?18:24,fontWeight:700,fontFamily:f.family,color:C.azulEscuro,display:"block",marginBottom:4,lineHeight:1.3}}>{f.specimen}</span>
+                  <span style={{fontSize:mob?18:24,fontWeight:700,fontFamily:f.family,color:C.cinzaEscuro,display:"block",marginBottom:4,lineHeight:1.3}}>{f.specimen}</span>
                   <span style={{fontSize:11,fontFamily:f.family,color:C.textMuted,wordBreak:"break-all",lineHeight:1.6}}>{f.charSet}</span>
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(auto-fit,minmax(200px,1fr))",gap:8}}>
                   {f.weights.map(wt=>(
                     <div key={wt.l} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:6,border:`1px solid ${C.cardBorder}`,background:C.cardBg}}>
-                      <span style={{fontFamily:f.family,fontWeight:wt.w,fontSize:18,color:C.azulEscuro,minWidth:mob?40:56}}>{wt.w}</span>
+                      <span style={{fontFamily:f.family,fontWeight:wt.w,fontSize:18,color:C.cinzaEscuro,minWidth:mob?40:56}}>{wt.w}</span>
                       <div style={{flex:1}}>
-                        <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.body,display:"block"}}>{wt.l}</span>
+                        <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.body,display:"block"}}>{wt.l}</span>
                         <span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>{wt.use}</span>
                       </div>
                     </div>
@@ -119,7 +119,7 @@ export default function DSFIPSTypography(){
               {sizeScale.map((s,i)=>(
                 <div key={s.token} style={{display:"flex",alignItems:mob?"flex-start":"center",gap:mob?8:16,padding:mob?"10px 0":"8px 0",borderBottom:i<sizeScale.length-1?`1px solid ${C.cardBorder}`:"none",flexDirection:mob?"column":"row"}}>
                   <div style={{display:"flex",alignItems:"center",gap:8,minWidth:mob?"auto":200,flexShrink:0}}>
-                    <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.azulProfundo,minWidth:32,textAlign:"right"}}>{s.px}px</code>
+                    <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro,minWidth:32,textAlign:"right"}}>{s.px}px</code>
                     <code style={{fontSize:9,fontFamily:Fn.mono,color:C.textMuted,background:C.bg,padding:"1px 6px",borderRadius:3}}>{s.token}</code>
                   </div>
                   <div style={{flex:1,minWidth:0,overflow:"hidden"}}>
@@ -143,7 +143,7 @@ export default function DSFIPSTypography(){
             {weightContexts.map((wc,i)=>(
               <div key={i} style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"60px 100px 1.5fr 2fr",padding:"9px 20px",borderBottom:i<weightContexts.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
                 <code style={{fontSize:13,fontWeight:700,fontFamily:Fn.mono,color:wc.color}}>{wc.weight}</code>
-                {!mob&&<span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{wc.label}</span>}
+                {!mob&&<span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{wc.label}</span>}
                 <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body}}>{wc.family}</span>
                 {!mob&&<span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body}}>{wc.contexts}</span>}
               </div>
@@ -156,15 +156,15 @@ export default function DSFIPSTypography(){
             <div style={{background:C.bg,borderRadius:"10px 10px 10px 18px",padding:mob?16:24,border:`1px solid ${C.cardBorder}`}}>
               <div style={{marginBottom:20}}>
                 <div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:4}}>01 <span style={{marginLeft:8,fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-micro · Saira 700 10px uppercase</span></div>
-                <div style={{fontSize:mob?20:22,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,marginBottom:2}}>Playground interativo <span style={{marginLeft:8,fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-h2 · Saira 700 22px</span></div>
+                <div style={{fontSize:mob?20:22,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,marginBottom:2}}>Playground interativo <span style={{marginLeft:8,fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-h2 · Saira 700 22px</span></div>
                 <div style={{fontSize:14,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.55,marginBottom:16}}>Tabela completa com dados reais. Clique nos headers para ordenar. <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-body · Open Sans 400 14px</span></div>
               </div>
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?12:16,marginBottom:12}}>
-                <div style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,marginBottom:4}}>App Suprimentos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-card-title · Saira 700 15px</span></div>
+                <div style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,marginBottom:4}}>App Suprimentos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-card-title · Saira 700 15px</span></div>
                 <div style={{fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.55,marginBottom:8}}>Requisições com avatar, valor monetário e badge. <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-sm · Open Sans 400 13px</span></div>
                 <div style={{display:"flex",alignItems:"center",gap:12}}>
-                  <span style={{fontSize:12,fontWeight:600,fontFamily:Fn.body,color:C.azulEscuro}}>Carlos Santos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>Open Sans 600</span></span>
-                  <span style={{fontFamily:Fn.mono,fontWeight:600,fontSize:12,color:C.azulEscuro}}>R$ 15.600 <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.body,fontWeight:400}}>Fira Code 600</span></span>
+                  <span style={{fontSize:12,fontWeight:600,fontFamily:Fn.body,color:C.cinzaEscuro}}>Carlos Santos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>Open Sans 600</span></span>
+                  <span style={{fontFamily:Fn.mono,fontWeight:600,fontSize:12,color:C.cinzaEscuro}}>R$ 15.600 <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.body,fontWeight:400}}>Fira Code 600</span></span>
                   <code style={{fontSize:11,fontFamily:Fn.mono,fontWeight:500,color:C.cinzaChumbo}}>REQ-4025 <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.body,fontWeight:400}}>Fira Code 500</span></code>
                 </div>
               </div>
@@ -183,8 +183,8 @@ export default function DSFIPSTypography(){
               ].map(item=>(
                 <div key={item.label} style={{background:C.bg,borderRadius:8,padding:mob?12:16,border:`1px solid ${C.cardBorder}`}}>
                   <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-                    <code style={{fontSize:16,fontWeight:700,fontFamily:Fn.mono,color:C.azulProfundo}}>{item.lh}</code>
-                    <div><span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{item.label}</span><span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>{item.use}</span></div>
+                    <code style={{fontSize:16,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{item.lh}</code>
+                    <div><span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{item.label}</span><span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>{item.use}</span></div>
                   </div>
                   <div style={{background:C.cardBg,borderRadius:6,padding:12,border:`1px solid ${C.cardBorder}`}}>
                     <span style={{fontSize:Math.min(item.size,mob?16:item.size),fontWeight:item.weight,fontFamily:item.family,color:item.color,lineHeight:parseFloat(item.lh),whiteSpace:"pre-line"}}>{item.sample}</span>
@@ -201,7 +201,7 @@ export default function DSFIPSTypography(){
               {rules.map(r=>(
                 <div key={r.title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                   <div style={{width:36,height:36,borderRadius:10,background:C.bg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,(s:number,c:string)=>React.ReactNode>)[r.icon](16,C.azulProfundo)}</div>
-                  <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span><span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span></div>
+                  <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span><span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span></div>
                 </div>
               ))}
             </div>

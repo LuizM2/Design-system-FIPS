@@ -45,7 +45,7 @@ function CardResumo({title,desc,children,badges,footer}:{title:string,desc?:stri
   return(
     <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 1px 3px rgba(0,75,155,.04)",overflow:"hidden"}}>
       <div style={{padding:"20px 24px"}}>
-        <h3 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>{title}</h3>
+        <h3 style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>{title}</h3>
         {desc&&<p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 12px",lineHeight:1.5,fontFamily:Fn.body}}>{desc}</p>}
         {children}
         {badges&&<div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:12}}>{badges}</div>}
@@ -60,7 +60,7 @@ function CardAcao({title,desc,primary,secondary,urgency,children}:{title:string,
     <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 1px 3px rgba(0,75,155,.04)",overflow:"hidden"}}>
       <div style={{padding:"20px 24px"}}>
         <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
-          <h3 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3>
+          <h3 style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3>
           {urgency&&<Badge2 variant={urgency==="alta"?"critico":urgency==="media"?"atencao":"sucesso"} size="sm">{urgency}</Badge2>}
         </div>
         {desc&&<p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 12px",lineHeight:1.5,fontFamily:Fn.body}}>{desc}</p>}
@@ -79,13 +79,13 @@ function CardAcao({title,desc,primary,secondary,urgency,children}:{title:string,
 function CardLista({title,items=[]}:{title?:string,items?:{icon?:React.ReactNode,label:string,badge?:React.ReactNode,value?:string}[]}){
   return(
     <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 1px 3px rgba(0,75,155,.04)",overflow:"hidden"}}>
-      {title&&<div style={{padding:"14px 24px",borderBottom:`1px solid ${C.cardBorder}`}}><h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3></div>}
+      {title&&<div style={{padding:"14px 24px",borderBottom:`1px solid ${C.cardBorder}`}}><h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3></div>}
       {items.map((item,i)=>(
         <div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 24px",borderBottom:i<items.length-1?`1px solid ${C.cardBorder}`:"none"}}>
           {item.icon&&<span style={{display:"flex",flexShrink:0}}>{item.icon}</span>}
           <span style={{flex:1,fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body}}>{item.label}</span>
           {item.badge&&item.badge}
-          {item.value&&<span style={{fontSize:13,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.mono}}>{item.value}</span>}
+          {item.value&&<span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.mono}}>{item.value}</span>}
         </div>
       ))}
     </div>
@@ -115,7 +115,7 @@ function CardKPIE2({label,value,delta,up,icon,color,spark=[]}:{label:string,valu
         <div style={{position:"absolute",top:16,right:16,width:40,height:40,borderRadius:12,background:`${color}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{icon}</div>
         <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:8}}>{label}</span>
         <div style={{display:"flex",alignItems:"baseline",gap:8}}>
-          <span style={{fontSize:28,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,lineHeight:1}}>{value}</span>
+          <span style={{fontSize:28,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{value}</span>
           <span style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:600,fontFamily:Fn.mono,color:deltaColor}}>
             {up?Ic.arrowUp(10,deltaColor):Ic.arrowDown(10,deltaColor)}{delta}
           </span>
@@ -133,7 +133,7 @@ function CardStatusD({label,value,delta,up,color,pct}:{label:string,value:string
     <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
       <div>
         <span style={{fontSize:10,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:3,textTransform:"uppercase",letterSpacing:".5px"}}>{label}</span>
-        <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,display:"block",lineHeight:1}}>{value}</span>
+        <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,display:"block",lineHeight:1}}>{value}</span>
         <span style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:600,fontFamily:Fn.mono,color:deltaColor,marginTop:3}}>
           {up?Ic.arrowUp(10,deltaColor):Ic.arrowDown(10,deltaColor)}{delta}
         </span>
@@ -167,7 +167,7 @@ function CardPrincipio({title,desc,icon,color}:{title:string,desc:string,icon:Re
       <div style={{height:3,background:`linear-gradient(90deg,${color},${color}60)`}}/>
       <div style={{padding:"18px 16px 16px",textAlign:"center"}}>
         <div style={{width:44,height:44,borderRadius:"50%",background:C.bg,border:`1.5px solid ${C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:10}}>{icon}</div>
-        <h3 style={{fontSize:13,fontWeight:700,color:C.azulEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{title}</h3>
+        <h3 style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{title}</h3>
         <p style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body}}>{desc}</p>
       </div>
     </div>
@@ -175,7 +175,7 @@ function CardPrincipio({title,desc,icon,color}:{title:string,desc:string,icon:Re
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function FamilyLabel({icon,label,color}:{icon:React.ReactNode,label:string,color:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16,padding:"10px 16px",background:`${color}10`,borderRadius:8,border:`1px solid ${color}25`}}><span style={{display:"flex"}}>{icon}</span><span style={{fontSize:13,fontWeight:700,color,fontFamily:Fn.title,letterSpacing:".5px"}}>{label}</span></div>)}
 
@@ -265,7 +265,7 @@ export default function CardDoc(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             <CardResumo title="Resumo operacional" desc="Indicadores consolidados do mês com performance geral e pontos de atenção identificados pela equipe."
               badges={<><Badge2 variant="sucesso" dot>Fluxo ativo</Badge2><Badge2 variant="secondary">Revisão visual</Badge2></>}
-              footer={<><span style={{fontSize:11,color:C.textMuted}}>Atualizado há 2h</span><span style={{fontSize:12,fontWeight:600,color:C.azulProfundo,cursor:"pointer"}}>Ver detalhes →</span></>}
+              footer={<><span style={{fontSize:11,color:C.textMuted}}>Atualizado há 2h</span><span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,cursor:"pointer"}}>Ver detalhes →</span></>}
             />
             <CardAcao title="Próxima ação recomendada" desc="Revisar componentes antes de fechar padrões de dashboard e regras de negócio." urgency="alta" primary="Iniciar revisão" secondary="Adiar" />
             <CardAcao title="Atualizar cadastro" desc="3 fornecedores com dados desatualizados. Verificar CNPJ e contatos." urgency="media" primary="Ver fornecedores" secondary="Ignorar">
@@ -320,7 +320,7 @@ export default function CardDoc(){
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
                 <div style={gh}>
-                  <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span>
                   <code style={gk}>{t.fam}</code>
                 </div>
                 <div style={gb}>
@@ -339,17 +339,17 @@ export default function CardDoc(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             {/* App Ideias */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Card de ideia</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Card de ideia</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>App Ideias — card com Fipcoins</p>
               <CardResumo title="Automação do pátio" desc="Sensores IoT para monitoramento automático de vagões no pátio ferroviário."
                 badges={<><Badge2 variant="info" size="sm" pill>Inovação</Badge2><Badge2 variant="secondary" size="sm" pill>IoT</Badge2><Badge2 variant="ouro" size="sm" icon={Ic.star(9,C.amareloOuro)}>+50</Badge2></>}
-                footer={<><span style={{fontSize:11,color:C.textMuted}}>Diogo Paiva · 3 dias</span><span style={{fontSize:12,fontWeight:600,color:C.azulProfundo,cursor:"pointer"}}>Votar ↑</span></>}
+                footer={<><span style={{fontSize:11,color:C.textMuted}}>Diogo Paiva · 3 dias</span><span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,cursor:"pointer"}}>Votar ↑</span></>}
               />
             </div>
 
             {/* Dashboard Cadastros */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Dashboard Cadastros</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Dashboard Cadastros</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Card Relatório com dados reais</p>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
                 <CardRelatorio label="Total de Empresas" value="335" subtitle="Cadastradas" icon={Ic.chart(18,C.azulProfundo)} color={C.azulProfundo}/>
@@ -359,19 +359,19 @@ export default function CardDoc(){
 
             {/* Requisição */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Aprovação de requisição</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Aprovação de requisição</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>App Suprimentos</p>
               <CardAcao title="REQ-4022 · Equipamento SSMA" desc="3 extintores + 10 cones para o pátio." urgency="media" primary="Aprovar" secondary="Rejeitar">
                 <div style={{display:"flex",gap:10,fontSize:12,color:C.cinzaChumbo,marginBottom:8}}>
                   <span>Solicitante: <strong>Carlos Santos</strong></span>
-                  <span>Valor: <strong style={{color:C.azulEscuro}}>R$ 2.450</strong></span>
+                  <span>Valor: <strong style={{color:C.cinzaEscuro}}>R$ 2.450</strong></span>
                 </div>
               </CardAcao>
             </div>
 
             {/* Checklist SSMA */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Inspeção SSMA</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Inspeção SSMA</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Checklist diário</p>
               <CardLista title="Inspeção 02/04/2026" items={[
                 {icon:Ic.check(14,C.verdeFloresta),label:"EPI da equipe",badge:<Badge2 variant="sucesso" size="sm">OK</Badge2>},
@@ -434,7 +434,7 @@ export default function CardDoc(){
                     <div style={{width:42,height:42,borderRadius:12,background:C.cardBg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 6px rgba(0,75,155,.06)"}}>{p.icon}</div>
                     <span style={{fontSize:9,fontWeight:700,letterSpacing:"1.5px",fontFamily:Fn.title,color:p.color,background:C.cardBg,padding:"3px 8px",borderRadius:4,border:`1px solid ${p.color}20`}}>{p.tag}</span>
                   </div>
-                  <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
+                  <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
                 </div>
                 <div style={{padding:mob?"14px 16px":"16px 22px 20px"}}>
                   <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:0,fontFamily:Fn.body}}>{p.desc}</p>

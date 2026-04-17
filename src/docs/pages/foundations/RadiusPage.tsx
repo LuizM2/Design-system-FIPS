@@ -12,7 +12,7 @@ const Ic={
   layers:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M10 2l8 4-8 4-8-4 8-4z" stroke={c} strokeWidth="1.4" strokeLinejoin="round"/><path d="M2 10l8 4 8-4" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 14l8 4 8-4" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 };
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value}:{label:string,value:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}><span style={{color:C.cinzaChumbo,minWidth:160}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -103,7 +103,7 @@ export default function DSFIPSRadius(){
                     <div style={{position:"absolute",bottom:-8,right:-4,background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:4,padding:"2px 6px"}}><code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo,fontWeight:600}}>12px</code></div>
                     <div style={{position:"absolute",bottom:-8,left:-4,background:C.azulProfundo,borderRadius:4,padding:"2px 8px"}}><code style={{fontSize:11,fontFamily:Fn.mono,color:C.branco,fontWeight:700}}>24px ★</code></div>
                     <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",textAlign:"center"}}>
-                      <code style={{fontSize:mob?11:13,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:700,display:"block"}}>12px 12px 12px 24px</code>
+                      <code style={{fontSize:mob?11:13,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:700,display:"block"}}>12px 12px 12px 24px</code>
                       <span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body,marginTop:4,display:"block"}}>top-left · top-right · bottom-right · bottom-left</span>
                     </div>
                   </div>
@@ -125,7 +125,7 @@ export default function DSFIPSRadius(){
                       </div>
                       <div>
                         <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
-                          <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{v.name}</span>
+                          <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{v.name}</span>
                           <code style={{fontSize:10,fontFamily:Fn.mono,color:v.color,fontWeight:600,background:`${v.color}10`,padding:"1px 6px",borderRadius:3}}>{v.token}</code>
                         </div>
                         <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.4}}>{v.use}</span>
@@ -142,11 +142,11 @@ export default function DSFIPSRadius(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             <div style={{background:`repeating-conic-gradient(${C.bg} 0% 25%, ${C.cardBg} 0% 50%) 0 0 / 16px 16px`,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:mob?20:32,display:"flex",flexDirection:"column",alignItems:"center",gap:12}}>
               <div style={{width:"80%",height:mob?100:130,background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,boxShadow:"0 4px 14px rgba(0,75,155,.08)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                <code style={{fontSize:12,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>12 12 12 24</code>
+                <code style={{fontSize:12,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>12 12 12 24</code>
               </div>
               <div style={{display:"flex",alignItems:"center",gap:6}}>
                 <div style={{width:20,height:20,borderRadius:"50%",background:C.verdeFloresta,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.check(12,C.branco)}</div>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Elemento Caixa</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Elemento Caixa</span>
               </div>
               <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center"}}>Identidade FIPS. Personalidade visual.</span>
             </div>
@@ -174,9 +174,9 @@ export default function DSFIPSRadius(){
               <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr 1fr":"2fr 2fr 1fr",padding:"10px 20px",borderBottom:i<componentRadius.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
                   <div style={{width:6,height:6,borderRadius:"50%",background:cr.color,flexShrink:0}}/>
-                  <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{cr.component}</span>
+                  <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{cr.component}</span>
                 </div>
-                <code style={{fontSize:mob?10:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>{cr.radius}</code>
+                <code style={{fontSize:mob?10:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{cr.radius}</code>
                 <span style={{fontSize:11,color:cr.type==="Caixa"||cr.type==="Caixa md"?C.amareloEscuro:C.cinzaChumbo,fontWeight:cr.type.startsWith("Caixa")?700:400,fontFamily:Fn.body}}>{cr.type}</span>
               </div>
             ))}
@@ -190,7 +190,7 @@ export default function DSFIPSRadius(){
                 <div key={r.title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                   <div style={{width:36,height:36,borderRadius:10,background:C.bg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,(s:number,c:string)=>React.ReactNode>)[r.icon](16,C.azulProfundo)}</div>
                   <div>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
                     <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span>
                   </div>
                 </div>

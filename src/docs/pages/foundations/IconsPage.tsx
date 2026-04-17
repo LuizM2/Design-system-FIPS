@@ -30,7 +30,7 @@ function Ic({ id, size, color }: { id: string; size: number; color: string }) {
 }
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value}:{label:string,value:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}><span style={{color:C.cinzaChumbo,minWidth:140}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -112,7 +112,7 @@ export default function DSFIPSIconography(){
               {sizes.map(s=>(
                 <div key={s.px} style={{display:"flex",alignItems:"center",gap:mob?12:24,padding:"10px 0",borderBottom:`1px solid ${C.cardBorder}`}}>
                   <div style={{width:48,height:48,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><Ic id="settings" size={s.px} color={C.azulProfundo} /></div>
-                  <div style={{minWidth:60,flexShrink:0}}><code style={{fontSize:14,fontWeight:700,fontFamily:Fn.mono,color:C.azulEscuro}}>{s.px}px</code></div>
+                  <div style={{minWidth:60,flexShrink:0}}><code style={{fontSize:14,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{s.px}px</code></div>
                   <span style={{fontSize:13,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.4}}>{s.use}</span>
                 </div>
               ))}
@@ -128,7 +128,7 @@ export default function DSFIPSIconography(){
                   <div style={{width:40,height:40,borderRadius:10,background:C.cardBg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><Ic id="shield" size={20} color={cr.color} /></div>
                   <div style={{flex:1}}>
                     <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:2}}>
-                      <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{cr.name}</span>
+                      <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{cr.name}</span>
                       <code style={{fontSize:10,fontFamily:Fn.mono,color:cr.color}}>{cr.color}</code>
                     </div>
                     <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body}}>{cr.use}</span>
@@ -160,7 +160,7 @@ export default function DSFIPSIconography(){
               <span style={{fontSize:11,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:12}}>Header de modal</span>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
                 <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><Ic id="doc" size={24} color={C.azulProfundo} /></div>
-                <div><span style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Nova Requisição</span><span style={{fontSize:12,color:C.cinzaChumbo}}>Preencha os dados abaixo</span></div>
+                <div><span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Nova Requisição</span><span style={{fontSize:12,color:C.cinzaChumbo}}>Preencha os dados abaixo</span></div>
               </div>
             </div>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",padding:mob?16:20}}>
@@ -190,7 +190,7 @@ export default function DSFIPSIconography(){
               ].map(r=>(
                 <div key={r.title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                   <div style={{width:36,height:36,borderRadius:10,background:C.bg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><Ic id={r.icon} size={16} color={C.azulProfundo} /></div>
-                  <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span><span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span></div>
+                  <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span><span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span></div>
                 </div>
               ))}
             </div>

@@ -21,7 +21,7 @@ const Ic={
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
@@ -63,7 +63,7 @@ export default function DSFIPSGovernance(){
                     <div style={{width:42,height:42,borderRadius:12,background:C.cardBg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 6px rgba(0,75,155,.06)"}}>{p.icon(20,p.color)}</div>
                     <span style={{fontSize:9,fontWeight:700,letterSpacing:"1.5px",fontFamily:Fn.title,color:p.color,background:C.cardBg,padding:"3px 8px",borderRadius:4,border:`1px solid ${p.color}20`}}>{p.tag}</span>
                   </div>
-                  <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
+                  <h3 style={{fontSize:mob?14:16,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{p.title}</h3>
                 </div>
                 <div style={{padding:mob?"14px 16px":"16px 22px 20px"}}>
                   <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:0,fontFamily:Fn.body}}>{p.desc}</p>
@@ -114,7 +114,7 @@ export default function DSFIPSGovernance(){
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
               <div style={{padding:"14px 20px",background:`${C.azulCeu}10`,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:10}}>
                 {Ic.eye(20,C.azulProfundo)}
-                <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Pode fazer</span>
+                <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Pode fazer</span>
               </div>
               <div style={{padding:mob?14:20}}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:80}}>
@@ -174,7 +174,7 @@ export default function DSFIPSGovernance(){
                   <div style={{width:36,height:36,borderRadius:"50%",background:`${s.color}12`,border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>
                     <span style={{fontSize:14,fontWeight:800,fontFamily:Fn.title,color:s.color}}>{s.step}</span>
                   </div>
-                  <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,textAlign:"center",marginBottom:6}}>{s.title}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,textAlign:"center",marginBottom:6}}>{s.title}</span>
                   <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",lineHeight:1.45,marginBottom:10}}>{s.desc}</span>
                   <div style={{background:`${s.color}08`,borderRadius:6,padding:"6px 10px",border:`1px solid ${s.color}20`}}>
                     <span style={{fontSize:11,fontWeight:600,color:s.color,fontFamily:Fn.body}}>{s.answer}</span>

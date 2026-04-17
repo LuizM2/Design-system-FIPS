@@ -586,7 +586,7 @@ function DSMultiSelect({
               alignItems: 'center',
               gap: 3,
               background: C.azulCeuClaro,
-              color: C.azulEscuro,
+              color: C.cinzaEscuro,
               fontSize: 11,
               fontWeight: 600,
               padding: '2px 8px',
@@ -1134,7 +1134,7 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
         style={{
           fontSize: 20,
           fontWeight: 700,
-          color: C.azulEscuro,
+          color: C.cinzaEscuro,
           margin: '0 0 4px',
           fontFamily: F.title,
           letterSpacing: '0.5px',
@@ -1603,7 +1603,7 @@ export default function SelectDoc() {
             {guideItems.map((t) => (
               <div key={t.name} style={{ ...gc, borderLeft: `4px solid ${t.c}` }}>
                 <div style={gh}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>{t.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>{t.name}</span>
                   <code style={gk}>{t.badge}</code>
                 </div>
                 <div style={gb}>
@@ -1634,7 +1634,7 @@ export default function SelectDoc() {
                 padding: mob ? 16 : 24,
               }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>App Acesso Visitante</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>App Acesso Visitante</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>Tipo de veículo + toggle condicional</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <DSSelect
@@ -1666,7 +1666,7 @@ export default function SelectDoc() {
                 padding: mob ? 16 : 24,
               }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Filtros do Suprimentos</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Filtros do Suprimentos</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>Segmented + Select + Chips</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <DSSegmented options={['Todos', 'Pendentes', 'Aprovados']} compact />
@@ -1683,7 +1683,7 @@ export default function SelectDoc() {
                 padding: mob ? 16 : 24,
               }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Configuração SSMA</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Configuração SSMA</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>Checkboxes + Radio + Toggle</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <DSCheckboxGroup label="Alertas" options={['Email', 'SMS', 'Push']} compact />
@@ -1700,7 +1700,7 @@ export default function SelectDoc() {
                 padding: mob ? 16 : 24,
               }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Controle de acesso</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Controle de acesso</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>Autocomplete + Multi-select</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <DSAutocomplete

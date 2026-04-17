@@ -149,7 +149,7 @@ function Section({ number, title, desc, children }: { number: string; title: str
   return (
     <section style={{ marginBottom: 40 }}>
       <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: C.azulClaro, fontFamily: FONTS.title, marginBottom: 6 }}>{number}</div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: FONTS.title, letterSpacing: "0.5px" }}>{title}</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: FONTS.title, letterSpacing: "0.5px" }}>{title}</h2>
       <p style={{ fontSize: 14, color: C.cinzaChumbo, margin: "0 0 20px", lineHeight: 1.55, fontFamily: FONTS.body }}>{desc}</p>
       {children}
     </section>
@@ -169,7 +169,7 @@ function Card({ children, style }: { children: React.ReactNode; style?: React.CS
 function ScenarioCard({ title, desc, children }: { title: string; desc: string; children: React.ReactNode }) {
   return (
     <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: "10px 10px 10px 20px", padding: "24px", flex: 1, minWidth: 280 }}>
-      <h3 style={{ fontSize: 15, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: FONTS.title }}>{title}</h3>
+      <h3 style={{ fontSize: 15, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: FONTS.title }}>{title}</h3>
       <p style={{ fontSize: 13, color: C.cinzaChumbo, margin: "0 0 18px", lineHeight: 1.5, fontFamily: FONTS.body }}>{desc}</p>
       <div style={{ background: C.branco, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: "14px 18px", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
         {children}
@@ -516,7 +516,7 @@ export default function DSFIPSButtons() {
               </div>
               <div style={guideBody}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: C.azulEscuro, fontFamily: FONTS.title }}>Small</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: C.cinzaEscuro, fontFamily: FONTS.title }}>Small</span>
                   <code style={guideToken}>height: 30px · font: 12px</code>
                 </div>
                 <div style={{...guideLabel, marginTop: 14}}>Significado</div>
@@ -541,10 +541,10 @@ export default function DSFIPSButtons() {
               </div>
               <div style={guideBody}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: C.azulEscuro, fontFamily: FONTS.title }}>Medium</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: C.cinzaEscuro, fontFamily: FONTS.title }}>Medium</span>
                   <code style={guideToken}>height: 36px · font: 13px</code>
                 </div>
-                <div style={{...guideLabel, marginTop: 14, color: C.azulProfundo}}>★ TAMANHO PADRÃO DO SISTEMA</div>
+                <div style={{...guideLabel, marginTop: 14, color: C.cinzaEscuro}}>★ TAMANHO PADRÃO DO SISTEMA</div>
                 <p style={guideText}>O tamanho default. Equilibra presença visual com economia de espaço. Se não souber qual escolher, use Medium.</p>
                 <div style={guideLabel}>Onde usar</div>
                 <p style={guideText}>Formulários, rodapé de modais, barras de ação de páginas, cards de detalhe, toolbars de edição. É o tamanho para 90% dos casos do ecossistema FIPS.</p>
@@ -565,7 +565,7 @@ export default function DSFIPSButtons() {
               </div>
               <div style={guideBody}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: C.azulEscuro, fontFamily: FONTS.title }}>Large</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: C.cinzaEscuro, fontFamily: FONTS.title }}>Large</span>
                   <code style={guideToken}>height: 42px · font: 14px</code>
                 </div>
                 <div style={{...guideLabel, marginTop: 14}}>Significado</div>

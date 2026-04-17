@@ -28,7 +28,7 @@ const Ic={
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value,color}:{label:string,value:string,color?:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:140}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -128,7 +128,7 @@ export default function DSFIPSOverview(){
                 <div style={{height:3,background:`linear-gradient(90deg,${p.color},${p.color}60)`}}/>
                 <div style={{padding:mob?"14px 12px":"20px 20px 18px",textAlign:"center"}}>
                   <div style={{width:mob?40:50,height:mob?40:50,borderRadius:"50%",background:C.bg,border:`1.5px solid ${C.cardBorder}`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12}}>{p.icon(mob?18:22,p.color)}</div>
-                  <h3 style={{fontSize:mob?12:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{p.title}</h3>
+                  <h3 style={{fontSize:mob?12:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 6px",fontFamily:Fn.title}}>{p.title}</h3>
                   <p style={{fontSize:mob?10:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body}}>{p.desc}</p>
                 </div>
               </div>
@@ -146,7 +146,7 @@ export default function DSFIPSOverview(){
                     <div style={{height:56,background:c.hex}}/>
                     <div style={{padding:"10px 12px"}}>
                       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
-                        <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{c.name}</span>
+                        <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{c.name}</span>
                         <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaChumbo}}>{c.hex}</code>
                       </div>
                       <span style={{fontSize:11,color:C.textMuted,fontFamily:Fn.body}}>{c.usage}</span>
@@ -162,7 +162,7 @@ export default function DSFIPSOverview(){
                   <div key={c.hex} style={{borderRadius:8,overflow:"hidden",border:`1px solid ${C.cardBorder}`}}>
                     <div style={{height:40,background:c.hex}}/>
                     <div style={{padding:"8px 10px"}}>
-                      <span style={{fontSize:11,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{c.name}</span>
+                      <span style={{fontSize:11,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{c.name}</span>
                       <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaChumbo}}>{c.hex}</code>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export default function DSFIPSOverview(){
                 {colors.semantic.map(c=>(
                   <div key={c.name} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
                     <div style={{width:28,height:28,borderRadius:8,background:c.hex,flexShrink:0}}/>
-                    <div><span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{c.name}</span><span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>{c.usage}</span></div>
+                    <div><span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{c.name}</span><span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>{c.usage}</span></div>
                   </div>
                 ))}
               </div>
@@ -186,32 +186,32 @@ export default function DSFIPSOverview(){
         <Section n="03" title="Tipografia" desc="Três famílias tipográficas com funções específicas: títulos com personalidade, corpo legível e código técnico.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:16}}>
             <DSCard mob={mob}>
-              <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.azulProfundo}12`,color:C.azulProfundo,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Títulos</code>
-              <span style={{fontSize:28,fontWeight:800,color:C.azulEscuro,fontFamily:Fn.title,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Saira Expanded</span>
+              <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.azulProfundo}12`,color:C.cinzaEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Títulos</code>
+              <span style={{fontSize:28,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Saira Expanded</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Headers de seção, títulos de página, badges de navegação e labels de destaque.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
-                <span style={{fontFamily:Fn.title,fontWeight:800,fontSize:20,color:C.azulEscuro}}>ExtraBold 800</span>
-                <span style={{fontFamily:Fn.title,fontWeight:700,fontSize:18,color:C.azulEscuro}}>Bold 700</span>
+                <span style={{fontFamily:Fn.title,fontWeight:800,fontSize:20,color:C.cinzaEscuro}}>ExtraBold 800</span>
+                <span style={{fontFamily:Fn.title,fontWeight:700,fontSize:18,color:C.cinzaEscuro}}>Bold 700</span>
                 <span style={{fontFamily:Fn.title,fontWeight:600,fontSize:16,color:C.cinzaEscuro}}>SemiBold 600</span>
                 <span style={{fontFamily:Fn.title,fontWeight:400,fontSize:14,color:C.cinzaChumbo}}>Regular 400</span>
               </div>
             </DSCard>
             <DSCard mob={mob}>
               <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.verdeFloresta}12`,color:C.verdeEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Corpo</code>
-              <span style={{fontSize:28,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.body,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Open Sans</span>
+              <span style={{fontSize:28,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.body,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Open Sans</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Textos de corpo, descrições, labels de formulário, conteúdo de tabela e parágrafos.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
-                <span style={{fontFamily:Fn.body,fontWeight:700,fontSize:16,color:C.azulEscuro}}>Bold 700 — destaque</span>
+                <span style={{fontFamily:Fn.body,fontWeight:700,fontSize:16,color:C.cinzaEscuro}}>Bold 700 — destaque</span>
                 <span style={{fontFamily:Fn.body,fontWeight:600,fontSize:14,color:C.cinzaEscuro}}>SemiBold 600 — labels</span>
                 <span style={{fontFamily:Fn.body,fontWeight:400,fontSize:14,color:C.cinzaChumbo}}>Regular 400 — corpo de texto padrão para leitura confortável</span>
               </div>
             </DSCard>
             <DSCard mob={mob}>
               <code style={{fontSize:10,fontFamily:Fn.mono,background:`${C.amareloEscuro}15`,color:C.amareloEscuro,padding:"3px 8px",borderRadius:4,fontWeight:600}}>Mono</code>
-              <span style={{fontSize:28,fontWeight:500,color:C.azulEscuro,fontFamily:Fn.mono,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Fira Code</span>
+              <span style={{fontSize:28,fontWeight:500,color:C.cinzaEscuro,fontFamily:Fn.mono,display:"block",lineHeight:1.2,margin:"12px 0 8px"}}>Fira Code</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body,lineHeight:1.5}}>Valores numéricos, códigos, IDs, tokens de referência e snippets técnicos.</p>
               <div style={{display:"flex",flexDirection:"column",gap:4}}>
-                <span style={{fontFamily:Fn.mono,fontWeight:500,fontSize:14,color:C.azulEscuro}}>Medium 500 — REQ-4025</span>
+                <span style={{fontFamily:Fn.mono,fontWeight:500,fontSize:14,color:C.cinzaEscuro}}>Medium 500 — REQ-4025</span>
                 <span style={{fontFamily:Fn.mono,fontWeight:400,fontSize:14,color:C.cinzaChumbo}}>Regular 400 — R$ 15.600</span>
                 <span style={{fontFamily:Fn.mono,fontWeight:400,fontSize:12,color:C.textMuted}}>12px — #004B9B · 12px 24px</span>
               </div>
@@ -222,7 +222,7 @@ export default function DSFIPSOverview(){
         <Section n="04" title="Elementos gráficos" desc="Identidade visual herdada do Brandbook: elemento caixa assimétrico e linhas de junção ferroviária.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             <DSCard mob={mob}>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Elemento Caixa</span>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Elemento Caixa</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.55,margin:"0 0 20px",fontFamily:Fn.body}}>Border-radius assimétrico: três cantos arredondados + canto inferior esquerdo maior. Aplicado em cards, containers, modais e tabelas.</p>
               <div style={{display:"flex",gap:16,alignItems:"center",flexWrap:"wrap"}}>
                 <div style={{width:100,height:70,borderRadius:"12px 12px 12px 24px",background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:10,color:`${C.branco}90`,fontFamily:Fn.mono}}>12 12 12 24</span></div>
@@ -231,7 +231,7 @@ export default function DSFIPSOverview(){
               </div>
             </DSCard>
             <DSCard mob={mob}>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Linhas de Junção Ferroviária</span>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Linhas de Junção Ferroviária</span>
               <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.55,margin:"0 0 16px",fontFamily:Fn.body}}>Linhas que se dividem em bifurcações, remetendo aos trilhos da ferrovia. Usadas como elemento decorativo em headers e backgrounds.</p>
               <div style={{background:`linear-gradient(135deg,${C.azulProfundo},${C.azulEscuro})`,borderRadius:"10px 10px 10px 18px",padding:"16px 12px",position:"relative",overflow:"hidden",height:100}}>
                 <JunctionLines style={{position:"absolute",top:-10,left:-10,width:"120%",height:"120%",opacity:.25}}/>
@@ -248,7 +248,7 @@ export default function DSFIPSOverview(){
                 <span style={{fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:isHov?comp.color:C.textLight,minWidth:20,transition:"color .15s"}}>{String(i+1).padStart(2,"0")}</span>
                 <div style={{width:32,height:32,borderRadius:8,background:`${comp.color}${isHov?"20":"0D"}`,display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",flexShrink:0}}>{comp.icon(16,comp.color)}</div>
                 <div style={{flex:1,minWidth:0}}>
-                  <span style={{fontSize:13,fontWeight:700,color:isHov?comp.color:C.azulEscuro,fontFamily:Fn.title,display:"block",transition:"color .15s"}}>{comp.name}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:isHov?comp.color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",transition:"color .15s"}}>{comp.name}</span>
                   <span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",display:"block"}}>{comp.desc}</span>
                 </div>
                 <div style={{opacity:isHov?1:0,transition:"opacity .15s",flexShrink:0}}>{Ic.arrow(12,comp.color)}</div>

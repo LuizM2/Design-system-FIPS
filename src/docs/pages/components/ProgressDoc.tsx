@@ -177,7 +177,7 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
   return (
     <section style={{ marginBottom: 44 }}>
       <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: C.azulClaro, fontFamily: F.title, marginBottom: 6 }}>{n}</div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: F.title, letterSpacing: ".5px" }}>{title}</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: F.title, letterSpacing: ".5px" }}>{title}</h2>
       <p style={{ fontSize: 14, color: C.cinzaChumbo, margin: "0 0 20px", lineHeight: 1.55, fontFamily: F.body }}>{desc}</p>
       {children}
     </section>
@@ -275,7 +275,7 @@ export default function ProgressDoc() {
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: C.cinzaChumbo, fontFamily: F.body, minWidth: 60 }}>Valor:</span>
                 <input type="range" min="0" max="100" value={demoVal} onChange={e => setDemoVal(Number(e.target.value))} style={{ flex: 1 }} />
-                <span style={{ fontSize: 18, fontWeight: 700, color: C.azulProfundo, fontFamily: F.mono, minWidth: 50, textAlign: "right" }}>{demoVal}%</span>
+                <span style={{ fontSize: 18, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.mono, minWidth: 50, textAlign: "right" }}>{demoVal}%</span>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : xl ? "1fr 240px" : "1fr 200px", gap: mob ? 20 : xl ? 48 : 32, alignItems: "center" }}>
@@ -301,10 +301,10 @@ export default function ProgressDoc() {
           <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : xl ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: 16 }}>
             {/* LINEAR */}
             <div style={{ ...gc, borderLeft: `4px solid ${C.azulProfundo}` }}>
-              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Linear (barra)</span><code style={gk}>&#9733; padrão</code></div>
+              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Linear (barra)</span><code style={gk}>&#9733; padrão</code></div>
               <div style={gb}>
                 <ProgressBar value={68} label="Conferência" helper="Maior parte do fluxo já preenchida." />
-                <div style={{ ...gl, marginTop: 14, color: C.azulProfundo }}>&#9733; VARIANTE PADRÃO</div>
+                <div style={{ ...gl, marginTop: 14, color: C.cinzaEscuro }}>&#9733; VARIANTE PADRÃO</div>
                 <p style={gt}>Barra horizontal com trilho, preenchimento animado, label e porcentagem. A mais versátil e usada.</p>
                 <div style={gl}>Quando usar</div>
                 <p style={gt}>Indicadores de preenchimento, progresso de upload, status de workflow, checklists de cadastro.</p>
@@ -315,7 +315,7 @@ export default function ProgressDoc() {
 
             {/* CIRCULAR */}
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Circular (ring)</span><code style={gk}>dashboards</code></div>
+              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Circular (ring)</span><code style={gk}>dashboards</code></div>
               <div style={{ ...gb, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", gap: 16, marginBottom: 12 }}>
                   <ProgressRing value={22} size={64} strokeWidth={5} label="Preparação" />
@@ -332,7 +332,7 @@ export default function ProgressDoc() {
 
             {/* STEPS */}
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Steps (wizard)</span><code style={gk}>fluxos multi-etapa</code></div>
+              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Steps (wizard)</span><code style={gk}>fluxos multi-etapa</code></div>
               <div style={gb}>
                 <ProgressSteps compact={mob} steps={["Dados", "Revisão", "Aprovação", "Concluído"]} current={2} />
                 <div style={{ ...gl, marginTop: 16 }}>Significado</div>
@@ -346,7 +346,7 @@ export default function ProgressDoc() {
 
             {/* MICRO */}
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Micro (inline)</span><code style={gk}>tabelas e cards</code></div>
+              <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Micro (inline)</span><code style={gk}>tabelas e cards</code></div>
               <div style={gb}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -438,7 +438,7 @@ export default function ProgressDoc() {
                 <div style={{ padding: "14px 16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
                     <div style={{ width: 14, height: 14, borderRadius: 4, background: f.color }} />
-                    <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>{f.name}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>{f.name}</span>
                   </div>
                   <code style={{ ...gk, display: "inline-block", marginBottom: 8 }}>{f.range} · {f.hex}</code>
                   <ProgressBar value={f.pv} color={f.color} showPercent={false} size="sm" animated={false} />
@@ -473,7 +473,7 @@ export default function ProgressDoc() {
             ].map(s => (
               <div key={s.name} style={{ ...gc, ...(s.accent ? { borderLeft: `4px solid ${C.azulProfundo}` } : {}) }}>
                 <div style={gh}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>{s.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>{s.name}</span>
                   <code style={gk}>height: {s.h}</code>
                 </div>
                 <div style={gb}>
@@ -504,7 +504,7 @@ export default function ProgressDoc() {
           <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : xl ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: xl ? 20 : 16 }}>
             {/* Workflow de aprovação */}
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: "10px 10px 10px 20px", padding: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: F.title }}>Workflow de aprovação</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: F.title }}>Workflow de aprovação</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "0 0 16px", fontFamily: F.body }}>App Suprimentos — fluxo de requisição</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: "flex", flexDirection: "column", gap: 14 }}>
                 <ProgressSteps compact={mob} steps={["Solicitação", "Análise", "Aprovação", "Compra"]} current={1} />
@@ -514,7 +514,7 @@ export default function ProgressDoc() {
 
             {/* Dashboard de KPIs */}
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: "10px 10px 10px 20px", padding: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: F.title }}>Dashboard de KPIs</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: F.title }}>Dashboard de KPIs</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "0 0 16px", fontFamily: F.body }}>Power BI — indicadores operacionais</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: "flex", justifyContent: "space-around" }}>
                 <ProgressRing value={92} size={mob ? 56 : 72} strokeWidth={6} label="SLA" />
@@ -525,7 +525,7 @@ export default function ProgressDoc() {
 
             {/* Listagem com micro */}
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: "10px 10px 10px 20px", padding: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: F.title }}>Tabela com micro progress</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: F.title }}>Tabela com micro progress</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "0 0 16px", fontFamily: F.body }}>App Ocorrências — listagem de registros</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, overflow: "hidden" }}>
                 {[
@@ -534,7 +534,7 @@ export default function ProgressDoc() {
                   { id: "#OC-2043", status: "Finalizado", pct: 100 },
                 ].map((r, i) => (
                   <div key={r.id} style={{ display: "flex", alignItems: "center", padding: "10px 16px", borderBottom: i < 2 ? `1px solid ${C.cardBorder}` : "none", gap: 16 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: C.azulProfundo, fontFamily: F.mono, minWidth: 80 }}>{r.id}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: C.cinzaEscuro, fontFamily: F.mono, minWidth: 80 }}>{r.id}</span>
                     <span style={{ fontSize: 12, color: C.cinzaChumbo, flex: 1 }}>{r.status}</span>
                     <MicroProgress value={r.pct} width={70} />
                   </div>
@@ -544,7 +544,7 @@ export default function ProgressDoc() {
 
             {/* Checklist de cadastro */}
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: "10px 10px 10px 20px", padding: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: "0 0 4px", fontFamily: F.title }}>Checklist de preenchimento</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: "0 0 4px", fontFamily: F.title }}>Checklist de preenchimento</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "0 0 16px", fontFamily: F.body }}>App Visitante — completude do cadastro</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
                 <ProgressBar value={75} label="Cadastro do visitante" helper="Faltam: placa do veículo, empresa." size="md" />

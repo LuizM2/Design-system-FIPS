@@ -16,7 +16,7 @@ const Ic={
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}:{n:string;title:string;desc:string;children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string;title:string;desc:string;children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode;s?:React.CSSProperties;mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value,color}:{label:string;value:string;color?:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:130}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -900,7 +900,7 @@ export default function Login(){
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
               <div style={{flex:1,minWidth:280}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
                   {l:"Card glass",v:"Ultra-transparente + borda conic-gradient rotativa dourada"},
                   {l:"Logo",v:"fips-logo-azul.svg, 86px height, centered"},
@@ -922,7 +922,7 @@ export default function Login(){
                 ))}
               </div>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
                 {[
                   {l:"backdrop-filter",v:"blur(2px) saturate(20%) brightness(1.04)"},
                   {l:"CS validation",v:"6 caracteres exatos = valido"},
@@ -948,7 +948,7 @@ export default function Login(){
           <DSCard mob={mob}>
             <div style={{...gc,borderLeft:`4px solid ${C.azulProfundo}`}}>
               <div style={gh}>
-                <span style={{fontSize:10,fontWeight:700,letterSpacing:"2px",color:C.azulProfundo,fontFamily:Fn.title,textTransform:"uppercase"}}>Filtro Padrão 1</span>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"2px",color:C.cinzaEscuro,fontFamily:Fn.title,textTransform:"uppercase"}}>Filtro Padrão 1</span>
               </div>
               <div style={gb}>
                 <div style={{borderRadius:16,overflow:"hidden",marginBottom:16,position:"relative",height:120}}>
@@ -984,7 +984,7 @@ export default function Login(){
                     </div>
                   </div>
                   <div style={{marginTop:12,padding:"12px 16px",borderRadius:10,background:`${C.azulProfundo}08`,border:`1px solid ${C.azulProfundo}15`}}>
-                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulEscuro,lineHeight:1.8,display:"block",wordBreak:"break-all" as const}}>
+                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,lineHeight:1.8,display:"block",wordBreak:"break-all" as const}}>
                       background: linear-gradient(135deg, rgba(10,27,53,0.95) 0%, rgba(10,27,53,0.85) 50%, rgba(21,101,192,0.70) 100%);
                     </code>
                   </div>

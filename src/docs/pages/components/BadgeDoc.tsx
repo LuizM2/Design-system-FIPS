@@ -68,7 +68,7 @@ function Badge({ variant="default", size="md", children, icon, dot, dotColor, co
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function Card({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -182,7 +182,7 @@ export default function BadgeDoc(){
                   <Badge key={t} variant="info" onRemove={()=>setTags(p=>p.filter(x=>x!==t))} pill>{t}</Badge>
                 ))}
                 {tags.length===0&&<span style={{fontSize:12,color:C.textMuted,fontStyle:"italic"}}>Todas removidas. </span>}
-                {tags.length<5&&<span onClick={()=>setTags(["React","Supabase","Tailwind","N8N","Power BI"])} style={{fontSize:11,color:C.azulProfundo,cursor:"pointer",fontWeight:600,textDecoration:"underline"}}>Resetar</span>}
+                {tags.length<5&&<span onClick={()=>setTags(["React","Supabase","Tailwind","N8N","Power BI"])} style={{fontSize:11,color:C.cinzaEscuro,cursor:"pointer",fontWeight:600,textDecoration:"underline"}}>Resetar</span>}
               </div>
             </div>
 
@@ -235,7 +235,7 @@ export default function BadgeDoc(){
             ].map(t=>(
               <div key={t.name} style={gc}>
                 <div style={gh}>
-                  <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span>
                   <div style={{marginLeft:"auto"}}>{t.badge}</div>
                 </div>
                 <div style={gb}>
@@ -253,7 +253,7 @@ export default function BadgeDoc(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             {/* Dot */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Com dot (indicador)</span><code style={gk}>status ao vivo</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Com dot (indicador)</span><code style={gk}>status ao vivo</code></div>
               <div style={gb}>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:12}}>
                   <Badge variant="sucesso" dot>Ativo</Badge>
@@ -268,7 +268,7 @@ export default function BadgeDoc(){
 
             {/* Ícone */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Com ícone</span><code style={gk}>semântica reforçada</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Com ícone</span><code style={gk}>semântica reforçada</code></div>
               <div style={gb}>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:12}}>
                   <Badge variant="sucesso" icon={Ic.check(11,C.verdeEscuro)}>Aprovado</Badge>
@@ -283,7 +283,7 @@ export default function BadgeDoc(){
 
             {/* Contador */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Com contador</span><code style={gk}>notificações</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Com contador</span><code style={gk}>notificações</code></div>
               <div style={gb}>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:12}}>
                   <Badge variant="default" count={5}>Mensagens</Badge>
@@ -298,7 +298,7 @@ export default function BadgeDoc(){
 
             {/* Removível */}
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Removível (tag)</span><code style={gk}>filtros e tags</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Removível (tag)</span><code style={gk}>filtros e tags</code></div>
               <div style={gb}>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:12}}>
                   <Badge variant="info" onRemove={()=>{}} pill>React</Badge>
@@ -319,7 +319,7 @@ export default function BadgeDoc(){
 
             {/* Tabela com status */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Status em tabela</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Status em tabela</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>App Suprimentos — listagem de requisições</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,overflow:"hidden"}}>
                 {[
@@ -329,7 +329,7 @@ export default function BadgeDoc(){
                   {id:"#REQ-4024",nome:"Ferramentas",status:"info",label:"Em análise",dot:true},
                 ].map((r,i)=>(
                   <div key={r.id} style={{display:"flex",alignItems:"center",padding:"10px 16px",borderBottom:i<3?`1px solid ${C.cardBorder}`:"none",gap:14}}>
-                    <span style={{fontSize:12,fontWeight:600,color:C.azulProfundo,fontFamily:Fn.mono,minWidth:75}}>{r.id}</span>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.mono,minWidth:75}}>{r.id}</span>
                     <span style={{fontSize:13,color:C.cinzaEscuro,flex:1}}>{r.nome}</span>
                     <Badge variant={r.status} dot={r.dot} size="sm">{r.label}</Badge>
                   </div>
@@ -339,11 +339,11 @@ export default function BadgeDoc(){
 
             {/* Card com tags */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Tags em card</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Tags em card</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>App Ideias — card de ideia com categorias</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}>
-                  <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Automação do pátio</span>
+                  <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Automação do pátio</span>
                   <Badge variant="ouro" icon={Ic.star(10,"#92400E")} size="sm">+50 Fipcoins</Badge>
                 </div>
                 <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 12px",lineHeight:1.4}}>Implementar sensores IoT para monitoramento automático de vagões no pátio ferroviário.</p>
@@ -357,7 +357,7 @@ export default function BadgeDoc(){
 
             {/* Menu com contadores */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Contadores em menu</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Contadores em menu</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>App Ocorrências — sidebar com contagens</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,overflow:"hidden"}}>
                 {[
@@ -376,7 +376,7 @@ export default function BadgeDoc(){
 
             {/* Filtros ativos */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Filtros ativos</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Filtros ativos</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Power BI / Suprimentos — barra de filtros</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16}}>
                 <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
@@ -384,7 +384,7 @@ export default function BadgeDoc(){
                   <Badge variant="info" onRemove={()=>{}} pill size="sm">Status: Ativo</Badge>
                   <Badge variant="info" onRemove={()=>{}} pill size="sm">Segmento: Grãos</Badge>
                   <Badge variant="info" onRemove={()=>{}} pill size="sm">Período: 2026</Badge>
-                  <span style={{fontSize:11,color:C.azulProfundo,cursor:"pointer",fontWeight:600,marginLeft:4}}>Limpar tudo</span>
+                  <span style={{fontSize:11,color:C.cinzaEscuro,cursor:"pointer",fontWeight:600,marginLeft:4}}>Limpar tudo</span>
                 </div>
               </div>
             </div>

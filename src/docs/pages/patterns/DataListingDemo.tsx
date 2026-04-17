@@ -169,7 +169,7 @@ export default function DataListingDemo() {
     <div style={{marginBottom:mob?32:48}}>
       <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:6}}>
         <span style={{fontSize:11,fontWeight:700,color:C.amareloOuro,fontFamily:Fn.mono,letterSpacing:"1.5px"}}>{n}</span>
-        <h2 style={{fontSize:mob?17:20,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,margin:0,letterSpacing:"-0.3px"}}>{title}</h2>
+        <h2 style={{fontSize:mob?17:20,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,margin:0,letterSpacing:"-0.3px"}}>{title}</h2>
       </div>
       {desc&&<p style={{fontSize:13,color:C.cinzaChumbo,margin:"0 0 18px 32px",lineHeight:1.55,fontFamily:Fn.body,maxWidth:760}}>{desc}</p>}
       {children}
@@ -259,7 +259,7 @@ export default function DataListingDemo() {
                           {hovPt>=0?
                             <><span style={{fontSize:mob?20:24,fontWeight:800,fontFamily:Fn.title,color:k.color,lineHeight:1}}>{k.spark[hovPt]}</span><span style={{fontSize:10,fontWeight:600,fontFamily:Fn.body,color:C.cinzaChumbo}}>{months[hovPt]}</span></>
                           :
-                            <><span style={{fontSize:mob?20:24,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,lineHeight:1}}>{k.value}</span><span style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:C.verdeFloresta}}>{Ic.arrowUp(8,C.verdeFloresta)}{k.delta}</span></>
+                            <><span style={{fontSize:mob?20:24,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{k.value}</span><span style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:700,fontFamily:Fn.mono,color:C.verdeFloresta}}>{Ic.arrowUp(8,C.verdeFloresta)}{k.delta}</span></>
                           }
                         </div>
                       </div>
@@ -293,7 +293,7 @@ export default function DataListingDemo() {
                 <button onClick={()=>setShowFilters(!showFilters)} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"7px 12px",fontSize:11,fontWeight:600,color:totalFilters>0?C.azulProfundo:C.cinzaEscuro,background:totalFilters>0?C.azulCeuClaro:C.cardBg,border:`1px solid ${totalFilters>0?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",fontFamily:Fn.body,transition:"all .15s"}}>{Ic.filter(13,totalFilters>0?C.azulProfundo:C.cinzaChumbo)} Filtros{totalFilters>0&&<span style={{fontSize:9,fontFamily:Fn.mono,padding:"1px 5px",background:C.azulProfundo,color:C.branco,borderRadius:8}}>{totalFilters}</span>}</button>
                 {showFilters&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:0,zIndex:50,width:280,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                   <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Filtros</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filtros</span>
                     {totalFilters>0&&<button onClick={clearFilters} style={{fontSize:10,fontWeight:600,color:C.danger,background:"transparent",border:"none",cursor:"pointer",fontFamily:Fn.body}}>Limpar tudo</button>}
                   </div>
                   <div style={{padding:"12px 16px",maxHeight:340,overflowY:"auto"}}>
@@ -334,7 +334,7 @@ export default function DataListingDemo() {
               </div>
               {/* Período (single-select dropdown) */}
               <div ref={periodoRef} style={{position:"relative"}}>
-                <button onClick={()=>setShowPeriodo(!showPeriodo)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,color:C.cinzaEscuro,background:C.cardBg,border:`1px solid ${showPeriodo?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",fontFamily:Fn.body,transition:"all .15s"}}>{Ic.calendar(13)}<span style={{color:C.cinzaChumbo}}>Período:</span><span style={{color:C.azulEscuro,fontWeight:700}}>{periodo}</span>{Ic.chev(10,showPeriodo?C.azulProfundo:C.cinzaChumbo)}</button>
+                <button onClick={()=>setShowPeriodo(!showPeriodo)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,color:C.cinzaEscuro,background:C.cardBg,border:`1px solid ${showPeriodo?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",fontFamily:Fn.body,transition:"all .15s"}}>{Ic.calendar(13)}<span style={{color:C.cinzaChumbo}}>Período:</span><span style={{color:C.cinzaEscuro,fontWeight:700}}>{periodo}</span>{Ic.chev(10,showPeriodo?C.azulProfundo:C.cinzaChumbo)}</button>
                 {showPeriodo&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:0,zIndex:50,minWidth:240,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"8px 8px 8px 14px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden",padding:"6px 0"}}>
                   {["Hoje","Últimos 7 dias","Últimos 30 dias","Últimos 90 dias","Este ano","Todos"].map(opt=>{
                     const isA=periodo===opt;
@@ -401,12 +401,12 @@ export default function DataListingDemo() {
             <div style={{padding:"18px 20px 14px",display:"flex",alignItems:"center",gap:14,borderBottom:`1px solid ${C.cardBorder}`}}>
               <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,border:`1px solid ${C.azulProfundo}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.inbox(22,C.azulProfundo)}</div>
               <div style={{flex:1,minWidth:0}}>
-                <h3 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,margin:0,lineHeight:1.2}}>Requisições</h3>
+                <h3 style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,margin:0,lineHeight:1.2}}>Requisições</h3>
                 <p style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,margin:"3px 0 0",lineHeight:1.4}}>{data.length} {data.length===1?"registro":"registros"} {(search||totalFilters>0)?"filtrados":"no total"} · Atualizado agora</p>
               </div>
               {/* Lado direito do header: filtrado + config */}
               <div style={{display:"flex",alignItems:"center",gap:12,flexShrink:0}}>
-                {(search||totalFilters>0)&&<span style={{fontSize:10,fontWeight:700,letterSpacing:".5px",textTransform:"uppercase",color:C.azulProfundo,background:C.azulCeuClaro,padding:"4px 10px",borderRadius:12,fontFamily:Fn.title}}>Filtrado</span>}
+                {(search||totalFilters>0)&&<span style={{fontSize:10,fontWeight:700,letterSpacing:".5px",textTransform:"uppercase",color:C.cinzaEscuro,background:C.azulCeuClaro,padding:"4px 10px",borderRadius:12,fontFamily:Fn.title}}>Filtrado</span>}
                 {/* Toggle Tabela/Card */}
                 <div style={{display:"flex",gap:3,padding:3,background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
                   <button onClick={()=>setView("table")} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 10px",fontSize:11,fontWeight:600,color:view==="table"?C.azulProfundo:C.cinzaChumbo,background:view==="table"?C.cardBg:"transparent",border:"none",borderRadius:6,cursor:"pointer",fontFamily:Fn.body,boxShadow:view==="table"?"0 1px 2px rgba(0,42,104,.08)":"none",transition:"all .15s"}}>{Ic.list(12,view==="table"?C.azulProfundo:C.cinzaChumbo)} Tabela</button>
@@ -416,7 +416,7 @@ export default function DataListingDemo() {
                   <button onClick={()=>setShowConfig(!showConfig)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfig?C.azulProfundo:C.cinzaEscuro,background:showConfig?C.azulCeuClaro:C.cardBg,border:`1px solid ${showConfig?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Configurações da tabela">{Ic.settings(14,showConfig?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
                   {showConfig&&<div style={{position:"absolute",top:"calc(100% + 6px)",right:0,zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                     <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                      <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Configurações</span>
+                      <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Configurações</span>
                       <button onClick={()=>setShowConfig(false)} style={{width:22,height:22,background:"transparent",border:"none",cursor:"pointer",borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.x(12)}</button>
                     </div>
                     <div style={{display:"flex",borderBottom:`1px solid ${C.cardBorder}`,background:C.bg}}>
@@ -490,13 +490,13 @@ export default function DataListingDemo() {
                   const bg=isSel?`${C.azulProfundo}06`:appearance.zebra&&i%2===1?C.azulCeuClaro+"40":"transparent";
                   return(<tr key={r.id} style={{borderBottom:`1px solid ${C.cardBorder}`,background:bg,height:D.rowH,transition:"background .12s",cursor:"pointer"}} onMouseEnter={e=>e.currentTarget.style.background=`${C.amareloOuro}15`} onMouseLeave={e=>e.currentTarget.style.background=bg}>
                     <td style={{padding:`0 ${D.padX}px`}}><Checkbox checked={isSel} onChange={()=>toggleSel(r.id)} size={14}/></td>
-                    {visibleCols.has("id")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:600,color:C.azulProfundo,whiteSpace:appearance.wrapText?"normal":"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.id}</td>}
+                    {visibleCols.has("id")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:600,color:C.cinzaEscuro,whiteSpace:appearance.wrapText?"normal":"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.id}</td>}
                     {visibleCols.has("sol")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Avatar name={r.sol} size={density==="compact"?22:density==="normal"?28:34}/><span style={{fontSize:D.fs,color:C.cinzaEscuro,fontWeight:600,whiteSpace:appearance.wrapText?"normal":"nowrap"}}>{r.sol}</span></div></td>}
                     {visibleCols.has("dept")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,color:C.cinzaChumbo,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.dept}</td>}
                     {visibleCols.has("status")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><Badge variant={STATUS_COLOR[r.status]} dot>{r.status}</Badge></td>}
                     {visibleCols.has("priority")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:D.fs-1,fontWeight:600,color:PRIO_COLOR[r.priority]}}><span style={{width:6,height:6,borderRadius:"50%",background:PRIO_COLOR[r.priority]}}/>{r.priority}</span></td>}
                     {visibleCols.has("sla")&&<td style={{padding:`0 ${D.padX}px`,borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}><div style={{display:"flex",alignItems:"center",gap:6,minWidth:80}}><div style={{flex:1,height:4,borderRadius:2,background:`${r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger}20`}}><div style={{height:4,borderRadius:2,background:r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger,width:`${r.sla}%`}}/></div><span style={{fontSize:9,fontFamily:Fn.mono,fontWeight:700,color:r.sla>=70?C.verdeFloresta:r.sla>=50?C.amareloEscuro:C.danger}}>{r.sla}%</span></div></td>}
-                    {visibleCols.has("valor")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:700,color:C.azulEscuro,textAlign:"right",whiteSpace:"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>R$ {r.valor.toLocaleString("pt-BR")}</td>}
+                    {visibleCols.has("valor")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:700,color:C.cinzaEscuro,textAlign:"right",whiteSpace:"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>R$ {r.valor.toLocaleString("pt-BR")}</td>}
                     {visibleCols.has("data")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,color:C.textMuted,whiteSpace:"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.data}</td>}
                     {visibleCols.has("actions")&&<td style={{padding:`0 ${D.padX}px`,textAlign:"center"}}><div style={{display:"inline-flex",gap:2}}>
                       <button style={{width:24,height:24,borderRadius:5,background:"transparent",border:"none",cursor:"pointer",display:"inline-flex",alignItems:"center",justifyContent:"center"}} onMouseEnter={e=>e.currentTarget.style.background=C.bg} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{Ic.edit(12)}</button>
@@ -511,7 +511,7 @@ export default function DataListingDemo() {
               {data.map(r=>{const isSel=selected.has(r.id);return(
                 <div key={r.id} onClick={()=>toggleSel(r.id)} style={{padding:14,background:isSel?`${C.azulProfundo}08`:C.cardBg,border:`1px solid ${isSel?C.azulProfundo:C.cardBorder}`,borderRadius:"8px 8px 8px 14px",cursor:"pointer",transition:"all .15s"}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
-                    <span style={{fontSize:10,fontFamily:Fn.mono,fontWeight:700,color:C.azulProfundo}}>{r.id}</span>
+                    <span style={{fontSize:10,fontFamily:Fn.mono,fontWeight:700,color:C.cinzaEscuro}}>{r.id}</span>
                     <Badge variant={STATUS_COLOR[r.status]} dot>{r.status}</Badge>
                   </div>
                   <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
@@ -524,14 +524,14 @@ export default function DataListingDemo() {
                   </div>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:10,borderTop:`1px solid ${C.cardBorder}`}}>
                     <span style={{display:"inline-flex",alignItems:"center",gap:4,fontSize:10,fontWeight:600,color:PRIO_COLOR[r.priority]}}><span style={{width:5,height:5,borderRadius:"50%",background:PRIO_COLOR[r.priority]}}/>{r.priority}</span>
-                    <span style={{fontSize:12,fontFamily:Fn.mono,fontWeight:700,color:C.azulEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</span>
+                    <span style={{fontSize:12,fontFamily:Fn.mono,fontWeight:700,color:C.cinzaEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</span>
                   </div>
                 </div>
               )})}
             </div>}
 
             <div style={{padding:"12px 18px",borderTop:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:8}}>
-              <span style={{fontSize:11,color:C.textMuted}}>Mostrando 1–{data.length} de 247 registros {selected.size>0&&<>· <strong style={{color:C.azulProfundo}}>{selected.size} selecionado{selected.size>1?"s":""}</strong></>}</span>
+              <span style={{fontSize:11,color:C.textMuted}}>Mostrando 1–{data.length} de 247 registros {selected.size>0&&<>· <strong style={{color:C.cinzaEscuro}}>{selected.size} selecionado{selected.size>1?"s":""}</strong></>}</span>
               <div style={{display:"flex",gap:4}}>
                 {["←","1","2","3","4","→"].map((p,i)=>(
                   <button key={i} style={{minWidth:28,height:28,padding:"0 8px",fontSize:11,fontWeight:600,color:p==="1"?C.branco:C.cinzaEscuro,background:p==="1"?C.azulProfundo:C.cardBg,border:`1px solid ${p==="1"?C.azulProfundo:C.cardBorder}`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}>{p}</button>
@@ -568,7 +568,7 @@ export default function DataListingDemo() {
               ].map((it,i)=>(
                 <div key={i} style={{padding:12,background:C.bg,borderRadius:8,display:"flex",gap:10,alignItems:"flex-start"}}>
                   <span style={{fontSize:14,fontWeight:800,color:C.amareloEscuro,fontFamily:Fn.title}}>{it.n}</span>
-                  <div><div style={{fontSize:12,fontWeight:700,color:C.azulEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
+                  <div><div style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
                 </div>
               ))}
             </div>
@@ -584,7 +584,7 @@ export default function DataListingDemo() {
               <div style={{width:32,height:32,borderRadius:9,background:`${C.amareloOuro}18`,border:`1px solid ${C.amareloOuro}40`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.checkCircle(15,C.amareloEscuro)}</div>
               <div>
                 <div style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.amareloEscuro,fontFamily:Fn.title}}>Padrão recomendado</div>
-                <div style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>CardKPI com sparkline area chart</div>
+                <div style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>CardKPI com sparkline area chart</div>
               </div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:12}}>
@@ -594,7 +594,7 @@ export default function DataListingDemo() {
                 {title:"Regras",color:C.amareloEscuro,items:["Sempre 4 cards (2×2 mobile)","Agregados de toda a base","Spread visível em todas as séries","Cores semânticas","Delta comparativo ao período anterior"]},
               ].map((r,i)=>(
                 <div key={i} style={{padding:12,background:C.bg,borderRadius:8}}>
-                  <div style={{fontSize:11,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,marginBottom:6}}>{r.title}</div>
+                  <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,marginBottom:6}}>{r.title}</div>
                   <div style={{display:"flex",flexDirection:"column",gap:4}}>
                     {r.items.map((item,j)=>(
                       <div key={j} style={{display:"flex",alignItems:"flex-start",gap:6,fontSize:10,color:C.cinzaEscuro,lineHeight:1.45}}>
@@ -613,9 +613,9 @@ export default function DataListingDemo() {
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14,flexWrap:"wrap",gap:10}}>
               <div>
                 <div style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Outros tipos disponíveis no catálogo</div>
-                <div style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Qualquer card do arquivo Cards pode ser usado</div>
+                <div style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Qualquer card do arquivo Cards pode ser usado</div>
               </div>
-              <a href="https://design-system.fips.app.br/card" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 14px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.azulProfundo,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",textDecoration:"none",transition:"all .15s",letterSpacing:"0.01em"}} onMouseEnter={e=>{e.currentTarget.style.background=C.azulCeuClaro}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>Navegar mais detalhes {Ic.chev(11,C.azulProfundo)}</a>
+              <a href="https://design-system.fips.app.br/card" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 14px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.cinzaEscuro,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",textDecoration:"none",transition:"all .15s",letterSpacing:"0.01em"}} onMouseEnter={e=>{e.currentTarget.style.background=C.azulCeuClaro}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>Navegar mais detalhes {Ic.chev(11,C.azulProfundo)}</a>
             </div>
             <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:10}}>
               {[
@@ -631,7 +631,7 @@ export default function DataListingDemo() {
                     <div style={{width:28,height:28,borderRadius:7,background:`${c.color}15`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{c.icon(14,c.color)}</div>
                     <div style={{flex:1,minWidth:0}}>
                       <div style={{fontSize:11,fontFamily:Fn.mono,fontWeight:700,color:c.color}}>{c.n}</div>
-                      <div style={{fontSize:10,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{c.label}</div>
+                      <div style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{c.label}</div>
                     </div>
                   </div>
                   <div style={{fontSize:10,color:C.cinzaChumbo,lineHeight:1.5}}>{c.desc}</div>
@@ -653,7 +653,7 @@ export default function DataListingDemo() {
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
                   <div style={{width:32,height:32,borderRadius:9,background:`${r.color}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(16,r.color)}</div>
-                  <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{r.title}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{r.title}</span>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:6}}>
                   {r.items.map((item,j)=>(
@@ -682,7 +682,7 @@ export default function DataListingDemo() {
             <div style={{padding:"12px 14px",background:C.bg,borderRadius:8,marginBottom:18,display:"flex",alignItems:"center",gap:12}}>
               <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{viewDemo==="table"?Ic.list(16,C.azulProfundo):Ic.grid(16,C.azulProfundo)}</div>
               <div style={{flex:1}}>
-                <div style={{fontSize:11,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Estado: <span style={{color:C.azulProfundo}}>{viewDemo==="table"?"Tabela":"Cards"}</span></div>
+                <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Estado: <span style={{color:C.cinzaEscuro}}>{viewDemo==="table"?"Tabela":"Cards"}</span></div>
                 <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2}}>{viewDemo==="table"?"Linhas estruturadas — análise comparativa":"Grid de cards — leitura rápida em mobile"}</div>
               </div>
             </div>
@@ -698,7 +698,7 @@ export default function DataListingDemo() {
               ].map((it,i)=>(
                 <div key={i} style={{padding:12,background:C.bg,borderRadius:8,display:"flex",gap:10,alignItems:"flex-start"}}>
                   <span style={{fontSize:14,fontWeight:800,color:C.amareloEscuro,fontFamily:Fn.title}}>{it.n}</span>
-                  <div><div style={{fontSize:12,fontWeight:700,color:C.azulEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
+                  <div><div style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
                 </div>
               ))}
             </div>
@@ -711,7 +711,7 @@ export default function DataListingDemo() {
                 <button onClick={()=>setShowConfigDemo(!showConfigDemo)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfigDemo?C.azulProfundo:C.cinzaEscuro,background:showConfigDemo?C.azulCeuClaro:C.cardBg,border:`1px solid ${showConfigDemo?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}}>{Ic.settings(14,showConfigDemo?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
                 {showConfigDemo&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:"50%",transform:"translateX(-50%)",zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                   <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Configurações</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Configurações</span>
                     <button onClick={()=>setShowConfigDemo(false)} style={{width:22,height:22,background:"transparent",border:"none",cursor:"pointer",borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.x(12)}</button>
                   </div>
                   <div style={{display:"flex",borderBottom:`1px solid ${C.cardBorder}`,background:C.bg}}>
@@ -722,7 +722,7 @@ export default function DataListingDemo() {
                   <div style={{padding:"14px 16px",minHeight:120,display:"flex",alignItems:"center",justifyContent:"center"}}>
                     <div style={{textAlign:"center"}}>
                       <div style={{width:36,height:36,borderRadius:9,background:`${C.azulProfundo}0F`,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:8}}>{configTab==="colunas"?Ic.columns(18,C.azulProfundo):configTab==="densidade"?Ic.density(18,C.azulProfundo):Ic.grid(18,C.azulProfundo)}</div>
-                      <div style={{fontSize:11,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Aba {configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</div>
+                      <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Aba {configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</div>
                       <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2,maxWidth:220}}>{configTab==="colunas"?"Visibilidade e ordem das colunas":configTab==="densidade"?"Altura das linhas (3 níveis)":"Zebra, bordas, header fixo, wrap"}</div>
                     </div>
                   </div>
@@ -736,7 +736,7 @@ export default function DataListingDemo() {
             <div style={{padding:"12px 14px",background:C.bg,borderRadius:8,marginBottom:18,display:"flex",alignItems:"center",gap:12}}>
               <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0F`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.settings(16,C.azulProfundo)}</div>
               <div style={{flex:1}}>
-                <div style={{fontSize:11,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{showConfigDemo?<>Popover aberto · Aba <span style={{color:C.azulProfundo}}>{configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</span></>:"Clique no botão acima para abrir o popover"}</div>
+                <div style={{fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{showConfigDemo?<>Popover aberto · Aba <span style={{color:C.cinzaEscuro}}>{configTab==="colunas"?"Colunas":configTab==="densidade"?"Densidade":"Aparência"}</span></>:"Clique no botão acima para abrir o popover"}</div>
                 <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:2}}>Popover ancorado no botão · 3 abas (Colunas, Densidade, Aparência) · Footer com Restaurar padrão e Aplicar · Fecha ao clicar fora</div>
               </div>
             </div>
@@ -751,7 +751,7 @@ export default function DataListingDemo() {
               ].map((it,i)=>(
                 <div key={i} style={{padding:12,background:C.bg,borderRadius:8,display:"flex",gap:10,alignItems:"flex-start"}}>
                   <span style={{fontSize:14,fontWeight:800,color:C.amareloEscuro,fontFamily:Fn.title}}>{it.n}</span>
-                  <div><div style={{fontSize:12,fontWeight:700,color:C.azulEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
+                  <div><div style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro}}>{it.label}</div><div style={{fontSize:11,color:C.cinzaChumbo,marginTop:2,lineHeight:1.5}}>{it.desc}</div></div>
                 </div>
               ))}
             </div>
@@ -766,7 +766,7 @@ export default function DataListingDemo() {
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
                   <div style={{width:30,height:30,borderRadius:8,background:`${r.color}0F`,display:"flex",alignItems:"center",justifyContent:"center"}}>{r.icon(14,r.color)}</div>
-                  <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{r.title}</span>
+                  <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{r.title}</span>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:5}}>
                   {r.items.map((item,j)=>(
@@ -789,13 +789,13 @@ export default function DataListingDemo() {
               <div style={{width:34,height:34,borderRadius:9,background:C.amareloOuro,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{Ic.list(17,C.azulEscuro)}</div>
               <div>
                 <div style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.amareloEscuro,fontFamily:Fn.title}}>Regra #1 — Obrigatória</div>
-                <div style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Ordem dos elementos do Painel</div>
+                <div style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Ordem dos elementos do Painel</div>
               </div>
             </div>
             <div style={{display:"flex",alignItems:"center",gap:mob?6:10,flexWrap:"wrap",marginBottom:10}}>
               {["Header","KPIs","Toolbar","Table"].map((step,i)=>(
                 <div key={step} style={{display:"flex",alignItems:"center",gap:mob?6:10}}>
-                  <div style={{display:"inline-flex",alignItems:"center",gap:6,padding:"6px 12px",background:C.cardBg,border:`1.5px solid ${C.azulProfundo}`,borderRadius:8,fontSize:11,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.body}}>
+                  <div style={{display:"inline-flex",alignItems:"center",gap:6,padding:"6px 12px",background:C.cardBg,border:`1.5px solid ${C.azulProfundo}`,borderRadius:8,fontSize:11,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.body}}>
                     <span style={{fontSize:9,fontFamily:Fn.mono,opacity:.6}}>{`0${i+1}`}</span>
                     {step}
                   </div>
@@ -819,7 +819,7 @@ export default function DataListingDemo() {
               {t:"Header navy = identidade",d:"O Header navy do painel mostra o sistema (ex: Sistema de Requisições) — não o conteúdo. Subtítulo descreve o módulo. CTA Destaque sempre cria novo registro."},
             ].map((r,i)=>(
               <div key={i} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
-                <div style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,marginBottom:6}}>{r.t}</div>
+                <div style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,marginBottom:6}}>{r.t}</div>
                 <div style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.55}}>{r.d}</div>
               </div>
             ))}

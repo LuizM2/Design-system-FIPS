@@ -273,7 +273,7 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
         style={{
           fontSize: 20,
           fontWeight: 700,
-          color: C.azulEscuro,
+          color: C.cinzaEscuro,
           margin: '0 0 4px',
           fontFamily: F.title,
           letterSpacing: '.5px',
@@ -609,7 +609,7 @@ export default function TextareaDoc() {
                       fontWeight: 700,
                       letterSpacing: '1px',
                       textTransform: 'uppercase',
-                      color: C.azulProfundo,
+                      color: C.cinzaEscuro,
                       fontFamily: F.title,
                     }}
                   >
@@ -686,7 +686,7 @@ export default function TextareaDoc() {
               </div>
 
               <div style={{ flex: 1, minWidth: 250 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Espaçamentos</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Espaçamentos</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
                   {[
                     { l: 'Label → Textarea', v: '1px' },
@@ -729,7 +729,7 @@ export default function TextareaDoc() {
             {guideItems.map((t) => (
               <div key={t.name} style={{ ...gc, borderLeft: `4px solid ${t.c}` }}>
                 <div style={gh}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>{t.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>{t.name}</span>
                   <code style={gk}>{t.badge}</code>
                 </div>
                 <div style={gb}>
@@ -843,13 +843,13 @@ export default function TextareaDoc() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 16 }}>
             <div style={{ ...gc, borderLeft: `4px solid ${C.azulProfundo}` }}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Padrão</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Padrão</span>
                 <code style={gk}>padding: 10px 14px</code>
               </div>
               <div style={{ ...gb, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <DSTextarea label="3 linhas (padrão)" placeholder="Observações gerais..." rows={3} />
                 <DSTextarea label="5 linhas" placeholder="Descrição detalhada do contexto..." rows={5} />
-                <div style={{ ...gl, marginTop: 10, color: C.azulProfundo }}>&#9733; TAMANHO PADRÃO</div>
+                <div style={{ ...gl, marginTop: 10, color: C.cinzaEscuro }}>&#9733; TAMANHO PADRÃO</div>
                 <p style={gt}>Para formulários de cadastro, telas de detalhe. Padding confortável, font 13px.</p>
                 <div style={gl}>Exemplo FIPS</div>
                 <p style={ge}>Formulários do App Ocorrências, Suprimentos, SSMA — telas de edição desktop.</p>
@@ -858,7 +858,7 @@ export default function TextareaDoc() {
 
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Compacto</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Compacto</span>
                 <code style={gk}>padding: 6px 12px</code>
               </div>
               <div style={{ ...gb, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -954,7 +954,7 @@ export default function TextareaDoc() {
         <Section n="07" title="Cenários de negócio" desc="Composições reais aplicadas em contextos operacionais do ecossistema FIPS.">
           <div style={{ display: 'grid', gridTemplateColumns: scenarioCols, gap: 16 }}>
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: '10px 10px 10px 20px', padding: mob ? 16 : 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Modal de triagem</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Modal de triagem</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>App Ocorrências — observação em modal compacto</p>
               <div
                 style={{
@@ -1008,7 +1008,7 @@ export default function TextareaDoc() {
             </div>
 
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: '10px 10px 10px 20px', padding: mob ? 16 : 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>
                 Justificativa de aprovação
               </h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>App Suprimentos — parecer do gestor</p>
@@ -1025,7 +1025,7 @@ export default function TextareaDoc() {
             </div>
 
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: '10px 10px 10px 20px', padding: mob ? 16 : 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Descrição de ideia</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Descrição de ideia</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>App Ideias — submissão de ideia (Fipcoins)</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16 }}>
                 <DSTextarea
@@ -1039,7 +1039,7 @@ export default function TextareaDoc() {
             </div>
 
             <div style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: '10px 10px 10px 20px', padding: mob ? 16 : 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: F.title }}>Histórico de ocorrência</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: F.title }}>Histórico de ocorrência</h3>
               <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: '0 0 16px' }}>App Ocorrências — registro original</p>
               <div style={{ background: C.cardBg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: 16 }}>
                 <DSTextarea

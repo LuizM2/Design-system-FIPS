@@ -130,7 +130,7 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
           <div style={{display:"flex",alignItems:"center",gap:14}}>
             {icon&&<div style={{width:48,height:48,borderRadius:14,background:iconBg||C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{icon}</div>}
             <div>
-              {title&&<h3 style={{fontSize:15,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3>}
+              {title&&<h3 style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>{title}</h3>}
               {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"2px 0 0",fontFamily:Fn.body}}>{subtitle}</p>}
             </div>
           </div>
@@ -145,7 +145,7 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
                   <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",overflow:"hidden"}}>
                     {/* Header */}
                     <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                      <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Configurações</span>
+                      <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Configurações</span>
                       <button onClick={()=>setShowColMenu(false)} style={{width:22,height:22,background:"transparent",border:"none",cursor:"pointer",borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center"}}>
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke={C.cinzaChumbo} strokeWidth="1.8" strokeLinecap="round"/></svg>
                       </button>
@@ -198,7 +198,7 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
                             <div key={d.id} onClick={()=>setDensityS(d.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 10px",borderRadius:6,cursor:"pointer",background:densityS===d.id?C.azulCeuClaro:"transparent",transition:"background .1s"}} onMouseEnter={e=>{if(densityS!==d.id)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(densityS!==d.id)e.currentTarget.style.background="transparent"}}>
                               <div style={{width:14,height:14,borderRadius:"50%",border:`1.5px solid ${densityS===d.id?C.azulProfundo:C.cardBorder}`,background:densityS===d.id?C.azulProfundo:C.branco,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{densityS===d.id&&<div style={{width:5,height:5,borderRadius:"50%",background:C.branco}}/>}</div>
                               <div style={{flex:1}}>
-                                <div style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{d.label}</div>
+                                <div style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{d.label}</div>
                                 <div style={{fontSize:10,color:C.cinzaChumbo,marginTop:1}}>{d.desc}</div>
                               </div>
                             </div>
@@ -214,7 +214,7 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
                             {id:"wrap",label:"Quebra de linha",val:wrapTextS,set:setWrapTextS},
                           ].map(t=>(
                             <div key={t.id} onClick={()=>t.set(!t.val)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"8px 10px",borderRadius:6,cursor:"pointer",transition:"background .1s"}} onMouseEnter={e=>{e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>
-                              <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{t.label}</span>
+                              <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{t.label}</span>
                               <div style={{width:30,height:16,borderRadius:8,background:t.val?C.azulProfundo:C.cardBorder,position:"relative",transition:"background .15s"}}>
                                 <div style={{position:"absolute",top:2,left:t.val?16:2,width:12,height:12,borderRadius:"50%",background:C.branco,boxShadow:"0 1px 2px rgba(0,0,0,.2)",transition:"left .15s"}}/>
                               </div>
@@ -347,7 +347,7 @@ function DSTable({columns=[],data=[],striped=true,compact,bordered,selectable,so
 function ActionBtn({icon,onClick,title}){return <span onClick={onClick} title={title} style={{display:"flex",cursor:"pointer",opacity:.5,padding:3,borderRadius:4,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.opacity="1";e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.opacity=".5";e.currentTarget.style.background="transparent"}}>{icon}</span>}
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -396,7 +396,7 @@ export default function TableDoc() {
     {key:"id",label:"Código",width:100},
     {key:"solicitante",label:"Solicitante",render:(v,r)=><div style={{display:"flex",alignItems:"center",gap:10}}><Avatar name={v}/><div style={{lineHeight:1.2}}><span style={{fontWeight:600,fontSize:12,color:C.cinzaEscuro,display:"block"}}>{v}</span><span style={{fontSize:10,color:C.textMuted,marginTop:-1,display:"block"}}>{r.cargo}</span></div></div>},
     {key:"dept",label:"Depto"},
-    {key:"valor",label:"Valor",align:"right",render:v=><span style={{fontFamily:Fn.mono,fontWeight:600,color:C.azulEscuro}}>R$ {v.toLocaleString("pt-BR")}</span>},
+    {key:"valor",label:"Valor",align:"right",render:v=><span style={{fontFamily:Fn.mono,fontWeight:600,color:C.cinzaEscuro}}>R$ {v.toLocaleString("pt-BR")}</span>},
     {key:"status",label:"Status",render:v=><Badge variant={statusMap[v]} dot>{v}</Badge>},
     {key:"sla",label:"SLA",width:120,render:v=><MiniProgress value={v}/>},
     {key:"_actions",label:"",sortable:false,width:70,render:()=><div style={{display:"flex",gap:4}}><ActionBtn icon={Ic.eye(14,C.azulProfundo)} title="Ver"/><ActionBtn icon={Ic.edit(14,C.cinzaChumbo)} title="Editar"/></div>},
@@ -439,7 +439,7 @@ export default function TableDoc() {
             subtitle="Lista de requisições do módulo Suprimentos."
             icon={<svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M14 6h14l10 10v24a2 2 0 01-2 2H14a2 2 0 01-2-2V8a2 2 0 012-2z" stroke={C.azulProfundo} strokeWidth="2.5" strokeLinejoin="round"/><path d="M28 6v10h10M20 24h8M20 30h12M20 36h6" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round"/></svg>}
             iconBg={`${C.azulProfundo}0C`}
-            footer={<><span>12 requisições · 4 pendentes</span><span style={{fontWeight:600,color:C.azulProfundo}}>Total: R$ 75.930</span></>}
+            footer={<><span>12 requisições · 4 pendentes</span><span style={{fontWeight:600,color:C.cinzaEscuro}}>Total: R$ 75.930</span></>}
           />
         </Section>
 
@@ -449,7 +449,7 @@ export default function TableDoc() {
             {/* Striped (padrão) */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Striped (zebrada) ★</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Striped (zebrada) ★</span>
                 <code style={gk}>padrão</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"dept",label:"Depto"},{key:"status",label:"Status",render:v=><Badge variant={statusMap[v]} dot>{v}</Badge>}]} data={reqData.slice(0,3)} sortable={false}/>
@@ -458,7 +458,7 @@ export default function TableDoc() {
             {/* Compacta */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Compacta</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Compacta</span>
                 <code style={gk}>dense</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"dept",label:"Depto"},{key:"valor",label:"Valor",align:"right",render:v=><span style={{fontFamily:Fn.mono}}>R$ {v.toLocaleString("pt-BR")}</span>}]} data={reqData.slice(0,4)} compact sortable={false}/>
@@ -467,7 +467,7 @@ export default function TableDoc() {
             {/* Limpa */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Limpa</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Limpa</span>
                 <code style={gk}>sem zebra</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"solicitante",label:"Solicitante"},{key:"sla",label:"SLA",render:v=><MiniProgress value={v}/>}]} data={reqData.slice(0,3)} striped={false} sortable={false}/>
@@ -476,7 +476,7 @@ export default function TableDoc() {
             {/* Bordered */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Bordered</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Bordered</span>
                 <code style={gk}>todas as bordas</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"dept",label:"Depto"},{key:"status",label:"Status",render:v=><Badge variant={statusMap[v]} dot>{v}</Badge>},{key:"valor",label:"Valor",align:"right",render:v=><span style={{fontFamily:Fn.mono}}>R$ {v.toLocaleString("pt-BR")}</span>}]} data={reqData.slice(0,3)} bordered sortable={false}/>
@@ -496,7 +496,7 @@ export default function TableDoc() {
               {name:"Badge secundário",c:C.textMuted,desc:"Badge cinza discreto para categorias e tags não críticas. Menor hierarquia que badge de status.",ex:"Segmento (Ferroviário, Multimodal), departamento, tipo."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Exemplo FIPS</div><p style={ge}>{t.ex}</p>
@@ -512,7 +512,7 @@ export default function TableDoc() {
             {/* Empty */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Empty state</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Empty state</span>
                 <code style={gk}>data vazio</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"nome",label:"Solicitante"},{key:"status",label:"Status"},{key:"valor",label:"Valor"}]} data={[]} emptyText="Nenhuma requisição encontrada" sortable={false}/>
@@ -521,7 +521,7 @@ export default function TableDoc() {
             {/* Loading */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Loading skeleton</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Loading skeleton</span>
                 <code style={gk}>loading=true</code>
               </div>
               <DSTable columns={[{key:"id",label:"Código"},{key:"nome",label:"Solicitante"},{key:"status",label:"Status"},{key:"valor",label:"Valor"}]} data={[]} loading selectable sortable={false}/>
@@ -530,7 +530,7 @@ export default function TableDoc() {
             {/* Erro */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Error state</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Error state</span>
                 <code style={gk}>falha de conexão</code>
               </div>
               <div style={{border:`1px solid ${C.cardBorder}`,borderRadius:"12px 12px 12px 24px",overflow:"hidden",background:C.cardBg}}>
@@ -551,7 +551,7 @@ export default function TableDoc() {
                         </div>
                         <span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Erro ao carregar dados</span>
                         <span style={{fontSize:12,color:C.textMuted,fontFamily:Fn.body,maxWidth:280}}>Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.</span>
-                        <button style={{marginTop:4,padding:"7px 18px",fontSize:12,fontWeight:600,color:C.azulProfundo,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}>Tentar novamente</button>
+                        <button style={{marginTop:4,padding:"7px 18px",fontSize:12,fontWeight:600,color:C.cinzaEscuro,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",fontFamily:Fn.body}}>Tentar novamente</button>
                       </div>
                     </td></tr>
                   </tbody>
@@ -562,7 +562,7 @@ export default function TableDoc() {
             {/* Selecionado */}
             <div>
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Selected rows</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Selected rows</span>
                 <code style={gk}>selectable=true</code>
               </div>
               <div style={{border:`1px solid ${C.cardBorder}`,borderRadius:"12px 12px 12px 24px",overflow:"hidden",background:C.cardBg}}>
@@ -575,17 +575,17 @@ export default function TableDoc() {
                     {[{id:"REQ-4025",n:"Carlos Santos",s:"Pendente",sel:false},{id:"REQ-4024",n:"Ana Costa",s:"Aprovada",sel:true},{id:"REQ-4023",n:"Marcos Oliveira",s:"Aprovada",sel:true},{id:"REQ-4022",n:"Julia Ferreira",s:"Rejeitada",sel:false}].map((r,i)=>(
                       <tr key={i} style={{background:r.sel?`${C.azulCeu}20`:i%2===1?`${C.azulCeu}0D`:"transparent",borderBottom:i<3?`1px solid ${C.cardBorder}`:"none"}}>
                         <td style={{padding:"10px 12px 10px 16px"}}><input type="checkbox" checked={r.sel} readOnly style={{cursor:"pointer"}}/></td>
-                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.azulProfundo}}>{r.id}</td>
+                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.cinzaEscuro}}>{r.id}</td>
                         <td style={{padding:"10px 16px",fontSize:12}}><div style={{display:"flex",alignItems:"center",gap:10}}><Avatar name={r.n}/><span style={{fontWeight:600}}>{r.n}</span></div></td>
                         <td style={{padding:"10px 16px"}}><Badge variant={statusMap[r.s]} dot>{r.s}</Badge></td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-                <div style={{padding:"10px 16px",borderTop:`1px solid ${C.cardBorder}`,background:`${C.azulCeu}10`,display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:11,color:C.azulProfundo,fontFamily:Fn.body}}>
+                <div style={{padding:"10px 16px",borderTop:`1px solid ${C.cardBorder}`,background:`${C.azulCeu}10`,display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:11,color:C.cinzaEscuro,fontFamily:Fn.body}}>
                   <span style={{fontWeight:600}}>2 selecionados</span>
                   <div style={{display:"flex",gap:8}}>
-                    <button style={{padding:"4px 12px",fontSize:11,fontWeight:600,color:C.azulProfundo,background:C.cardBg,border:`1px solid ${C.azulCeu}`,borderRadius:5,cursor:"pointer",fontFamily:Fn.body}}>Aprovar selecionados</button>
+                    <button style={{padding:"4px 12px",fontSize:11,fontWeight:600,color:C.cinzaEscuro,background:C.cardBg,border:`1px solid ${C.azulCeu}`,borderRadius:5,cursor:"pointer",fontFamily:Fn.body}}>Aprovar selecionados</button>
                     <button style={{padding:"4px 12px",fontSize:11,fontWeight:600,color:C.danger,background:C.cardBg,border:`1px solid ${C.danger}40`,borderRadius:5,cursor:"pointer",fontFamily:Fn.body}}>Excluir</button>
                   </div>
                 </div>
@@ -599,20 +599,20 @@ export default function TableDoc() {
           <div style={{display:"flex",flexDirection:"column",gap:24}}>
             {/* Fornecedores */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos — Fornecedores</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos — Fornecedores</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Com título, botão Colunas e paginação</p>
               <DSTable columns={fornCols} data={fornData} selectable configurable paginate={3}
                 title="Carteira de Fornecedores"
                 subtitle="Fornecedores cadastrados no sistema."
                 icon={<svg width="28" height="28" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke={C.verdeFloresta} strokeWidth="2.5"/><path d="M18 16h4M26 16h4M18 24h4M26 24h4M20 32h8v10H20z" stroke={C.verdeFloresta} strokeWidth="2" strokeLinecap="round"/></svg>}
                 iconBg={`${C.verdeFloresta}0C`}
-                footer={<><span>5 fornecedores · 3 ativos</span><span style={{fontWeight:600,color:C.azulProfundo}}>Score médio: 77%</span></>}
+                footer={<><span>5 fornecedores · 3 ativos</span><span style={{fontWeight:600,color:C.cinzaEscuro}}>Score médio: 77%</span></>}
               />
             </div>
 
             {/* Guia + Tabela */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Guia + Tabela filtrada</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Guia + Tabela filtrada</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Tabs Guia acima da tabela filtrando por status</p>
               <div style={{borderRadius:"12px 12px 12px 24px",overflow:"hidden",border:`1px solid ${C.cardBorder}`,background:C.cardBg}}>
                 {/* Title bar */}
@@ -622,7 +622,7 @@ export default function TableDoc() {
                       <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M14 6h14l10 10v24a2 2 0 01-2 2H14a2 2 0 01-2-2V8a2 2 0 012-2z" stroke={C.azulProfundo} strokeWidth="2.5" strokeLinejoin="round"/><path d="M28 6v10h10M20 24h8M20 30h12M20 36h6" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round"/></svg>
                     </div>
                     <div>
-                      <h3 style={{fontSize:15,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>Requisições por status</h3>
+                      <h3 style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>Requisições por status</h3>
                       <p style={{fontSize:12,color:C.cinzaChumbo,margin:"2px 0 0",fontFamily:Fn.body}}>Filtre por abas para visualizar requisições por situação.</p>
                     </div>
                   </div>
@@ -680,10 +680,10 @@ export default function TableDoc() {
                         onMouseEnter={e=>e.currentTarget.style.background=`${C.amareloOuro}18`}
                         onMouseLeave={e=>e.currentTarget.style.background=i%2===1?`${C.azulCeu}0D`:"transparent"}
                       >
-                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.azulProfundo}}>{r.id}</td>
+                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.cinzaEscuro}}>{r.id}</td>
                         <td style={{padding:"10px 16px",fontSize:12}}><div style={{display:"flex",alignItems:"center",gap:10}}><Avatar name={r.solicitante}/><div style={{lineHeight:1.2}}><span style={{fontWeight:600,fontSize:12,display:"block"}}>{r.solicitante}</span><span style={{fontSize:10,color:C.textMuted,marginTop:-1,display:"block"}}>{r.cargo}</span></div></div></td>
                         <td style={{padding:"10px 16px",fontSize:12}}>{r.dept}</td>
-                        <td style={{padding:"10px 16px",fontSize:12,textAlign:"right",fontFamily:Fn.mono,fontWeight:600,color:C.azulEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</td>
+                        <td style={{padding:"10px 16px",fontSize:12,textAlign:"right",fontFamily:Fn.mono,fontWeight:600,color:C.cinzaEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</td>
                         <td style={{padding:"10px 16px"}}><Badge variant={statusMap[r.status]} dot>{r.status}</Badge></td>
                       </tr>
                     ))})()}
@@ -692,14 +692,14 @@ export default function TableDoc() {
                 {/* Footer */}
                 <div style={{padding:"10px 16px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",justifyContent:"space-between",fontSize:11,color:C.cinzaChumbo}}>
                   <span>{tabFilter==="Todas"?`${reqData.length} requisições`:reqData.filter(r=>r.status===(tabFilter==="Pendentes"?"Pendente":tabFilter==="Aprovadas"?"Aprovada":"Rejeitada")).length+` ${tabFilter.toLowerCase()}`}</span>
-                  <span style={{fontWeight:600,color:C.azulProfundo}}>Filtro: {tabFilter}</span>
+                  <span style={{fontWeight:600,color:C.cinzaEscuro}}>Filtro: {tabFilter}</span>
                 </div>
               </div>
             </div>
 
             {/* Ocorrências */}
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>SSMA — Ocorrências</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>SSMA — Ocorrências</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Status crítico com badge, data e local</p>
               <DSTable columns={[
                 {key:"id",label:"Código",width:90},
@@ -722,7 +722,7 @@ export default function TableDoc() {
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
                   {l:"Container",v:"border-radius 12px 12px 12px 24px"},
                   {l:"Header",v:"bg #F2F4F8, font 10px uppercase"},
@@ -741,7 +741,7 @@ export default function TableDoc() {
                 ))}
               </div>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Interação</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Interação</span>
                 {[
                   {l:"Sort",v:"Clique no header. ↑ asc / ↓ desc. Toggle."},
                   {l:"Select",v:"Checkbox por linha. Header seleciona todas."},
@@ -772,7 +772,7 @@ export default function TableDoc() {
               {name:"Bordered",c:C.amareloEscuro,desc:"Bordas em todas as células. Grid visual rígido.",when:"Dados financeiros, planilhas, contextos onde delimitação precisa é necessária.",not:"Listagens simples — borda em tudo fica pesado. Preferir striped."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Quando usar</div><p style={gt}>{t.when}</p>
@@ -828,7 +828,7 @@ export default function TableDoc() {
                 {prop:"configurable",type:"boolean",def:"false",desc:"Exibe botão 'Colunas' com dropdown para ocultar/exibir e reordenar colunas. Usar apenas com 5+ colunas — tabelas com poucas colunas não precisam de configuração."},
               ].map((p,i)=>(
                 <div key={p.prop} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"10px 0",borderBottom:i<14?`1px solid ${C.cardBorder}`:"none"}}>
-                  <code style={{fontFamily:Fn.mono,fontSize:12,fontWeight:700,color:C.azulProfundo,minWidth:110}}>{p.prop}</code>
+                  <code style={{fontFamily:Fn.mono,fontSize:12,fontWeight:700,color:C.cinzaEscuro,minWidth:110}}>{p.prop}</code>
                   <code style={{fontFamily:Fn.mono,fontSize:10,color:C.cinzaChumbo,background:C.bg,padding:"2px 6px",borderRadius:3,minWidth:60,textAlign:"center"}}>{p.type}</code>
                   <code style={{fontFamily:Fn.mono,fontSize:10,color:C.textMuted,minWidth:55,textAlign:"center"}}>{p.def}</code>
                   <span style={{fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.4}}>{p.desc}</span>

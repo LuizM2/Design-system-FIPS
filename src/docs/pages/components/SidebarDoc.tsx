@@ -158,7 +158,7 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
         style={{
           fontSize: 20,
           fontWeight: 700,
-          color: C.azulEscuro,
+          color: C.cinzaEscuro,
           margin: '0 0 4px',
           fontFamily: F.title,
           letterSpacing: '0.5px',
@@ -858,7 +858,7 @@ function SidebarDemo({
             <div style={{ opacity: autoCollapse ? 1 : 0.55 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                 <span style={{ fontSize: 13, fontFamily: F.body, color: 'var(--color-fg-muted)' }}>Tempo para fechar</span>
-                <span style={{ fontSize: 14, fontFamily: F.body, fontWeight: 700, color: C.azulEscuro }}>{collapseSeconds}s</span>
+                <span style={{ fontSize: 14, fontFamily: F.body, fontWeight: 700, color: C.cinzaEscuro }}>{collapseSeconds}s</span>
               </div>
               <input
                 type="range"
@@ -1166,7 +1166,7 @@ export default function SidebarDoc() {
                   onSidebarPointerLeave={handleSidebarPointerLeave}
                 />
                 <div style={{ flex: 1, padding: mob ? 16 : 24, minHeight: 200, fontFamily: F.body }}>
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Área de conteúdo (demo)</p>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Área de conteúdo (demo)</p>
                   <p style={{ margin: '8px 0 0', fontSize: 13, color: C.cinzaChumbo, lineHeight: 1.55 }}>
                     Rota simulada:{' '}
                     <code style={{ background: C.neutro, padding: '2px 8px', borderRadius: 4, fontFamily: F.mono, fontSize: 12 }}>
@@ -1198,7 +1198,7 @@ export default function SidebarDoc() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 16 }}>
             <div style={{ ...gc, borderLeft: `4px solid ${C.azulProfundo}` }}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Camadas de responsabilidade</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Camadas de responsabilidade</span>
                 <code style={gk}>domain + state + view</code>
               </div>
               <div style={gb}>
@@ -1218,7 +1218,7 @@ export default function SidebarDoc() {
 
             <div style={{ ...gc, borderLeft: `4px solid ${C.amareloEscuro}` }}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Estados visuais do tile 36×36</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Estados visuais do tile 36×36</span>
                 <code style={gk}>SidebarNeuIcon36</code>
               </div>
               <div style={gb}>
@@ -1255,7 +1255,7 @@ export default function SidebarDoc() {
                 },
               ].map((x) => (
                 <div key={x.t} style={{ background: C.bg, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: '12px 14px' }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>{x.t}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>{x.t}</span>
                   <p style={{ margin: '6px 0 0', ...gt, fontSize: 12 }}>{x.d}</p>
                 </div>
               ))}
@@ -1271,7 +1271,7 @@ export default function SidebarDoc() {
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 16 }}>
             <div style={{ ...gc, borderLeft: `4px solid ${C.verdeFloresta}` }}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Fluxo de implantação</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Fluxo de implantação</span>
                 <code style={gk}>do zero ao release</code>
               </div>
               <div style={gb}>
@@ -1295,7 +1295,7 @@ export default function SidebarDoc() {
 
             <div style={{ ...gc, borderLeft: `4px solid ${C.danger}` }}>
               <div style={gh}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.azulEscuro, fontFamily: F.title }}>Riscos e anti-patterns</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Riscos e anti-patterns</span>
                 <code style={gk}>production traps</code>
               </div>
               <div style={gb}>

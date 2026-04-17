@@ -52,7 +52,7 @@ function Modal({open,onClose,title,subtitle,children,footer,footerBg,width=480,i
           <div style={{display:"flex",gap:14,alignItems:"center",minWidth:0}}>
             {icon&&<div style={{width:48,height:48,borderRadius:14,background:iconBg||C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,border:`1px solid ${C.cardBorder}`}}>{icon}</div>}
             <div style={{minWidth:0}}>
-              <h2 id="modal-title" style={{fontSize:17,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
+              <h2 id="modal-title" style={{fontSize:17,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
               {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"3px 0 0",lineHeight:1.4,fontFamily:Fn.body}}>{subtitle}</p>}
             </div>
           </div>
@@ -96,7 +96,7 @@ function Btn({label,color,outline,onClick,full,danger}){
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
 const gh={padding:"16px 20px",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:12};
@@ -128,7 +128,7 @@ export default function DialogDoc(){
         footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Aprovar" color={C.verdeFloresta} onClick={close}/></>}>
         <div style={{display:"flex",flexDirection:"column",gap:12}}>
           <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Solicitante</span><span style={{fontSize:13,fontWeight:600}}>Carlos Santos</span></div>
-          <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.azulProfundo}}>R$ 2.450,00</span></div>
+          <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro}}>R$ 2.450,00</span></div>
           <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Status</span><Badge variant="atencao" dot>Pendente</Badge></div>
         </div>
       </Modal>
@@ -196,7 +196,7 @@ export default function DialogDoc(){
 
       {/* 6. LISTA — body #f5f6f8 */}
       <Modal open={m==="list"} onClose={close} title="Itens da requisição" subtitle="REQ-4025 · 3 itens · R$ 2.450,00" icon={Ic.docLg(28,C.cinzaChumbo)} iconBg={`${C.cinzaChumbo}0A`} bodyBg="#f5f6f8" width={520} noPadBody
-        footer={<><span style={{fontSize:11,color:C.textMuted,marginRight:"auto",fontWeight:600}}>Total: <span style={{color:C.azulProfundo,fontSize:13}}>R$ 2.450,00</span></span><Btn label="Fechar" outline onClick={close}/><Btn label="Aprovar tudo" color={C.verdeFloresta} onClick={close}/></>}>
+        footer={<><span style={{fontSize:11,color:C.textMuted,marginRight:"auto",fontWeight:600}}>Total: <span style={{color:C.cinzaEscuro,fontSize:13}}>R$ 2.450,00</span></span><Btn label="Fechar" outline onClick={close}/><Btn label="Aprovar tudo" color={C.verdeFloresta} onClick={close}/></>}>
         <div>
           {[
             {item:"Extintor PQS 6kg",qty:3,val:"R$ 450,00",status:"sucesso",sl:"Cotado"},
@@ -209,7 +209,7 @@ export default function DialogDoc(){
                 <span style={{fontSize:11,color:C.textMuted}}>Qtd: {r.qty}</span>
               </div>
               <Badge variant={r.status} dot>{r.sl}</Badge>
-              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.mono,minWidth:85,textAlign:"right"}}>{r.val}</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.mono,minWidth:85,textAlign:"right"}}>{r.val}</span>
             </div>
           ))}
         </div>
@@ -256,7 +256,7 @@ export default function DialogDoc(){
               {name:"Lista de itens",c:C.cinzaChumbo,desc:"Itens em rows com hover. Body #f5f6f8. Total no footer à esquerda.",cta:"Total + Fechar + Ação contextual.",ex:"'Itens da requisição'; 'Pendências'; checklist de aprovação."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Botões (CTA)</div><p style={gt}>{t.cta}</p>
@@ -288,7 +288,7 @@ export default function DialogDoc(){
               <div style={{background:"rgba(0,42,104,.12)",padding:mob?12:20}}>
                 <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:mob?8:12}}>
                   <span style={{width:8,height:8,borderRadius:"50%",background:C.azulEscuro}}/>
-                  <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulEscuro,fontFamily:Fn.title}}>① Overlay</span>
+                  <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaEscuro,fontFamily:Fn.title}}>① Overlay</span>
                   <code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,marginLeft:4}}>rgba(0,42,104,.45) + blur(2px)</code>
                 </div>
 
@@ -302,7 +302,7 @@ export default function DialogDoc(){
                         {Ic.check(22,C.verdeFloresta)}
                       </div>
                       <div>
-                        <div style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Título do modal</div>
+                        <div style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Título do modal</div>
                         <div style={{fontSize:11,color:C.cinzaChumbo}}>Subtítulo descritivo</div>
                       </div>
                     </div>
@@ -377,7 +377,7 @@ export default function DialogDoc(){
             <DSCard mob={mob}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
                 {Ic.keyboard(22,C.azulProfundo)}
-                <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Atalhos de teclado</span>
+                <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Atalhos de teclado</span>
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:12}}>
                 {[
@@ -403,7 +403,7 @@ export default function DialogDoc(){
             <DSCard mob={mob}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke={C.verdeFloresta} strokeWidth="1.8"/><path d="M12 7v0M9 10h6M10 10v7M14 10v7" stroke={C.verdeFloresta} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Atributos ARIA</span>
+                <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Atributos ARIA</span>
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 {[
@@ -414,7 +414,7 @@ export default function DialogDoc(){
                   {attr:'tabIndex={0}',desc:"Botão X recebe foco via Tab e responde a Enter."},
                 ].map((a,i)=>(
                   <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",padding:"8px 12px",background:C.bg,borderRadius:6}}>
-                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600,flexShrink:0,whiteSpace:"nowrap"}}>{a.attr}</code>
+                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,flexShrink:0,whiteSpace:"nowrap"}}>{a.attr}</code>
                     <span style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.5}}>{a.desc}</span>
                   </div>
                 ))}
@@ -498,7 +498,7 @@ export default function DialogDoc(){
               ].map(s=>(
                 <div key={s.name} style={{display:"flex",flexDirection:"column",gap:12}}>
                   <div style={{textAlign:"center"}}>
-                    <span style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{s.name}</span>
+                    <span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{s.name}</span>
                     <code style={{fontSize:13,fontFamily:Fn.mono,color:s.color,fontWeight:600}}>{s.w}</code>
                   </div>
                   {/* Visual bar */}
@@ -517,7 +517,7 @@ export default function DialogDoc(){
             </div>
 
             <div style={{marginTop:20,padding:"12px 16px",background:`${C.azulCeuClaro}30`,borderRadius:8,display:"flex",gap:10,alignItems:"center"}}>
-              <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600,flexShrink:0}}>maxWidth: 95vw</code>
+              <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,flexShrink:0}}>maxWidth: 95vw</code>
               <span style={{fontSize:12,color:C.cinzaChumbo}}>Todos os modais respeitam 95vw como máximo, garantindo margens laterais de 2.5% em qualquer tela.</span>
             </div>
           </DSCard>

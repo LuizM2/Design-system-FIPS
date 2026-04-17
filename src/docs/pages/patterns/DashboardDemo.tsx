@@ -349,7 +349,7 @@ export default function DSFIPSDashboard(){
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:8}}>
               <LuLayoutGrid size={16} color={C.azulProfundo}/>
-              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Filtros</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filtros</span>
               {hasFilter&&<span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body}}>· {filtered.length} de {allData.length}</span>}
             </div>
             <div style={{display:"flex",alignItems:"center",gap:6}}>
@@ -370,10 +370,10 @@ export default function DSFIPSDashboard(){
         {/* ═══ FILTROS ATIVOS (badges) ═══ */}
         {hasFilter&&(
           <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,flexWrap:"wrap"}}>
-            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.azulProfundo,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
-            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.azulProfundo,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
+            {filter.year&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Ano: {filter.year}</span>}
+            {filter.month&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulProfundo}10`,borderRadius:4,fontFamily:Fn.body}}>Mês: {filter.month}</span>}
             {filter.dept&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:DEPT_COLOR[filter.dept],background:`${DEPT_COLOR[filter.dept]}10`,borderRadius:4,fontFamily:Fn.body}}>Área: {filter.dept}</span>}
-            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.azulEscuro,background:`${C.azulEscuro}10`,borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
+            {filter.sol&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:C.cinzaEscuro,background:`${C.azulEscuro}10`,borderRadius:4,fontFamily:Fn.body}}>Nome: {filter.sol}</span>}
             {filter.priority&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:PRIO_COLOR[filter.priority],background:`${PRIO_COLOR[filter.priority]}10`,borderRadius:4,fontFamily:Fn.body}}>Prioridade: {filter.priority}</span>}
             {filter.status&&<span style={{padding:"3px 8px",fontSize:10,fontWeight:600,color:STATUS_COLOR[filter.status],background:`${STATUS_COLOR[filter.status]}10`,borderRadius:4,fontFamily:Fn.body}}>Status: {filter.status}</span>}
           </div>
@@ -395,7 +395,7 @@ export default function DSFIPSDashboard(){
                   <div style={{position:"absolute",top:mob?12:16,right:mob?10:16,width:mob?34:40,height:mob?34:40,borderRadius:mob?9:12,background:`${k.color}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{k.icon(mob?16:20,k.color)}</div>
                   <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,display:"block",marginBottom:mob?6:8}}>{k.label}</span>
                   <div style={{display:"flex",alignItems:"baseline",gap:8}}>
-                    <span style={{fontSize:mob?22:28,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,lineHeight:1}}>{k.value}</span>
+                    <span style={{fontSize:mob?22:28,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{k.value}</span>
                     <span onMouseEnter={()=>setHovDelta(i)} onMouseLeave={()=>setHovDelta(-1)} style={{display:"inline-flex",alignItems:"center",gap:2,fontSize:10,fontWeight:600,fontFamily:Fn.mono,color:k.color!==C.danger?dc:C.danger,cursor:"help",position:"relative"}}>
                       {k.up?<LuArrowUp size={10} color={k.color!==C.danger?dc:C.danger}/>:<LuArrowDown size={10} color={dc}/>}{k.delta}
                       {hovDelta===i&&<span style={{position:"absolute",bottom:"100%",left:"50%",transform:"translateX(-50%)",marginBottom:6,background:C.azulEscuro,color:C.branco,padding:"5px 10px",borderRadius:6,fontSize:10,fontFamily:Fn.body,whiteSpace:"nowrap",zIndex:20,boxShadow:"0 4px 12px rgba(0,0,0,.2)"}}>{k.delta} {k.deltaDesc}<span style={{position:"absolute",top:"100%",left:"50%",transform:"translateX(-50%)",width:0,height:0,borderLeft:"4px solid transparent",borderRight:"4px solid transparent",borderTop:`4px solid ${C.azulEscuro}`}}/></span>}
@@ -433,7 +433,7 @@ export default function DSFIPSDashboard(){
             return(
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-                  <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por mês</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
+                  <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por mês</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
                   <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",justifyContent:"center"}}>
@@ -464,7 +464,7 @@ export default function DSFIPSDashboard(){
             return(
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.status?STATUS_COLOR[filter.status]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-                  <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por status</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
+                  <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por status</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
                   <div style={{width:30,height:30,borderRadius:8,background:`${C.amareloEscuro}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuLayoutGrid size={14} color={C.amareloEscuro}/></div>
                 </div>
                 <div style={{display:"flex",alignItems:"center",gap:mob?12:20,justifyContent:"center"}}>
@@ -474,7 +474,7 @@ export default function DSFIPSDashboard(){
                       {(()=>{let a2=0;return byStatus.map((s,i)=>{const pct=s.value/total2;const dash=pct*circ;const off=a2*circ;a2+=pct;return <circle key={`h${i}`} cx={cx} cy={cy} r={r} fill="none" stroke="transparent" strokeWidth={30} strokeDasharray={`${dash} ${circ-dash}`} strokeDashoffset={-off} style={{cursor:"pointer"}} onClick={()=>toggle("status",s.label)} onMouseEnter={()=>setHovDonut(i)} onMouseLeave={()=>setHovDonut(null)}/>})})()}
                     </svg>
                     <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",pointerEvents:"none"}}>
-                      {hovDonut!==null?<><span style={{fontSize:16,fontWeight:800,fontFamily:Fn.title,color:byStatus[hovDonut].color,lineHeight:1}}>{byStatus[hovDonut].value}</span><span style={{fontSize:8,color:C.cinzaChumbo}}>{Math.round(byStatus[hovDonut].value/total2*100)}%</span></>:<><span style={{fontSize:20,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,lineHeight:1}}>{filtered.length}</span><span style={{fontSize:9,color:C.cinzaChumbo}}>total</span></>}
+                      {hovDonut!==null?<><span style={{fontSize:16,fontWeight:800,fontFamily:Fn.title,color:byStatus[hovDonut].color,lineHeight:1}}>{byStatus[hovDonut].value}</span><span style={{fontSize:8,color:C.cinzaChumbo}}>{Math.round(byStatus[hovDonut].value/total2*100)}%</span></>:<><span style={{fontSize:20,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,lineHeight:1}}>{filtered.length}</span><span style={{fontSize:9,color:C.cinzaChumbo}}>total</span></>}
                     </div>
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:6}}>
@@ -502,7 +502,7 @@ export default function DSFIPSDashboard(){
             return(
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.dept?DEPT_COLOR[filter.dept]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-                  <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Por departamento</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
+                  <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Por departamento</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
                   <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuList size={14} color={C.azulProfundo}/></div>
                 </div>
                 <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -527,7 +527,7 @@ export default function DSFIPSDashboard(){
           {/* SLA — por prioridade */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.priority?PRIO_COLOR[filter.priority]:C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-              <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>SLA por prioridade</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
+              <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>SLA por prioridade</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique para filtrar</span></div>
               <div style={{width:30,height:30,borderRadius:8,background:`${C.verdeFloresta}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuCircleCheck size={14} color={C.verdeFloresta}/></div>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:12}}>
@@ -568,11 +568,11 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
                   <div>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Abertas vs Concluídas</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Abertas vs Concluídas</span>
                     <span style={{fontSize:10,color:C.cinzaChumbo}}>Duas colunas + linha SLA</span>
                   </div>
                   <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
-                    <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.azulProfundo,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:C.azulProfundo}}/>Abertas</span>
+                    <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.cinzaEscuro,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:C.azulProfundo}}/>Abertas</span>
                     <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:8,height:8,borderRadius:2,background:C.verdeFloresta}}/>Concluídas</span>
                     <span style={{display:"flex",alignItems:"center",gap:3,fontSize:9,color:C.amareloEscuro,fontFamily:Fn.body}}><span style={{width:10,height:2,borderRadius:1,background:C.amareloEscuro}}/>SLA</span>
                   </div>
@@ -623,7 +623,7 @@ export default function DSFIPSDashboard(){
               <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:20,boxShadow:"0 1px 3px rgba(0,75,155,.04)",position:"relative"}} onMouseMove={trackMouse}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
                   <div>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Distribuição por status</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Distribuição por status</span>
                     <span style={{fontSize:10,color:C.cinzaChumbo}}>Barras empilhadas por mês</span>
                   </div>
                   <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
@@ -662,7 +662,7 @@ export default function DSFIPSDashboard(){
             <div style={{padding:"16px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
                 <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><LuList size={20} color={C.azulProfundo}/></div>
-                <div><span style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Requisições {hasFilter?"(filtradas)":""}</span><span style={{fontSize:12,color:C.cinzaChumbo,display:"block",marginTop:2}}>{tableData.length} mais recentes</span></div>
+                <div><span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Requisições {hasFilter?"(filtradas)":""}</span><span style={{fontSize:12,color:C.cinzaChumbo,display:"block",marginTop:2}}>{tableData.length} mais recentes</span></div>
               </div>
               <div style={{display:"flex",gap:6}}>
                 <button style={{display:"inline-flex",alignItems:"center",gap:5,padding:"6px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:"#1D6F42",background:"#1D6F4210",border:"1px solid #1D6F4225",borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Exportar Excel"><LuFileSpreadsheet size={14} color="#1D6F42"/> <span style={{display:mob?"none":"inline"}}>Excel</span></button>
@@ -681,12 +681,12 @@ export default function DSFIPSDashboard(){
                     const isH=hovRow===i;const zebra=i%2===1?`${C.azulCeu}0D`:"transparent";
                     return(
                       <tr key={i} onMouseEnter={()=>setHovRow(i)} onMouseLeave={()=>setHovRow(-1)} style={{background:isH?`${C.amareloOuro}18`:zebra,transition:"background .12s",borderBottom:i<tableData.length-1?`1px solid ${C.cardBorder}`:"none"}}>
-                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.azulProfundo,fontFamily:Fn.mono}}>{r.id}</td>
+                        <td style={{padding:"10px 16px",fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.mono}}>{r.id}</td>
                         {!mob&&<td style={{padding:"10px 16px"}}><div style={{display:"flex",alignItems:"center",gap:10}}><Avatar name={r.sol}/><div style={{lineHeight:1.2}}><span style={{fontWeight:600,fontSize:12,color:C.cinzaEscuro,display:"block"}}>{r.sol}</span><span style={{fontSize:10,color:C.textMuted,display:"block"}}>{r.dept}</span></div></div></td>}
                         {!mob&&<td style={{padding:"10px 16px",fontSize:12,color:C.cinzaChumbo}}>{r.dept}</td>}
                         <td style={{padding:"10px 16px"}}><Badge variant={r.status} dot>{r.status}</Badge></td>
                         <td style={{padding:"10px 16px",minWidth:100}}><MiniProgress value={r.sla}/></td>
-                        {!mob&&<td style={{padding:"10px 16px",fontSize:12,fontWeight:600,fontFamily:Fn.mono,color:C.azulEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</td>}
+                        {!mob&&<td style={{padding:"10px 16px",fontSize:12,fontWeight:600,fontFamily:Fn.mono,color:C.cinzaEscuro}}>R$ {r.valor.toLocaleString("pt-BR")}</td>}
                       </tr>
                     );
                   })}
@@ -695,7 +695,7 @@ export default function DSFIPSDashboard(){
             </div>
             <div style={{padding:"10px 16px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:11,color:C.cinzaChumbo}}>
               <span>{filtered.length} requisições{hasFilter?" filtradas":""}</span>
-              <span style={{fontWeight:600,color:C.azulProfundo}}>Total: R$ {filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")}</span>
+              <span style={{fontWeight:600,color:C.cinzaEscuro}}>Total: R$ {filtered.reduce((a,r)=>a+r.valor,0).toLocaleString("pt-BR")}</span>
             </div>
           </div>
 
@@ -703,7 +703,7 @@ export default function DSFIPSDashboard(){
           <div style={{display:"flex",flexDirection:"column",gap:mob?16:20}}>
             {/* Fluxo */}
             <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
-              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Fluxo</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Fluxo</span>
               {[
                 {step:"1",label:"Solicitação",count:total,color:C.azulProfundo},
                 {step:"2",label:"Triagem",count:aguardando,color:C.azulCeu},
@@ -713,7 +713,7 @@ export default function DSFIPSDashboard(){
                 <div key={i}>
                   <div style={{display:"flex",alignItems:"center",gap:10,padding:"7px 0"}}>
                     <div style={{width:24,height:24,borderRadius:"50%",background:`${s.color}15`,border:`2px solid ${s.color}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:10,fontWeight:800,fontFamily:Fn.title,color:s.color}}>{s.step}</span></div>
-                    <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body,flex:1}}>{s.label}</span>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,flex:1}}>{s.label}</span>
                     <code style={{fontSize:11,fontWeight:700,fontFamily:Fn.mono,color:s.color}}>{s.count}</code>
                   </div>
                   {i<3&&<div style={{width:2,height:10,background:C.cardBorder,marginLeft:11,borderRadius:1}}/>}
@@ -723,7 +723,7 @@ export default function DSFIPSDashboard(){
 
             {/* Atividade */}
             <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
-              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Atividade</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Atividade</span>
               {[
                 {text:`${finalizadas} requisições finalizadas`,time:"este período",color:C.verdeFloresta,icon:(s:number,c:string)=><LuCircleCheck size={s} color={c}/>},
                 {text:`${atrasadas} com SLA crítico`,time:"abaixo de 50%",color:C.danger,icon:(s:number,c:string)=><LuTriangleAlert size={s} color={c}/>},
@@ -748,7 +748,7 @@ export default function DSFIPSDashboard(){
               return(
                 <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${filter.month?C.azulProfundo:C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",transition:"border-color .15s",position:"relative"}} onMouseMove={trackMouse}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
-                    <div><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Tendência mensal</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique no ponto para filtrar</span></div>
+                    <div><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Tendência mensal</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Clique no ponto para filtrar</span></div>
                     <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
                   </div>
                   <svg width="100%" height={cH+18} viewBox={`0 0 ${cW} ${cH+18}`} preserveAspectRatio="xMidYMid meet">
@@ -772,7 +772,7 @@ export default function DSFIPSDashboard(){
 
             {/* MiniBar sidebar — por dia da semana */}
             <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?14:18,boxShadow:"0 1px 3px rgba(0,75,155,.04)",position:"relative"}} onMouseMove={trackMouse}>
-              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Por dia da semana</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Por dia da semana</span>
               {(()=>{
                 const days=DAYS_LABELS;
                 const vals=sideBarVals;
@@ -789,7 +789,7 @@ export default function DSFIPSDashboard(){
         <div style={{marginTop:mob?16:24}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:mob?10:14}}>
             <div style={{width:30,height:30,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={14} color={C.azulProfundo}/></div>
-            <div><span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Status das solicitações</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Distribuição por situação atual</span></div>
+            <div><span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Status das solicitações</span><span style={{fontSize:10,color:C.cinzaChumbo}}>Distribuição por situação atual</span></div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?10:16}}>
             {[
@@ -803,7 +803,7 @@ export default function DSFIPSDashboard(){
                 <div key={i} onClick={()=>k.filterVal&&toggle("status",k.filterVal)} onMouseEnter={()=>setHovStatusD(i)} onMouseLeave={()=>setHovStatusD(-1)} onMouseMove={trackMouse} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${isActive?k.color:C.cardBorder}`,padding:"14px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:isActive?`0 4px 16px ${k.color}15`:"0 1px 3px rgba(0,75,155,.04)",cursor:k.filterVal?"pointer":"default",transition:"all .15s",position:"relative"}}>
                   <div>
                     <span style={{fontSize:10,fontWeight:600,color:isActive?k.color:C.cinzaChumbo,display:"block",marginBottom:3,textTransform:"uppercase",letterSpacing:".5px",transition:"color .15s"}}>{k.label}</span>
-                    <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:C.azulEscuro,display:"block",lineHeight:1}}>{k.value}</span>
+                    <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:C.cinzaEscuro,display:"block",lineHeight:1}}>{k.value}</span>
                   </div>
                   <div style={{position:"relative",flexShrink:0}}>
                     <Donut pct={k.pct} color={k.color}/>
@@ -821,7 +821,7 @@ export default function DSFIPSDashboard(){
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20}}>
             <div style={{width:36,height:36,borderRadius:10,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuFileText size={18} color={C.azulProfundo}/></div>
             <div>
-              <span style={{fontSize:16,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Regras do padrão Dashboard</span>
+              <span style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Regras do padrão Dashboard</span>
               <span style={{fontSize:11,color:C.cinzaChumbo}}>Diretrizes obrigatórias para todos os dashboards FIPS</span>
             </div>
           </div>
@@ -829,8 +829,8 @@ export default function DSFIPSDashboard(){
           {/* Regra 1 — Filtros */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.azulProfundo,fontFamily:Fn.title}}>1</span></div>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Barra de filtros sempre no topo</span>
+              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>1</span></div>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Barra de filtros sempre no topo</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
@@ -853,8 +853,8 @@ export default function DSFIPSDashboard(){
           {/* Regra 2 — Cross-filter */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.azulProfundo,fontFamily:Fn.title}}>2</span></div>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Todos os gráficos com interação de filtro</span>
+              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>2</span></div>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Todos os gráficos com interação de filtro</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
@@ -878,8 +878,8 @@ export default function DSFIPSDashboard(){
           {/* Regra 3 — Rótulos de dados */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.azulProfundo,fontFamily:Fn.title}}>3</span></div>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Rótulos de dados obrigatórios</span>
+              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>3</span></div>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Rótulos de dados obrigatórios</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
@@ -903,8 +903,8 @@ export default function DSFIPSDashboard(){
           {/* Regra 4 — Hover e feedback */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.azulProfundo,fontFamily:Fn.title}}>4</span></div>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Hover e feedback visual</span>
+              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>4</span></div>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Hover e feedback visual</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[
@@ -927,8 +927,8 @@ export default function DSFIPSDashboard(){
           {/* Regra 5 — Layout e exportação */}
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24,marginBottom:16,boxShadow:"0 1px 3px rgba(0,75,155,.04)"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.azulProfundo,fontFamily:Fn.title}}>5</span></div>
-              <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Layout, tabela e exportação</span>
+              <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}12`,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:13,fontWeight:800,color:C.cinzaEscuro,fontFamily:Fn.title}}>5</span></div>
+              <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Layout, tabela e exportação</span>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
               {[

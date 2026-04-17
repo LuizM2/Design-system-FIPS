@@ -88,7 +88,7 @@ function FTextarea({label,placeholder,rows=3,compact,cols}:{label?:string,placeh
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
 function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return (
-  <section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body}}>{desc}</p>{children}</section>
+  <section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body}}>{desc}</p>{children}</section>
 );}
 function Card({children,s}:{children:React.ReactNode,s?:React.CSSProperties}){return (
   <div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>
@@ -149,7 +149,7 @@ export default function FieldDoc(){
         <Section n="01" title="Cadastro desktop de referência" desc="Formulário completo usando Field como camada de composição. Cada campo é Field + componente base (input, select, textarea).">
           <Card>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:24}}>
-              <h3 style={{fontSize:24,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,letterSpacing:".5px",margin:0}}>Dados do Cliente</h3>
+              <h3 style={{fontSize:24,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title,letterSpacing:".5px",margin:0}}>Dados do Cliente</h3>
               <div style={{display:"flex",gap:10}}>
                 <button style={{padding:"7px 18px",fontSize:13,border:`1.5px solid ${C.inputBorder}`,borderRadius:6,background:"transparent",color:C.cinzaChumbo,cursor:"pointer",fontFamily:F.body,fontWeight:600}}>Cancelar</button>
                 <button style={{padding:"7px 18px",fontSize:13,border:"none",borderRadius:6,background:C.verdeFloresta,color:C.branco,cursor:"pointer",fontFamily:F.body,fontWeight:600,display:"flex",alignItems:"center",gap:6}}>{I.save(13)} Salvar</button>
@@ -176,7 +176,7 @@ export default function FieldDoc(){
               <div style={{flex:1,minWidth:300}}>
                 <div style={{padding:"12px 0"}}>
                   <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
-                    <div style={{width:8,height:8,borderRadius:"50%",background:C.azulProfundo}}/><span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulProfundo,fontFamily:F.title}}>Label</span><span style={{fontSize:10,color:C.textMuted}}>— Open Sans 600 · 12px</span>
+                    <div style={{width:8,height:8,borderRadius:"50%",background:C.azulProfundo}}/><span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaEscuro,fontFamily:F.title}}>Label</span><span style={{fontSize:10,color:C.textMuted}}>— Open Sans 600 · 12px</span>
                   </div>
                   <div style={{marginLeft:7,marginBottom:1,fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,display:"flex",alignItems:"center",gap:3}}>
                     Nome do cliente <span style={{color:C.danger,fontWeight:700,fontSize:14}}>*</span>
@@ -217,7 +217,7 @@ export default function FieldDoc(){
           {/* Spacing tokens */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))",gap:16}}>
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>Espaçamentos internos</span></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>Espaçamentos internos</span></div>
               <div style={gb}>
                 {[
                   {l:"Label → Input",v:"1px",d:"Gap entre label e borda do campo"},
@@ -234,7 +234,7 @@ export default function FieldDoc(){
               </div>
             </div>
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>Nomenclatura de labels</span></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>Nomenclatura de labels</span></div>
               <div style={gb}>
                 <p style={{...gt,marginBottom:10}}>Nomes curtos, descritivos, substantivos. Evitar verbos e abreviações.</p>
                 {[
@@ -272,10 +272,10 @@ export default function FieldDoc(){
         <Section n="04" title="Guia de composição" desc="Field é a camada de composição. Ele envolve qualquer componente base (Input, Select, Textarea) com a mesma estrutura de label, helper e erro.">
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))",gap:16}}>
             <div style={{...gc,borderLeft:`4px solid ${C.azulProfundo}`}}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>Field + Input</span><code style={gk}>90% dos casos</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>Field + Input</span><code style={gk}>90% dos casos</code></div>
               <div style={gb}>
                 <FInput label="Nome" placeholder="Nome completo" icon={I.pessoa()} required helper="Campo de texto padrão." compact />
-                <div style={{...gl,marginTop:14,color:C.azulProfundo}}>★ COMBINAÇÃO PADRÃO</div>
+                <div style={{...gl,marginTop:14,color:C.cinzaEscuro}}>★ COMBINAÇÃO PADRÃO</div>
                 <p style={gt}>A composição mais usada. Input de texto com ícone à esquerda, label acima e helper abaixo.</p>
                 <div style={gl}>Componentes base</div>
                 <p style={gt}>Texto, email, senha, busca, data, telefone, CPF/CNPJ, placa, moeda.</p>
@@ -285,7 +285,7 @@ export default function FieldDoc(){
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>Field + Select</span><code style={gk}>dropdowns</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>Field + Select</span><code style={gk}>dropdowns</code></div>
               <div style={gb}>
                 <FSelect label="Status" icon={I.grid(16,C.cinzaChumbo)} options={["Ativo","Inativo","Pendente"]} compact />
                 <div style={{...gl,marginTop:14}}>Significado</div>
@@ -298,7 +298,7 @@ export default function FieldDoc(){
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>Field + Textarea</span><code style={gk}>texto longo</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>Field + Textarea</span><code style={gk}>texto longo</code></div>
               <div style={gb}>
                 <FTextarea label="Observação" placeholder="Contexto adicional..." rows={2} compact />
                 <div style={{...gl,marginTop:14}}>Significado</div>
@@ -316,7 +316,7 @@ export default function FieldDoc(){
         <Section n="05" title="Densidade compacta oficial" desc="Versão compacta do Field para modais, filtros e áreas com espaço restrito. Altura 30px, fonte 12px.">
           <Card s={{background:C.bg}}>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:12,padding:24,maxWidth:560}}>
-              <div style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,marginBottom:16}}>Modal de triagem</div>
+              <div style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title,marginBottom:16}}>Modal de triagem</div>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px 16px"}}>
                 <FInput label="Busca rápida" placeholder="Empresa ou responsável..." icon={I.busca()} onClear={()=>{}} compact />
                 <FSelect label="Status" icon={I.grid(16,C.cinzaChumbo)} options={["Ativo","Inativo","Pendente"]} compact />
@@ -334,7 +334,7 @@ export default function FieldDoc(){
         <Section n="06" title="Grid de formulário" desc="Regras de layout para organizar Fields em colunas. Desktop usa grid de 2 ou 3 colunas.">
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>3 colunas</span><code style={gk}>cadastro completo</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>3 colunas</span><code style={gk}>cadastro completo</code></div>
               <div style={{...gb,background:C.bg,padding:16}}>
                 <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16}}>
                   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"10px 14px"}}>
@@ -353,7 +353,7 @@ export default function FieldDoc(){
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title}}>2 colunas</span><code style={gk}>modais e edição</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title}}>2 colunas</span><code style={gk}>modais e edição</code></div>
               <div style={{...gb,background:C.bg,padding:16}}>
                 <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16}}>
                   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px 14px"}}>

@@ -26,7 +26,7 @@ const Ic={
   arrow:(s:number,c:string)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M5 10h10M11 6l4 4-4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 };
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:shadows.card.value,...s}}>{children}</div>)}
 
 const componentMap=[
@@ -75,7 +75,7 @@ export default function DSFIPSShadows(){
                   <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:`${C.azulProfundo}20`}}>{sh.level}</span>
                 </div>
                 <div style={{textAlign:"center"}}>
-                  <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{sh.label}</span>
+                  <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{sh.label}</span>
                   <code style={{fontSize:9,fontFamily:Fn.mono,color:C.textMuted}}>{sh.token}</code>
                 </div>
               </div>
@@ -96,18 +96,18 @@ export default function DSFIPSShadows(){
               <div style={{width:mob?"90%":"70%",maxWidth:360,background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${playgroundShadow==="none"?C.cardBorder:"transparent"}`,boxShadow:shadows[playgroundShadow as keyof typeof shadows].value,padding:mob?16:24,transition:"box-shadow .4s ease"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
                   <div style={{width:40,height:40,borderRadius:12,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.card(20,C.azulProfundo)}</div>
-                  <div><span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span><span style={{fontSize:11,color:C.cinzaChumbo}}>Demonstração de sombra</span></div>
+                  <div><span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span><span style={{fontSize:11,color:C.cinzaChumbo}}>Demonstração de sombra</span></div>
                 </div>
                 <div style={{height:1,background:C.cardBorder,marginBottom:12}}/>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                  <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>{shadows[playgroundShadow as keyof typeof shadows].token}</code>
+                  <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{shadows[playgroundShadow as keyof typeof shadows].token}</code>
                   <span style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted}}>nível {shadows[playgroundShadow as keyof typeof shadows].level}</span>
                 </div>
               </div>
             </div>
           </div>
           <div style={{marginTop:16,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:"12px 16px",fontFamily:Fn.mono,fontSize:12,color:C.cinzaEscuro,overflowX:"auto"}}>
-            <span style={{color:C.textMuted}}>box-shadow: </span><span style={{color:C.azulProfundo,fontWeight:600}}>{shadows[playgroundShadow as keyof typeof shadows].value||"none"}</span><span style={{color:C.textMuted}}>;</span>
+            <span style={{color:C.textMuted}}>box-shadow: </span><span style={{color:C.cinzaEscuro,fontWeight:600}}>{shadows[playgroundShadow as keyof typeof shadows].value||"none"}</span><span style={{color:C.textMuted}}>;</span>
           </div>
         </Section>
 
@@ -122,9 +122,9 @@ export default function DSFIPSShadows(){
               <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr":"2fr 1fr 3fr",padding:"12px 20px",borderBottom:i<componentMap.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10}}>
                   <div style={{width:28,height:28,borderRadius:8,background:`${cm.color}0A`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,any>)[cm.icon](14,cm.color)}</div>
-                  <span style={{fontSize:13,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{cm.component}</span>
+                  <span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{cm.component}</span>
                 </div>
-                <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>{shadows[cm.shadow as keyof typeof shadows].token}</code>
+                <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{shadows[cm.shadow as keyof typeof shadows].token}</code>
                 {!mob&&<span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body}}>{cm.desc}</span>}
               </div>
             ))}
@@ -137,7 +137,7 @@ export default function DSFIPSShadows(){
               {["card","elevated","modal"].map(key=>{const sh=shadows[key as keyof typeof shadows];return(
                 <div key={key} style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",boxShadow:sh.value,padding:mob?16:20,border:key==="card"?`1px solid ${C.cardBorder}`:"1px solid transparent"}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{sh.label}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{sh.label}</span>
                     <span style={{fontSize:18,fontWeight:800,fontFamily:Fn.title,color:`${C.azulProfundo}15`}}>{sh.level}</span>
                   </div>
                   <div style={{height:1,background:C.cardBorder,marginBottom:8}}/>
@@ -155,7 +155,7 @@ export default function DSFIPSShadows(){
                 <div key={r.title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                   <div style={{width:36,height:36,borderRadius:10,background:C.bg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,(s:number,c:string)=>React.ReactNode>)[r.icon](16,C.azulProfundo)}</div>
                   <div>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
                     <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span>
                   </div>
                 </div>
@@ -171,10 +171,10 @@ export default function DSFIPSShadows(){
                 <div key={key} style={{display:"flex",alignItems:mob?"flex-start":"center",gap:mob?10:16,padding:"10px 0",borderBottom:`1px solid ${C.cardBorder}`,flexDirection:mob?"column":"row"}}>
                   <div style={{display:"flex",alignItems:"center",gap:10,minWidth:140}}>
                     <div style={{width:24,height:24,borderRadius:6,background:C.cardBg,boxShadow:sh.value,border:key==="none"?`1px solid ${C.cardBorder}`:"none",flexShrink:0}}/>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{sh.label}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{sh.label}</span>
                   </div>
                   <div style={{display:"flex",alignItems:"center",gap:8}}>
-                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600,background:`${C.azulProfundo}08`,padding:"2px 8px",borderRadius:4}}>{sh.token}</code>
+                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,background:`${C.azulProfundo}08`,padding:"2px 8px",borderRadius:4}}>{sh.token}</code>
                     <span style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,background:C.bg,padding:"2px 6px",borderRadius:4}}>nível {sh.level}</span>
                   </div>
                   <code style={{fontSize:mob?10:11,fontFamily:Fn.mono,color:C.cinzaChumbo,flex:1,wordBreak:"break-all"}}>{sh.value||"none"}</code>

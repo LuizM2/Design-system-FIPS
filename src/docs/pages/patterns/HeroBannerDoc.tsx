@@ -21,7 +21,7 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
   return (
     <section style={{ marginBottom: 44 }}>
       <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: C.azulClaro, fontFamily: Fn.title, marginBottom: 6 }}>{n}</div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.azulEscuro, margin: '0 0 4px', fontFamily: Fn.title, letterSpacing: '0.5px' }}>{title}</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 700, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: Fn.title, letterSpacing: '0.5px' }}>{title}</h2>
       <p style={{ fontSize: 14, color: C.cinzaChumbo, margin: '0 0 20px', lineHeight: 1.55, fontFamily: Fn.body }}>{desc}</p>
       {children}
     </section>

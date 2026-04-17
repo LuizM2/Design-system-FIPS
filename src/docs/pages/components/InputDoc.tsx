@@ -155,7 +155,7 @@ function DSInput({ label, placeholder, icon, iconRight, type="text", inputMode, 
 
 /* ═══════════════════════════════════════════ LAYOUT HELPERS ═══════════════════════════════════════════ */
 function Section({ number, title, desc, children }: { number: string; title: string; desc: string; children: React.ReactNode }) {
-  return <section style={{ marginBottom: 44 }}><div style={{ fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6 }}>{number}</div><h2 style={{ fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:"0.5px" }}>{title}</h2><p style={{ fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body }}>{desc}</p>{children}</section>;
+  return <section style={{ marginBottom: 44 }}><div style={{ fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:F.title,marginBottom:6 }}>{number}</div><h2 style={{ fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:F.title,letterSpacing:"0.5px" }}>{title}</h2><p style={{ fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:F.body }}>{desc}</p>{children}</section>;
 }
 function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return <div style={{ background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:"28px",boxShadow:"0 1px 3px rgba(0,75,155,0.04), 0 4px 14px rgba(0,75,155,0.03)",...style }}>{children}</div>;
@@ -244,7 +244,7 @@ export default function InputDoc() {
                 <div style={{ position:"relative", padding:"12px 0" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:2 }}>
                     <div style={{ width:8, height:8, borderRadius:"50%", background:C.azulProfundo, flexShrink:0 }} />
-                    <span style={{ fontSize:10, fontWeight:700, letterSpacing:"1px", textTransform:"uppercase", color:C.azulProfundo, fontFamily:F.title }}>Label</span>
+                    <span style={{ fontSize:10, fontWeight:700, letterSpacing:"1px", textTransform:"uppercase", color:C.cinzaEscuro, fontFamily:F.title }}>Label</span>
                     <span style={{ fontSize:10, color:C.textMuted, fontFamily:F.body }}>— Open Sans 600 · 12px</span>
                   </div>
                   <div style={{ marginLeft:5, marginBottom:6, fontSize:12, fontWeight:600, color:C.cinzaEscuro, fontFamily:F.body, display:"flex", alignItems:"center", gap:3 }}>
@@ -291,7 +291,7 @@ export default function InputDoc() {
 
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:16 }}>
             <div style={{...gc, borderLeft:`4px solid ${C.azulProfundo}`}}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Label (nome do campo)</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Label (nome do campo)</span></div>
               <div style={gb}>
                 <div style={gl}>Tipografia</div>
                 <p style={gt}>Open Sans Semibold (600) em 12px. Cor: Cinza Escuro (#333B41). Em modo compacto, 11px.</p>
@@ -305,7 +305,7 @@ export default function InputDoc() {
             </div>
 
             <div style={{...gc, borderLeft:`4px solid ${C.danger}`}}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Asterisco obrigatório</span><span style={{ color:C.danger, fontSize:18, fontWeight:700 }}>*</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Asterisco obrigatório</span><span style={{ color:C.danger, fontSize:18, fontWeight:700 }}>*</span></div>
               <div style={gb}>
                 <div style={gl}>Visual</div>
                 <p style={gt}>Asterisco vermelho (#DC3545), peso 700, tamanho 14px. Posicionado 3px à direita do texto do label, sem quebra de linha.</p>
@@ -319,7 +319,7 @@ export default function InputDoc() {
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Texto auxiliar (helper)</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Texto auxiliar (helper)</span></div>
               <div style={gb}>
                 <div style={gl}>Tipografia</div>
                 <p style={gt}>Open Sans Regular (400) em 11px. Cor: Cinza Mutado (#64748B). Espaçamento de 1px acima (entre input e texto).</p>
@@ -333,7 +333,7 @@ export default function InputDoc() {
             </div>
 
             <div style={{...gc, borderLeft:`4px solid ${C.danger}`}}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Mensagem de erro</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Mensagem de erro</span></div>
               <div style={gb}>
                 <div style={gl}>Tipografia</div>
                 <p style={gt}>Open Sans Regular (400) em 11px. Cor: Vermelho (#DC3545). Substitui o helper text quando há erro.</p>
@@ -347,7 +347,7 @@ export default function InputDoc() {
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Espaçamentos</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Espaçamentos</span></div>
               <div style={gb}>
                 <div style={{ display:"flex", flexDirection:"column", gap:10, marginTop:8 }}>
                   {[
@@ -370,7 +370,7 @@ export default function InputDoc() {
             </div>
 
             <div style={gc}>
-              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Regras de nomenclatura</span></div>
+              <div style={gh}><span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Regras de nomenclatura</span></div>
               <div style={gb}>
                 <div style={gl}>Boas práticas</div>
                 <p style={gt}>Use nomes curtos e descritivos. Substantivos, não verbos. Evitar abreviações ambíguas.</p>
@@ -398,7 +398,7 @@ export default function InputDoc() {
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(320px, 1fr))", gap:16 }}>
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Ícone à esquerda</span>
+                <span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Ícone à esquerda</span>
                 <code style={gk}>contextual</code>
               </div>
               <div style={gb}>
@@ -424,7 +424,7 @@ export default function InputDoc() {
 
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Ícone à direita</span>
+                <span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Ícone à direita</span>
                 <code style={gk}>ação</code>
               </div>
               <div style={gb}>
@@ -449,7 +449,7 @@ export default function InputDoc() {
 
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize:13, fontWeight:700, color:C.azulEscuro, fontFamily:F.title }}>Ambos os lados</span>
+                <span style={{ fontSize:13, fontWeight:700, color:C.cinzaEscuro, fontFamily:F.title }}>Ambos os lados</span>
                 <code style={gk}>contextual + ação</code>
               </div>
               <div style={gb}>
@@ -486,7 +486,7 @@ export default function InputDoc() {
                 </div>
                 <div style={gb}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:F.title }}>{item.label}</span>
+                    <span style={{ fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title }}>{item.label}</span>
                     <code style={gk}>{item.token}</code>
                   </div>
                   <div style={gl}>Significado</div>
@@ -512,7 +512,7 @@ export default function InputDoc() {
             </div>
 
             <div style={{...gc, borderLeft:`4px solid ${C.azulProfundo}`}}>
-              <div style={gh}><span style={{ fontSize:13,fontWeight:700,color:C.azulProfundo,fontFamily:F.title }}>SELECIONADO / EM FOCO</span></div>
+              <div style={gh}><span style={{ fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title }}>SELECIONADO / EM FOCO</span></div>
               <div style={{...gb, display:"flex", flexDirection:"column", gap:8 }}>
                 <DSInput label="Título" placeholder="Ex: Consultoria Fiscal" icon={icons.documento()} helper="Clique para ver o estado de foco com anel azul." />
                 <div style={gl}>Quando ocorre</div>
@@ -580,12 +580,12 @@ export default function InputDoc() {
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:16 }}>
             <div style={{...gc, borderLeft:`4px solid ${C.azulProfundo}`}}>
               <div style={gh}>
-                <span style={{ fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title }}>Desktop</span>
+                <span style={{ fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title }}>Desktop</span>
                 <code style={gk}>height: 35px · font: 13px</code>
               </div>
               <div style={{...gb, display:"flex", flexDirection:"column", gap:8 }}>
                 <DSInput label="Nome do cliente" placeholder="Nome completo" icon={icons.pessoa()} required size="desktop" />
-                <div style={{...gl, marginTop:14, color:C.azulProfundo}}>★ PADRÃO PARA DESKTOP</div>
+                <div style={{...gl, marginTop:14, color:C.cinzaEscuro}}>★ PADRÃO PARA DESKTOP</div>
                 <p style={gt}>Tamanho padrão em telas de computador. Compacto o suficiente para formulários densos, mas confortável para digitação.</p>
                 <div style={gl}>Onde usar</div>
                 <p style={gt}>Todos os formulários, cadastros e telas de edição em desktop/notebook. É o tamanho default — se não especificar, use este.</p>
@@ -596,7 +596,7 @@ export default function InputDoc() {
 
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title }}>Mobile</span>
+                <span style={{ fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title }}>Mobile</span>
                 <code style={gk}>height: 42px · font: 14px</code>
               </div>
               <div style={{...gb, display:"flex", flexDirection:"column", gap:8 }}>
@@ -614,7 +614,7 @@ export default function InputDoc() {
 
             <div style={gc}>
               <div style={gh}>
-                <span style={{ fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:F.title }}>Compacto</span>
+                <span style={{ fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title }}>Compacto</span>
                 <code style={gk}>height: 30px · font: 12px</code>
               </div>
               <div style={{...gb, display:"flex", flexDirection:"column", gap:8 }}>
@@ -636,7 +636,7 @@ export default function InputDoc() {
         <Section number="07" title="Modo compacto de modal" desc="Composição lado a lado para modais e espaços reduzidos. Inputs compactos com labels inline.">
           <Card style={{ background:C.bg }}>
             <div style={{ background:C.cardBg, border:`1px solid ${C.cardBorder}`, borderRadius:12, padding:24, maxWidth:520 }}>
-              <div style={{ fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:F.title,marginBottom:16 }}>Modal de certificado</div>
+              <div style={{ fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:F.title,marginBottom:16 }}>Modal de certificado</div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px 16px" }}>
                 <DSInput label="Senha" placeholder="Senha do certificado" icon={icons.cadeado()} showToggle required compact />
                 <DSInput label="Buscar empresa" placeholder="Buscar empresa..." icon={icons.busca()} onClear={()=>{}} compact />
@@ -653,7 +653,7 @@ export default function InputDoc() {
         <Section number="08" title="Cenários de negócio" desc="Composições reais aplicadas em contextos operacionais do ecossistema FIPS.">
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16 }}>
             <div style={{ background:C.bg, border:`1px solid ${C.cardBorder}`, borderRadius:"10px 10px 10px 20px", padding:24 }}>
-              <h3 style={{ fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title }}>Cadastro de visitante</h3>
+              <h3 style={{ fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:F.title }}>Cadastro de visitante</h3>
               <p style={{ fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:F.body }}>App Acesso Visitante — formulário de entrada</p>
               <div style={{ background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",flexDirection:"column",gap:12 }}>
                 <DSInput label="Nome" placeholder="Nome completo" type="text" inputMode="text" icon={icons.pessoa()} required value={scenarioNome} onChange={setScenarioNome} compact />
@@ -663,7 +663,7 @@ export default function InputDoc() {
             </div>
 
             <div style={{ background:C.bg, border:`1px solid ${C.cardBorder}`, borderRadius:"10px 10px 10px 20px", padding:24 }}>
-              <h3 style={{ fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:F.title }}>Filtro de busca</h3>
+              <h3 style={{ fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:F.title }}>Filtro de busca</h3>
               <p style={{ fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:F.body }}>App Suprimentos — barra de filtros em listagem</p>
               <div style={{ background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:16,display:"flex",gap:12,alignItems:"flex-end" }}>
                 <div style={{ flex:1 }}><DSInput placeholder="Buscar fornecedor..." type="search" inputMode="search" icon={icons.busca()} onClear={()=>{}} compact /></div>

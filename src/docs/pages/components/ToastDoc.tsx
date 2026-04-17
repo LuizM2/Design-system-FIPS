@@ -71,7 +71,7 @@ function ToastPreview({variant,title,message,actionLabel,timer}){
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -158,7 +158,7 @@ export default function ToastDoc(){
               {name:"Com ação",c:C.azulEscuro,desc:"Toast com botão CTA. Permite desfazer ou agir.",when:"Exclusão com undo, ação reversível, convite para fluxo.",timer:"8s+. Dar tempo para clicar.",ex:"'Registro excluído — Desfazer'; 'Rascunho salvo — Editar'."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Quando usar</div><p style={gt}>{t.when}</p>
@@ -175,7 +175,7 @@ export default function ToastDoc(){
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:40,flexWrap:"wrap"}}>
               <div style={{flex:1,minWidth:280}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Estrutura</span>
                 {[
                   {l:"Borda lateral",v:"4px solid [cor variante]"},
                   {l:"Ícone",v:"18px — semântica da variante"},
@@ -193,7 +193,7 @@ export default function ToastDoc(){
                 ))}
               </div>
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamento</span>
                 {[
                   {l:"Posição",v:"Fixed, top-right (16px)"},
                   {l:"Entrada",v:"slideIn da direita, .35s ease"},
@@ -218,7 +218,7 @@ export default function ToastDoc(){
         <Section n="05" title="Cenários de negócio" desc="Exemplos reais de toasts nos apps FIPS.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Aprovação de requisição</p>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 <ToastPreview variant="sucesso" title="Requisição aprovada" message="REQ-4025 encaminhada para compra. Prazo: 15 dias."/>
@@ -226,7 +226,7 @@ export default function ToastDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ocorrências</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ocorrências</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Gestão SSMA</p>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 <ToastPreview variant="atencao" title="Ocorrência crítica" message="Vazamento junção 47-B. Equipe acionada." actionLabel="Ver detalhes" timer={45}/>
@@ -234,7 +234,7 @@ export default function ToastDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ideias</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ideias</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Fipcoins e submissões</p>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 <ToastPreview variant="sucesso" title="+50 Fipcoins!" message="Ideia 'Automação do pátio' aprovada."/>
@@ -242,7 +242,7 @@ export default function ToastDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?16:24}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Sistema geral</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Sistema geral</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px"}}>Sessão e sincronização</p>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 <ToastPreview variant="atencao" title="Sessão expirando" message="Desconexão em 5 min." actionLabel="Renovar" timer={35}/>

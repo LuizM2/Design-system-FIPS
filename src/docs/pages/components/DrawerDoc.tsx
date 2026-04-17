@@ -76,7 +76,7 @@ function Drawer({open,onClose,title,subtitle,children,footer,side="right",width=
         {/* Header */}
         <div style={{padding:"18px 24px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
           <div>
-            <h2 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{title}</h2>
+            <h2 style={{fontSize:16,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>{title}</h2>
             {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"2px 0 0",fontFamily:Fn.body}}>{subtitle}</p>}
           </div>
           <span onClick={onClose} style={{display:"flex",cursor:"pointer",opacity:.5,padding:4,borderRadius:4,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.opacity="1";e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.opacity=".5";e.currentTarget.style.background="transparent"}}>{Ic.x(18,C.cinzaChumbo)}</span>
@@ -121,7 +121,7 @@ function Btn({label,color,outline,onClick,full}){
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -155,14 +155,14 @@ export default function DrawerDoc(){
         <div style={{display:"flex",flexDirection:"column",gap:16}}>
           <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Solicitante</span><span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro}}>Carlos Santos</span></div>
           <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Departamento</span><span style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro}}>SSMA</span></div>
-          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.azulProfundo}}>R$ 2.450,00</span></div>
+          <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro}}>R$ 2.450,00</span></div>
           <div style={{display:"flex",justifyContent:"space-between"}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Status</span><Badge variant="atencao" dot size="sm">Pendente</Badge></div>
           <div style={{height:1,background:C.cardBorder}}/>
           <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Itens</span>
           {[{item:"Extintor PQS 6kg",qty:3,val:"R$ 450"},{item:"Cone sinalização 75cm",qty:10,val:"R$ 1.200"},{item:"Fita zebrada 200m",qty:5,val:"R$ 800"}].map(i=>(
             <div key={i.item} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 12px",background:C.bg,borderRadius:6}}>
               <div><span style={{fontSize:13,color:C.cinzaEscuro,display:"block"}}>{i.item}</span><span style={{fontSize:11,color:C.textMuted}}>Qtd: {i.qty}</span></div>
-              <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.mono}}>{i.val}</span>
+              <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.mono}}>{i.val}</span>
             </div>
           ))}
           <div style={{height:1,background:C.cardBorder}}/>
@@ -235,7 +235,7 @@ export default function DrawerDoc(){
           <span style={{fontSize:12,fontWeight:700,color:C.cinzaChumbo,fontFamily:Fn.title,textTransform:"uppercase",letterSpacing:"1px"}}>Histórico</span>
           {[{t:"14:30",a:"Registro criado por Ana Costa"},{t:"14:35",a:"Equipe SSMA notificada"},{t:"14:42",a:"Área isolada — perímetro 50m"}].map(h=>(
             <div key={h.t} style={{display:"flex",gap:10,alignItems:"flex-start"}}>
-              <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.mono,minWidth:36,marginTop:2}}>{h.t}</span>
+              <span style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.mono,minWidth:36,marginTop:2}}>{h.t}</span>
               <span style={{fontSize:12,color:C.cinzaEscuro,lineHeight:1.4}}>{h.a}</span>
             </div>
           ))}
@@ -278,7 +278,7 @@ export default function DrawerDoc(){
               {name:"Full",w:"100%",c:C.amareloEscuro,badge:"mobile",desc:"Drawer ocupa toda a largura. Usado exclusivamente em mobile ou ações críticas.",ex:"Qualquer drawer em mobile; formulário multi-step; onboarding."},
             ].map(s=>(
               <div key={s.name} style={{...gc,borderLeft:`4px solid ${s.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{s.name}</span><code style={gk}>{s.w}</code><code style={gk}>{s.badge}</code></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{s.name}</span><code style={gk}>{s.w}</code><code style={gk}>{s.badge}</code></div>
                 <div style={gb}>
                   <p style={gt}>{s.desc}</p>
                   <div style={gl}>Exemplo FIPS</div><p style={ge}>{s.ex}</p>
@@ -300,22 +300,22 @@ export default function DrawerDoc(){
                   {/* Panel */}
                   <div style={{position:"absolute",top:0,right:0,width:"55%",height:"100%",background:C.cardBg,borderLeft:`1px solid ${C.cardBorder}`,display:"flex",flexDirection:"column"}}>
                     <div style={{padding:"10px 14px",borderBottom:`1px dashed ${C.azulCeu}`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                      <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title}}>HEADER (fixo)</span>
+                      <span style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>HEADER (fixo)</span>
                       <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>18px 24px</span>
                     </div>
                     <div style={{flex:1,padding:"10px 14px",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:`1px dashed ${C.azulCeu}`}}>
                       <div style={{textAlign:"center"}}>
-                        <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title,display:"block"}}>BODY (scrollável)</span>
+                        <span style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>BODY (scrollável)</span>
                         <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>20px 24px · overflow-y auto</span>
                       </div>
                     </div>
                     <div style={{padding:"10px 14px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                      <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title}}>FOOTER (fixo)</span>
+                      <span style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>FOOTER (fixo)</span>
                       <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>14px 24px</span>
                     </div>
                   </div>
                   <div style={{position:"absolute",top:"50%",left:"12%",transform:"translateY(-50%)",textAlign:"center"}}>
-                    <span style={{fontSize:10,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title,display:"block"}}>OVERLAY</span>
+                    <span style={{fontSize:10,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>OVERLAY</span>
                     <span style={{fontSize:8,color:C.azulCeu,fontFamily:Fn.mono}}>rgba(0,42,104,.35)</span>
                   </div>
                 </div>
@@ -323,7 +323,7 @@ export default function DrawerDoc(){
 
               {/* Specs */}
               <div style={{flex:1,minWidth:250}}>
-                <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamentos</span>
+                <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:12}}>Comportamentos</span>
                 {[
                   {l:"Posição",v:"Fixed. Right ★, Left, Bottom, Top."},
                   {l:"Animação",v:"Slide .3s cubic-bezier(.4,0,.2,1)"},
@@ -356,7 +356,7 @@ export default function DrawerDoc(){
               {name:"Ação rápida",c:C.amareloEscuro,badge:"bottom sheet",desc:"Drawer de baixo para ações rápidas com 2–3 campos. Mobile-friendly.",when:"Atribuir responsável, mudar status, confirmar ação simples com 1–2 inputs.",not:"Formulários grandes — usar drawer lateral. Confirmação simples — usar modal.",ex:"Atribuir responsável; reclassificar ocorrência; adicionar nota rápida."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span><code style={gk}>{t.badge}</code></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span><code style={gk}>{t.badge}</code></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Quando usar</div><p style={gt}>{t.when}</p>

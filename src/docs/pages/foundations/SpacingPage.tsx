@@ -16,7 +16,7 @@ const Ic={
 
 function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
 
-function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}:{n:string,title:string,desc:string,children:React.ReactNode}){return(<section style={{marginBottom:48}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:22,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 22px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}:{children:React.ReactNode,s?:React.CSSProperties,mob?:boolean}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 function TokenRow({label,value}:{label:string,value:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}><span style={{color:C.cinzaChumbo,minWidth:160}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
@@ -104,10 +104,10 @@ export default function DSFIPSSpacing(){
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {scale.map((s,i)=>(
                 <div key={s.token} style={{display:"flex",alignItems:"center",gap:mob?8:16,animation:`fadeUp .3s ease ${i*0.04}s both`}}>
-                  <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.azulEscuro,minWidth:mob?36:44,textAlign:"right"}}>{s.px}px</code>
+                  <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro,minWidth:mob?36:44,textAlign:"right"}}>{s.px}px</code>
                   <div style={{width:s.px*(mob?2.5:4),height:mob?18:22,borderRadius:4,background:`linear-gradient(90deg,${s.color},${s.color}88)`,flexShrink:0,transition:"width .3s"}}/>
                   <div style={{flex:1,minWidth:0}}>
-                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>{s.token}</code>
+                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{s.token}</code>
                     {!mob&&<span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,marginLeft:8}}>{s.use}</span>}
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default function DSFIPSSpacing(){
                   <div style={{display:"flex",alignItems:"center",gap:8}}>
                     <div style={{width:32,height:32,borderRadius:8,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}>{Ic.eye(16,C.azulProfundo)}</div>
                     <div>
-                      <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span>
+                      <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>Card exemplo</span>
                       <span style={{fontSize:11,color:C.cinzaChumbo}}>padding: {playPad}px</span>
                     </div>
                   </div>
@@ -171,9 +171,9 @@ export default function DSFIPSSpacing(){
               <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr":"2fr 1.5fr 1fr",padding:"9px 20px",borderBottom:i<paddings.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
                   <div style={{width:6,height:6,borderRadius:"50%",background:p.color,flexShrink:0}}/>
-                  <span style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body}}>{p.component}</span>
+                  <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{p.component}</span>
                 </div>
-                <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600}}>{p.padding}</code>
+                <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{p.padding}</code>
                 {!mob&&<code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted}}>{p.token}</code>}
               </div>
             ))}
@@ -187,11 +187,11 @@ export default function DSFIPSSpacing(){
                 <div key={i} style={{display:"flex",alignItems:mob?"flex-start":"center",gap:mob?8:16,padding:"8px 0",borderBottom:i<gaps.length-1?`1px solid ${C.cardBorder}`:"none",flexDirection:mob?"column":"row"}}>
                   <div style={{display:"flex",alignItems:"center",gap:8,minWidth:mob?"auto":220}}>
                     <div style={{width:parseInt(g.gap)*(mob?2:3)||12,height:mob?12:16,borderRadius:3,background:`linear-gradient(90deg,${g.color},${g.color}70)`,flexShrink:0}}/>
-                    <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.azulEscuro}}>{g.gap}</code>
+                    <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{g.gap}</code>
                   </div>
                   <div style={{flex:1,display:"flex",alignItems:mob?"flex-start":"center",gap:8,flexWrap:"wrap"}}>
                     <span style={{fontSize:12,color:C.cinzaEscuro,fontFamily:Fn.body}}>{g.context}</span>
-                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.azulProfundo,background:`${C.azulProfundo}08`,padding:"1px 6px",borderRadius:3}}>{g.token}</code>
+                    <code style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro,background:`${C.azulProfundo}08`,padding:"1px 6px",borderRadius:3}}>{g.token}</code>
                   </div>
                 </div>
               ))}
@@ -204,7 +204,7 @@ export default function DSFIPSSpacing(){
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
               <div style={{padding:"10px 16px",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:6}}>
                 <div style={{width:10,height:10,borderRadius:"50%",background:C.verdeFloresta}}/>
-                <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Desktop</span>
+                <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Desktop</span>
                 <code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,marginLeft:"auto"}}>≥ 640px</code>
               </div>
               <div style={{padding:28}}>
@@ -219,14 +219,14 @@ export default function DSFIPSSpacing(){
               </div>
               <div style={{padding:"8px 16px",borderTop:`1px solid ${C.cardBorder}`,display:"flex",gap:12,flexWrap:"wrap"}}>
                 {[{l:"padding",v:"28px"},{l:"gap",v:"16px"},{l:"inner",v:"24px"}].map(t=>(
-                  <code key={t.l} style={{fontSize:10,fontFamily:Fn.mono,color:C.azulProfundo}}>{t.l}: <strong>{t.v}</strong></code>
+                  <code key={t.l} style={{fontSize:10,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.l}: <strong>{t.v}</strong></code>
                 ))}
               </div>
             </div>
             <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"}}>
               <div style={{padding:"10px 16px",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:6}}>
                 <div style={{width:10,height:10,borderRadius:"50%",background:C.amareloEscuro}}/>
-                <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Mobile</span>
+                <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Mobile</span>
                 <code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,marginLeft:"auto"}}>&lt; 640px</code>
               </div>
               <div style={{padding:16}}>
@@ -252,7 +252,7 @@ export default function DSFIPSSpacing(){
               <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.verdeFloresta,fontFamily:Fn.title}}>Desktop</span>
               <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.amareloEscuro,fontFamily:Fn.title}}>Mobile</span>
               {[{ctx:"Card padding",d:"28px",m:"16px"},{ctx:"Modal padding",d:"24px",m:"16px"},{ctx:"Header hero",d:"48px 40px",m:"32px 20px"},{ctx:"Página padding",d:"36px 40px",m:"24px 16px"},{ctx:"Grid gap",d:"16px",m:"12px"},{ctx:"Seção margin",d:"48px",m:"32px"}].map((r,i)=>[
-                <span key={`c${i}`} style={{fontSize:12,fontWeight:600,color:C.azulEscuro,fontFamily:Fn.body,padding:"4px 0"}}>{r.ctx}</span>,
+                <span key={`c${i}`} style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body,padding:"4px 0"}}>{r.ctx}</span>,
                 <code key={`d${i}`} style={{fontSize:11,fontFamily:Fn.mono,color:C.verdeFloresta,fontWeight:600,padding:"4px 0"}}>{r.d}</code>,
                 <code key={`m${i}`} style={{fontSize:11,fontFamily:Fn.mono,color:C.amareloEscuro,fontWeight:600,padding:"4px 0"}}>{r.m}</code>,
               ])}
@@ -267,7 +267,7 @@ export default function DSFIPSSpacing(){
                 <div key={r.title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                   <div style={{width:36,height:36,borderRadius:10,background:C.bg,border:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{(Ic as Record<string,(s:number,c:string)=>React.ReactNode>)[r.icon](16,C.azulProfundo)}</div>
                   <div>
-                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block",marginBottom:2}}>{r.title}</span>
                     <span style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5}}>{r.desc}</span>
                   </div>
                 </div>

@@ -167,7 +167,7 @@ function TabsBordered({tabs=[],active=0,onChange,size="md",vertical}){
 function TabContent({children,k}){return <div key={k} style={{padding:"10px 0",fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.6,animation:"tabFadeIn .25s ease"}}>{children}</div>}
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
@@ -199,11 +199,11 @@ export default function TabsDoc(){
     {label:"Painel de Análise",icon:(c)=>Ic.chart(14,c)},
   ];
   const mainContent=[
-    <TabContent k={0}><strong style={{color:C.azulProfundo}}>Home</strong> — Dashboard com indicadores consolidados, KPIs e alertas recentes. Dados em tempo real.</TabContent>,
-    <TabContent k={1}><strong style={{color:C.azulProfundo}}>Nova Solicitação</strong> — Formulário de abertura de solicitação com campos obrigatórios e anexos.</TabContent>,
-    <TabContent k={2}><strong style={{color:C.azulProfundo}}>Minhas Solicitações</strong> — Lista de solicitações criadas por você. Filtros por status e data.</TabContent>,
-    <TabContent k={3}><strong style={{color:C.azulProfundo}}>Banco de Projetos</strong> — Projetos em andamento com timeline, responsáveis e progresso.</TabContent>,
-    <TabContent k={4}><strong style={{color:C.azulProfundo}}>Painel de Análise</strong> — Relatórios e gráficos de desempenho por período e departamento.</TabContent>,
+    <TabContent k={0}><strong style={{color:C.cinzaEscuro}}>Home</strong> — Dashboard com indicadores consolidados, KPIs e alertas recentes. Dados em tempo real.</TabContent>,
+    <TabContent k={1}><strong style={{color:C.cinzaEscuro}}>Nova Solicitação</strong> — Formulário de abertura de solicitação com campos obrigatórios e anexos.</TabContent>,
+    <TabContent k={2}><strong style={{color:C.cinzaEscuro}}>Minhas Solicitações</strong> — Lista de solicitações criadas por você. Filtros por status e data.</TabContent>,
+    <TabContent k={3}><strong style={{color:C.cinzaEscuro}}>Banco de Projetos</strong> — Projetos em andamento com timeline, responsáveis e progresso.</TabContent>,
+    <TabContent k={4}><strong style={{color:C.cinzaEscuro}}>Painel de Análise</strong> — Relatórios e gráficos de desempenho por período e departamento.</TabContent>,
   ];
 
   return(
@@ -240,7 +240,7 @@ export default function TabsDoc(){
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16,alignItems:"start"}}>
             {/* Underline */}
             <div style={{...gc,borderLeft:`4px solid ${C.azulProfundo}`}}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Underline</span><code style={gk}>★ padrão</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Underline</span><code style={gk}>★ padrão</code></div>
               <div style={gb}>
                 <TabsUnderline tabs={[{label:"Geral",icon:(c)=>Ic.home(12,c)},{label:"Detalhes",icon:(c)=>Ic.doc(12,c)},{label:"Histórico",icon:(c)=>Ic.clock(12,c)},{label:"Off",icon:(c)=>Ic.lock(12,c),disabled:true}]} active={v1} onChange={setV1} size="sm"/>
                 <div style={gl}>Significado</div>
@@ -254,7 +254,7 @@ export default function TabsDoc(){
 
             {/* Filled */}
             <div style={{...gc,borderLeft:`4px solid ${C.verdeFloresta}`}}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Filled</span><code style={gk}>destaque forte</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filled</span><code style={gk}>destaque forte</code></div>
               <div style={gb}>
                 <TabsFilled tabs={[{label:"Todas",icon:(c)=>Ic.list(12,c),count:23},{label:"Inovação",icon:(c)=>Ic.chart(12,c),count:8},{label:"Operações",icon:(c)=>Ic.settings(12,c),count:9},{label:"Off",icon:(c)=>Ic.lock(12,c),disabled:true}]} active={v2} onChange={setV2} size="sm"/>
                 <div style={gl}>Significado</div>
@@ -268,7 +268,7 @@ export default function TabsDoc(){
 
             {/* Guia */}
             <div style={{...gc,borderLeft:`4px solid ${C.amareloEscuro}`}}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Guia</span><code style={gk}>filtro de tabela</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Guia</span><code style={gk}>filtro de tabela</code></div>
               <div style={gb}>
                 <TabsGuia tabs={[{label:"Todos",icon:(c)=>Ic.list(12,c)},{label:"Pendentes",icon:(c)=>Ic.clock(12,c)},{label:"Aprovados",icon:(c)=>Ic.shield(12,c)},{label:"Rejeitados",icon:(c)=>Ic.lock(12,c)}]} active={v3} onChange={setV3} size="sm"/>
                 <div style={gl}>Significado</div>
@@ -282,7 +282,7 @@ export default function TabsDoc(){
 
             {/* Bordered */}
             <div style={{...gc,borderLeft:`4px solid ${C.azulCeu}`}}>
-              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Bordered</span><code style={gk}>borda + vertical</code></div>
+              <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Bordered</span><code style={gk}>borda + vertical</code></div>
               <div style={gb}>
                 <TabsBordered tabs={[{label:"Perfil",icon:(c)=>Ic.pessoa(12,c)},{label:"Segurança",icon:(c)=>Ic.shield(12,c)},{label:"Notificações",icon:(c)=>Ic.bell(12,c),count:3},{label:"Admin",icon:(c)=>Ic.lock(12,c),disabled:true}]} active={v4} onChange={setV4} size="sm"/>
                 <div style={gl}>Significado</div>
@@ -304,10 +304,10 @@ export default function TabsDoc(){
                 <TabsBordered tabs={[{label:"Perfil",icon:(c)=>Ic.pessoa(14,c)},{label:"Segurança",icon:(c)=>Ic.shield(14,c)},{label:"Notificações",icon:(c)=>Ic.bell(14,c),count:3},{label:"Integrações",icon:(c)=>Ic.settings(14,c)},{label:"Avançado",icon:(c)=>Ic.lock(14,c),disabled:true}]} active={vert} onChange={setVert} size="md" vertical/>
               </div>
               <div style={{flex:1,paddingLeft:mob?0:24,minWidth:0}}>
-                {vert===0&&<TabContent k="v0"><strong style={{color:C.azulProfundo}}>Perfil</strong> — Dados pessoais, foto, departamento e cargo. Edite suas informações de cadastro.</TabContent>}
-                {vert===1&&<TabContent k="v1"><strong style={{color:C.azulProfundo}}>Segurança</strong> — Alterar senha, 2FA, sessões ativas e log de acessos.</TabContent>}
-                {vert===2&&<TabContent k="v2"><strong style={{color:C.azulProfundo}}>Notificações</strong> — Configurar alertas: email, SMS, push. 3 pendentes.</TabContent>}
-                {vert===3&&<TabContent k="v3"><strong style={{color:C.azulProfundo}}>Integrações</strong> — Power BI, N8N, App Cadastros. Gerenciar tokens de API.</TabContent>}
+                {vert===0&&<TabContent k="v0"><strong style={{color:C.cinzaEscuro}}>Perfil</strong> — Dados pessoais, foto, departamento e cargo. Edite suas informações de cadastro.</TabContent>}
+                {vert===1&&<TabContent k="v1"><strong style={{color:C.cinzaEscuro}}>Segurança</strong> — Alterar senha, 2FA, sessões ativas e log de acessos.</TabContent>}
+                {vert===2&&<TabContent k="v2"><strong style={{color:C.cinzaEscuro}}>Notificações</strong> — Configurar alertas: email, SMS, push. 3 pendentes.</TabContent>}
+                {vert===3&&<TabContent k="v3"><strong style={{color:C.cinzaEscuro}}>Integrações</strong> — Power BI, N8N, App Cadastros. Gerenciar tokens de API.</TabContent>}
                 {vert===4&&<TabContent k="v4"><span style={{color:C.textMuted}}>Acesso restrito ao administrador.</span></TabContent>}
               </div>
             </div>
@@ -318,7 +318,7 @@ export default function TabsDoc(){
         <Section n="04" title="Cenários de negócio" desc="Tabs aplicadas em contextos reais do ecossistema FIPS. Todas interativas.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16,alignItems:"start"}}>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?12:18}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ocorrências</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Ocorrências</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 10px"}}>Detalhe — Info / Histórico / Anexos</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:12}}>
                 <TabsUnderline tabs={[{label:"Informações",icon:(c)=>Ic.doc(12,c)},{label:"Histórico",icon:(c)=>Ic.clock(12,c)},{label:"Anexos",icon:(c)=>Ic.clip(12,c),count:2}]} active={sc1} onChange={setSc1} size="sm"/>
@@ -328,7 +328,7 @@ export default function TabsDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?12:18}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>App Suprimentos</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 10px"}}>Tabs com contadores por status</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:12}}>
                 <TabsFilled tabs={[{label:"Todas",icon:(c)=>Ic.list(12,c),count:47},{label:"Pendentes",icon:(c)=>Ic.clock(12,c),count:12},{label:"Aprovadas",icon:(c)=>Ic.shield(12,c),count:32},{label:"Rejeitadas",icon:(c)=>Ic.lock(12,c),count:3}]} active={sc2} onChange={setSc2} size="sm"/>
@@ -339,7 +339,7 @@ export default function TabsDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?12:18}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Guia + Tabela</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Guia + Tabela</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 10px"}}>Filtro de status acima da tabela</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,overflow:"hidden"}}>
                 <div style={{padding:"12px 12px 0"}}>
@@ -347,8 +347,8 @@ export default function TabsDoc(){
                 </div>
                 <table style={{width:"100%",fontSize:12,borderCollapse:"collapse",fontFamily:Fn.body}}>
                   <thead><tr style={{background:"#F2F4F8"}}>
-                    <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.azulEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Item</th>
-                    <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.azulEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Status</th>
+                    <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.cinzaEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Item</th>
+                    <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.cinzaEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Status</th>
                   </tr></thead>
                   <tbody>
                     {[
@@ -366,7 +366,7 @@ export default function TabsDoc(){
               </div>
             </div>
             <div style={{background:C.bg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 20px",padding:mob?12:18}}>
-              <h3 style={{fontSize:14,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Configurações do Usuário</h3>
+              <h3 style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Configurações do Usuário</h3>
               <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 10px"}}>Bordered com navegação lateral</p>
               <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:8,padding:12}}>
                 <TabsBordered tabs={[{label:"Perfil",icon:(c)=>Ic.pessoa(12,c)},{label:"Segurança",icon:(c)=>Ic.shield(12,c)},{label:"Notificações",icon:(c)=>Ic.bell(12,c),count:3}]} active={sc4} onChange={setSc4} size="sm"/>
@@ -380,7 +380,7 @@ export default function TabsDoc(){
           {/* Cenário: Configuração — full width */}
           <div style={{marginTop:20,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"12px 12px 12px 24px",overflow:"hidden"}}>
             <div style={{padding:mob?"16px 16px 0":"24px 28px 0"}}>
-              <h2 style={{fontSize:mob?18:22,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>Configurações</h2>
+              <h2 style={{fontSize:mob?18:22,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title}}>Configurações</h2>
               <p style={{fontSize:13,color:C.cinzaChumbo,margin:"4px 0 20px",fontFamily:Fn.body}}>Gerencie as configurações gerais do sistema.</p>
             </div>
             <div className="ds-tabs-scroll" style={{position:"relative",borderBottom:`1.5px solid ${C.cardBorder}`,gap:0,padding:mob?"0 12px":"0 28px"}}>
@@ -397,7 +397,7 @@ export default function TabsDoc(){
             <div style={{padding:mob?"16px":"24px 28px",background:"#fafafa",minHeight:140}}>
               {cfgTab===0&&(
                 <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:10,padding:20}}>
-                  <h3 style={{fontSize:15,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Configurações Gerais</h3>
+                  <h3 style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Configurações Gerais</h3>
                   <p style={{fontSize:12,color:C.cinzaChumbo,margin:"0 0 16px",fontFamily:Fn.body}}>Informações básicas do sistema.</p>
                   <div style={{display:"flex",flexDirection:"column",gap:0}}>
                     {[{l:"Nome do sistema",v:"FIPS — Ferrovia Interna do Porto de Santos"},{l:"Versão",v:"v2.4.1"},{l:"Ambiente",v:"Produção"},{l:"Último deploy",v:"02/04/2026 às 15:30"}].map((r,i)=>(
@@ -409,12 +409,12 @@ export default function TabsDoc(){
                   </div>
                 </div>
               )}
-              {cfgTab===1&&<TabContent k="cfg1"><strong style={{color:C.azulProfundo}}>Categorias</strong> — Gerenciar categorias de requisições, ocorrências e ideias.</TabContent>}
-              {cfgTab===2&&<TabContent k="cfg2"><strong style={{color:C.azulProfundo}}>Departamentos</strong> — Estrutura organizacional com hierarquia e gestores.</TabContent>}
-              {cfgTab===3&&<TabContent k="cfg3"><strong style={{color:C.azulProfundo}}>Permissões</strong> — Perfis de acesso e roles por módulo.</TabContent>}
-              {cfgTab===4&&<TabContent k="cfg4"><strong style={{color:C.azulProfundo}}>Classificações</strong> — Tabelas auxiliares para formulários e relatórios.</TabContent>}
-              {cfgTab===5&&<TabContent k="cfg5"><strong style={{color:C.azulProfundo}}>Pipeline</strong> — Fluxos de aprovação e regras de automação.</TabContent>}
-              {cfgTab===6&&<TabContent k="cfg6"><strong style={{color:C.azulProfundo}}>Atendimento</strong> — Canais, SLA e distribuição de chamados.</TabContent>}
+              {cfgTab===1&&<TabContent k="cfg1"><strong style={{color:C.cinzaEscuro}}>Categorias</strong> — Gerenciar categorias de requisições, ocorrências e ideias.</TabContent>}
+              {cfgTab===2&&<TabContent k="cfg2"><strong style={{color:C.cinzaEscuro}}>Departamentos</strong> — Estrutura organizacional com hierarquia e gestores.</TabContent>}
+              {cfgTab===3&&<TabContent k="cfg3"><strong style={{color:C.cinzaEscuro}}>Permissões</strong> — Perfis de acesso e roles por módulo.</TabContent>}
+              {cfgTab===4&&<TabContent k="cfg4"><strong style={{color:C.cinzaEscuro}}>Classificações</strong> — Tabelas auxiliares para formulários e relatórios.</TabContent>}
+              {cfgTab===5&&<TabContent k="cfg5"><strong style={{color:C.cinzaEscuro}}>Pipeline</strong> — Fluxos de aprovação e regras de automação.</TabContent>}
+              {cfgTab===6&&<TabContent k="cfg6"><strong style={{color:C.cinzaEscuro}}>Atendimento</strong> — Canais, SLA e distribuição de chamados.</TabContent>}
             </div>
           </div>
         </Section>

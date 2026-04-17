@@ -72,7 +72,7 @@ function Section({ n, title, desc, children }) {
         style={{
           fontSize: 20,
           fontWeight: 700,
-          color: C.azulEscuro,
+          color: C.cinzaEscuro,
           margin: '0 0 4px',
           fontFamily: Fn.title,
           letterSpacing: '.5px',
