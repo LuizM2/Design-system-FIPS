@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
+import { useFipsTheme } from '../../../hooks/useFipsTheme';
 import { LuLayoutGrid, LuCircleCheck, LuClock, LuTriangleAlert, LuFileText, LuList, LuChartColumnIncreasing, LuArrowUp, LuArrowDown, LuX, LuBuilding2, LuCalendar, LuUser, LuFlag, LuFileSpreadsheet, LuFileDown, LuChevronDown, LuCheck } from "react-icons/lu";
 import { PieChart, Pie, Cell } from "recharts";
 
@@ -12,8 +13,9 @@ function JunctionLines({style}:{style?:React.CSSProperties}){return <svg viewBox
 
 function Donut({pct,color,size=48,stroke=4}:{pct:number,color:string,size?:number,stroke?:number}){const data=[{value:pct},{value:100-pct}];return <PieChart width={size} height={size}><Pie data={data} cx={size/2-1} cy={size/2-1} innerRadius={(size-stroke*2)/2-stroke} outerRadius={(size-stroke)/2} startAngle={90} endAngle={-270} dataKey="value" stroke="none" isAnimationActive={false}><Cell fill={color}/><Cell fill={alpha(color,0.09)}/></Pie></PieChart>}
 
-const BV: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"#ECFDF5",color:C.verdeEscuro,border:"#A7F3D0"},Aguardando:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},Recusada:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},"Em análise":{bg:C.azulCeuClaro,color:C.azulEscuro,border:C.azulCeu}};
-function Badge({variant,children,dot}:{variant:string,children:React.ReactNode,dot?:boolean}){const v=BV[variant]||BV.Finalizada;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 6px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>}
+const BV_LIGHT: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"#ECFDF5",color:"#00904C",border:"#A7F3D0"},Aguardando:{bg:"#FFF7ED",color:"#C2410C",border:"#FDBA74"},Recusada:{bg:"#FEF2F2",color:"#B91C1C",border:"#FECACA"},"Em análise":{bg:"#D3E3F4",color:"#002A68",border:"#93BDE4"}};
+const BV_DARK: Record<string,{bg:string,color:string,border:string}>={Finalizada:{bg:"rgba(0,198,76,0.14)",color:"#8BE5AD",border:"rgba(0,198,76,0.28)"},Aguardando:{bg:"rgba(246,146,30,0.14)",color:"#FDC24E",border:"rgba(246,146,30,0.28)"},Recusada:{bg:"rgba(239,68,68,0.14)",color:"#FCA5A5",border:"rgba(239,68,68,0.28)"},"Em análise":{bg:"rgba(147,189,228,0.14)",color:"#93BDE4",border:"rgba(147,189,228,0.28)"}};
+function Badge({variant,children,dot}:{variant:string,children:React.ReactNode,dot?:boolean}){const{dark}=useFipsTheme();const BV=dark?BV_DARK:BV_LIGHT;const v=BV[variant]||BV.Finalizada;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 6px",fontSize:10,fontWeight:600,fontFamily:Fn.body,color:v.color,background:v.bg,border:`1px solid ${v.border}`,borderRadius:4,whiteSpace:"nowrap"}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:v.color}}/>}{children}</span>}
 function MiniProgress({value=0}:{value?:number}){const color=value>=90?C.verdeEscuro:value>=60?C.verdeFloresta:value>=30?C.amareloEscuro:C.danger;return <div style={{display:"flex",alignItems:"center",gap:6}}><div style={{flex:1,height:4,borderRadius:2,background:alpha(color,0.13)}}><div style={{height:4,borderRadius:2,background:color,width:`${value}%`}}/></div><span style={{fontSize:10,fontWeight:600,color,fontFamily:Fn.mono,minWidth:28,textAlign:"right"}}>{value}%</span></div>}
 
 /* ═══════════════════════════════════════════ DATASET ═══════════════════════════════════════════ */
