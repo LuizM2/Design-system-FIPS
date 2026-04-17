@@ -198,6 +198,10 @@ function getRowBreakdownValue(row: Row, breakdown: "status" | "dept" | "priority
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DSFIPSDashboard(){
+  const {dark}=useFipsTheme();
+  const barColor=dark?"#93BDE4":"#004B9B";
+  const barLabelColor=dark?"#E2E2E8":"#002A68";
+  const dkc=(c:string)=>dark?({"#004B9B":"#93BDE4","#002A68":"#658EC9","#00904C":"#8BE5AD"}[c]||c):c;
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<640;
@@ -406,14 +410,14 @@ export default function DSFIPSDashboard(){
                 </div>
                 <div style={{overflow:"hidden",borderRadius:"0 0 0 18px",marginLeft:-1,marginRight:-1,marginBottom:-1}}>
                   <svg width="100%" height={sh+16} viewBox={`-2 -12 ${sw+4} ${sh+28}`} preserveAspectRatio="none" style={{display:"block"}} onMouseLeave={()=>setHovKpiPt(null)}>
-                    <defs><linearGradient id={`ga${uid}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={k.color} stopOpacity=".18"/><stop offset="100%" stopColor={k.color} stopOpacity="0"/></linearGradient></defs>
+                    <defs><linearGradient id={`ga${uid}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={dkc(k.color)} stopOpacity=".18"/><stop offset="100%" stopColor={dkc(k.color)} stopOpacity="0"/></linearGradient></defs>
                     <polygon points={`0,${sh} ${line} ${sw},${sh}`} fill={`url(#ga${uid})`}/>
-                    <polyline points={line} fill="none" stroke={k.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <polyline points={line} fill="none" stroke={dkc(k.color)} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     {pts.map((p,j)=>(
                       <g key={j} onMouseEnter={()=>setHovKpiPt({c:i,p:j})} style={{cursor:"pointer"}}>
                         <circle cx={p.x} cy={p.y} r="10" fill="transparent"/>
-                        <circle cx={p.x} cy={p.y} r={hovPt===j?4:0} fill={k.color} style={{transition:"r .1s"}}/>
-                        {hovPt===j&&<><text x={p.x} y={p.y-8} textAnchor="middle" fontSize="9" fontWeight="700" fill={k.color} fontFamily={Fn.mono}>{k.spark[j]}</text><text x={p.x} y={sh+10} textAnchor="middle" fontSize="7" fill={C.cinzaChumbo} fontFamily={Fn.body}>{MONTHS[j]}</text></>}
+                        <circle cx={p.x} cy={p.y} r={hovPt===j?4:0} fill={dkc(k.color)} style={{transition:"r .1s"}}/>
+                        {hovPt===j&&<><text x={p.x} y={p.y-8} textAnchor="middle" fontSize="9" fontWeight="700" fill={dkc(k.color)} fontFamily={Fn.mono}>{k.spark[j]}</text><text x={p.x} y={sh+10} textAnchor="middle" fontSize="7" fill={C.cinzaChumbo} fontFamily={Fn.body}>{MONTHS[j]}</text></>}
                       </g>
                     ))}
                     {pts.map((p,j)=>j%2===0&&hovPt===-1?<text key={`m${j}`} x={p.x} y={sh+10} textAnchor="middle" fontSize="7" fill={C.textLight} fontFamily={Fn.body}>{MONTHS[j]}</text>:null)}
@@ -445,10 +449,10 @@ export default function DSFIPSDashboard(){
                       const isActive=filter.month===d.l;const isDimmed=filter.month&&!isActive;
                       return <g key={i} onClick={()=>toggle("month",d.l)} onMouseEnter={()=>setHovBar(i)} onMouseLeave={()=>setHovBar(null)} style={{cursor:"pointer"}}>
                         <rect x={x} y={-20} width={bw} height={chartH+40} fill="transparent"/>
-                        <rect x={x} y={chartH-bh} width={bw} height={bh} rx={5} fill={C.azulProfundo} opacity={isDimmed?.15:isActive?1:hovBar===i?.9:.55+(.45*d.v/(max||1))}/>
-                        <text x={x+bw/2} y={chartH-bh-6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isDimmed?C.textLight:C.azulEscuro} fontFamily={Fn.mono}>{d.v}</text>
-                        <text x={x+bw/2} y={chartH+14} textAnchor="middle" fontSize="9" fill={isActive?C.azulProfundo:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
-                        {isActive&&<rect x={x-2} y={chartH-bh-2} width={bw+4} height={bh+4} rx={6} fill="none" stroke={C.azulProfundo} strokeWidth="1.5" strokeDasharray="4 2"/>}
+                        <rect x={x} y={chartH-bh} width={bw} height={bh} rx={5} fill={barColor} opacity={isDimmed?.15:isActive?1:hovBar===i?.9:.55+(.45*d.v/(max||1))}/>
+                        <text x={x+bw/2} y={chartH-bh-6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isDimmed?"#6b7784":barLabelColor} fontFamily={Fn.mono}>{d.v}</text>
+                        <text x={x+bw/2} y={chartH+14} textAnchor="middle" fontSize="9" fill={isActive?barColor:dark?"#A1A1AA":"#6b7784"} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
+                        {isActive&&<rect x={x-2} y={chartH-bh-2} width={bw+4} height={bh+4} rx={6} fill="none" stroke={barColor} strokeWidth="1.5" strokeDasharray="4 2"/>}
                       </g>;
                     })}
                   </svg>
@@ -594,12 +598,12 @@ export default function DSFIPSDashboard(){
                     const isH=hovCombo===i;const isActive=filter.month===d.l;const isDimmed=filter.month&&!isActive;
                     return <g key={i} onClick={()=>toggle("month",d.l)} onMouseEnter={()=>setHovCombo(i)} onMouseLeave={()=>setHovCombo(-1)} style={{cursor:"pointer"}}>
                       <rect x={x} y={-18} width={pair} height={cH+58} fill="transparent"/>
-                      <rect x={x} y={cH-bh1} width={pw} height={bh1} rx={3} fill={C.azulProfundo} opacity={isDimmed?.15:isH||isActive?1:.85}/>
+                      <rect x={x} y={cH-bh1} width={pw} height={bh1} rx={3} fill={barColor} opacity={isDimmed?.15:isH||isActive?1:.85}/>
                       <rect x={x+pw+3} y={cH-bh2} width={pw} height={bh2} rx={3} fill={C.verdeFloresta} opacity={isDimmed?.15:isH||isActive?1:.85}/>
                       <text x={x+pw/2} y={cH-bh1-3} textAnchor="middle" fontSize="7" fontWeight="700" fill={isDimmed?C.textLight:C.azulProfundo} fontFamily={Fn.mono}>{d.abertas}</text>
                       <text x={x+pw+3+pw/2} y={cH-bh2-3} textAnchor="middle" fontSize="7" fontWeight="700" fill={isDimmed?C.textLight:C.verdeFloresta} fontFamily={Fn.mono}>{d.concluidas}</text>
                       <text x={x+pair/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
-                      {isActive&&<rect x={x-2} y={cH-Math.max(bh1,bh2)-2} width={pair+4} height={Math.max(bh1,bh2)+4} rx={4} fill="none" stroke={C.azulProfundo} strokeWidth="1.5" strokeDasharray="4 2"/>}
+                      {isActive&&<rect x={x-2} y={cH-Math.max(bh1,bh2)-2} width={pair+4} height={Math.max(bh1,bh2)+4} rx={4} fill="none" stroke={barColor} strokeWidth="1.5" strokeDasharray="4 2"/>}
                     </g>;
                   })}
                   <polyline points={slaLine} fill="none" stroke={C.amareloEscuro} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -646,7 +650,7 @@ export default function DSFIPSDashboard(){
                       {d.segs.map((s,si)=>{const sh2=stTotal?Math.max(s.v>0?2:0,(s.v/maxS)*cH):0;cy2-=sh2;return <rect key={si} x={x} y={cy2} width={bw} height={sh2} rx={si===0?3:0} fill={s.color} opacity={isDimmed?.15:isH||isActive?1:.75}/>})}
                       <text x={x+bw/2} y={cH-((stTotal/maxS)*cH)-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={isDimmed?C.textLight:C.azulEscuro} fontFamily={Fn.mono}>{stTotal}</text>
                       <text x={x+bw/2} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{d.l}</text>
-                      {isActive&&<rect x={x-2} y={cH-((stTotal/maxS)*cH)-2} width={bw+4} height={((stTotal/maxS)*cH)+4} rx={4} fill="none" stroke={C.azulProfundo} strokeWidth="1.5" strokeDasharray="4 2"/>}
+                      {isActive&&<rect x={x-2} y={cH-((stTotal/maxS)*cH)-2} width={bw+4} height={((stTotal/maxS)*cH)+4} rx={4} fill="none" stroke={barColor} strokeWidth="1.5" strokeDasharray="4 2"/>}
                     </g>;
                   })}
                 </svg>
@@ -754,15 +758,15 @@ export default function DSFIPSDashboard(){
                     <div style={{width:26,height:26,borderRadius:7,background:`${C.azulProfundo}0A`,display:"flex",alignItems:"center",justifyContent:"center"}}><LuChartColumnIncreasing size={12} color={C.azulProfundo}/></div>
                   </div>
                   <svg width="100%" height={cH+18} viewBox={`0 0 ${cW} ${cH+18}`} preserveAspectRatio="xMidYMid meet">
-                    <defs><linearGradient id="lgLine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.azulProfundo} stopOpacity=".15"/><stop offset="100%" stopColor={C.azulProfundo} stopOpacity="0"/></linearGradient></defs>
+                    <defs><linearGradient id="lgLine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={barColor} stopOpacity=".15"/><stop offset="100%" stopColor={barColor} stopOpacity="0"/></linearGradient></defs>
                     <polygon points={area} fill="url(#lgLine)"/>
-                    <polyline points={line} fill="none" stroke={C.azulProfundo} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <polyline points={line} fill="none" stroke={barColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     {pts.map((p,i)=>{
                       const isActive=activeIdx===i;const isDimmed=filter.month&&!isActive;
                       return <g key={i} onClick={()=>toggle("month",MONTHS[i])} onMouseEnter={()=>setHovSideLine(i)} onMouseLeave={()=>setHovSideLine(-1)} style={{cursor:"pointer"}}>
                         <circle cx={p.x} cy={p.y} r="12" fill="transparent"/>
                         <circle cx={p.x} cy={p.y} r={isActive?5:hovSideLine===i?4:2.5} fill={isDimmed?C.textLight:isActive?C.azulProfundo:hovSideLine===i?C.azulProfundo:C.cardBg} stroke={isDimmed?C.textLight:C.azulProfundo} strokeWidth={isActive?2.5:1.5} style={{transition:"all .15s"}}/>
-                        {isActive&&<><circle cx={p.x} cy={p.y} r="9" fill="none" stroke={C.azulProfundo} strokeWidth="1" strokeDasharray="3 2" opacity=".5"/><text x={p.x} y={p.y-10} textAnchor="middle" fontSize="9" fontWeight="700" fill={C.azulEscuro} fontFamily={Fn.mono}>{data[i]}</text></>}
+                        {isActive&&<><circle cx={p.x} cy={p.y} r="9" fill="none" stroke={barColor} strokeWidth="1" strokeDasharray="3 2" opacity=".5"/><text x={p.x} y={p.y-10} textAnchor="middle" fontSize="9" fontWeight="700" fill={barLabelColor} fontFamily={Fn.mono}>{data[i]}</text></>}
                         {i%2===0&&<text x={p.x} y={cH+14} textAnchor="middle" fontSize="7" fill={isActive?C.azulProfundo:isDimmed?C.textLight:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isActive?700:400}>{MONTHS[i]}</text>}
                       </g>;
                     })}
@@ -780,7 +784,7 @@ export default function DSFIPSDashboard(){
                 const vals=sideBarVals;
                 const max2=Math.max(...vals,1);
                 const bw=36,gp=12,cW=days.length*(bw+gp)-gp;
-                return <svg width="100%" height={80} viewBox={`0 -12 ${cW} 92`} preserveAspectRatio="xMidYMid meet">{vals.map((v,i)=>{const bh=Math.max(4,(v/max2)*50);const isH=hovSideBar===i;return <g key={i} onMouseEnter={()=>setHovSideBar(i)} onMouseLeave={()=>setHovSideBar(-1)} style={{cursor:"pointer"}}><rect x={i*(bw+gp)} y={-12} width={bw} height={92} fill="transparent"/><rect x={i*(bw+gp)} y={50-bh+12} width={bw} height={bh} rx={5} fill={C.azulProfundo} opacity={isH?1:.6+(.4*v/max2)}/><text x={i*(bw+gp)+bw/2} y={50-bh+6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isH?C.azulProfundo:C.azulEscuro} fontFamily={Fn.mono}>{v}</text><text x={i*(bw+gp)+bw/2} y={75} textAnchor="middle" fontSize="10" fill={isH?C.azulProfundo:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isH?700:400}>{days[i]}</text></g>})}</svg>;
+                return <svg width="100%" height={80} viewBox={`0 -12 ${cW} 92`} preserveAspectRatio="xMidYMid meet">{vals.map((v,i)=>{const bh=Math.max(4,(v/max2)*50);const isH=hovSideBar===i;return <g key={i} onMouseEnter={()=>setHovSideBar(i)} onMouseLeave={()=>setHovSideBar(-1)} style={{cursor:"pointer"}}><rect x={i*(bw+gp)} y={-12} width={bw} height={92} fill="transparent"/><rect x={i*(bw+gp)} y={50-bh+12} width={bw} height={bh} rx={5} fill={barColor} opacity={isH?1:.6+(.4*v/max2)}/><text x={i*(bw+gp)+bw/2} y={50-bh+6} textAnchor="middle" fontSize="10" fontWeight="700" fill={isH?C.azulProfundo:C.azulEscuro} fontFamily={Fn.mono}>{v}</text><text x={i*(bw+gp)+bw/2} y={75} textAnchor="middle" fontSize="10" fill={isH?C.azulProfundo:C.cinzaChumbo} fontFamily={Fn.body} fontWeight={isH?700:400}>{days[i]}</text></g>})}</svg>;
               })()}
               {tipSideBarData&&<ChartTooltip {...tipSideBarData} x={tipPos.x} y={tipPos.y}/>}
             </div>
