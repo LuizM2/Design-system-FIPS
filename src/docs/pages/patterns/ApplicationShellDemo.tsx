@@ -226,7 +226,7 @@ function MockupFrame({
 }
 
 /* ─── Neumorphic icon tile (mesmo padrão DocsNeuSidebar) ─── */
-const NEU = {
+const NEU_LIGHT = {
   borderIdle: '#1a3d6e',
   borderAccent: 'rgba(246,146,30,0.58)',
   bgIdle: 'linear-gradient(160deg, #0e4d8a 0%, #0a3a6e 55%, #072d58 100%)',
@@ -241,7 +241,24 @@ const NEU = {
   textActive: '#fafafa',
 } as const
 
+const NEU_DARK = {
+  borderIdle: '#3f3f46',
+  borderAccent: 'rgba(246,146,30,0.58)',
+  bgIdle: 'linear-gradient(160deg, #303036 0%, #222226 55%, #1c1c20 100%)',
+  bgAccent: 'linear-gradient(145deg, #FFD37B 0%, #f7ad45 34%, #F6921E 64%, #cf730d 100%)',
+  shadowIdle: '0 3px 10px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.05) inset, 0 -1px 0 rgba(0,0,0,0.55) inset',
+  shadowHover: '0 10px 20px -10px rgba(246,146,30,0.50), 0 2px 3px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -2px 4px rgba(140,72,0,0.28)',
+  shadowActive: '0 12px 24px -12px rgba(246,146,30,0.55), 0 2px 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -3px 6px rgba(120,64,0,0.36)',
+  iconIdle: 'rgba(255,255,255,0.65)',
+  iconActive: '#1A1A1A',
+  textMuted: 'rgba(255,255,255,0.65)',
+  textHover: 'rgba(255,255,255,0.88)',
+  textActive: '#fafafa',
+} as const
+
 function ShellNeuIcon({ children, isActive, hovered }: { children: ReactNode; isActive: boolean; hovered: boolean }) {
+  const { dark } = useFipsTheme()
+  const NEU = dark ? NEU_DARK : NEU_LIGHT
   const lit = isActive || hovered
   return (
     <div
@@ -287,6 +304,8 @@ function ShellNavItem({
   collapsed: boolean
   indented?: boolean
 }) {
+  const { dark } = useFipsTheme()
+  const NEU = dark ? NEU_DARK : NEU_LIGHT
   const [hovered, setHovered] = useState(false)
   const Icon = item.icon
   const isActive = !!item.active
@@ -331,6 +350,8 @@ function ShellNavItem({
 }
 
 function ShellMenuAutoButton({ collapsed }: { collapsed: boolean }) {
+  const { dark } = useFipsTheme()
+  const NEU = dark ? NEU_DARK : NEU_LIGHT
   const [hovered, setHovered] = useState(false)
   return (
     <button
@@ -389,10 +410,12 @@ function ShellSidebar({
   onToggleGroup: (groupId: string) => void
   onToggleSidebar?: () => void
 }) {
+  const { dark } = useFipsTheme()
   return (
     <aside
       className={cn(
-        'flex h-full flex-col bg-[#002a68] text-white shadow-[4px_0_24px_rgba(0,26,64,0.28)]',
+        'flex h-full flex-col text-white',
+        dark ? 'bg-[#1A1A1A] shadow-[4px_0_24px_rgba(0,0,0,0.4)]' : 'bg-[#002a68] shadow-[4px_0_24px_rgba(0,26,64,0.28)]',
         drawer ? 'w-[252px]' : collapsed ? 'w-[76px]' : 'w-64',
       )}
     >
