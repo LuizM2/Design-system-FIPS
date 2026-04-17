@@ -346,7 +346,7 @@ export default function TabsDoc(){
                   <TabsGuia tabs={[{label:"Todos",icon:(c)=>Ic.list(12,c)},{label:"Pendentes",icon:(c)=>Ic.clock(12,c)},{label:"Aprovados",icon:(c)=>Ic.shield(12,c)}]} active={sc3} onChange={setSc3} size="sm"/>
                 </div>
                 <table style={{width:"100%",fontSize:12,borderCollapse:"collapse",fontFamily:Fn.body}}>
-                  <thead><tr style={{background:"#F2F4F8"}}>
+                  <thead><tr style={{background:C.bg}}>
                     <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.cinzaEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Item</th>
                     <th style={{padding:"6px 12px",textAlign:"center",fontWeight:600,color:C.cinzaEscuro,borderBottom:`1px solid ${C.cardBorder}`}}>Status</th>
                   </tr></thead>
@@ -394,7 +394,7 @@ export default function TabsDoc(){
                 );
               })}
             </div>
-            <div style={{padding:mob?"16px":"24px 28px",background:"#fafafa",minHeight:140}}>
+            <div style={{padding:mob?"16px":"24px 28px",background:C.bg,minHeight:140}}>
               {cfgTab===0&&(
                 <div style={{background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:10,padding:20}}>
                   <h3 style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title}}>Configurações Gerais</h3>
@@ -458,6 +458,35 @@ export default function TabsDoc(){
               <TokenRow label="Contador" value="Fira Code 700 10px"/>
             </div>
           </DSCard>
+        </Section>
+
+        {/* 06 — MODO DARK */}
+        <Section n="06" title="Modo Dark" desc="Tokens e comportamento do componente no tema escuro. Consistência visual garantida em ambos os modos.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Active tab text",light:"#002A68",dark:"#93BDE4"},
+                {token:"Inactive text",light:"#7B8C96",dark:"#8A9BA7"},
+                {token:"Underline indicator",light:"#F6921E",dark:"#FDC24E"},
+                {token:"Tab border",light:"#E2E8F0",dark:"#2A3A4A"},
+                {token:"Filled active bg",light:"#004B9B",dark:"#1565C0"},
+                {token:"Filled active text",light:"#FFFFFF",dark:"#FFFFFF"},
+                {token:"Container bg",light:"#F2F4F8",dark:"#1A2332"},
+                {token:"Icon active",light:"#F6921E",dark:"#FDC24E"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </Section>
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>

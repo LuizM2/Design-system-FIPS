@@ -22,7 +22,9 @@ const C = {
   cardBorder: 'var(--color-border)',
   textMuted: 'var(--color-fg-muted)',
   textLight: 'var(--color-fg-muted)',
-  inputBorder: '#CBD5E1',
+  inputBorder: 'var(--color-border)',
+  inputBg: 'var(--color-surface)',
+  inputBgDisabled: 'var(--color-surface-muted)',
   focusRing: 'rgba(147,189,228,0.35)',
 }
 
@@ -210,7 +212,7 @@ function DSSelect({
           gap: 8,
           height: sz.h,
           padding: '0 12px',
-          background: disabled ? '#F1F5F9' : C.branco,
+          background: disabled ? C.inputBgDisabled : C.inputBg,
           border: `1.5px solid ${bc}`,
           borderRadius: open ? '8px 8px 0 0' : 8,
           transition: 'all .18s',
@@ -255,7 +257,7 @@ function DSSelect({
             left: 0,
             right: 0,
             zIndex: 20,
-            background: C.branco,
+            background: C.inputBg,
             border: `1.5px solid ${C.azulProfundo}`,
             borderTop: 'none',
             borderRadius: '0 0 8px 8px',
@@ -392,7 +394,7 @@ function DSAutocomplete({
           gap: 8,
           height: sz.h,
           padding: '0 12px',
-          background: C.branco,
+          background: C.inputBg,
           border: `1.5px solid ${open ? C.azulProfundo : C.inputBorder}`,
           borderRadius: 8,
           transition: 'all .18s',
@@ -464,7 +466,7 @@ function DSAutocomplete({
             left: 0,
             right: 0,
             marginTop: 4,
-            background: C.branco,
+            background: C.inputBg,
             border: `1.5px solid ${C.azulProfundo}`,
             borderRadius: 8,
             boxShadow: '0 4px 16px rgba(0,75,155,.12)',
@@ -566,7 +568,7 @@ function DSMultiSelect({
           gap: 6,
           minHeight: compact ? 30 : 35,
           padding: '4px 12px',
-          background: C.branco,
+          background: C.inputBg,
           border: `1.5px solid ${open ? C.azulProfundo : C.inputBorder}`,
           borderRadius: 8,
           boxShadow: open ? `0 0 0 3px ${C.focusRing}` : 'none',
@@ -627,7 +629,7 @@ function DSMultiSelect({
             left: 0,
             right: 0,
             marginTop: 4,
-            background: C.branco,
+            background: C.inputBg,
             border: `1.5px solid ${C.azulProfundo}`,
             borderRadius: 8,
             boxShadow: '0 4px 16px rgba(0,75,155,.12)',
@@ -914,7 +916,7 @@ function DSToggle({
               width: dot,
               height: dot,
               borderRadius: '50%',
-              background: C.branco,
+              background: '#FFFFFF',
               boxShadow: '0 1px 3px rgba(0,0,0,.2)',
               transition: 'transform .2s',
               transform: on ? `translateX(${w - dot - 4}px)` : 'translateX(0)',
@@ -1006,7 +1008,7 @@ function DSChipSelect({
                 borderRadius: 20,
                 border: `1.5px solid ${active ? C.azulProfundo : C.inputBorder}`,
                 background: active ? C.azulProfundo : 'transparent',
-                color: active ? C.branco : C.cinzaEscuro,
+                color: active ? '#FFFFFF' : C.cinzaEscuro,
                 fontSize: fs,
                 fontFamily: F.body,
                 fontWeight: active ? 600 : 400,
@@ -1090,7 +1092,7 @@ function DSSegmented({
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 6,
-                background: active ? C.branco : 'transparent',
+                background: active ? C.cardBg : 'transparent',
                 color: active ? C.azulProfundo : C.cinzaChumbo,
                 fontSize: fs,
                 fontFamily: F.body,
@@ -1583,7 +1585,7 @@ export default function SelectDoc() {
                     gap: 4,
                     fontSize: 11,
                     fontFamily: F.body,
-                    background: C.branco,
+                    background: C.cardBg,
                     padding: '3px 8px',
                     borderRadius: 5,
                     border: `1px solid ${C.cardBorder}`,
@@ -1808,6 +1810,40 @@ export default function SelectDoc() {
               <TokenRow label="Tag" value="Open Sans 600 11px" />
               <TokenRow label="Chip" value="Open Sans 400 12px" />
               <TokenRow label="Helper" value="Open Sans 400 11px" />
+            </div>
+          </Card>
+        </Section>
+
+        <Section n="05" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Borda idle",light:"#CBD5E1",dark:"#3A3A3A"},
+                {token:"Borda hover",light:"#93BDE4",dark:"#4A4A4A"},
+                {token:"Borda focus",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Background",light:"#FFFFFF",dark:"#252525"},
+                {token:"Texto",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Placeholder",light:"#6B7784",dark:"#A1A1AA"},
+                {token:"Ring focus",light:"rgba(147,189,228,0.35)",dark:"rgba(147,189,228,0.2)"},
+                {token:"Dropdown bg",light:"#FFFFFF",dark:"#2A2A2A"},
+                {token:"Option hover",light:"#F2F4F8",dark:"#333333"},
+                {token:"Option selected",light:"#D3E3F4",dark:"rgba(147,189,228,0.2)"},
+                {token:"Checkbox checked",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Toggle on",light:"#004B9B",dark:"#1A6FC4"},
+                {token:"Toggle off",light:"#C0CCD2",dark:"#4A4A4A"},
+                {token:"Chip active",light:"#004B9B",dark:"#93BDE4"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </Section>

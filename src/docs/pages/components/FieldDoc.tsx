@@ -13,7 +13,8 @@ const C = {
   neutro:"var(--color-surface-soft)", branco:"#FFFFFF",
   bg:"var(--color-surface-muted)", cardBg:"var(--color-surface)", cardBorder:"var(--color-border)",
   textMuted:"var(--color-fg-muted)", textLight:"var(--color-fg-muted)",
-  inputBorder:"#CBD5E1", focusRing:"rgba(147,189,228,0.35)",
+  inputBorder:"var(--color-border)", inputBg:"var(--color-surface)", inputBgDisabled:"var(--color-surface-muted)",
+  focusRing:"rgba(147,189,228,0.35)",
 };
 const F = { title:"'Saira Expanded',sans-serif", body:"'Open Sans',sans-serif", mono:"'Fira Code',monospace" };
 
@@ -46,7 +47,7 @@ function FInput({label,placeholder,icon,iconRight,required,error,errorMsg,disabl
   const sm={desktop:{h:35,fs:13},mobile:{h:42,fs:14},compact:{h:30,fs:12}};const sz=compact?sm.compact:(sm as Record<string,any>)[size]||sm.desktop;
   const dv=cv!==undefined?cv:val;
   const bc=error?C.danger:focused?C.azulProfundo:C.inputBorder;
-  const bg=disabled?"#F1F5F9":C.branco;
+  const bg=disabled?C.inputBgDisabled:C.inputBg;
   const sh=focused&&!error?`0 0 0 3px ${C.focusRing}`:error&&focused?`0 0 0 3px ${C.dangerBg}`:"none";
   const wrap={display:"flex",alignItems:"center",gap:8,height:sz.h,padding:"0 12px",background:bg,border:`1.5px solid ${bc}`,borderRadius:8,transition:"all .18s",boxShadow:sh,cursor:disabled?"not-allowed":"text",fontFamily:F.body,fontSize:sz.fs};
   const inp={flex:1,border:"none",outline:"none",background:"transparent",fontFamily:F.body,fontSize:sz.fs,color:disabled?C.cinzaChumbo:C.cinzaEscuro,cursor:disabled?"not-allowed":"text",minWidth:0};
@@ -69,7 +70,7 @@ function FSelect({label,icon,options=[],value,disabled,compact,cols}:{label?:str
   return(
     <div style={{display:"flex",flexDirection:"column",minWidth:0,gridColumn:cols?`span ${cols}`:undefined}}>
       {label&&<label style={{fontSize:compact?11:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:F.body,marginBottom:1,marginLeft:7}}>{label}</label>}
-      <div style={{display:"flex",alignItems:"center",gap:8,height:h,padding:"0 12px",borderRadius:8,border:`1.5px solid ${C.inputBorder}`,background:disabled?"#F1F5F9":C.branco,fontFamily:F.body,fontSize:compact?12:13,opacity:disabled?.6:1}}>
+      <div style={{display:"flex",alignItems:"center",gap:8,height:h,padding:"0 12px",borderRadius:8,border:`1.5px solid ${C.inputBorder}`,background:disabled?C.inputBgDisabled:C.inputBg,fontFamily:F.body,fontSize:compact?12:13,opacity:disabled?.6:1}}>
         {icon&&<span style={{display:"flex",flexShrink:0,opacity:.55}}>{icon}</span>}
         <select style={{flex:1,border:"none",outline:"none",background:"transparent",fontFamily:F.body,fontSize:compact?12:13,color:C.cinzaEscuro,cursor:"pointer",minWidth:0}} defaultValue={value} disabled={disabled}>{options.map(o=><option key={o}>{o}</option>)}</select>
         <span style={{display:"flex",flexShrink:0,opacity:.5,marginLeft:-4}}>{I.dropdown(16)}</span>
@@ -450,6 +451,38 @@ export default function FieldDoc(){
               <TokenRow label="Label marginLeft" value="7px"/>
               <TokenRow label="Entre Fields" value="16–20px"/>
               <TokenRow label="Grid gap cols" value="20px"/>
+            </div>
+          </Card>
+        </Section>
+
+        <Section n="10" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+              {[
+                {token:"Borda idle",light:"#CBD5E1",dark:"#3A3A3A"},
+                {token:"Borda hover",light:"#93BDE4",dark:"#4A4A4A"},
+                {token:"Borda focus",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Background",light:"#FFFFFF",dark:"#252525"},
+                {token:"Texto",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Placeholder",light:"#6B7784",dark:"#A1A1AA"},
+                {token:"Ring focus",light:"rgba(147,189,228,0.35)",dark:"rgba(147,189,228,0.2)"},
+                {token:"Bg disabled",light:"#F1F5F9",dark:"#1E1E1E"},
+                {token:"Borda erro",light:"#DC3545",dark:"#F87171"},
+                {token:"Ring erro",light:"#FEF2F2",dark:"rgba(248,113,113,0.15)"},
+                {token:"Label",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Helper",light:"#64748B",dark:"#A1A1AA"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </Section>

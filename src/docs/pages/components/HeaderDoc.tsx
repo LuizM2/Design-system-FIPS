@@ -259,6 +259,40 @@ export default function HeaderDoc() {
             </p>
           </DSCard>
         </Section>
+
+        <Section
+          n="05"
+          title="Modo Dark"
+          desc="Tokens e comportamento do componente no tema escuro. Consistência visual garantida em ambos os modos."
+        >
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Header bg",light:"linear-gradient(#004B9B,#002A68)",dark:"linear-gradient(#0F1923,#0A1119)"},
+                {token:"Header border",light:"rgba(255,255,255,0.08)",dark:"rgba(255,255,255,0.06)"},
+                {token:"Title text",light:"#FFFFFF",dark:"#D1D9E0"},
+                {token:"Eyebrow text",light:"#FDC24E",dark:"#FDC24E"},
+                {token:"Muted text",light:"rgba(255,255,255,0.69)",dark:"rgba(255,255,255,0.55)"},
+                {token:"Icon button bg",light:"rgba(255,255,255,0.12)",dark:"rgba(255,255,255,0.08)"},
+                {token:"Tab active",light:"#FFFFFF",dark:"#D1D9E0"},
+                {token:"Tab inactive",light:"rgba(255,255,255,0.55)",dark:"rgba(255,255,255,0.4)"},
+                {token:"Tab accent",light:"#FDC24E",dark:"#F6921E"},
+                {token:"Search bg",light:"rgba(255,255,255,0.1)",dark:"rgba(255,255,255,0.06)"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
       </div>
     </div>
   )

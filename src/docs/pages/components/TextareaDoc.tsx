@@ -23,7 +23,9 @@ const C = {
   cardBorder: 'var(--color-border)',
   textMuted: 'var(--color-fg-muted)',
   textLight: 'var(--color-fg-muted)',
-  inputBorder: '#CBD5E1',
+  inputBorder: 'var(--color-border)',
+  inputBg: 'var(--color-surface)',
+  inputBgDisabled: 'var(--color-surface-muted)',
   focusRing: 'rgba(147,189,228,0.35)',
 }
 
@@ -128,7 +130,7 @@ function DSTextarea({
   const controlled = valueProp !== undefined
   const dv = controlled ? valueProp : internal
   const bc = error ? C.danger : focused ? C.azulProfundo : C.inputBorder
-  const bg = disabled ? '#F1F5F9' : C.branco
+  const bg = disabled ? C.inputBgDisabled : C.inputBg
   const sh =
     focused && !error ? `0 0 0 3px ${C.focusRing}` : error && focused ? `0 0 0 3px ${C.dangerBg}` : 'none'
   const charCount = dv.length
@@ -1188,6 +1190,38 @@ export default function TextareaDoc() {
                 <TokenRow label="Posição" value="flex-end, abaixo" />
                 <TokenRow label="Font" value="Fira Code 600 10px" />
               </div>
+            </div>
+          </Card>
+        </Section>
+
+        <Section n="10" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Borda idle",light:"#CBD5E1",dark:"#3A3A3A"},
+                {token:"Borda hover",light:"#93BDE4",dark:"#4A4A4A"},
+                {token:"Borda focus",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Background",light:"#FFFFFF",dark:"#252525"},
+                {token:"Texto",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Placeholder",light:"#6B7784",dark:"#A1A1AA"},
+                {token:"Ring focus",light:"rgba(147,189,228,0.35)",dark:"rgba(147,189,228,0.2)"},
+                {token:"Bg disabled",light:"#F1F5F9",dark:"#1E1E1E"},
+                {token:"Borda erro",light:"#DC3545",dark:"#F87171"},
+                {token:"Contador < 90%",light:"#94A3B8",dark:"#71717A"},
+                {token:"Contador 90–100%",light:"#F6921E",dark:"#FBBF24"},
+                {token:"Contador > 100%",light:"#DC3545",dark:"#F87171"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </Section>

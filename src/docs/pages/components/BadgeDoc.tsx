@@ -434,6 +434,38 @@ export default function BadgeDoc(){
           </Card>
         </Section>
 
+        <Section n="06" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Default bg",light:"#004B9B",dark:"#1A6FC4"},
+                {token:"Default text",light:"#FFFFFF",dark:"#FFFFFF"},
+                {token:"Sucesso bg",light:"#ECFDF5",dark:"rgba(0,168,62,0.15)"},
+                {token:"Sucesso text",light:"#00904C",dark:"#4ADE80"},
+                {token:"Atenção bg",light:"#FFF7ED",dark:"rgba(251,191,36,0.15)"},
+                {token:"Atenção text",light:"#C2410C",dark:"#FBBF24"},
+                {token:"Crítico bg",light:"#FEF2F2",dark:"rgba(248,113,113,0.15)"},
+                {token:"Crítico text",light:"#B91C1C",dark:"#F87171"},
+                {token:"Info bg",light:"#D3E3F4",dark:"rgba(147,189,228,0.15)"},
+                {token:"Info text",light:"#002A68",dark:"#93BDE4"},
+                {token:"Ouro bg",light:"#FEF9E7",dark:"rgba(253,194,78,0.15)"},
+                {token:"Ouro text",light:"#92400E",dark:"#FDC24E"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

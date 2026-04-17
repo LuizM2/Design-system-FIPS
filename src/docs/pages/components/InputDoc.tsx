@@ -13,8 +13,8 @@ const C = {
   neutro: "var(--color-surface-soft)", branco: "#FFFFFF",
   bg: "var(--color-surface-muted)", cardBg: "var(--color-surface)", cardBorder: "var(--color-border)",
   textMuted: "var(--color-fg-muted)", textLight: "var(--color-fg-muted)",
-  inputBorder: "#CBD5E1", inputBorderHover: "#93BDE4",
-  inputBg: "#FFFFFF", inputBgDisabled: "#F1F5F9",
+  inputBorder: "var(--color-border)", inputBorderHover: "#93BDE4",
+  inputBg: "var(--color-surface)", inputBgDisabled: "var(--color-surface-muted)",
 };
 const F = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif", mono: "'Fira Code', monospace" };
 
@@ -74,9 +74,14 @@ function DSInput({ label, placeholder, icon, iconRight, type="text", inputMode, 
   const resolvedSize = compact ? "compact" : size;
   const { h, fs } = sizeMap[resolvedSize] || sizeMap.desktop;
 
-  const borderColor = error ? C.danger : focused ? C.azulProfundo : C.inputBorder;
+  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+  const borderColor = error ? C.danger : focused ? (isDark ? "#93BDE4" : C.azulProfundo) : C.inputBorder;
   const bgColor = disabled ? C.inputBgDisabled : C.inputBg;
-  const shadowColor = focused && !error ? `0 0 0 3px ${C.azulCeuClaro}` : error && focused ? `0 0 0 3px ${C.dangerBg}` : "none";
+  const shadowColor = focused && !error
+    ? `0 0 0 3px ${isDark ? "rgba(147,189,228,0.2)" : C.azulCeuClaro}`
+    : error && focused
+      ? `0 0 0 3px ${isDark ? "rgba(248,113,113,0.15)" : C.dangerBg}`
+      : "none";
 
   const wrapStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 8,
@@ -184,8 +189,8 @@ export default function InputDoc() {
     <div style={{ minHeight:"100vh", background:"var(--color-surface-muted)", fontFamily:F.body, color:C.cinzaEscuro }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-        input::placeholder { color: ${C.textLight}; }
-        input:disabled::placeholder { color: ${C.cinzaClaro}; }
+        input::placeholder { color: var(--color-fg-muted); }
+        input:disabled::placeholder { color: var(--color-fg-muted); opacity: 0.5; }
       `}</style>
 
       {/* ══════ HEADER ══════ */}
@@ -706,6 +711,38 @@ export default function InputDoc() {
               <TokenRow label="Height compacto" value="30px"/>
               <TokenRow label="Ícone" value="16px"/>
               <TokenRow label="Anel de foco" value="3px"/>
+            </div>
+          </Card>
+        </Section>
+
+        <Section number="10" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+              {[
+                {token:"Borda idle",light:"#CBD5E1",dark:"#3A3A3A"},
+                {token:"Borda hover",light:"#93BDE4",dark:"#4A4A4A"},
+                {token:"Borda focus",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Background",light:"#FFFFFF",dark:"#252525"},
+                {token:"Texto",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Placeholder",light:"#6B7784",dark:"#A1A1AA"},
+                {token:"Ring focus",light:"rgba(211,227,244,1)",dark:"rgba(147,189,228,0.2)"},
+                {token:"Bg disabled",light:"#F1F5F9",dark:"#1E1E1E"},
+                {token:"Borda erro",light:"#DC3545",dark:"#F87171"},
+                {token:"Ring erro",light:"#FEF2F2",dark:"rgba(248,113,113,0.15)"},
+                {token:"Ícone opacity",light:"0.7",dark:"0.55"},
+                {token:"Label",light:"#333B41",dark:"#E2E2E8"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </Section>

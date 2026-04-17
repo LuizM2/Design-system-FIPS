@@ -121,6 +121,7 @@ export default function DSFIPSOverview(){
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.verdeFloresta,.19),border:`1px solid ${alpha(C.verdeFloresta,.31)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:600,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:6,height:6,borderRadius:"50%",background:C.verdeFloresta,animation:"pulse 2s infinite"}}/>v0.4.0</div>
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>14 componentes</div>
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>React + Tailwind</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>Dark mode ✓</div>
           </div>
         </div>
       </header>

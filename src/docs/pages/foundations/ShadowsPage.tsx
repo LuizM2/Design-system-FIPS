@@ -185,6 +185,47 @@ export default function DSFIPSShadows(){
           </DSCard>
         </Section>
 
+        <Section n="07" title="Considerações Dark Mode" desc="Adaptações de sombra para o modo escuro do DS-FIPS.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:"0 0 16px",fontFamily:Fn.body}}>
+              No dark mode, sombras precisam de maior intensidade para serem visíveis sobre fundos escuros. Use rgba(0,0,0,0.3-0.5) em vez de rgba(0,75,155,0.08-0.18). Evite sombras azuis — use preto puro com maior opacidade.
+            </p>
+            <div style={{border:`1px solid ${C.cardBorder}`,borderRadius:8,overflow:"hidden",marginBottom:16}}>
+              <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr 1fr":"1fr 2fr 2fr",padding:"10px 16px",background:C.bg,borderBottom:`2px solid ${C.cardBorder}`}}>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Nível</span>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Light</span>
+                <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Dark</span>
+              </div>
+              {[
+                {level:"Card",light:"rgba(0,75,155,.04) + rgba(0,75,155,.03)",dark:"rgba(0,0,0,.30) + rgba(0,0,0,.20)"},
+                {level:"Elevated",light:"rgba(0,75,155,.08)",dark:"rgba(0,0,0,.35)"},
+                {level:"Dropdown",light:"rgba(0,75,155,.12)",dark:"rgba(0,0,0,.40)"},
+                {level:"Guia",light:"rgba(0,42,104,.10)",dark:"rgba(0,0,0,.35)"},
+                {level:"Modal",light:"rgba(0,42,104,.20)",dark:"rgba(0,0,0,.50)"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr 1fr":"1fr 2fr 2fr",padding:"9px 16px",borderBottom:i<4?`1px solid ${C.cardBorder}`:"none",alignItems:"center"}}>
+                  <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{r.level}</span>
+                  <code style={{fontSize:mob?9:10,fontFamily:Fn.mono,color:C.cinzaChumbo}}>{r.light}</code>
+                  <code style={{fontSize:mob?9:10,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600}}>{r.dark}</code>
+                </div>
+              ))}
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+              {[
+                {label:"Cor da sombra",value:"rgba(0,0,0,…) puro"},
+                {label:"Opacidade range",value:"0.20–0.50"},
+                {label:"Sombra azul",value:"Não usar no dark"},
+                {label:"Offsets / blur",value:"Idênticos ao light"},
+              ].map((t,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>
+                  <span style={{color:C.cinzaChumbo,minWidth:140}}>{t.label}</span>
+                  <code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.value}</code>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

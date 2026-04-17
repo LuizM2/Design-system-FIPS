@@ -92,6 +92,9 @@ const DENSITY={
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DataListingDemo() {
   const {dark}=useFipsTheme();
+  const accentBg=dark?"rgba(147,189,228,0.12)":"#D3E3F4";
+  const accentRing=dark?"rgba(147,189,228,0.2)":"#D3E3F4";
+  const zebraBg=dark?"rgba(255,255,255,0.03)":"#D3E3F440";
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
   useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h)},[]);
   const mob=w<768;
@@ -294,7 +297,7 @@ export default function DataListingDemo() {
             <div style={{padding:"14px 18px",display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
               {/* Filtros */}
               <div ref={filterRef} style={{position:"relative"}}>
-                <button onClick={()=>setShowFilters(!showFilters)} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"7px 12px",fontSize:11,fontWeight:600,color:totalFilters>0?C.azulProfundo:C.cinzaEscuro,background:totalFilters>0?C.azulCeuClaro:C.cardBg,border:`1px solid ${totalFilters>0?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",fontFamily:Fn.body,transition:"all .15s"}}>{Ic.filter(13,totalFilters>0?C.azulProfundo:C.cinzaChumbo)} Filtros{totalFilters>0&&<span style={{fontSize:9,fontFamily:Fn.mono,padding:"1px 5px",background:C.azulProfundo,color:C.branco,borderRadius:8}}>{totalFilters}</span>}</button>
+                <button onClick={()=>setShowFilters(!showFilters)} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"7px 12px",fontSize:11,fontWeight:600,color:totalFilters>0?C.azulProfundo:C.cinzaEscuro,background:totalFilters>0?accentBg:C.cardBg,border:`1px solid ${totalFilters>0?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",fontFamily:Fn.body,transition:"all .15s"}}>{Ic.filter(13,totalFilters>0?C.azulProfundo:C.cinzaChumbo)} Filtros{totalFilters>0&&<span style={{fontSize:9,fontFamily:Fn.mono,padding:"1px 5px",background:C.azulProfundo,color:C.branco,borderRadius:8}}>{totalFilters}</span>}</button>
                 {showFilters&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:0,zIndex:50,width:280,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                   <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                     <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filtros</span>
@@ -331,7 +334,7 @@ export default function DataListingDemo() {
                   </div>
                 </div>}
               </div>
-              <div onClick={e=>e.currentTarget.querySelector("input")?.focus()} style={{display:"flex",alignItems:"center",gap:8,height:35,padding:"0 12px",background:"#FFFFFF",border:`1.5px solid ${searchFocused?C.azulProfundo:"#CBD5E1"}`,borderRadius:8,boxShadow:searchFocused?`0 0 0 3px ${C.azulCeuClaro}`:"none",transition:"all 0.18s ease",cursor:"text",flex:1,minWidth:200,maxWidth:320}}>
+              <div onClick={e=>e.currentTarget.querySelector("input")?.focus()} style={{display:"flex",alignItems:"center",gap:8,height:35,padding:"0 12px",background:"var(--color-surface)",border:`1.5px solid ${searchFocused?C.azulProfundo:"var(--color-border)"}`,borderRadius:8,boxShadow:searchFocused?`0 0 0 3px ${accentRing}`:"none",transition:"all 0.18s ease",cursor:"text",flex:1,minWidth:200,maxWidth:320}}>
                 <span style={{display:"flex",flexShrink:0,opacity:.7}}>{Ic.search(15)}</span>
                 <input value={search} onChange={e=>setSearch(e.target.value)} onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)} placeholder="Buscar requisições..." style={{flex:1,border:"none",outline:"none",background:"transparent",fontFamily:Fn.body,fontSize:13,color:C.cinzaEscuro,minWidth:0}}/>
                 {search&&<span onClick={e=>{e.stopPropagation();setSearch("")}} style={{display:"flex",cursor:"pointer",opacity:.5,flexShrink:0}}>{Ic.x(14,C.cinzaChumbo)}</span>}
@@ -343,7 +346,7 @@ export default function DataListingDemo() {
                   {["Hoje","Últimos 7 dias","Últimos 30 dias","Últimos 90 dias","Este ano","Todos"].map(opt=>{
                     const isA=periodo===opt;
                     return(
-                      <div key={opt} onClick={()=>{setPeriodo(opt);setShowCustom(false);setShowPeriodo(false)}} style={{padding:"8px 14px",fontSize:11,color:isA?C.azulProfundo:C.cinzaEscuro,fontWeight:isA?700:500,cursor:"pointer",display:"flex",alignItems:"center",gap:8,background:isA?C.azulCeuClaro:"transparent",transition:"background .12s"}} onMouseEnter={e=>{if(!isA)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(!isA)e.currentTarget.style.background="transparent"}}>
+                      <div key={opt} onClick={()=>{setPeriodo(opt);setShowCustom(false);setShowPeriodo(false)}} style={{padding:"8px 14px",fontSize:11,color:isA?C.azulProfundo:C.cinzaEscuro,fontWeight:isA?700:500,cursor:"pointer",display:"flex",alignItems:"center",gap:8,background:isA?accentBg:"transparent",transition:"background .12s"}} onMouseEnter={e=>{if(!isA)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(!isA)e.currentTarget.style.background="transparent"}}>
                         <div style={{width:14,height:14,borderRadius:"50%",border:`1.5px solid ${isA?C.azulProfundo:C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{isA&&<div style={{width:6,height:6,borderRadius:"50%",background:C.azulProfundo}}/>}</div>
                         <span style={{flex:1}}>{opt}</span>
                       </div>
@@ -353,7 +356,7 @@ export default function DataListingDemo() {
                   <div style={{height:1,background:C.cardBorder,margin:"6px 0"}}/>
                   {/* Personalizado */}
                   {(()=>{const isA=periodo.includes("→")||showCustom;return(
-                    <div onClick={()=>setShowCustom(true)} style={{padding:"8px 14px",fontSize:11,color:isA?C.azulProfundo:C.cinzaEscuro,fontWeight:isA?700:500,cursor:"pointer",display:"flex",alignItems:"center",gap:8,background:isA?C.azulCeuClaro:"transparent",transition:"background .12s"}} onMouseEnter={e=>{if(!isA)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(!isA)e.currentTarget.style.background="transparent"}}>
+                    <div onClick={()=>setShowCustom(true)} style={{padding:"8px 14px",fontSize:11,color:isA?C.azulProfundo:C.cinzaEscuro,fontWeight:isA?700:500,cursor:"pointer",display:"flex",alignItems:"center",gap:8,background:isA?accentBg:"transparent",transition:"background .12s"}} onMouseEnter={e=>{if(!isA)e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{if(!isA)e.currentTarget.style.background="transparent"}}>
                       <div style={{width:14,height:14,borderRadius:"50%",border:`1.5px solid ${isA?C.azulProfundo:C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{isA&&<div style={{width:6,height:6,borderRadius:"50%",background:C.azulProfundo}}/>}</div>
                       <span style={{flex:1,display:"inline-flex",alignItems:"center",gap:6}}>{Ic.calendar(11,isA?C.azulProfundo:C.cinzaChumbo)} Personalizado</span>
                     </div>
@@ -410,14 +413,14 @@ export default function DataListingDemo() {
               </div>
               {/* Lado direito do header: filtrado + config */}
               <div style={{display:"flex",alignItems:"center",gap:12,flexShrink:0}}>
-                {(search||totalFilters>0)&&<span style={{fontSize:10,fontWeight:700,letterSpacing:".5px",textTransform:"uppercase",color:C.cinzaEscuro,background:C.azulCeuClaro,padding:"4px 10px",borderRadius:12,fontFamily:Fn.title}}>Filtrado</span>}
+                {(search||totalFilters>0)&&<span style={{fontSize:10,fontWeight:700,letterSpacing:".5px",textTransform:"uppercase",color:C.cinzaEscuro,background:accentBg,padding:"4px 10px",borderRadius:12,fontFamily:Fn.title}}>Filtrado</span>}
                 {/* Toggle Tabela/Card */}
                 <div style={{display:"flex",gap:3,padding:3,background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
                   <button onClick={()=>setView("table")} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 10px",fontSize:11,fontWeight:600,color:view==="table"?C.azulProfundo:C.cinzaChumbo,background:view==="table"?C.cardBg:"transparent",border:"none",borderRadius:6,cursor:"pointer",fontFamily:Fn.body,boxShadow:view==="table"?"0 1px 2px rgba(0,42,104,.08)":"none",transition:"all .15s"}}>{Ic.list(12,view==="table"?C.azulProfundo:C.cinzaChumbo)} Tabela</button>
                   <button onClick={()=>setView("cards")} style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 10px",fontSize:11,fontWeight:600,color:view==="cards"?C.azulProfundo:C.cinzaChumbo,background:view==="cards"?C.cardBg:"transparent",border:"none",borderRadius:6,cursor:"pointer",fontFamily:Fn.body,boxShadow:view==="cards"?"0 1px 2px rgba(0,42,104,.08)":"none",transition:"all .15s"}}>{Ic.grid(12,view==="cards"?C.azulProfundo:C.cinzaChumbo)} Cards</button>
                 </div>
                 <div ref={configRef} style={{position:"relative"}}>
-                  <button onClick={()=>setShowConfig(!showConfig)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfig?C.azulProfundo:C.cinzaEscuro,background:showConfig?C.azulCeuClaro:C.cardBg,border:`1px solid ${showConfig?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Configurações da tabela">{Ic.settings(14,showConfig?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
+                  <button onClick={()=>setShowConfig(!showConfig)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfig?C.azulProfundo:C.cinzaEscuro,background:showConfig?accentBg:C.cardBg,border:`1px solid ${showConfig?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}} title="Configurações da tabela">{Ic.settings(14,showConfig?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
                   {showConfig&&<div style={{position:"absolute",top:"calc(100% + 6px)",right:0,zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                     <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                       <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Configurações</span>
@@ -443,7 +446,7 @@ export default function DataListingDemo() {
                       {configTab==="densidade"&&<div style={{display:"flex",flexDirection:"column",gap:6}}>
                         <span style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title,marginBottom:6,marginLeft:4}}>Altura das linhas</span>
                         {[{id:"compact",label:"Compacta",desc:"30px · alta densidade"},{id:"normal",label:"Normal",desc:"42px · padrão"},{id:"comfortable",label:"Confortável",desc:"56px · acessível"}].map(opt=>{const isA=density===opt.id;return(
-                          <div key={opt.id} onClick={()=>setDensity(opt.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",borderRadius:8,border:`1px solid ${isA?C.azulProfundo:C.cardBorder}`,background:isA?C.azulCeuClaro:C.cardBg,cursor:"pointer",transition:"all .12s"}}>
+                          <div key={opt.id} onClick={()=>setDensity(opt.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",borderRadius:8,border:`1px solid ${isA?C.azulProfundo:C.cardBorder}`,background:isA?accentBg:C.cardBg,cursor:"pointer",transition:"all .12s"}}>
                             <div style={{width:18,height:18,borderRadius:"50%",border:`2px solid ${isA?C.azulProfundo:C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{isA&&<div style={{width:8,height:8,borderRadius:"50%",background:C.azulProfundo}}/>}</div>
                             <div style={{flex:1}}>
                               <div style={{fontSize:12,fontWeight:600,color:isA?C.azulProfundo:C.cinzaEscuro}}>{opt.label}</div>
@@ -491,7 +494,7 @@ export default function DataListingDemo() {
                 </tr></thead>
                 <tbody>{data.map((r,i)=>{
                   const isSel=selected.has(r.id);
-                  const bg=isSel?alpha(C.azulProfundo,0.024):appearance.zebra&&i%2===1?C.azulCeuClaro+"40":"transparent";
+                  const bg=isSel?alpha(C.azulProfundo,0.024):appearance.zebra&&i%2===1?zebraBg:"transparent";
                   return(<tr key={r.id} style={{borderBottom:`1px solid ${C.cardBorder}`,background:bg,height:D.rowH,transition:"background .12s",cursor:"pointer"}} onMouseEnter={e=>e.currentTarget.style.background=`${C.amareloOuro}15`} onMouseLeave={e=>e.currentTarget.style.background=bg}>
                     <td style={{padding:`0 ${D.padX}px`}}><Checkbox checked={isSel} onChange={()=>toggleSel(r.id)} size={14}/></td>
                     {visibleCols.has("id")&&<td style={{padding:`0 ${D.padX}px`,fontSize:D.fs-1,fontFamily:Fn.mono,fontWeight:600,color:C.cinzaEscuro,whiteSpace:appearance.wrapText?"normal":"nowrap",borderRight:appearance.verticalBorders?`1px solid ${C.cardBorder}`:"none"}}>{r.id}</td>}
@@ -619,7 +622,7 @@ export default function DataListingDemo() {
                 <div style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Outros tipos disponíveis no catálogo</div>
                 <div style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Qualquer card do arquivo Cards pode ser usado</div>
               </div>
-              <a href="https://design-system.fips.app.br/card" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 14px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.cinzaEscuro,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",textDecoration:"none",transition:"all .15s",letterSpacing:"0.01em"}} onMouseEnter={e=>{e.currentTarget.style.background=C.azulCeuClaro}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>Navegar mais detalhes {Ic.chev(11,C.azulProfundo)}</a>
+              <a href="https://design-system.fips.app.br/card" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 14px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:C.cinzaEscuro,background:"transparent",border:`1.5px solid ${C.azulProfundo}`,borderRadius:6,cursor:"pointer",textDecoration:"none",transition:"all .15s",letterSpacing:"0.01em"}} onMouseEnter={e=>{e.currentTarget.style.background=dark?"rgba(147,189,228,0.12)":"#D3E3F4"}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>Navegar mais detalhes {Ic.chev(11,C.azulProfundo)}</a>
             </div>
             <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr 1fr",gap:10}}>
               {[
@@ -712,7 +715,7 @@ export default function DataListingDemo() {
             <div style={{fontSize:9,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title,marginBottom:10}}>Botão Configurar</div>
             <div style={{display:"flex",justifyContent:"center",marginBottom:16}}>
               <div ref={configDemoRef} style={{position:"relative"}}>
-                <button onClick={()=>setShowConfigDemo(!showConfigDemo)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfigDemo?C.azulProfundo:C.cinzaEscuro,background:showConfigDemo?C.azulCeuClaro:C.cardBg,border:`1px solid ${showConfigDemo?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}}>{Ic.settings(14,showConfigDemo?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
+                <button onClick={()=>setShowConfigDemo(!showConfigDemo)} style={{display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",fontSize:11,fontWeight:600,fontFamily:Fn.body,color:showConfigDemo?C.azulProfundo:C.cinzaEscuro,background:showConfigDemo?accentBg:C.cardBg,border:`1px solid ${showConfigDemo?C.azulProfundo:C.cardBorder}`,borderRadius:8,cursor:"pointer",transition:"all .15s"}}>{Ic.settings(14,showConfigDemo?C.azulProfundo:C.cinzaChumbo)} Configurar</button>
                 {showConfigDemo&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:"50%",transform:"translateX(-50%)",zIndex:50,width:300,background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 16px",boxShadow:"0 12px 36px rgba(0,42,104,.18),0 2px 8px rgba(0,42,104,.06)",animation:"popIn .18s ease",overflow:"hidden"}}>
                   <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                     <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Configurações</span>

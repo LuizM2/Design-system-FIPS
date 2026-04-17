@@ -585,6 +585,37 @@ export default function DialogDoc(){
           </DSCard>
         </Section>
 
+        {/* ═══════════════════ 09 — MODO DARK ═══════════════════ */}
+        <Section n="09" title="Modo Dark" desc="Tokens e comportamento do componente no tema escuro. Consistência visual garantida em ambos os modos.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Overlay",light:"rgba(0,42,104,0.45)",dark:"rgba(0,0,0,0.65)"},
+                {token:"Panel bg",light:"#FFFFFF",dark:"#1A2332"},
+                {token:"Panel border",light:"#E2E8F0",dark:"#2A3A4A"},
+                {token:"Panel shadow",light:"rgba(0,42,104,0.2)",dark:"rgba(0,0,0,0.5)"},
+                {token:"Title color",light:"#333B41",dark:"#D1D9E0"},
+                {token:"Subtitle color",light:"#7B8C96",dark:"#8A9BA7"},
+                {token:"Footer bg",light:"#F2F4F8",dark:"#0F1923"},
+                {token:"Footer destructive",light:"#FEF8F8",dark:"#2A1215"},
+                {token:"Body form bg",light:"#FAFAFA",dark:"#141E2B"},
+                {token:"Input border",light:"#CBD5E1",dark:"#2A3A4A"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

@@ -172,7 +172,7 @@ export default function DSFIPSRadius(){
               <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title}}>Tipo</span>
             </div>
             {componentRadius.map((cr,i)=>(
-              <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr 1fr":"2fr 2fr 1fr",padding:"10px 20px",borderBottom:i<componentRadius.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?"#f8f9fb":"transparent"}}>
+              <div key={i} style={{display:"grid",gridTemplateColumns:mob?"2fr 1fr 1fr":"2fr 2fr 1fr",padding:"10px 20px",borderBottom:i<componentRadius.length-1?`1px solid ${C.cardBorder}`:"none",alignItems:"center",background:i%2===1?C.bg:"transparent"}}>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
                   <div style={{width:6,height:6,borderRadius:"50%",background:cr.color,flexShrink:0}}/>
                   <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{cr.component}</span>
@@ -217,6 +217,29 @@ export default function DSFIPSRadius(){
               <TokenRow label="Circle" value="50%"/>
             </div>
           </DSCard>
+        </Section>
+
+        <Section n="07" title="Considerações Dark Mode" desc="Comportamento dos border-radius no modo escuro do DS-FIPS.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:"0 0 16px",fontFamily:Fn.body}}>
+              Raios de borda são idênticos em ambos os modos. No dark mode, as bordas usam #2E2E2E (strong: #3A3A3A) em vez de #D7E0EA.
+            </p>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+              {[
+                {label:"Border-radius",value:"Idêntico em ambos"},
+                {label:"Elemento Caixa",value:"Sem alteração"},
+                {label:"Borda (light)",value:"#D7E0EA"},
+                {label:"Borda (dark)",value:"#2E2E2E"},
+                {label:"Borda strong (light)",value:"#C0CCD2"},
+                {label:"Borda strong (dark)",value:"#3A3A3A"},
+              ].map((t,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>
+                  <span style={{color:C.cinzaChumbo,minWidth:140}}>{t.label}</span>
+                  <code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.value}</code>
+                </div>
+              ))}
+            </div>
+          </div>
         </Section>
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>

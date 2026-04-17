@@ -600,6 +600,38 @@ export default function ProgressDoc() {
           </Card>
         </Section>
 
+        <Section n="09" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Trilho bg",light:"#E2E8F0",dark:"#333333"},
+                {token:"Fill padrão",light:"#004B9B",dark:"#1A6FC4"},
+                {token:"Fill sucesso",light:"#00C64C",dark:"#00A83E"},
+                {token:"Fill completo",light:"#00904C",dark:"#00C64C"},
+                {token:"Fill atenção",light:"#F6921E",dark:"#FBBF24"},
+                {token:"Fill erro",light:"#DC3545",dark:"#F87171"},
+                {token:"Texto %",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Texto label",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Texto helper",light:"#64748B",dark:"#A1A1AA"},
+                {token:"Step done",light:"#00904C",dark:"#00C64C"},
+                {token:"Step active",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Step pending",light:"#E2E8F0",dark:"#3A3A3A"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </Section>
+
         {/* FOOTER */}
         <div style={{ textAlign: "center", padding: "20px 0 0", borderTop: `1px solid ${C.cardBorder}`, marginTop: 20 }}>
           <span style={{ fontSize: 12, color: C.cinzaChumbo, letterSpacing: ".5px", fontFamily: F.title, fontWeight: 400 }}>

@@ -456,6 +456,38 @@ export default function CardDoc(){
           </DSCard>
         </Section>
 
+        <Section n="11" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <DSCard mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {token:"Card bg",light:"#FFFFFF",dark:"#1E1E1E"},
+                {token:"Card border",light:"#E2E8F0",dark:"#333333"},
+                {token:"Card shadow",light:"rgba(0,75,155,0.04)",dark:"rgba(0,0,0,0.2)"},
+                {token:"Header/Footer bg",light:"#F2F4F8",dark:"#252525"},
+                {token:"Título",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Descrição",light:"#64748B",dark:"#A1A1AA"},
+                {token:"Borda lateral success",light:"#00C64C",dark:"#4ADE80"},
+                {token:"Borda lateral warning",light:"#F6921E",dark:"#FBBF24"},
+                {token:"Borda lateral danger",light:"#DC3545",dark:"#F87171"},
+                {token:"Borda lateral info",light:"#93BDE4",dark:"#93BDE4"},
+                {token:"Spark area fill",light:"rgba(0,75,155,0.18)",dark:"rgba(26,111,196,0.25)"},
+                {token:"Donut track",light:"rgba(0,75,155,0.09)",dark:"rgba(147,189,228,0.1)"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </DSCard>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

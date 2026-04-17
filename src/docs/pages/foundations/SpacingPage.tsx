@@ -301,6 +301,29 @@ export default function DSFIPSSpacing(){
           </DSCard>
         </Section>
 
+        <Section n="08" title="Considerações Dark Mode" desc="Comportamento do espaçamento no modo escuro do DS-FIPS.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:"0 0 16px",fontFamily:Fn.body}}>
+              A escala de espaçamento é idêntica em ambos os modos. Não há alteração de padding, margin ou gap entre light e dark — apenas cores de superfície e borda mudam.
+            </p>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+              {[
+                {label:"Escala (4–48px)",value:"Idêntica"},
+                {label:"Padding",value:"Sem alteração"},
+                {label:"Margin",value:"Sem alteração"},
+                {label:"Gap",value:"Sem alteração"},
+                {label:"Superfícies",value:"Mudam via CSS vars"},
+                {label:"Bordas",value:"Mudam via CSS vars"},
+              ].map((t,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>
+                  <span style={{color:C.cinzaChumbo,minWidth:140}}>{t.label}</span>
+                  <code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.value}</code>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

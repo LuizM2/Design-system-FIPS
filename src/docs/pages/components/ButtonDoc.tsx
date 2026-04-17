@@ -60,16 +60,18 @@ function DSButton({ variant = "primary", size = "medium", disabled = false, load
     large:  { padding: "10px 28px", fontSize: "14px", height: "42px", iconSize: 16 },
   };
 
+  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+
   const variantMap: Record<string, { bg: string; bgH: string; color: string; border: string; underline?: boolean }> = {
-    primary:   { bg: C.azulProfundo,  bgH: C.azulEscuro,    color: C.branco,       border: "transparent" },
-    secondary: { bg: "#F1F5F9",       bgH: "#E2E8F0",       color: C.cinzaEscuro,  border: "#CBD5E1" },
-    outline:   { bg: "transparent",   bgH: C.azulCeuClaro,  color: C.azulProfundo, border: C.azulProfundo },
-    inverse:   { bg: C.azulEscuro,    bgH: C.cinzaEscuro,   color: C.branco,       border: C.azulEscuro },
-    ghost:     { bg: "transparent",   bgH: `${C.azulCeuClaro}88`, color: C.cinzaChumbo, border: "transparent" },
+    primary:   { bg: isDark ? "#0090D0" : "#004B9B",  bgH: isDark ? "#007AB1" : "#002A68", color: "#FFFFFF", border: "transparent" },
+    secondary: { bg: "var(--color-surface-soft)", bgH: "var(--color-surface-muted)", color: C.cinzaEscuro, border: "var(--color-border)" },
+    outline:   { bg: "transparent",   bgH: isDark ? "rgba(147,189,228,0.15)" : C.azulCeuClaro, color: isDark ? "#93BDE4" : "#004B9B", border: isDark ? "#93BDE4" : "#004B9B" },
+    inverse:   { bg: isDark ? "#333B41" : "#002A68", bgH: isDark ? "#444" : C.cinzaEscuro, color: "#FFFFFF", border: isDark ? "#444" : "#002A68" },
+    ghost:     { bg: "transparent",   bgH: isDark ? "rgba(147,189,228,0.12)" : `${C.azulCeuClaro}88`, color: C.cinzaChumbo, border: "transparent" },
     accent:    { bg: C.amareloEscuro, bgH: "#E0820A",        color: C.branco,       border: "transparent" },
     save:      { bg: C.verdeFloresta, bgH: C.verdeEscuro,    color: C.branco,       border: "transparent" },
     danger:    { bg: C.danger,        bgH: C.dangerDark,     color: C.branco,       border: "transparent" },
-    link:      { bg: "transparent",   bgH: "transparent",    color: C.azulProfundo, border: "transparent", underline: true },
+    link:      { bg: "transparent",   bgH: "transparent",    color: isDark ? "#93BDE4" : "#004B9B", border: "transparent", underline: true },
     ouro:      { bg: C.amareloOuro,   bgH: C.amareloEscuro,  color: C.azulEscuro,   border: "transparent" },
   };
 
@@ -81,8 +83,8 @@ function DSButton({ variant = "primary", size = "medium", disabled = false, load
     padding: s.padding, height: s.height, fontSize: s.fontSize,
     fontWeight: 600, fontFamily: FONTS.body, borderRadius: "6px",
     border: `1.5px solid ${v.border}`,
-    background: disabled ? C.cinzaClaro : (hovered && !loading ? v.bgH : v.bg),
-    color: disabled ? C.cinzaChumbo : v.color,
+    background: disabled ? (isDark ? "#3A3A3A" : C.cinzaClaro) : (hovered && !loading ? v.bgH : v.bg),
+    color: disabled ? (isDark ? "#6B6B6B" : C.cinzaChumbo) : v.color,
     cursor: disabled || loading ? "not-allowed" : "pointer",
     transition: "all 0.18s ease",
     transform: pressed && !disabled && !loading ? "scale(0.97)" : "scale(1)",
@@ -677,6 +679,38 @@ export default function DSFIPSButtons() {
               <TokenRow label="Height MD"  value="36px" />
               <TokenRow label="Height LG"  value="42px" />
               <TokenRow label="Transition" value="0.18s ease" />
+            </div>
+          </Card>
+        </Section>
+
+        <Section number="08" title="Modo Dark" desc="Comportamento e tokens do componente no tema escuro. O DS-FIPS garante consistência visual em ambos os modos — claro e escuro.">
+          <Card>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+              {[
+                {token:"Primary bg",light:"#004B9B",dark:"#1A6FC4"},
+                {token:"Primary hover",light:"#002A68",dark:"#2080D6"},
+                {token:"Primary text",light:"#FFFFFF",dark:"#FFFFFF"},
+                {token:"Outline border",light:"#004B9B",dark:"#93BDE4"},
+                {token:"Outline hover bg",light:"#D3E3F4",dark:"rgba(147,189,228,0.15)"},
+                {token:"Secondary bg",light:"#F1F5F9",dark:"#2A2A2A"},
+                {token:"Secondary text",light:"#333B41",dark:"#E2E2E8"},
+                {token:"Ghost hover",light:"rgba(211,227,244,0.53)",dark:"rgba(147,189,228,0.12)"},
+                {token:"Save bg",light:"#00C64C",dark:"#00A83E"},
+                {token:"Danger bg",light:"#DC3545",dark:"#E04050"},
+                {token:"Disabled bg",light:"#C0CCD2",dark:"#3A3A3A"},
+                {token:"Disabled text",light:"#7B8C96",dark:"#6B6B6B"},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
+                  <div style={{display:"flex",gap:4,flexShrink:0}}>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
+                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
+                  </div>
+                  <div>
+                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
+                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </Section>

@@ -226,6 +226,31 @@ export default function DSFIPSIconography(){
           </DSCard>
         </Section>
 
+        <Section n="07" title="Considerações Dark Mode" desc="Adaptações de cor de ícones para o modo escuro do DS-FIPS.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:"0 0 16px",fontFamily:Fn.body}}>
+              Ícones seguem a cor do texto — #E2E2E8 (fg) ou #A1A1AA (muted) no dark mode. Ícones de destaque usam as cores semânticas dark: primary #93BDE4, success #8BE5AD, accent #FDC24E.
+            </p>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+              {[
+                {label:"fg (dark)",value:"#E2E2E8"},
+                {label:"muted (dark)",value:"#A1A1AA"},
+                {label:"Primary (dark)",value:"#93BDE4"},
+                {label:"Success (dark)",value:"#8BE5AD"},
+                {label:"Accent (dark)",value:"#FDC24E"},
+                {label:"Danger (dark)",value:"#DC3545"},
+                {label:"Tamanhos",value:"Idênticos em ambos"},
+                {label:"Stroke style",value:"Sem alteração"},
+              ].map((t,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>
+                  <span style={{color:C.cinzaChumbo,minWidth:140}}>{t.label}</span>
+                  <code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.value}</code>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

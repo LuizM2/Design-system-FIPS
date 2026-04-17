@@ -5,6 +5,9 @@ import {
   docHeaderNeuAccentBgHover,
   docHeaderNeuAccentBorderHover,
   docHeaderNeuAccentShadowHover,
+  docHeaderNeuDarkBgIdle,
+  docHeaderNeuDarkBorderIdle,
+  docHeaderNeuDarkShadowIdle,
   docHeaderNeuLightBgIdle,
   docHeaderNeuLightBorderIdle,
   docHeaderNeuLightShadowIdle,
@@ -54,6 +57,10 @@ export function UserChip({
   }
 
   if (variant === 'docHeader') {
+    const idleBg = dark ? docHeaderNeuDarkBgIdle : docHeaderNeuLightBgIdle
+    const idleBorder = dark ? docHeaderNeuDarkBorderIdle : docHeaderNeuLightBorderIdle
+    const idleShadow = dark ? docHeaderNeuDarkShadowIdle : docHeaderNeuLightShadowIdle
+
     return (
       <button
         type="button"
@@ -63,9 +70,9 @@ export function UserChip({
           className,
         )}
         style={{
-          border: `1px solid ${hovered ? docHeaderNeuAccentBorderHover : docHeaderNeuLightBorderIdle}`,
-          background: hovered ? docHeaderNeuAccentBgHover : docHeaderNeuLightBgIdle,
-          boxShadow: hovered ? docHeaderNeuAccentShadowHover : docHeaderNeuLightShadowIdle,
+          border: `1px solid ${hovered ? docHeaderNeuAccentBorderHover : idleBorder}`,
+          background: hovered ? docHeaderNeuAccentBgHover : idleBg,
+          boxShadow: hovered ? docHeaderNeuAccentShadowHover : idleShadow,
           transform: hovered ? 'translateY(-1px)' : 'none',
           transition: hovered ? 'all 0.3s ease' : 'all 0.25s ease',
         }}
@@ -95,13 +102,16 @@ export function UserChip({
           }}
           aria-hidden
         />
-        <span className="relative z-[1] flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[12px] font-semibold text-[var(--color-gov-azul-escuro)]">
+        <span className={cn(
+          "relative z-[1] flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[12px] font-semibold",
+          dark ? "bg-[#1E1E22] text-[#F6921E]" : "bg-white text-[var(--color-gov-azul-escuro)]",
+        )}>
           {initials}
         </span>
         <span
           className={cn(
             'relative z-[1] hidden min-w-0 flex-1 truncate text-left font-sans text-[13px] leading-none sm:block',
-            hovered ? 'text-[var(--color-gov-azul-escuro)]' : 'text-[var(--color-fg)]',
+            hovered ? 'text-[var(--color-gov-azul-escuro)]' : dark ? 'text-[#E2E2E8]' : 'text-[var(--color-fg)]',
           )}
         >
           {name}
@@ -109,7 +119,7 @@ export function UserChip({
         <ChevronDown
           className={cn(
             'relative z-[1] h-3.5 w-3.5 shrink-0',
-            hovered ? 'text-[var(--color-gov-azul-escuro)]' : 'text-[var(--color-fg-muted)]',
+            hovered ? 'text-[var(--color-gov-azul-escuro)]' : dark ? 'text-[#A1A1AA]' : 'text-[var(--color-fg-muted)]',
           )}
           strokeWidth={1.5}
           aria-hidden

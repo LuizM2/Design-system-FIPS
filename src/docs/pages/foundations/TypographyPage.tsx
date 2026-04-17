@@ -244,6 +244,31 @@ export default function DSFIPSTypography(){
           </DSCard>
         </Section>
 
+        <Section n="08" title="Considerações Dark Mode" desc="Adaptações tipográficas para o modo escuro do DS-FIPS.">
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <p style={{fontSize:13,color:C.cinzaChumbo,lineHeight:1.6,margin:"0 0 16px",fontFamily:Fn.body}}>
+              No dark mode, o foreground principal muda de #333B41 para #E2E2E8 e o muted de #6B7784 para #A1A1AA. Fontes e pesos permanecem idênticos — a hierarquia tipográfica não muda entre modos.
+            </p>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+              {[
+                {label:"fg (light)",value:"#333B41"},
+                {label:"fg (dark)",value:"#E2E2E8"},
+                {label:"fg-muted (light)",value:"#6B7784"},
+                {label:"fg-muted (dark)",value:"#A1A1AA"},
+                {label:"Fontes",value:"Idênticas em ambos"},
+                {label:"Pesos",value:"Idênticos em ambos"},
+                {label:"Line-height",value:"Sem alteração"},
+                {label:"Hierarquia",value:"Mantida por cor de texto"},
+              ].map((t,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>
+                  <span style={{color:C.cinzaChumbo,minWidth:140}}>{t.label}</span>
+                  <code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{t.value}</code>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>

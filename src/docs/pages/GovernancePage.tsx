@@ -202,6 +202,25 @@ export default function DSFIPSGovernance(){
           </DSCard>
         </Section>
 
+        {/* 07 — DARK MODE OBRIGATÓRIO */}
+        <Section n="07" title="Dark mode obrigatório" desc="Todo componente e tela do DS-FIPS deve funcionar em ambos os modos — claro e escuro. As regras de governança se aplicam igualmente.">
+          <DSCard mob={mob}>
+            <div style={{display:"flex",flexDirection:"column",gap:12}}>
+              {[
+                {text:"Nunca use #004B9B, #002A68 ou cores escuras como texto/ícone no dark mode — troque por #93BDE4, #658EC9",icon:Ic.alert,color:C.amareloEscuro},
+                {text:"Inputs, selects e badges devem ter bordas visíveis (#3A3A3A idle, #93BDE4 focus)",icon:Ic.shield,color:C.azulProfundo},
+                {text:"SVG fill/stroke não aceita CSS variables — use hex direto com condicional dark/light",icon:Ic.code,color:C.verdeFloresta},
+                {text:"Teste todo componente novo em ambos os modos antes de publicar",icon:Ic.check,color:C.cinzaChumbo},
+              ].map((r,i)=>(
+                <div key={i} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"12px 16px",background:C.bg,borderRadius:8,border:`1px solid ${C.cardBorder}`}}>
+                  <div style={{width:32,height:32,borderRadius:8,background:alpha(r.color,0.04),display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>{r.icon(16,r.color)}</div>
+                  <span style={{fontSize:13,color:C.cinzaEscuro,fontFamily:Fn.body,lineHeight:1.55}}>{r.text}</span>
+                </div>
+              ))}
+            </div>
+          </DSCard>
+        </Section>
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
