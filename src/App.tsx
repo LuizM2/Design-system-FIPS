@@ -2,6 +2,7 @@ import { lazy, Suspense, type ReactNode } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { DocLayout } from './app/DocLayout'
 
+const HomePage = lazy(() => import('./docs/pages/HomePage'))
 const OverviewPage = lazy(() => import('./docs/pages/Overview'))
 const GovernancePage = lazy(() => import('./docs/pages/GovernancePage'))
 const ChangelogPage = lazy(() => import('./docs/pages/ChangelogPage'))
@@ -51,9 +52,10 @@ function renderLazyRoute(node: ReactNode) {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/docs" replace />} />
+      <Route path="/" element={<Navigate to="/docs/home" replace />} />
       <Route path="/docs" element={<DocLayout />}>
         <Route index element={renderLazyRoute(<OverviewPage />)} />
+        <Route path="home" element={renderLazyRoute(<HomePage />)} />
         <Route path="governance" element={renderLazyRoute(<GovernancePage />)} />
         <Route path="foundations/colors" element={renderLazyRoute(<ColorsPage />)} />
         <Route path="foundations/typography" element={renderLazyRoute(<TypographyPage />)} />
@@ -90,7 +92,7 @@ export default function App() {
         <Route path="login" element={renderLazyRoute(<LoginPage />)} />
         <Route path="changelog" element={renderLazyRoute(<ChangelogPage />)} />
       </Route>
-      <Route path="*" element={<Navigate to="/docs" replace />} />
+      <Route path="*" element={<Navigate to="/docs/home" replace />} />
     </Routes>
   )
 }

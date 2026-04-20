@@ -47,6 +47,7 @@ export const navGroups: NavGroup[] = [
     icon: Home,
     collapsible: false,
     items: [
+      { label: 'Home', to: '/docs/home', icon: Home },
       { label: 'Visão geral', to: '/docs', icon: Sparkles },
       { label: 'Governança', to: '/docs/governance', icon: ShieldCheck },
     ],
