@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from 'react'
 import { BookOpen, Component, Home, LayoutDashboard, Palette } from 'lucide-react'
+import { CodeExportSection } from '../../components/CodeExport'
 import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
 import { DocHeaderStandardPreview } from '../../../components/layout/DocHeaderStandard'
 import { SHELL_HERO_ART_SRC } from '../../../lib/shellHeroArt'
@@ -248,6 +249,43 @@ export default function HeaderDoc() {
 
         <Section
           n="04"
+          title="Espaçamentos da barra de tabs"
+          desc="Medidas obrigatórias da faixa de navegação por seções (SectionNav). Referência: Governança TI v1.1.1."
+        >
+          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                { label: 'Altura da nav', value: '39px', token: 'navHeightPx' },
+                { label: 'Padding vertical (tab)', value: '8px', token: 'paddingYPx' },
+                { label: 'Padding horizontal (tab)', value: '24px', token: 'paddingXPx' },
+                { label: 'Font size', value: '13px', token: 'fontSizePx' },
+                { label: 'Gap ícone–label', value: '7px', token: 'iconGapPx' },
+                { label: 'Tamanho do ícone', value: '14px', token: 'iconSizePx' },
+                { label: 'Altura do indicador', value: '3px', token: 'indicatorHeightPx' },
+                { label: 'Cor do indicador', value: '#F6921E', token: 'accentHex' },
+                { label: 'Border-bottom da nav', value: '2px', token: 'borderBottomPx' },
+                { label: 'Padding externo (wrapper)', value: '0px top, 0px bottom', token: 'pt-0 pb-0' },
+              ].map((item) => (
+                <div key={item.token} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 12px',borderRadius:8,background:C.bg}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background: item.value.startsWith('#') ? item.value : C.amareloEscuro,flexShrink:0}} />
+                  <div>
+                    <div style={{fontSize:13,fontWeight:600,color:C.cinzaEscuro,fontFamily:Fn.body}}>{item.label}</div>
+                    <div style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaChumbo}}>
+                      {item.value} — <code style={{...gk,padding:'1px 5px',fontSize:10}}>{item.token}</code>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p style={{...gt,fontSize:11,color:C.textMuted,marginTop:12}}>
+              Tokens definidos em <code style={gk}>docHeaderChrome.ts</code> → objeto <code style={gk}>docHeaderTabsUnderlineMd</code>.
+              O wrapper da nav usa <code style={gk}>pt-0 pb-0</code> sem padding extra — a altura visual total é exatamente <strong>39px</strong>.
+            </p>
+          </div>
+        </Section>
+
+        <Section
+          n="05"
           title="Implementação de referência"
           desc="Implementação canônica em layout + shell; evite divergências de espaçamento (px-4 py-3 / sm:px-6) e de hierarquia de título."
         >
@@ -261,7 +299,7 @@ export default function HeaderDoc() {
         </Section>
 
         <Section
-          n="05"
+          n="06"
           title="Modo Dark"
           desc="Tokens e comportamento do componente no tema escuro. Consistência visual garantida em ambos os modos."
         >
@@ -293,6 +331,63 @@ export default function HeaderDoc() {
             </div>
           </div>
         </Section>
+
+        <CodeExportSection items={[{
+          label:"DocHeader",
+          description:"Header padrão DS-FIPS com breadcrumb, busca, notificações, dark mode toggle e user chip",
+          code:`// ═══════════════════════════════════════════
+// DS-FIPS — DocHeader — Copy-paste ready
+// Requer: React 18+, Saira Expanded + Open Sans + Fira Code
+// CSS vars: --color-surface, --color-fg, --color-border, --color-fg-muted,
+//           --color-gov-azul-profundo, --color-gov-azul-escuro
+// ═══════════════════════════════════════════
+import { useState } from "react";
+
+const C = {
+  azulProfundo: "var(--color-gov-azul-profundo)",
+  azulEscuro: "var(--color-gov-azul-escuro)",
+  cinzaChumbo: "var(--color-fg-muted)",
+  cinzaEscuro: "var(--color-fg)",
+  bg: "var(--color-surface-muted)",
+  cardBg: "var(--color-surface)",
+  cardBorder: "var(--color-border)",
+};
+const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif" };
+
+export function DocHeader({ breadcrumb = [], userName = "Usuário", onSearch, onToggleDark }) {
+  const [search, setSearch] = useState("");
+  return (
+    <header style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 24px", borderBottom: \`1px solid \${C.cardBorder}\`, background: C.cardBg }}>
+      {/* Breadcrumb */}
+      <nav style={{ display: "flex", alignItems: "center", gap: 6, flex: 1 }}>
+        {breadcrumb.map((item, i) => (
+          <span key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {i > 0 && <span style={{ color: C.cinzaChumbo, fontSize: 12 }}>/</span>}
+            <span style={{ fontSize: i === breadcrumb.length - 1 ? 16 : 13, fontWeight: i === breadcrumb.length - 1 ? 700 : 400, color: i === breadcrumb.length - 1 ? C.cinzaEscuro : C.cinzaChumbo, fontFamily: i === breadcrumb.length - 1 ? Fn.title : Fn.body }}>{item}</span>
+          </span>
+        ))}
+      </nav>
+      {/* Search */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 8, border: \`1px solid \${C.cardBorder}\`, background: C.bg, minWidth: 200 }}>
+        <span style={{ fontSize: 14, color: C.cinzaChumbo }}>🔍</span>
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar..." style={{ border: "none", outline: "none", background: "transparent", fontSize: 13, color: C.cinzaEscuro, fontFamily: Fn.body, flex: 1 }} />
+      </div>
+      {/* Actions */}
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <button style={{ width: 36, height: 36, borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🔔</button>
+        {onToggleDark && <button onClick={onToggleDark} style={{ width: 36, height: 36, borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🌙</button>}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: C.azulProfundo, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: Fn.title }}>{userName.charAt(0).toUpperCase()}</div>
+          <span style={{ fontSize: 12, fontWeight: 600, color: C.cinzaEscuro, fontFamily: Fn.body }}>{userName}</span>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// USO:
+// <DocHeader breadcrumb={["Componentes", "Modal"]} userName="Admin" onToggleDark={() => toggle()} />`
+        }]}/>
       </div>
     </div>
   )

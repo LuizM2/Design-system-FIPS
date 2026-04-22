@@ -94,7 +94,7 @@ export const navGroups: NavGroup[] = [
       { label: 'Card', to: '/docs/components/card', icon: LayoutTemplate },
       { label: 'Tabs', to: '/docs/components/tabs', icon: BookOpen },
       { label: 'Table', to: '/docs/components/table', icon: TableProperties },
-      { label: 'Modal (Dialog)', to: '/docs/components/dialog', icon: ScanText },
+      { label: 'Modal', to: '/docs/components/dialog', icon: ScanText },
       { label: 'Drawer', to: '/docs/components/drawer', icon: PanelLeft },
       { label: 'Header', to: '/docs/components/header', icon: PanelTop },
       { label: 'Sidebar', to: '/docs/components/sidebar', icon: PanelLeft },

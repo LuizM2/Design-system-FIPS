@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CodeExportSection } from '../../components/CodeExport'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -225,6 +226,53 @@ export default function DSFIPSShadows(){
             </div>
           </div>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Shadow Tokens FIPS',
+            description: 'Escala hierarquica de sombras do DS-FIPS com variantes light e dark.',
+            code: `/* ═══════════════════════════════════════════
+   Shadow Tokens — DS-FIPS
+   Hierarquia: None < Card < Elevated < Dropdown < Modal
+   Cor: rgba azul FIPS (nunca preto puro no light)
+   ═══════════════════════════════════════════ */
+
+:root {
+  --shadow-none: none;
+  --shadow-card: 0 1px 3px rgba(0,75,155,.04), 0 4px 14px rgba(0,75,155,.03);
+  --shadow-elevated: 0 4px 14px rgba(0,75,155,.08);
+  --shadow-dropdown: 0 8px 24px rgba(0,75,155,.12);
+  --shadow-guia: 0 -4px 12px rgba(0,42,104,.10);  /* Y negativo — exclusivo Tabs Guia */
+  --shadow-modal: 0 20px 60px rgba(0,42,104,.20);
+}
+
+/* ── Dark mode ── */
+.dark, [data-theme="dark"] {
+  --shadow-card: 0 1px 3px rgba(0,0,0,.30), 0 4px 14px rgba(0,0,0,.20);
+  --shadow-elevated: 0 4px 14px rgba(0,0,0,.35);
+  --shadow-dropdown: 0 8px 24px rgba(0,0,0,.40);
+  --shadow-guia: 0 -4px 12px rgba(0,0,0,.35);
+  --shadow-modal: 0 20px 60px rgba(0,0,0,.50);
+}
+
+/* ── Referencia por componente ──
+   Card/DSCard:     shadow-card
+   Card hover:      shadow-elevated (hover = +1 nivel)
+   Dropdown/Select: shadow-dropdown
+   Tooltip:         shadow-dropdown
+   Tabs Guia ativa: shadow-guia (unica com Y negativo)
+   Modal:           shadow-modal
+   Drawer:          shadow-modal
+
+   Regras:
+   1. Hierarquia: Card < Dropdown < Modal
+   2. Uma sombra por elemento
+   3. Hover = +1 nivel (nunca pular)
+   4. Cor azul FIPS no light, preto no dark
+   5. Guia e excecao (Y negativo, exclusivo para tabs)
+*/`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

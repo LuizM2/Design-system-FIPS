@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bell, ChevronDown, ShieldCheck, AlertTriangle, ArrowUpFromLine, Sparkles, LayoutGrid } from 'lucide-react'
+import { CodeExportSection } from '../../components/CodeExport'
 import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
@@ -191,6 +192,62 @@ export default function HeroHeaderDoc() {
           </table>
         </div>
       </section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Hero Header Glass-to-White',
+            description: 'Header adaptativo que transiciona de glass transparente para branco solido ao rolar.',
+            code: `/* Hero Header — DS-FIPS
+   Exclusivo da pagina Home. Transiciona de glass para branco ao rolar.
+   Threshold: 60px de scroll.
+
+   CSS vars: --color-border, --color-fg, --color-fg-muted
+*/
+
+import { useState, useEffect, useRef } from 'react'
+
+function AdaptiveHeader() {
+  const [scrolled, setScrolled] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const onScroll = () => setScrolled(el.scrollTop > 60)
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <header style={{
+      position: 'sticky', top: 0, zIndex: 50,
+      height: 56, padding: '0 24px',
+      display: 'flex', alignItems: 'center',
+      transition: 'all 300ms ease',
+      // Glass state (topo, hero visivel)
+      ...(scrolled ? {
+        background: 'rgba(255,255,255,0.95)',
+        backdropFilter: 'blur(4px)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+        color: 'var(--color-fg)',
+      } : {
+        background: 'rgba(255,255,255,0.07)',
+        backdropFilter: 'blur(12px)',
+        color: '#fff',
+      }),
+    }}>
+      {/* Logo + Nav + Actions */}
+    </header>
+  )
+}
+
+/* Regra de cores por fundo:
+   Home (topo):    bg-white/7 + blur-md  -> textos brancos
+   Home (rolado):  bg-white/95 + blur-sm -> textos cinza/azul
+   Outras paginas: bg-white solido       -> textos cinza/azul
+*/`,
+          },
+        ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
           <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

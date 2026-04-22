@@ -21,6 +21,7 @@ import {
   ArrowUpFromLine,
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
+import { CodeExportSection } from '../../components/CodeExport'
 import { RuleCards } from '../../components/RuleCards'
 import { Button } from '../../../components/ui/button'
 import {
@@ -389,6 +390,75 @@ export default function ModalWorkflowDemo() {
         { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Modal estruturado com abas', desc: 'O Modal Workflow é um diálogo modal com abas segmentadas que organiza formulários de criação e edição em etapas claras. As abas permitem dividir campos relacionados sem sobrecarregar a tela.' },
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Três blocos obrigatórios', desc: 'Todo modal workflow tem header (ícone + título + subtítulo), corpo com abas e campos em grid de duas colunas, e footer com ações (cancelar + salvar). Nenhum desses blocos pode ser omitido.' },
         { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Quando usar este padrão', desc: 'Use o Modal Workflow para criar novos registros, editar formulários complexos ou coletar dados em múltiplas seções sem sair da página atual. Se o formulário for extenso demais para um modal, use o Form Workspace.' },
+      ]} />
+
+      <CodeExportSection items={[
+        {
+          label: 'Modal Workflow',
+          description: 'Modal operacional com tabs segmentadas, grid de campos, prioridade com dots e footer com acoes.',
+          code: `/* Modal Workflow — DS-FIPS
+   Modal para criacao/edicao com:
+   - Header: icone circular + titulo + subtitulo
+   - Tabs segmentadas (tipo de tarefa)
+   - Grid 2 colunas com campos + icones
+   - Seletor de prioridade com dots coloridos
+   - Slider de progresso
+   - Chips de responsavel
+   - Area de anexos
+   - Footer: atalho teclado + Cancelar + Salvar
+
+   CSS vars: --color-primary, --color-fg, --color-fg-muted
+   --color-border, --color-surface, --color-surface-muted
+   --color-success, --color-danger
+*/
+
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+
+const priorityConfig = {
+  low:    { label: 'Baixa',   dotColor: 'bg-slate-400' },
+  medium: { label: 'Media',   dotColor: 'bg-blue-500' },
+  high:   { label: 'Alta',    dotColor: 'bg-amber-500' },
+  urgent: { label: 'Urgente', dotColor: 'bg-red-500' },
+}
+
+function TaskModal() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Nova Tarefa</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-[900px] max-h-[90vh] p-0">
+        {/* Header */}
+        <div className="flex items-start gap-3 px-6 pt-4 pb-4 border-b">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)]/10">
+            {/* Icon */}
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Novo Item</h2>
+            <p className="text-xs text-[var(--color-fg-muted)]">Subtitulo</p>
+          </div>
+        </div>
+
+        {/* Body — tabs + grid 2 colunas */}
+        <div className="px-6 py-4 max-h-[calc(90vh-140px)] overflow-y-auto">
+          {/* Segmented tabs */}
+          {/* Two-column grid: fields left, priority+desc right */}
+        </div>
+
+        {/* Footer */}
+        <div className="flex justify-between px-6 py-4 border-t">
+          <span className="text-xs text-[var(--color-fg-muted)]">Cmd+Enter para salvar</span>
+          <div className="flex gap-2">
+            <Button variant="secondary">Cancelar</Button>
+            <Button variant="success">Salvar</Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}`,
+        },
       ]} />
     </DocPage>
   )

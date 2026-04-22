@@ -36,7 +36,6 @@ const FormWorkspaceDemo = lazy(() => import('./docs/pages/patterns/FormWorkspace
 const ModalWorkflowDemo = lazy(() => import('./docs/pages/patterns/ModalWorkflowDemo'))
 const HeroHeaderDoc = lazy(() => import('./docs/pages/patterns/HeroHeaderDoc'))
 const HeroBannerDoc = lazy(() => import('./docs/pages/patterns/HeroBannerDoc'))
-
 function RouteFallback() {
   return (
     <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm font-medium text-[var(--color-fg-muted)]">

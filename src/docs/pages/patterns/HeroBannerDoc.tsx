@@ -1,5 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFromLine } from 'lucide-react'
+import { CodeExportSection } from '../../components/CodeExport'
 import { RuleCards } from '../../components/RuleCards'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
@@ -223,6 +224,101 @@ export default function HeroBannerDoc() {
             <BannerConteudo2 />
           </DSCard>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Banner de Pagina',
+            description: 'Hero completo com titulo grande, descricao e junction lines decorativas.',
+            code: `/* Banner de Pagina — DS-FIPS
+   Hero principal para landing pages e visoes gerais de modulo.
+   Degradê azul institucional obrigatorio.
+
+   CSS vars:
+   --color-gov-gradient-from: #002A68
+   --color-gov-gradient-to: #004B9B
+   Fontes: Saira Expanded 44px 700 (titulo), Open Sans 16px (descricao)
+*/
+
+function BannerPagina({ title, description, badges }: {
+  title: React.ReactNode
+  description: string
+  badges?: { label: string; color: string }[]
+}) {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)',
+      padding: '48px 40px 44px',
+      position: 'relative', overflow: 'hidden', borderRadius: 12,
+    }}>
+      {/* Junction Lines SVG decorativas (opacity 0.12) */}
+      <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+        <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+      <div style={{ position: 'relative' }}>
+        <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif" }}>
+          {title}
+        </h1>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', maxWidth: 700 }}>
+          {description}
+        </p>
+      </div>
+    </div>
+  )
+}`,
+          },
+          {
+            label: 'Banner de Conteudo (compacto)',
+            description: 'Faixa compacta com icone + titulo + CTA para cabecalhos de modulos operacionais.',
+            code: `/* Banner de Conteudo — DS-FIPS
+   Faixa compacta para modulos operacionais.
+   Icone 44x44 r11 + titulo Saira 21px + CTA accent.
+
+   CSS vars:
+   --color-gov-gradient-from / --color-gov-gradient-to
+   Dark mode: usa #1e2a3a -> #162030 -> #1a2840
+*/
+
+function BannerConteudo({ icon, title, subtitle, ctaLabel, onCta }: {
+  icon: React.ReactNode
+  title: string
+  subtitle: string
+  ctaLabel: string
+  onCta: () => void
+}) {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 60%, #001A4A 100%)',
+      borderRadius: '12px 12px 12px 24px',
+      padding: '22px 26px',
+      display: 'flex', alignItems: 'center', gap: 16,
+    }}>
+      <div style={{
+        width: 44, height: 44, borderRadius: 11,
+        background: 'rgba(253,194,78,0.18)', border: '1px solid rgba(253,194,78,0.19)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        {icon}
+      </div>
+      <div style={{ flex: 1 }}>
+        <h2 style={{ fontSize: 21, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded',sans-serif", margin: 0 }}>
+          {title}
+        </h2>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', margin: '4px 0 0' }}>{subtitle}</p>
+      </div>
+      <button onClick={onCta} style={{
+        background: '#F6921E', color: '#fff', border: 'none',
+        borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 600,
+      }}>
+        {ctaLabel}
+      </button>
+    </div>
+  )
+}`,
+          },
+        ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: `1px solid ${C.cardBorder}`, marginTop: 20 }}>
           <span style={{ fontSize: 12, color: C.cinzaChumbo, letterSpacing: '0.5px', fontFamily: Fn.title, fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

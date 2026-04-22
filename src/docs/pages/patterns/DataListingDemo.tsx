@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { CodeExportSection } from '../../components/CodeExport'
 import type { CSSProperties } from 'react'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
@@ -832,6 +833,88 @@ export default function DataListingDemo() {
             ))}
           </div>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Data Listing Pattern',
+            description: 'Toolbar + Tabela paginada com header, KPIs, filtros e acoes contextuais.',
+            code: `/* Data Listing Pattern — DS-FIPS
+   Ordem: Header Navy > KPIs > Toolbar > Table
+   Nunca inverter a sequencia.
+
+   Tokens:
+   --color-gov-gradient-from / --color-gov-gradient-to (header)
+   --color-surface / --color-surface-muted (cards/bg)
+   --color-border (bordas)
+   --color-primary / --color-accent-strong / --color-success / --color-danger
+   Fontes: Saira Expanded (titulos), Open Sans (corpo), Fira Code (IDs/valores)
+*/
+
+function DataListingPage() {
+  return (
+    <div style={{ background: 'var(--color-surface-muted)', minHeight: '100vh' }}>
+      {/* Header Navy — icone + titulo + subtitulo + CTA */}
+      <div style={{
+        background: 'linear-gradient(135deg, var(--color-gov-gradient-from), var(--color-gov-gradient-to))',
+        borderRadius: '12px 12px 12px 24px',
+        padding: '22px 26px', color: '#fff',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
+        <div>
+          <h2 style={{ fontFamily: "'Saira Expanded',sans-serif", fontSize: 21, fontWeight: 700, margin: 0 }}>
+            Sistema de Requisicoes
+          </h2>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', margin: '4px 0 0' }}>
+            Gestao de compras e requisicoes
+          </p>
+        </div>
+        <button style={{
+          background: '#F6921E', color: '#fff', border: 'none',
+          borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 600,
+        }}>
+          + Nova Solicitacao
+        </button>
+      </div>
+
+      {/* Toolbar — Filtros | Busca | Periodo || Excel | PDF */}
+      <div style={{
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-border)',
+        borderRadius: '12px 12px 12px 24px',
+        padding: '12px 20px', margin: '16px 0',
+        display: 'flex', justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {/* Select filtros + Input busca + DateRange */}
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {/* Btn Excel + Btn PDF */}
+        </div>
+      </div>
+
+      {/* Table — border-radius caixa, header proprio */}
+      <div style={{
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-border)',
+        borderRadius: '12px 12px 12px 24px',
+        overflow: 'hidden',
+      }}>
+        {/* Table header: icone 48x48 + titulo + subtitulo */}
+        {/* Table body: zebra, avatar, badges, acoes */}
+        {/* Pagination: items/pagina + navegacao */}
+      </div>
+    </div>
+  )
+}
+
+/* Regras:
+   - Densidade padrao Normal (42px row height)
+   - Pelo menos 1 coluna fixa (ID) + coluna Acoes fixa
+   - Persistencia por usuario (localStorage ou backend)
+   - Badges de status com dot colorido
+*/`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"24px 0 0",marginTop:24}}>
           <span style={{fontSize:11,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title}}>DS-FIPS v2.0 · Data List · Ferrovia Interna do Porto de Santos · {new Date().getFullYear()}</span>

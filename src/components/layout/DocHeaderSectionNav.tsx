@@ -136,7 +136,8 @@ export function DocHeaderSectionNav({
   return (
     <nav
       ref={navRef}
-      className={cn('no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto', navSkin)}
+      className={cn('no-scrollbar relative flex w-full min-w-0 items-center gap-0 overflow-x-auto', navSkin)}
+      style={{ height: U.navHeightPx }}
       aria-label="Seções principais"
     >
       {tabs.map((tab, i) => {
@@ -158,6 +159,9 @@ export function DocHeaderSectionNav({
                 fontSize: U.fontSizePx,
                 padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
                 gap: U.iconGapPx,
+                height: '100%',
+                display: 'inline-flex',
+                alignItems: 'center',
               }}
             >
               <SectionTabIcon icon={Icon} active={active} dark={dark} sizePx={U.iconSizePx} />
@@ -206,7 +210,8 @@ export function DocHeaderSectionNavDemo({
   return (
     <nav
       ref={navRef}
-      className={cn('no-scrollbar relative flex w-full min-w-0 items-stretch gap-0 overflow-x-auto', navSkin)}
+      className={cn('no-scrollbar relative flex w-full min-w-0 items-center gap-0 overflow-x-auto', navSkin)}
+      style={{ height: U.navHeightPx }}
       aria-label="Demo — seções"
     >
       {tabs.map((tab, i) => {
@@ -225,6 +230,9 @@ export function DocHeaderSectionNavDemo({
                 fontSize: U.fontSizePx,
                 padding: `${U.paddingYPx}px ${U.paddingXPx}px`,
                 gap: U.iconGapPx,
+                height: '100%',
+                display: 'inline-flex',
+                alignItems: 'center',
               }}
             >
               <SectionTabIcon icon={Icon} active={tab.active} dark={dark} sizePx={U.iconSizePx} />

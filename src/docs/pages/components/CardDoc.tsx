@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CodeExportSection } from '../../components/CodeExport';
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C = {
@@ -187,6 +188,125 @@ const gt:React.CSSProperties={fontSize:13,color:C.cinzaEscuro,lineHeight:1.55,ma
 const ge:React.CSSProperties={fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.body,fontStyle:"italic",paddingLeft:10,borderLeft:`2px solid ${C.azulCeuClaro}`};
 const gk:React.CSSProperties={fontSize:11,fontFamily:Fn.mono,color:C.cinzaChumbo,background:C.cardBg,padding:"2px 8px",borderRadius:4,border:`1px solid ${C.cardBorder}`};
 function TokenRow({label,value,color}:{label:string,value:string,color?:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:130}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
+
+const cardExportCode = `// DS-FIPS — Card — Copy-paste ready
+import { useState, useEffect } from "react";
+
+const C = {
+  azulProfundo: "var(--color-gov-azul-profundo)",
+  azulEscuro: "var(--color-gov-azul-escuro)",
+  azulClaro: "var(--color-gov-azul-claro)",
+  fg: "var(--color-fg)",
+  fgMuted: "var(--color-fg-muted)",
+  surface: "var(--color-surface)",
+  surfaceMuted: "var(--color-surface-muted)",
+  border: "var(--color-border)",
+  branco: "#FFFFFF",
+};
+
+const Fn = {
+  title: "'Saira Expanded', sans-serif",
+  body: "'Open Sans', sans-serif",
+  mono: "'Fira Code', monospace",
+};
+
+interface CardProps {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+export function Card({ children, style }: CardProps) {
+  return (
+    <div style={{
+      background: C.surface,
+      borderRadius: "12px 12px 12px 24px",
+      border: \`1px solid \${C.border}\`,
+      padding: 28,
+      boxShadow: "0 1px 3px rgba(0,75,155,.04), 0 4px 14px rgba(0,75,155,.03)",
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+interface CardResumoProps {
+  title: string;
+  desc?: string;
+  children?: React.ReactNode;
+  badges?: React.ReactNode;
+  footer?: React.ReactNode;
+}
+
+export function CardResumo({ title, desc, children, badges, footer }: CardResumoProps) {
+  return (
+    <div style={{
+      background: C.surface,
+      borderRadius: "12px 12px 12px 24px",
+      border: \`1px solid \${C.border}\`,
+      boxShadow: "0 1px 3px rgba(0,75,155,.04)",
+      overflow: "hidden",
+    }}>
+      <div style={{ padding: "20px 24px" }}>
+        <h3 style={{ fontSize: 16, fontWeight: 700, color: C.fg, margin: "0 0 4px", fontFamily: Fn.title }}>{title}</h3>
+        {desc && <p style={{ fontSize: 13, color: C.fgMuted, margin: "0 0 12px", lineHeight: 1.5, fontFamily: Fn.body }}>{desc}</p>}
+        {children}
+        {badges && <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 12 }}>{badges}</div>}
+      </div>
+      {footer && (
+        <div style={{
+          padding: "12px 24px",
+          background: C.surfaceMuted,
+          borderTop: \`1px solid \${C.border}\`,
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+        }}>{footer}</div>
+      )}
+    </div>
+  );
+}
+
+interface CardAcaoProps {
+  title: string;
+  desc?: string;
+  primary?: string;
+  secondary?: string;
+  children?: React.ReactNode;
+}
+
+export function CardAcao({ title, desc, primary, secondary, children }: CardAcaoProps) {
+  return (
+    <div style={{
+      background: C.surface,
+      borderRadius: "12px 12px 12px 24px",
+      border: \`1px solid \${C.border}\`,
+      boxShadow: "0 1px 3px rgba(0,75,155,.04)",
+      overflow: "hidden",
+    }}>
+      <div style={{ padding: "20px 24px" }}>
+        <h3 style={{ fontSize: 16, fontWeight: 700, color: C.fg, margin: "0 0 8px", fontFamily: Fn.title }}>{title}</h3>
+        {desc && <p style={{ fontSize: 13, color: C.fgMuted, margin: "0 0 12px", lineHeight: 1.5, fontFamily: Fn.body }}>{desc}</p>}
+        {children}
+      </div>
+      {(primary || secondary) && (
+        <div style={{
+          padding: "12px 24px",
+          background: C.surfaceMuted,
+          borderTop: \`1px solid \${C.border}\`,
+          display: "flex", gap: 10, justifyContent: "flex-end",
+        }}>
+          {secondary && <button style={{ padding: "6px 16px", fontSize: 12, background: "transparent", border: \`1px solid \${C.border}\`, borderRadius: 6, color: C.fgMuted, cursor: "pointer", fontFamily: Fn.body }}>{secondary}</button>}
+          {primary && <button style={{ padding: "6px 16px", fontSize: 12, background: C.azulProfundo, border: "none", borderRadius: 6, color: C.branco, cursor: "pointer", fontFamily: Fn.body, fontWeight: 600 }}>{primary}</button>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage:
+// <Card><p>Conteudo do card</p></Card>
+// <CardResumo title="Resumo" desc="Descricao" footer={<span>Ver detalhes</span>} />
+// <CardAcao title="Proxima acao" desc="Descricao" primary="Confirmar" secondary="Cancelar" />
+`;
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function CardDoc(){
@@ -487,6 +607,12 @@ export default function CardDoc(){
             </div>
           </DSCard>
         </Section>
+
+        <CodeExportSection items={[{
+          label: "Card",
+          description: "Card base, CardResumo (com badges e footer) e CardAcao (com botoes CTA).",
+          code: cardExportCode,
+        }]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

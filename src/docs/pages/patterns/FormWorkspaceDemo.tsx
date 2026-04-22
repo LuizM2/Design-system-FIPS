@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CodeExportSection } from '../../components/CodeExport'
 import {
   BadgeDollarSign,
   CalendarDays,
@@ -611,6 +612,89 @@ export default function FormWorkspaceDemo() {
         { icon: <AlertTriangle size={20} color="#F6921E" />, color: '#F6921E', bg: '#F6921E08', tag: 'REGRA 2', title: 'Formulário à esquerda, contexto à direita', desc: 'Em telas largas, o layout se divide em duas colunas: o formulário principal ocupa a esquerda e o painel de contexto (navegação rápida, checklist, status) fica à direita. Em telas menores, tudo empilha verticalmente.' },
         { icon: <ArrowUpFromLine size={20} color="var(--color-gov-azul-escuro)" />, color: 'var(--color-gov-azul-escuro)', bg: 'color-mix(in srgb, var(--color-gov-azul-escuro) 3%, transparent)', tag: 'REGRA 3', title: 'Quando usar em vez do modal', desc: 'Use o Form Workspace quando o formulário tem muitas seções, campos complementares e contexto lateral que não cabem em um modal. Ideal para cadastros complexos, solicitações com múltiplas etapas e fluxos que exigem visão completa dos dados.' },
       ]} />
+
+        <CodeExportSection items={[
+          {
+            label: 'Form Workspace Layout',
+            description: 'Layout de formulario em pagina inteira com secoes numeradas, progress bar e painel lateral.',
+            code: `/* Form Workspace — DS-FIPS
+   Formulario denso em pagina inteira com:
+   - Hero header com metricas glass
+   - Progress bar com segmentos
+   - Secoes numeradas (01, 02, 03...)
+   - Painel lateral (navegacao rapida, checklist, status)
+   - Footer persistente com acoes
+
+   CSS vars: --color-primary, --color-secondary, --color-accent-strong
+   --color-gov-gradient-from / --color-gov-gradient-to
+   Fontes: Saira Expanded (titulos), Open Sans (corpo)
+*/
+
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Field, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { Select } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
+
+function FormWorkspacePage() {
+  return (
+    <div style={{ background: 'var(--color-surface-muted)', minHeight: '100vh' }}>
+      {/* Hero com metricas glass */}
+      <Card>
+        <div style={{
+          background: 'linear-gradient(135deg, var(--color-gov-gradient-from), var(--color-gov-gradient-to))',
+          padding: '20px 28px', color: '#fff',
+        }}>
+          <h2 style={{ fontFamily: "'Saira Expanded',sans-serif", fontSize: 21, fontWeight: 700 }}>
+            Workspace de Solicitacao
+          </h2>
+        </div>
+        <CardContent>
+          <Progress value={82} />
+        </CardContent>
+      </Card>
+
+      {/* Grid: Form esquerda + Sidebar direita */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.22fr) 360px', gap: 24 }}>
+        {/* Secoes numeradas */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <Card>
+            <CardHeader>
+              <CardTitle>01 — Cabecalho</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Field inset="control">
+                <FieldLabel required>Nome</FieldLabel>
+                <Input placeholder="Nome completo" />
+              </Field>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Sidebar: nav rapida + checklist + status */}
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Cards de contexto */}
+        </aside>
+      </div>
+
+      {/* Footer acoes */}
+      <div style={{
+        background: 'linear-gradient(135deg, var(--color-gov-gradient-to), var(--color-gov-gradient-from))',
+        borderRadius: 16, padding: 24, color: '#fff',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      }}>
+        <p>Acoes do workspace</p>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <Button variant="inverseOutline">Salvar rascunho</Button>
+          <Button variant="ouro">Enviar para aprovacao</Button>
+        </div>
+      </div>
+    </div>
+  )
+}`,
+          },
+        ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
           <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

@@ -571,7 +571,7 @@ export function DocsNeuSidebar({
             className="flex items-center"
             style={{
               justifyContent: collapsed ? 'center' : 'flex-start',
-              gap: collapsed ? 0 : 14,
+              gap: collapsed ? 0 : 2,
               minWidth: 0,
               width: collapsed ? 'auto' : '100%',
             }}
@@ -593,8 +593,8 @@ export function DocsNeuSidebar({
                   : {
                       height: 52,
                       width: 'auto',
-                      maxWidth: 148,
-                      minWidth: 72,
+                      maxWidth: 100,
+                      minWidth: 60,
                       objectFit: 'contain',
                       objectPosition: 'left center',
                       flexShrink: 0,

@@ -13,6 +13,7 @@ import { Button } from '../components/ui/button'
 import { Toaster } from 'sonner'
 import { docHeaderBarTabs, docHeaderBarTop, docHeaderShellBorder } from '../lib/docHeaderChrome'
 import { useFipsTheme } from '../hooks/useFipsTheme'
+import { TutorialOverlay, routeToPageName } from '../components/domain/TutorialContextual'
 
 const DOC_VERSION = 'v0.4.0'
 
@@ -25,6 +26,8 @@ export function DocLayout() {
     typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false,
   )
   const location = useLocation()
+  const [tutorialOpen, setTutorialOpen] = useState(false)
+  const tutorialPage = routeToPageName(location.pathname)
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
@@ -170,7 +173,7 @@ export function DocLayout() {
                 <DocHeaderNeuIconButton ariaLabel="Notificações" dark={dark}>
                   <Bell className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
                 </DocHeaderNeuIconButton>
-                <DocHeaderNeuIconButton ariaLabel="Tutorial" dark={dark}>
+                <DocHeaderNeuIconButton ariaLabel="Tutorial" dark={dark} onClick={() => tutorialPage && setTutorialOpen(true)}>
                   <GraduationCap className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
                 </DocHeaderNeuIconButton>
                 <DocHeaderNeuIconButton
@@ -208,6 +211,10 @@ export function DocLayout() {
       </div>
 
       <Toaster richColors position="top-right" closeButton />
+
+      {tutorialPage && (
+        <TutorialOverlay open={tutorialOpen} onClose={() => setTutorialOpen(false)} pageName={tutorialPage} />
+      )}
     </div>
   )
 }

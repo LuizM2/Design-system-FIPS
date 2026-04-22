@@ -32,7 +32,7 @@ export const docHeaderBarTop = `border-b border-[var(--color-border)] ${docHeade
 export const docHeaderTabsSurface = 'bg-[var(--color-surface)]'
 
 /** Faixa das abas de secção. */
-export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-2 pb-0`
+export const docHeaderBarTabs = `${docHeaderTabsSurface} pt-0 pb-0`
 
 /** Separador sob o `nav` de abas. */
 export const docHeaderTabsNavSeparatorClass = 'border-b-2 border-[var(--color-border)]'
@@ -69,8 +69,9 @@ export const docHeaderNeuShimmerOnAccent =
 
 export const docHeaderTabsUnderlineMd = {
   fontSizePx: 13,
-  paddingXPx: 20,
-  paddingYPx: 10,
+  paddingXPx: 24,
+  paddingYPx: 8,
+  navHeightPx: 39,
   iconGapPx: 7,
   iconSizePx: 14,
   indicatorHeightPx: 3,

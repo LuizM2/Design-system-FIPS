@@ -61,7 +61,7 @@ export default function HomePage(){
             Design System FIPS
           </Badge>
           <h1 style={{fontSize:mob?32:52,fontWeight:800,color:C.branco,margin:"0 0 12px",fontFamily:Fn.title,lineHeight:1.1,letterSpacing:"-0.5px"}}>Design System<br/><span style={{color:C.amareloOuro}}>FIPS</span></h1>
-          <p style={{fontSize:mob?14:16,color:"rgba(255,255,255,0.75)",lineHeight:1.65,margin:"0 auto 20px",fontFamily:Fn.body,maxWidth:550}}>
+          <p style={{fontSize:mob?14:16,color:"rgba(255,255,255,0.75)",lineHeight:1.65,margin:"0 auto 20px",fontFamily:Fn.body,maxWidth:750}}>
             Biblioteca oficial de componentes, tokens e padrões da Ferrovia Interna do Porto de Santos.
             Tudo para construir interfaces consistentes, acessíveis e com identidade ferroviária.
           </p>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CodeExportSection } from '../../components/CodeExport'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -241,6 +242,49 @@ export default function DSFIPSRadius(){
             </div>
           </div>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Border Radius Tokens FIPS',
+            description: 'Escala completa de border-radius incluindo o padrao Caixa assimetrico.',
+            code: `/* ═══════════════════════════════════════════
+   Border Radius Tokens — DS-FIPS
+   Inclui simetricos e o padrao Caixa assimetrico
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* ── Simetricos ── */
+  --radius-none: 0;
+  --radius-xs:   4px;   /* Badges, chips, tags */
+  --radius-sm:   6px;   /* Botoes sm, inputs compactos */
+  --radius-md:   8px;   /* Botoes, inputs, selects, dropdowns */
+  --radius-lg:   10px;  /* Cards internos, containers */
+  --radius-xl:   14px;  /* Icon containers (modal/drawer) */
+  --radius-pill:  20px; /* Pills, badges grandes */
+  --radius-full: 50%;   /* Avatares, dots */
+
+  /* ── Elemento Caixa (assimetrico — identidade FIPS) ── */
+  --radius-caixa-lg: 12px 12px 12px 24px;  /* Cards principais, Modal, Table */
+  --radius-caixa-md: 10px 10px 10px 18px;  /* Cards internos, cenarios */
+  --radius-caixa-sm: 10px 10px 10px 20px;  /* Cards de cenario menores */
+
+  /* ── Especiais ── */
+  /* Tab Guia ativa: 10px 10px 0 0 */
+  /* Drawer: 0 (full height) */
+}
+
+/* ── Referencia por componente ──
+   Card/DSCard:     12px 12px 12px 24px (caixa-lg)
+   Modal:           12px 12px 12px 24px (caixa-lg)
+   Table:           12px 12px 12px 24px (caixa-lg)
+   Card interno:    10px 10px 10px 18px (caixa-md)
+   Button:          8px (simetrico)
+   Input/Select:    8px (simetrico)
+   Badge:           4px (simetrico)
+   Avatar:          50% (circular)
+*/`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { DocPage, DemoSection } from '../../components/DocPage'
+import { CodeExportSection } from '../../components/CodeExport'
 import { Button } from '../../../components/ui/button'
 import {
   Dialog,
@@ -371,6 +372,76 @@ export default function ModalFormDemo() {
           </DialogContent>
         </Dialog>
       </DemoSection>
+
+      <CodeExportSection items={[
+        {
+          label: 'Modal Form com Primitivas DS-FIPS',
+          description: 'Formulario modal com Tabs, Field, Input, Select, Textarea — composicao oficial DS-FIPS.',
+          code: `/* Modal Form — DS-FIPS (primitivas oficiais)
+   Diferente do Modal Workflow, este usa as primitivas do DS:
+   - Dialog + DialogHeader/Footer/Content
+   - Tabs + TabsList/Trigger/Content
+   - Field + FieldLabel (density="compact")
+   - Input, Select, Textarea (density="compact")
+   - Button (variant="success" / "secondary")
+
+   CSS vars: --color-primary, --color-secondary, --color-accent-strong
+   --color-danger, --color-fg, --color-fg-muted, --color-border
+*/
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Field, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { Select } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
+
+const priorityConfig = {
+  baixa:   { label: 'Baixa',   dot: 'bg-[var(--color-fg-muted)]/60' },
+  media:   { label: 'Media',   dot: 'bg-[var(--color-secondary)]' },
+  alta:    { label: 'Alta',    dot: 'bg-[var(--color-accent-strong)]' },
+  urgente: { label: 'Urgente', dot: 'bg-[var(--color-danger)]' },
+}
+
+function ModalForm() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Nova Tarefa</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+        <DialogHeader className="border-b px-6 pb-4 pt-5">
+          <DialogTitle>Novo Item</DialogTitle>
+          <DialogDescription>Crie uma nova tarefa ou agende uma reuniao.</DialogDescription>
+        </DialogHeader>
+
+        <div className="px-6 py-4">
+          <Tabs defaultValue="atendimento">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="atendimento">Atendimento</TabsTrigger>
+              <TabsTrigger value="tarefa">Tarefa</TabsTrigger>
+              <TabsTrigger value="reuniao">Reuniao</TabsTrigger>
+            </TabsList>
+            <TabsContent value="atendimento">
+              <div className="grid gap-x-5 gap-y-3 md:grid-cols-2">
+                {/* Left: Titulo, Cliente, Departamento, Datas, Status */}
+                {/* Right: Prioridade (4 botoes dot), Progresso slider, Descricao, Documentos */}
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        <DialogFooter className="border-t px-6 py-3">
+          <Button variant="secondary">Cancelar</Button>
+          <Button variant="success">Salvar</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}`,
+        },
+      ]} />
     </DocPage>
   )
 }

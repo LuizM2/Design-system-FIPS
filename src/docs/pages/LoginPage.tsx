@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react'
 import { Eye, EyeOff, ArrowRight, User, CheckCircle2 } from 'lucide-react'
+import { CodeExportSection } from '../components/CodeExport'
 
 const BG = '/backgrounds/app-shell-home-trains.png'
 
@@ -1041,6 +1042,64 @@ export default function Login(){
             </div>
           </DSCard>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Login Page FIPS',
+            description: 'Tela de login com liquid glass, borda dourada animada e filtro background padrao 1.',
+            code: `/* Login Page — DS-FIPS
+   Layout: Branding esquerda (25%) + Form direita (75%)
+   Card: Liquid Glass ultra-transparente + borda conic-gradient rotativa
+
+   Filtro Background Padrao 1:
+   background: linear-gradient(135deg,
+     rgba(10,27,53,0.95) 0%,
+     rgba(10,27,53,0.85) 50%,
+     rgba(21,101,192,0.70) 100%
+   );
+
+   Liquid Glass:
+   background: rgba(255,255,255,0.008)
+   backdrop-filter: blur(2px) saturate(20%) brightness(1.04)
+   border: conic-gradient rotativo dourado (6s loop)
+*/
+
+/* ── Tokens ── */
+const loginTokens = {
+  cardBg: 'rgba(255,255,255,0.008)',
+  cardBlur: 'blur(2px) saturate(20%) brightness(1.04)',
+  cardRadius: 28,
+  cardMaxWidth: 380,
+  cardPadding: '36px 32px',
+
+  iconColor: '#FDC24E',         // amarelo ouro
+  textColor: '#FFFFFF',
+  inputBg: 'rgba(255,255,255,0.07)',
+  inputBorder: 'rgba(253,194,78,0.30)',
+  inputBorderFocus: 'rgba(253,194,78,0.50)',
+  inputHeight: 42,
+  inputRadius: 10,
+
+  ctaGradient: 'linear-gradient(135deg, #FDC24E 0%, #F6921E 100%)',
+  ctaColor: '#002A68',
+  ctaHeight: 44,
+  ctaRadius: 12,
+
+  leftPanelBg: 'linear-gradient(145deg, #001430 0%, #002A68 40%, #00396B 100%)',
+  logoHeight: 86,      // desktop
+  logoHeightMob: 64,   // mobile
+
+  validGreen: '#00C64C',
+}
+
+/* ── Animacoes ── */
+// @keyframes railShimmer — shimmer dourado no input focus (1.2s)
+// @keyframes stationReveal — entrada das estacoes dos principios
+// @keyframes stationPulse — pulse nas estacoes (2.5s)
+// @keyframes slideInLeft / slideInRight — mount animations
+// conic-gradient rotation — borda do card (6s infinite)`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 -- Ferrovia Interna do Porto de Santos -- Excelência sobre trilhos -- {new Date().getFullYear()}</span>

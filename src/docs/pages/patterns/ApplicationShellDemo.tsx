@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
+import { CodeExportSection } from '../../components/CodeExport'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 import {
   AppWindow,
@@ -911,6 +912,102 @@ export default function ApplicationShellDemo() {
             </div>
           </MockupFrame>
         </div>
+
+        <CodeExportSection items={[
+          {
+            label: 'Application Shell Layout',
+            description: 'Estrutura base sidebar + header + hero + content area para produtos FIPS.',
+            code: `/* ═══════════════════════════════════════════
+   Application Shell — Layout base FIPS
+   Sidebar persistente + Header + Hero + Content
+   ═══════════════════════════════════════════ */
+
+/* CSS Variables necessárias:
+   --color-gov-gradient-from: #002A68
+   --color-gov-gradient-to: #004B9B
+   --color-surface-muted: #F3F6FB (light) / #121212 (dark)
+   --color-fg: #333B41 (light) / #E2E2E8 (dark)
+   --color-accent: #F6921E
+*/
+
+import { useState } from 'react'
+
+type ViewportMode = 'desktop' | 'tablet' | 'mobile'
+
+export function AppShellLayout({ children }: { children: React.ReactNode }) {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+      {/* Sidebar — w-64 expanded, w-[76px] collapsed */}
+      <aside
+        style={{
+          width: sidebarCollapsed ? 76 : 256,
+          background: 'var(--color-gov-gradient-from)',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'width 0.2s ease',
+        }}
+      >
+        {/* Logo area: 59px height */}
+        <div style={{ height: 59, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 16px', display: 'flex', alignItems: 'center' }}>
+          <img src="/appfips-logo.png" alt="FIPS" style={{ height: 52 }} />
+        </div>
+        {/* Nav items */}
+        <nav style={{ flex: 1, overflow: 'auto', padding: '12px 8px' }}>
+          {/* Neumorphic icon tiles — ver DocsNeuSidebar */}
+        </nav>
+      </aside>
+
+      {/* Main area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {/* Header */}
+        <header style={{
+          height: 48, padding: '0 16px',
+          borderBottom: '1px solid var(--color-border)',
+          background: 'var(--color-surface)',
+          display: 'flex', alignItems: 'center', gap: 12,
+        }}>
+          {/* Toggle sidebar + Breadcrumb + Search + Actions */}
+        </header>
+
+        {/* Section Nav (tabs) */}
+        <div style={{ borderBottom: '1px solid var(--color-border)' }}>
+          {/* DocHeaderSectionNav */}
+        </div>
+
+        {/* Hero with background image */}
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <img src="/backgrounds/app-shell-home-trains.png" alt=""
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(118deg, rgba(0,19,56,0.92) 0%, rgba(0,63,138,0.82) 44%, rgba(0,144,208,0.58) 100%)',
+          }} />
+          <div style={{ position: 'relative', padding: '64px 32px', textAlign: 'center' }}>
+            <h2 style={{ fontSize: 36, fontWeight: 600, color: '#fff', fontFamily: "'Saira Expanded', sans-serif" }}>
+              Home do <span style={{ color: 'var(--color-accent)' }}>Aplicativo FIPS</span>
+            </h2>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflow: 'auto', padding: 24 }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* Breakpoints:
+   Desktop: sidebar persistente (expandida ou colapsada)
+   Tablet: sidebar como rail compacto (só ícones)
+   Mobile: sidebar como drawer overlay */`,
+          },
+        ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: '1px solid #E2E8F0', marginTop: 20 }}>
           <span style={{ fontSize: 12, color: '#7B8C96', letterSpacing: '0.5px', fontFamily: "'Saira Expanded', sans-serif", fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

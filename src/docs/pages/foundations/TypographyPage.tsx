@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CodeExportSection } from '../../components/CodeExport'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -268,6 +269,51 @@ export default function DSFIPSTypography(){
             </div>
           </div>
         </Section>
+
+        <CodeExportSection items={[
+          {
+            label: 'Escala Tipografica FIPS',
+            description: 'Familias, pesos e escala de tamanhos do DS-FIPS.',
+            code: `/* ═══════════════════════════════════════════
+   Typography Scale — DS-FIPS
+   3 familias: Saira Expanded, Open Sans, Fira Code
+   ═══════════════════════════════════════════ */
+
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  /* ── Familias ── */
+  --font-heading: 'Saira Expanded', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* ── Escala de tamanhos ── */
+  --text-hero: 44px;       /* Hero h1 desktop — Saira 700 */
+  --text-hero-mob: 30px;   /* Hero h1 mobile — Saira 700 */
+  --text-h2: 22px;         /* Titulo secao — Saira 700 */
+  --text-h3: 20px;         /* Titulo card — Saira 700 */
+  --text-subtitle: 16px;   /* Subtitulo — Open Sans 400 */
+  --text-card-title: 15px; /* Titulo interno card — Saira 700 */
+  --text-body: 14px;       /* Corpo padrao — Open Sans 400 */
+  --text-sm: 13px;         /* Corpo menor — Open Sans 400 */
+  --text-xs: 12px;         /* Captions, helper — Open Sans 400 */
+  --text-caption: 11px;    /* Badges, tooltips — Open Sans 400 */
+  --text-micro: 10px;      /* Section labels — Saira 700 uppercase */
+}
+
+/* ── Tailwind utilities (se usar Tailwind) ── */
+.font-heading { font-family: var(--font-heading); }
+.font-body    { font-family: var(--font-body); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ── Uso por contexto ──
+   Saira Expanded: Headers, titulos, section labels, tab labels
+   Open Sans: Corpo, descricoes, labels de form, tabela, botoes
+   Fira Code: Valores monetarios, IDs, codigos, tokens, hex
+*/`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>

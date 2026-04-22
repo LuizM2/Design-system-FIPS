@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
-const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",inputBorder:"#CBD5E1",focusRing:"rgba(147,189,228,0.35)"};
+const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",inputBorder:"var(--color-border)",focusRing:"rgba(147,189,228,0.35)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 /* ═══════════════════════════════════════════ ICONS ═══════════════════════════════════════════ */
@@ -22,6 +22,16 @@ const Ic={
   keyboard:(s=18,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke={c} strokeWidth="1.8"/><path d="M6 8h2M10 8h2M14 8h2M18 8h0M6 12h2M10 12h2M14 12h2M18 12h0M8 16h8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
   eye:(s=18,c=C.verdeFloresta)=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke={c} strokeWidth="1.8"/><circle cx="12" cy="12" r="3" stroke={c} strokeWidth="1.8"/></svg>,
   ban:(s=18,c=C.danger)=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke={c} strokeWidth="1.8"/><path d="M4.93 4.93l14.14 14.14" stroke={c} strokeWidth="1.8"/></svg>,
+  maximize:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M3 7V4a1 1 0 011-1h3M13 3h3a1 1 0 011 1v3M17 13v3a1 1 0 01-1 1h-3M7 17H4a1 1 0 01-1-1v-3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  minimize:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M7 3v3a1 1 0 01-1 1H3M13 3v3a1 1 0 001 1h3M17 13h-3a1 1 0 00-1 1v3M3 13h3a1 1 0 011 1v3" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  popup:(s=28,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="4" stroke={c} strokeWidth="2.5"/><path d="M6 18h36" stroke={c} strokeWidth="2.5"/><circle cx="12" cy="14" r="1.5" fill={c}/><circle cx="18" cy="14" r="1.5" fill={c}/><circle cx="24" cy="14" r="1.5" fill={c}/><rect x="14" y="24" width="20" height="8" rx="2" stroke={c} strokeWidth="1.8" strokeDasharray="3 2"/></svg>,
+  helpCircle:(s=28,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke={c} strokeWidth="2.5"/><path d="M18 18a6 6 0 0111.13 3.15c0 4-6 5.5-6 9.85M24 36v1" stroke={c} strokeWidth="3" strokeLinecap="round"/></svg>,
+  arrowRight:(s=16,c=C.branco)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  arrowLeft:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M16 10H4M8 6l-4 4 4 4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  target:(s=14,c=C.azulProfundo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke={c} strokeWidth="1.5"/><circle cx="10" cy="10" r="3" stroke={c} strokeWidth="1.5"/><circle cx="10" cy="10" r="1" fill={c}/></svg>,
+  clipboard:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><rect x="5" y="3" width="10" height="2" rx="1" stroke={c} strokeWidth="1.4"/><rect x="3" y="5" width="14" height="13" rx="2" stroke={c} strokeWidth="1.4"/><path d="M7 10h6M7 13h4" stroke={c} strokeWidth="1.3" strokeLinecap="round"/></svg>,
+  codeBraces:(s=16,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 20 20" fill="none"><path d="M7 3C5 3 4 4.5 4 6v2c0 1-1 2-2 2 1 0 2 1 2 2v2c0 1.5 1 3 3 3M13 3c2 0 3 1.5 3 3v2c0 1 1 2 2 2-1 0-2 1-2 2v2c0 1.5-1 3-3 3" stroke={c} strokeWidth="1.4" strokeLinecap="round"/></svg>,
+  chevDown:(s=12,c=C.cinzaChumbo)=><svg width={s} height={s} viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 };
 
 function JunctionLines({style}){return <svg viewBox="0 0 320 200" fill="none" style={{opacity:.12,...style}}><path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/><path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke={C.branco} strokeWidth="6" strokeLinecap="round"/></svg>}
@@ -52,13 +62,159 @@ function Modal({open,onClose,title,subtitle,children,footer,footerBg,width=480,i
           <div style={{display:"flex",gap:14,alignItems:"center",minWidth:0}}>
             {icon&&<div style={{width:48,height:48,borderRadius:14,background:iconBg||C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,border:`1px solid ${C.cardBorder}`}}>{icon}</div>}
             <div style={{minWidth:0}}>
-              <h2 id="modal-title" style={{fontSize:17,fontWeight:700,color:C.cinzaEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
+              <h2 id="modal-title" style={{fontSize:17,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
               {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"3px 0 0",lineHeight:1.4,fontFamily:Fn.body}}>{subtitle}</p>}
             </div>
           </div>
         </div>
         <div style={{flex:1,overflowY:"auto",padding:noPadBody?0:"20px 24px",background:bodyBg||"transparent"}}>{children}</div>
         {footer&&<div style={{padding:"14px 24px",borderTop:`1px solid ${C.cardBorder}`,background:footerBg||C.bg,display:"flex",gap:10,justifyContent:"flex-end",alignItems:"center",flexShrink:0}}>{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   TUTORIAL MODAL — Step-by-step contextual walkthrough
+   ═══════════════════════════════════════════ */
+function TutorialModal({open,onClose,title,subtitle,steps=[]}){
+  const [vis,setVis]=useState(false);
+  const [animIn,setAnimIn]=useState(false);
+  const [step,setStep]=useState(0);
+  const bodyRef=useRef(null);
+  useEffect(()=>{if(open){setStep(0);setVis(true);requestAnimationFrame(()=>requestAnimationFrame(()=>setAnimIn(true)))}else{setAnimIn(false);const t=setTimeout(()=>setVis(false),280);return()=>clearTimeout(t)}},[open]);
+  useEffect(()=>{if(!open)return;const h=e=>{if(e.key==="Escape")onClose();if(e.key==="ArrowRight"&&step<steps.length-1)setStep(s=>s+1);if(e.key==="ArrowLeft"&&step>0)setStep(s=>s-1)};document.addEventListener("keydown",h);return()=>document.removeEventListener("keydown",h)},[open,onClose,step,steps.length]);
+  useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTo({top:0,behavior:"smooth"})},[step]);
+  if(!vis||!steps.length)return null;
+  const cur=steps[step];const total=steps.length;const pct=((step+1)/total)*100;
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}>
+      <div onClick={onClose} style={{position:"absolute",inset:0,background:"rgba(0,42,104,.50)",backdropFilter:"blur(3px)",WebkitBackdropFilter:"blur(3px)",opacity:animIn?1:0,transition:"opacity .28s",cursor:"pointer"}}/>
+      <div role="dialog" aria-modal="true" aria-labelledby="tutorial-title" style={{position:"relative",zIndex:1,width:540,maxWidth:"95vw",maxHeight:"90vh",background:C.cardBg,borderRadius:"12px 12px 12px 24px",boxShadow:"0 12px 48px rgba(0,42,104,.22), 0 2px 8px rgba(0,42,104,.08)",display:"flex",flexDirection:"column",transform:animIn?"scale(1) translateY(0)":"scale(.96) translateY(10px)",opacity:animIn?1:0,transition:"all .28s cubic-bezier(.32,.72,.37,1.1)",overflow:"hidden"}}>
+        {/* Header */}
+        <div style={{padding:"20px 24px",paddingRight:50,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:16,flexShrink:0,background:`linear-gradient(135deg,${C.azulProfundo}08 0%,${C.azulCeuClaro}20 100%)`}}>
+          <div style={{width:48,height:48,borderRadius:14,background:`${C.azulProfundo}10`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,border:`1px solid ${C.azulCeu}30`}}>{Ic.helpCircle(28,C.azulProfundo)}</div>
+          <div style={{minWidth:0,flex:1}}>
+            <h2 id="tutorial-title" style={{fontSize:17,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
+            {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"3px 0 0",lineHeight:1.4,fontFamily:Fn.body}}>{subtitle}</p>}
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:6,flexShrink:0}}>
+            <span style={{fontSize:11,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.mono}}>{step+1}/{total}</span>
+          </div>
+        </div>
+        {/* Close */}
+        <div onClick={onClose} tabIndex={0} role="button" aria-label="Fechar tutorial" style={{position:"absolute",top:10,right:10,zIndex:2,width:32,height:32,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .15s",background:"transparent"}} onMouseEnter={e=>{e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}} onKeyDown={e=>{if(e.key==="Enter")onClose()}}>{Ic.x(16,C.cinzaChumbo)}</div>
+
+        {/* Progress bar */}
+        <div style={{height:3,background:C.bg,flexShrink:0}}>
+          <div style={{height:"100%",width:`${pct}%`,background:`linear-gradient(90deg,${C.azulProfundo},${C.azulCeu})`,borderRadius:2,transition:"width .35s cubic-bezier(.4,0,.2,1)"}}/>
+        </div>
+
+        {/* Body — current step */}
+        <div ref={bodyRef} style={{flex:1,overflowY:"auto",padding:"24px 28px",background:"#fafafa"}}>
+          {/* Step number + title */}
+          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+            <div style={{width:36,height:36,borderRadius:10,background:`linear-gradient(135deg,${C.azulProfundo},${C.azulCeu})`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:`0 4px 12px ${C.azulProfundo}30`}}>
+              <span style={{color:C.branco,fontSize:15,fontWeight:700,fontFamily:Fn.mono}}>{step+1}</span>
+            </div>
+            <div>
+              <h3 style={{fontSize:16,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title}}>{cur.title}</h3>
+              {cur.ref&&<span style={{fontSize:11,color:C.azulClaro,fontFamily:Fn.mono,display:"flex",alignItems:"center",gap:4,marginTop:2}}>{Ic.target(12,C.azulClaro)} {cur.ref}</span>}
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{fontSize:13,color:C.cinzaEscuro,lineHeight:1.7,margin:"0 0 16px",fontFamily:Fn.body}}>{cur.description}</p>
+
+          {/* Visual hint / card */}
+          {cur.visual&&(
+            <div style={{background:C.cardBg,borderRadius:10,border:`1px solid ${C.cardBorder}`,padding:16,marginBottom:16}}>
+              {cur.visual}
+            </div>
+          )}
+
+          {/* Tips */}
+          {cur.tips&&cur.tips.length>0&&(
+            <div style={{background:`${C.azulCeuClaro}30`,border:`1px solid ${C.azulCeuClaro}`,borderRadius:10,padding:"14px 18px"}}>
+              <span style={{fontSize:11,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulProfundo,fontFamily:Fn.title,display:"block",marginBottom:8}}>Dica</span>
+              {cur.tips.map((t,i)=>(
+                <div key={i} style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:i<cur.tips.length-1?6:0}}>
+                  <span style={{color:C.azulProfundo,fontSize:12,marginTop:1,flexShrink:0}}>→</span>
+                  <span style={{fontSize:12,color:C.cinzaEscuro,lineHeight:1.5}}>{t}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Footer — navigation */}
+        <div style={{padding:"14px 24px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",gap:10,justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
+          <div style={{display:"flex",alignItems:"center",gap:6}}>
+            {steps.map((_,i)=>(
+              <div key={i} onClick={()=>setStep(i)} style={{width:i===step?20:8,height:8,borderRadius:4,background:i===step?C.azulProfundo:i<step?C.azulCeu:`${C.cinzaClaro}`,cursor:"pointer",transition:"all .25s"}}/>
+            ))}
+          </div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            <div style={{display:"flex",gap:4,marginRight:8}}>
+              <Kbd>←</Kbd><Kbd>→</Kbd>
+            </div>
+            {step>0&&<Btn label="Anterior" outline onClick={()=>setStep(s=>s-1)}/>}
+            {step<total-1?<Btn label="Próximo" color={C.azulProfundo} onClick={()=>setStep(s=>s+1)}/>:<Btn label="Concluir" color={C.verdeFloresta} onClick={onClose}/>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   POPUP MODAL — Resizable: Normal / Grande / Tela Cheia
+   ═══════════════════════════════════════════ */
+const POPUP_SIZES={
+  normal:{width:480,maxH:"85vh",label:"Normal"},
+  grande:{width:720,maxH:"90vh",label:"Grande"},
+  "tela-cheia":{width:"92vw",maxH:"95vh",label:"Tela cheia"},
+};
+const POPUP_ORDER=["normal","grande","tela-cheia"];
+
+function PopupModal({open,onClose,title,subtitle,children,footer,icon,iconBg}){
+  const [vis,setVis]=useState(false);
+  const [animIn,setAnimIn]=useState(false);
+  const [size,setSize]=useState("normal");
+  useEffect(()=>{if(open){setSize("normal");setVis(true);requestAnimationFrame(()=>requestAnimationFrame(()=>setAnimIn(true)))}else{setAnimIn(false);const t=setTimeout(()=>setVis(false),280);return()=>clearTimeout(t)}},[open]);
+  useEffect(()=>{if(!open)return;const h=e=>{if(e.key==="Escape")onClose()};document.addEventListener("keydown",h);return()=>document.removeEventListener("keydown",h)},[open,onClose]);
+
+  const cycleSize=()=>{const i=POPUP_ORDER.indexOf(size);setSize(POPUP_ORDER[(i+1)%POPUP_ORDER.length])};
+  const sz=POPUP_SIZES[size];
+  const isFullscreen=size==="tela-cheia";
+
+  if(!vis)return null;
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:isFullscreen?8:16}}>
+      <div onClick={onClose} style={{position:"absolute",inset:0,background:"rgba(0,42,104,.45)",backdropFilter:"blur(2px)",WebkitBackdropFilter:"blur(2px)",opacity:animIn?1:0,transition:"opacity .28s",cursor:"pointer"}}/>
+      <div role="dialog" aria-modal="true" style={{position:"relative",zIndex:1,width:typeof sz.width==="number"?sz.width:undefined,maxWidth:typeof sz.width==="string"?sz.width:"95vw",minWidth:typeof sz.width==="string"?sz.width:undefined,maxHeight:sz.maxH,background:C.cardBg,borderRadius:isFullscreen?"8px":"12px 12px 12px 24px",boxShadow:"0 12px 48px rgba(0,42,104,.2), 0 2px 8px rgba(0,42,104,.08)",display:"flex",flexDirection:"column",transform:animIn?"scale(1) translateY(0)":"scale(.96) translateY(10px)",opacity:animIn?1:0,transition:"all .28s cubic-bezier(.32,.72,.37,1.1), width .25s ease, max-width .25s ease",overflow:"hidden"}}>
+        {/* Header */}
+        <div style={{padding:"20px 24px",paddingRight:100,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:16,flexShrink:0}}>
+          <div style={{display:"flex",gap:14,alignItems:"center",minWidth:0,flex:1}}>
+            {icon&&<div style={{width:48,height:48,borderRadius:14,background:iconBg||C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,border:`1px solid ${C.cardBorder}`}}>{icon}</div>}
+            <div style={{minWidth:0}}>
+              <h2 style={{fontSize:17,fontWeight:700,color:C.azulEscuro,margin:0,fontFamily:Fn.title,lineHeight:1.3}}>{title}</h2>
+              {subtitle&&<p style={{fontSize:12,color:C.cinzaChumbo,margin:"3px 0 0",lineHeight:1.4,fontFamily:Fn.body}}>{subtitle}</p>}
+            </div>
+          </div>
+          {/* Size toggle + Close */}
+          <div style={{position:"absolute",top:12,right:12,display:"flex",gap:6,zIndex:2}}>
+            <button onClick={cycleSize} style={{display:"flex",alignItems:"center",gap:5,padding:"5px 10px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:"transparent",cursor:"pointer",fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaChumbo,fontFamily:Fn.title,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=C.azulCeu;e.currentTarget.style.color=C.azulEscuro}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.cardBorder;e.currentTarget.style.color=C.cinzaChumbo}}>
+              {isFullscreen?Ic.minimize(13,C.cinzaChumbo):Ic.maximize(13,C.cinzaChumbo)}
+              {sz.label}
+            </button>
+            <div onClick={onClose} tabIndex={0} role="button" aria-label="Fechar" style={{width:32,height:32,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all .15s",background:"transparent"}} onMouseEnter={e=>{e.currentTarget.style.background=C.bg}} onMouseLeave={e=>{e.currentTarget.style.background="transparent"}} onKeyDown={e=>{if(e.key==="Enter")onClose()}}>{Ic.x(16,C.cinzaChumbo)}</div>
+          </div>
+        </div>
+        {/* Body */}
+        <div style={{flex:1,overflowY:"auto",padding:"20px 24px",background:"#fafafa"}}>{typeof children==="function"?children({size,isWide:size!=="normal",isFullscreen}):children}</div>
+        {/* Footer */}
+        {footer&&<div style={{padding:"14px 24px",borderTop:`1px solid ${C.cardBorder}`,background:C.bg,display:"flex",gap:10,justifyContent:"flex-end",alignItems:"center",flexShrink:0}}>{footer}</div>}
       </div>
     </div>
   );
@@ -96,7 +252,7 @@ function Btn({label,color,outline,onClick,full,danger}){
 }
 
 /* ═══════════════════════════════════════════ LAYOUT ═══════════════════════════════════════════ */
-function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.cinzaEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
+function Section({n,title,desc,children}){return(<section style={{marginBottom:44}}><div style={{fontSize:10,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:C.azulClaro,fontFamily:Fn.title,marginBottom:6}}>{n}</div><h2 style={{fontSize:20,fontWeight:700,color:C.azulEscuro,margin:"0 0 4px",fontFamily:Fn.title,letterSpacing:".5px"}}>{title}</h2><p style={{fontSize:14,color:C.cinzaChumbo,margin:"0 0 20px",lineHeight:1.55,fontFamily:Fn.body}}>{desc}</p>{children}</section>)}
 function DSCard({children,s,mob:m}){return(<div style={{background:C.cardBg,borderRadius:"12px 12px 12px 24px",border:`1px solid ${C.cardBorder}`,padding:m?16:28,boxShadow:"0 1px 3px rgba(0,75,155,.04),0 4px 14px rgba(0,75,155,.03)",...s}}>{children}</div>)}
 const gc={background:C.cardBg,border:`1px solid ${C.cardBorder}`,borderRadius:"10px 10px 10px 18px",overflow:"hidden"};
 const gh={padding:"16px 20px",background:C.bg,borderBottom:`1px solid ${C.cardBorder}`,display:"flex",alignItems:"center",gap:12};
@@ -107,6 +263,498 @@ const ge={fontSize:12,color:C.cinzaChumbo,lineHeight:1.5,margin:0,fontFamily:Fn.
 function TokenRow({label,value,color}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}>{color&&<div style={{width:16,height:16,borderRadius:4,background:color,border:`1px solid ${C.cardBorder}`,flexShrink:0}}/>}<span style={{color:C.cinzaChumbo,minWidth:130}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 function Kbd({children}){return <kbd style={{display:"inline-flex",alignItems:"center",justifyContent:"center",minWidth:26,height:24,padding:"0 7px",background:C.branco,border:`1px solid ${C.cardBorder}`,borderBottom:`2px solid ${C.cinzaClaro}`,borderRadius:5,fontSize:11,fontWeight:600,fontFamily:Fn.mono,color:C.cinzaEscuro,boxShadow:"0 1px 2px rgba(0,0,0,.06)"}}>{children}</kbd>}
 
+/* ═══════════════════════════════════════════ CODE EXPORT ═══════════════════════════════════════════ */
+function CodeExport({label,description,code}){
+  const [copied,setCopied]=useState(false);
+  const [expanded,setExpanded]=useState(false);
+  const doCopy=()=>{navigator.clipboard.writeText(code).then(()=>{setCopied(true);setTimeout(()=>setCopied(false),2000)})};
+  return(
+    <div style={{borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,overflow:"hidden",background:C.cardBg,transition:"all .2s"}}>
+      <div style={{padding:"16px 20px",display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}>
+        <div style={{width:40,height:40,borderRadius:10,background:"#004B9B12",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,border:"1px solid #004B9B25"}}>{Ic.codeBraces(20,"#93BDE4")}</div>
+        <div style={{flex:1,minWidth:150}}>
+          <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{label}</span>
+          <span style={{fontSize:11,color:C.textMuted,lineHeight:1.4}}>{description}</span>
+        </div>
+        <div style={{display:"flex",gap:8,alignItems:"center"}}>
+          <Btn label={expanded?"{ } Ocultar":"{ } Ver código"} color="#546E7A" onClick={()=>setExpanded(e=>!e)}/>
+          <Btn label={copied?"✓ Copiado!":"📋 Copiar código"} color={copied?"#00C64C":"#004B9B"} onClick={doCopy}/>
+        </div>
+      </div>
+      {expanded&&(
+        <div style={{borderTop:`1px solid ${C.cardBorder}`}}>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"8px 20px",background:C.bg}}>
+            <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.textMuted,fontFamily:Fn.title}}>{code.split("\n").length} linhas · TSX · Copy-paste ready</span>
+            <Btn label={copied?"✓ Copiado":"📋 Copiar"} color={copied?"#00C64C":"#004B9B"} onClick={doCopy}/>
+          </div>
+          <pre style={{margin:0,padding:"18px 20px",background:"#0F172A",color:"#E2E8F0",fontFamily:Fn.mono,fontSize:11.5,lineHeight:1.7,overflowX:"auto",maxHeight:420,overflowY:"auto",whiteSpace:"pre",tabSize:2}}><code>{code}</code></pre>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════ EXPORTABLE CODE STRINGS ═══════════════════════════════════════════ */
+
+const MODAL_CODE=`// ═══════════════════════════════════════════
+// DS-FIPS — Modal — Copy-paste ready
+// Requer: React 18+, fonts Saira Expanded + Open Sans + Fira Code
+// CSS vars: --color-surface, --color-fg, --color-border, --color-fg-muted,
+//           --color-surface-muted, --color-surface-soft,
+//           --color-gov-azul-profundo, --color-gov-azul-escuro, --color-gov-azul-claro
+// ═══════════════════════════════════════════
+import { useState, useEffect } from "react";
+
+const C = {
+  azulProfundo: "var(--color-gov-azul-profundo)",
+  azulEscuro: "var(--color-gov-azul-escuro)",
+  cinzaChumbo: "var(--color-fg-muted)",
+  cinzaEscuro: "var(--color-fg)",
+  cinzaClaro: "#C0CCD2",
+  azulCeu: "#93BDE4",
+  verdeFloresta: "#00C64C",
+  verdeEscuro: "#00904C",
+  danger: "#DC3545",
+  branco: "#FFFFFF",
+  bg: "var(--color-surface-muted)",
+  cardBg: "var(--color-surface)",
+  cardBorder: "var(--color-border)",
+  textMuted: "var(--color-fg-muted)",
+  inputBorder: "var(--color-border)",
+  focusRing: "rgba(147,189,228,0.35)",
+};
+
+const Fn = {
+  title: "'Saira Expanded', sans-serif",
+  body: "'Open Sans', sans-serif",
+  mono: "'Fira Code', monospace",
+};
+
+/* Ícones inline */
+const Ic = {
+  x: (s = 18, c = C.cinzaChumbo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <path d="M5 5l10 10M15 5L5 15" stroke={c} strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+};
+
+/* Botão reutilizável */
+function Btn({ label, color, outline, onClick, danger }) {
+  const bg = danger ? C.danger : color || C.azulProfundo;
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        padding: "8px 20px", fontSize: 12, fontWeight: 600,
+        background: outline ? "transparent" : bg,
+        color: outline ? (danger ? C.danger : color || C.cinzaChumbo) : C.branco,
+        border: outline ? \`1.5px solid \${danger ? C.danger : color || C.cinzaClaro}\` : "none",
+        borderRadius: 8, cursor: "pointer", fontFamily: Fn.body,
+        transition: "all .15s",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   MODAL — DS-FIPS
+   Overlay blur, animação spring, ESC fecha, border-radius FIPS, aria-modal
+   ═══════════════════════════════════════════ */
+export function Modal({ open, onClose, title, subtitle, children, footer, footerBg, width = 480, icon, iconBg, bodyBg, noPadBody }) {
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setVis(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true)));
+    } else {
+      setAnimIn(false);
+      const t = setTimeout(() => setVis(false), 280);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open, onClose]);
+
+  if (!vis) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.45)", backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" style={{
+        position: "relative", zIndex: 1, width, maxWidth: "95vw", maxHeight: "90vh",
+        background: C.cardBg, borderRadius: "12px 12px 12px 24px",
+        boxShadow: "0 12px 48px rgba(0,42,104,.2), 0 2px 8px rgba(0,42,104,.08)",
+        display: "flex", flexDirection: "column",
+        transform: animIn ? "scale(1) translateY(0)" : "scale(.96) translateY(10px)",
+        opacity: animIn ? 1 : 0,
+        transition: "all .28s cubic-bezier(.32,.72,.37,1.1)",
+        overflow: "hidden",
+      }}>
+        <div onClick={onClose} tabIndex={0} role="button" aria-label="Fechar modal" style={{ position: "absolute", top: 10, right: 10, zIndex: 2, width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s", background: "transparent" }}>
+          {Ic.x(16, C.cinzaChumbo)}
+        </div>
+        <div style={{ padding: "20px 24px", paddingRight: 50, borderBottom: \`1px solid \${C.cardBorder}\`, display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
+          {icon && <div style={{ width: 48, height: 48, borderRadius: 14, background: iconBg || C.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: \`1px solid \${C.cardBorder}\` }}>{icon}</div>}
+          <div style={{ minWidth: 0 }}>
+            <h2 id="modal-title" style={{ fontSize: 17, fontWeight: 700, color: C.azulEscuro, margin: 0, fontFamily: Fn.title, lineHeight: 1.3 }}>{title}</h2>
+            {subtitle && <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "3px 0 0", lineHeight: 1.4, fontFamily: Fn.body }}>{subtitle}</p>}
+          </div>
+        </div>
+        <div style={{ flex: 1, overflowY: "auto", padding: noPadBody ? 0 : "20px 24px", background: bodyBg || "transparent" }}>{children}</div>
+        {footer && <div style={{ padding: "14px 24px", borderTop: \`1px solid \${C.cardBorder}\`, background: footerBg || C.bg, display: "flex", gap: 10, justifyContent: "flex-end", alignItems: "center", flexShrink: 0 }}>{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════
+// USO:
+// const [open, setOpen] = useState(false);
+// <Modal open={open} onClose={() => setOpen(false)}
+//   title="Título do modal" subtitle="Subtítulo descritivo"
+//   icon={<span>📋</span>} width={480}
+//   footer={<><Btn label="Cancelar" outline onClick={() => setOpen(false)} /><Btn label="Confirmar" color="#00C64C" onClick={() => setOpen(false)} /></>}
+// >
+//   <p>Conteúdo do modal aqui.</p>
+// </Modal>
+// ═══════════════════════════════════════════`;
+
+const TUTORIAL_MODAL_CODE=`// ═══════════════════════════════════════════
+// DS-FIPS — TutorialModal — Copy-paste ready
+// Requer: React 18+, fonts Saira Expanded + Open Sans + Fira Code
+// ═══════════════════════════════════════════
+import { useState, useEffect, useRef } from "react";
+
+const C = {
+  azulProfundo: "var(--color-gov-azul-profundo)",
+  azulEscuro: "var(--color-gov-azul-escuro)",
+  azulClaro: "var(--color-gov-azul-claro)",
+  cinzaChumbo: "var(--color-fg-muted)",
+  cinzaEscuro: "var(--color-fg)",
+  cinzaClaro: "#C0CCD2",
+  azulCeu: "#93BDE4",
+  azulCeuClaro: "#D3E3F4",
+  verdeFloresta: "#00C64C",
+  branco: "#FFFFFF",
+  bg: "var(--color-surface-muted)",
+  cardBg: "var(--color-surface)",
+  cardBorder: "var(--color-border)",
+  textMuted: "var(--color-fg-muted)",
+};
+
+const Fn = {
+  title: "'Saira Expanded', sans-serif",
+  body: "'Open Sans', sans-serif",
+  mono: "'Fira Code', monospace",
+};
+
+const Ic = {
+  x: (s = 18, c = C.cinzaChumbo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <path d="M5 5l10 10M15 5L5 15" stroke={c} strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  helpCircle: (s = 28, c = C.azulProfundo) => (
+    <svg width={s} height={s} viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="20" stroke={c} strokeWidth="2.5" />
+      <path d="M18 18a6 6 0 0111.13 3.15c0 4-6 5.5-6 9.85M24 36v1" stroke={c} strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  ),
+  target: (s = 14, c = C.azulProfundo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="7" stroke={c} strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="3" stroke={c} strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="1" fill={c} />
+    </svg>
+  ),
+};
+
+function Btn({ label, color, outline, onClick }) {
+  const bg = color || C.azulProfundo;
+  return (
+    <button onClick={onClick} style={{
+      padding: "8px 20px", fontSize: 12, fontWeight: 600,
+      background: outline ? "transparent" : bg, color: outline ? C.cinzaChumbo : "#fff",
+      border: outline ? \`1.5px solid \${C.cinzaClaro}\` : "none",
+      borderRadius: 8, cursor: "pointer", fontFamily: Fn.body, transition: "all .15s",
+    }}>{label}</button>
+  );
+}
+
+function Kbd({ children }) {
+  return <kbd style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: 26, height: 24, padding: "0 7px", background: C.branco, border: \`1px solid \${C.cardBorder}\`, borderBottom: \`2px solid \${C.cinzaClaro}\`, borderRadius: 5, fontSize: 11, fontWeight: 600, fontFamily: Fn.mono, color: C.cinzaEscuro }}>{children}</kbd>;
+}
+
+/**
+ * TutorialModal — Walkthrough step-by-step contextual
+ * Props:
+ *   open: boolean
+ *   onClose: () => void
+ *   title: string
+ *   subtitle?: string
+ *   steps: Array<{ title, ref?, description, tips?: string[], visual?: ReactNode }>
+ */
+export function TutorialModal({ open, onClose, title, subtitle, steps = [] }) {
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+  const [step, setStep] = useState(0);
+  const bodyRef = useRef(null);
+
+  useEffect(() => {
+    if (open) { setStep(0); setVis(true); requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true))); }
+    else { setAnimIn(false); const t = setTimeout(() => setVis(false), 280); return () => clearTimeout(t); }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight" && step < steps.length - 1) setStep((s) => s + 1);
+      if (e.key === "ArrowLeft" && step > 0) setStep((s) => s - 1);
+    };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open, onClose, step, steps.length]);
+
+  useEffect(() => { if (bodyRef.current) bodyRef.current.scrollTo({ top: 0, behavior: "smooth" }); }, [step]);
+
+  if (!vis || !steps.length) return null;
+  const cur = steps[step];
+  const total = steps.length;
+  const pct = ((step + 1) / total) * 100;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.50)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+      <div role="dialog" aria-modal="true" style={{
+        position: "relative", zIndex: 1, width: 540, maxWidth: "95vw", maxHeight: "90vh",
+        background: C.cardBg, borderRadius: "12px 12px 12px 24px",
+        boxShadow: "0 12px 48px rgba(0,42,104,.22), 0 2px 8px rgba(0,42,104,.08)",
+        display: "flex", flexDirection: "column",
+        transform: animIn ? "scale(1) translateY(0)" : "scale(.96) translateY(10px)",
+        opacity: animIn ? 1 : 0, transition: "all .28s cubic-bezier(.32,.72,.37,1.1)", overflow: "hidden",
+      }}>
+        {/* Header */}
+        <div style={{ padding: "20px 24px", paddingRight: 50, borderBottom: \`1px solid \${C.cardBorder}\`, display: "flex", alignItems: "center", gap: 16, flexShrink: 0, background: \`linear-gradient(135deg,\${C.azulProfundo}08 0%,\${C.azulCeuClaro}20 100%)\` }}>
+          <div style={{ width: 48, height: 48, borderRadius: 14, background: \`\${C.azulProfundo}10\`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: \`1px solid \${C.azulCeu}30\` }}>{Ic.helpCircle(28, C.azulProfundo)}</div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <h2 style={{ fontSize: 17, fontWeight: 700, color: C.azulEscuro, margin: 0, fontFamily: Fn.title, lineHeight: 1.3 }}>{title}</h2>
+            {subtitle && <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "3px 0 0", lineHeight: 1.4, fontFamily: Fn.body }}>{subtitle}</p>}
+          </div>
+          <span style={{ fontSize: 11, fontWeight: 700, color: C.azulProfundo, fontFamily: Fn.mono }}>{step + 1}/{total}</span>
+        </div>
+        {/* Close */}
+        <div onClick={onClose} tabIndex={0} role="button" aria-label="Fechar tutorial" style={{ position: "absolute", top: 10, right: 10, zIndex: 2, width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s", background: "transparent" }}>
+          {Ic.x(16, C.cinzaChumbo)}
+        </div>
+        {/* Progress */}
+        <div style={{ height: 3, background: C.bg, flexShrink: 0 }}>
+          <div style={{ height: "100%", width: \`\${pct}%\`, background: \`linear-gradient(90deg,\${C.azulProfundo},\${C.azulCeu})\`, borderRadius: 2, transition: "width .35s cubic-bezier(.4,0,.2,1)" }} />
+        </div>
+        {/* Body */}
+        <div ref={bodyRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: "#fafafa" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: \`linear-gradient(135deg,\${C.azulProfundo},\${C.azulCeu})\`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <span style={{ color: "#fff", fontSize: 15, fontWeight: 700, fontFamily: Fn.mono }}>{step + 1}</span>
+            </div>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: C.azulEscuro, margin: 0, fontFamily: Fn.title }}>{cur.title}</h3>
+              {cur.ref && <span style={{ fontSize: 11, color: C.azulClaro, fontFamily: Fn.mono, display: "flex", alignItems: "center", gap: 4, marginTop: 2 }}>{Ic.target(12, C.azulClaro)} {cur.ref}</span>}
+            </div>
+          </div>
+          <p style={{ fontSize: 13, color: C.cinzaEscuro, lineHeight: 1.7, margin: "0 0 16px", fontFamily: Fn.body }}>{cur.description}</p>
+          {cur.visual && <div style={{ background: C.cardBg, borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, padding: 16, marginBottom: 16 }}>{cur.visual}</div>}
+          {cur.tips?.length > 0 && (
+            <div style={{ background: \`\${C.azulCeuClaro}30\`, border: \`1px solid \${C.azulCeuClaro}\`, borderRadius: 10, padding: "14px 18px" }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.azulProfundo, fontFamily: Fn.title, display: "block", marginBottom: 8 }}>Dica</span>
+              {cur.tips.map((t, i) => (
+                <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: i < cur.tips.length - 1 ? 6 : 0 }}>
+                  <span style={{ color: C.azulProfundo, fontSize: 12, marginTop: 1, flexShrink: 0 }}>→</span>
+                  <span style={{ fontSize: 12, color: C.cinzaEscuro, lineHeight: 1.5 }}>{t}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        {/* Footer */}
+        <div style={{ padding: "14px 24px", borderTop: \`1px solid \${C.cardBorder}\`, background: C.bg, display: "flex", gap: 10, justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {steps.map((_, i) => (
+              <div key={i} onClick={() => setStep(i)} style={{ width: i === step ? 20 : 8, height: 8, borderRadius: 4, background: i === step ? C.azulProfundo : i < step ? C.azulCeu : C.cinzaClaro, cursor: "pointer", transition: "all .25s" }} />
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 4, marginRight: 8 }}><Kbd>←</Kbd><Kbd>→</Kbd></div>
+            {step > 0 && <Btn label="Anterior" outline onClick={() => setStep((s) => s - 1)} />}
+            {step < total - 1 ? <Btn label="Próximo" color={C.azulProfundo} onClick={() => setStep((s) => s + 1)} /> : <Btn label="Concluir" color={C.verdeFloresta} onClick={onClose} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════
+// USO:
+// const steps = [
+//   { title: "Passo 1", ref: "Seção 01", description: "Descrição...", tips: ["Dica 1"], visual: <div>Preview</div> },
+//   { title: "Passo 2", description: "Descrição do passo 2..." },
+// ];
+// <TutorialModal open={open} onClose={() => setOpen(false)} title="Tutorial" subtitle="Guia da página" steps={steps} />
+// ═══════════════════════════════════════════`;
+
+const POPUP_MODAL_CODE=`// ═══════════════════════════════════════════
+// DS-FIPS — PopupModal (redimensionável) — Copy-paste ready
+// Requer: React 18+, fonts Saira Expanded + Open Sans + Fira Code
+// ═══════════════════════════════════════════
+import { useState, useEffect } from "react";
+
+const C = {
+  azulProfundo: "var(--color-gov-azul-profundo)",
+  azulEscuro: "var(--color-gov-azul-escuro)",
+  cinzaChumbo: "var(--color-fg-muted)",
+  cinzaEscuro: "var(--color-fg)",
+  cinzaClaro: "#C0CCD2",
+  azulCeu: "#93BDE4",
+  branco: "#FFFFFF",
+  bg: "var(--color-surface-muted)",
+  cardBg: "var(--color-surface)",
+  cardBorder: "var(--color-border)",
+};
+
+const Fn = {
+  title: "'Saira Expanded', sans-serif",
+  body: "'Open Sans', sans-serif",
+  mono: "'Fira Code', monospace",
+};
+
+const Ic = {
+  x: (s = 18, c = C.cinzaChumbo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <path d="M5 5l10 10M15 5L5 15" stroke={c} strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  ),
+  maximize: (s = 16, c = C.cinzaChumbo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <path d="M3 7V4a1 1 0 011-1h3M13 3h3a1 1 0 011 1v3M17 13v3a1 1 0 01-1 1h-3M7 17H4a1 1 0 01-1-1v-3" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  minimize: (s = 16, c = C.cinzaChumbo) => (
+    <svg width={s} height={s} viewBox="0 0 20 20" fill="none">
+      <path d="M7 3v3a1 1 0 01-1 1H3M13 3v3a1 1 0 001 1h3M17 13h-3a1 1 0 00-1 1v3M3 13h3a1 1 0 011 1v3" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+};
+
+const POPUP_SIZES = {
+  normal: { width: 480, maxH: "85vh", label: "Normal" },
+  grande: { width: 720, maxH: "90vh", label: "Grande" },
+  "tela-cheia": { width: "92vw", maxH: "95vh", label: "Tela cheia" },
+};
+const POPUP_ORDER = ["normal", "grande", "tela-cheia"];
+
+/**
+ * PopupModal — Modal redimensionável Normal / Grande / Tela Cheia
+ * Props:
+ *   open, onClose, title, subtitle, icon, iconBg, footer
+ *   children: ReactNode | (({ size, isWide, isFullscreen }) => ReactNode)
+ */
+export function PopupModal({ open, onClose, title, subtitle, children, footer, icon, iconBg }) {
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+  const [size, setSize] = useState("normal");
+
+  useEffect(() => {
+    if (open) { setSize("normal"); setVis(true); requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true))); }
+    else { setAnimIn(false); const t = setTimeout(() => setVis(false), 280); return () => clearTimeout(t); }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open, onClose]);
+
+  const cycleSize = () => { const i = POPUP_ORDER.indexOf(size); setSize(POPUP_ORDER[(i + 1) % POPUP_ORDER.length]); };
+  const sz = POPUP_SIZES[size];
+  const isFullscreen = size === "tela-cheia";
+
+  if (!vis) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: isFullscreen ? 8 : 16 }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.45)", backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+      <div role="dialog" aria-modal="true" style={{
+        position: "relative", zIndex: 1,
+        width: typeof sz.width === "number" ? sz.width : undefined,
+        maxWidth: typeof sz.width === "string" ? sz.width : "95vw",
+        minWidth: typeof sz.width === "string" ? sz.width : undefined,
+        maxHeight: sz.maxH, background: C.cardBg,
+        borderRadius: isFullscreen ? "8px" : "12px 12px 12px 24px",
+        boxShadow: "0 12px 48px rgba(0,42,104,.2), 0 2px 8px rgba(0,42,104,.08)",
+        display: "flex", flexDirection: "column",
+        transform: animIn ? "scale(1) translateY(0)" : "scale(.96) translateY(10px)",
+        opacity: animIn ? 1 : 0,
+        transition: "all .28s cubic-bezier(.32,.72,.37,1.1), width .25s ease, max-width .25s ease",
+        overflow: "hidden",
+      }}>
+        {/* Header */}
+        <div style={{ padding: "20px 24px", paddingRight: 100, borderBottom: \`1px solid \${C.cardBorder}\`, display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
+          {icon && <div style={{ width: 48, height: 48, borderRadius: 14, background: iconBg || C.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: \`1px solid \${C.cardBorder}\` }}>{icon}</div>}
+          <div style={{ minWidth: 0 }}>
+            <h2 style={{ fontSize: 17, fontWeight: 700, color: C.azulEscuro, margin: 0, fontFamily: Fn.title, lineHeight: 1.3 }}>{title}</h2>
+            {subtitle && <p style={{ fontSize: 12, color: C.cinzaChumbo, margin: "3px 0 0", fontFamily: Fn.body }}>{subtitle}</p>}
+          </div>
+          <div style={{ position: "absolute", top: 12, right: 12, display: "flex", gap: 6, zIndex: 2 }}>
+            <button onClick={cycleSize} style={{ display: "flex", alignItems: "center", gap: 5, padding: "5px 10px", borderRadius: 8, border: \`1px solid \${C.cardBorder}\`, background: "transparent", cursor: "pointer", fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.cinzaChumbo, fontFamily: Fn.title, transition: "all .15s" }}>
+              {isFullscreen ? Ic.minimize(13, C.cinzaChumbo) : Ic.maximize(13, C.cinzaChumbo)}
+              {sz.label}
+            </button>
+            <div onClick={onClose} tabIndex={0} role="button" aria-label="Fechar" style={{ width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s", background: "transparent" }}>
+              {Ic.x(16, C.cinzaChumbo)}
+            </div>
+          </div>
+        </div>
+        {/* Body */}
+        <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", background: "#fafafa" }}>
+          {typeof children === "function" ? children({ size, isWide: size !== "normal", isFullscreen }) : children}
+        </div>
+        {/* Footer */}
+        {footer && <div style={{ padding: "14px 24px", borderTop: \`1px solid \${C.cardBorder}\`, background: C.bg, display: "flex", gap: 10, justifyContent: "flex-end", alignItems: "center", flexShrink: 0 }}>{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════
+// USO:
+// <PopupModal open={open} onClose={() => setOpen(false)}
+//   title="Formulário" subtitle="Descrição"
+//   icon={<span>📋</span>}
+//   footer={<><button onClick={() => setOpen(false)}>Cancelar</button><button>Salvar</button></>}
+// >
+//   {({ size, isWide, isFullscreen }) => (
+//     <div style={{ display: "grid", gridTemplateColumns: isWide ? "1fr 1fr" : "1fr", gap: 14 }}>
+//       <input placeholder="Campo 1" />
+//       <input placeholder="Campo 2" />
+//       {isWide && <input placeholder="Campo extra (grande)" />}
+//       {isFullscreen && <input placeholder="Campo extra (tela cheia)" />}
+//     </div>
+//   )}
+// </PopupModal>
+// ═══════════════════════════════════════════`;
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DialogDoc(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
@@ -114,6 +762,28 @@ export default function DialogDoc(){
   const mob=w<640;
   const [m,setM]=useState(null);
   const open=id=>setM(id);const close=()=>setM(null);
+
+  const tutorialSteps=[
+    {title:"Playground interativo",ref:"Seção 01 — Topo da página",description:"O playground permite testar cada tipo de modal em tempo real. Clique nos botões coloridos para abrir os 6 tipos de modal disponíveis no DS-FIPS. Cada variante tem cor, ícone e comportamento específico para seu contexto de uso.",tips:["Todos os modais fecham com ESC, clique no overlay ou botão X","Teste no mobile — os modais adaptam para 95vw automaticamente"],visual:(
+      <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+        {[{l:"✓ Confirm.",c:C.verdeFloresta},{l:"✕ Destrutivo",c:C.danger},{l:"⚠ Alerta",c:C.amareloEscuro},{l:"ℹ Info",c:C.azulProfundo},{l:"📝 Form",c:C.azulCeu},{l:"📋 Lista",c:C.cinzaChumbo}].map(b=>(
+          <span key={b.l} style={{padding:"4px 12px",fontSize:11,borderRadius:6,background:`${b.c}15`,color:b.c,fontWeight:600,fontFamily:Fn.body,border:`1px solid ${b.c}30`}}>{b.l}</span>
+        ))}
+      </div>
+    )},
+    {title:"Guia de uso por tipo",ref:"Seção 02 — Regras de cada variante",description:"Cada tipo de modal tem regras claras de CTA (botões), cor dominante e quando usar. O card azul abaixo dos tipos mostra a hierarquia: Modal para decisões rápidas, Drawer para visualização lateral, Tela para cadastros complexos.",tips:["NUNCA use botão verde para ação de exclusão","Modal informativo tem apenas 1 botão ('Entendi'), sem cancelar","Formulários no modal devem ter no máximo 6 campos — mais que isso, use Drawer ou tela dedicada"]},
+    {title:"Anatomia do modal",ref:"Seção 03 — Estrutura em 5 camadas",description:"O modal DS-FIPS segue uma estrutura rigorosa de 5 camadas: Overlay → Panel → Header → Body → Footer. O diagrama interativo mostra a composição visual de cada camada com seus tokens de design exatos.",tips:["O border-radius assimétrico (12 12 12 24) é padrão do Brandbook FIPS","O ícone no Header usa container 48×48 com radius 14px e cor contextual"],visual:(
+      <div style={{display:"flex",gap:8}}>
+        {[{n:"①",nm:"Overlay",c:C.azulEscuro},{n:"②",nm:"Panel",c:C.cinzaChumbo},{n:"③",nm:"Header",c:C.verdeFloresta},{n:"④",nm:"Body",c:C.amareloEscuro},{n:"⑤",nm:"Footer",c:C.azulCeu}].map(l=>(
+          <div key={l.n} style={{flex:1,textAlign:"center",padding:"8px 4px",borderRadius:6,background:`${l.c}10`,borderBottom:`2px solid ${l.c}`}}>
+            <span style={{fontSize:14,fontWeight:700,color:l.c,fontFamily:Fn.mono,display:"block"}}>{l.n}</span>
+            <span style={{fontSize:10,color:C.cinzaChumbo}}>{l.nm}</span>
+          </div>
+        ))}
+      </div>
+    )},
+    {title:"Acessibilidade e tokens",ref:"Seções 04–08 — Referência completa",description:"As seções finais cobrem atalhos de teclado (ESC, Tab, Enter), atributos ARIA obrigatórios, regras de Faça/Evite, três tamanhos padrão (Compacto, Padrão, Largo), micro-interações de UX (blur, spring animation, glow) e todos os tokens de design.",tips:["Sempre conecte o título via aria-labelledby","Ao fechar, retorne o foco ao elemento que abriu o modal","Use cubic-bezier(.32,.72,.37,1.1) para animação de entrada — leve overshoot orgânico","Body backgrounds: transparente (padrão), #fafafa (formulário), #f5f6f8 (lista)"]},
+  ];
 
   return(
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
@@ -128,7 +798,7 @@ export default function DialogDoc(){
         footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Aprovar" color={C.verdeFloresta} onClick={close}/></>}>
         <div style={{display:"flex",flexDirection:"column",gap:12}}>
           <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Solicitante</span><span style={{fontSize:13,fontWeight:600}}>Carlos Santos</span></div>
-          <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro}}>R$ 2.450,00</span></div>
+          <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Valor total</span><span style={{fontSize:13,fontWeight:700,color:C.azulProfundo}}>R$ 2.450,00</span></div>
           <div style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:C.bg,borderRadius:8}}><span style={{fontSize:12,color:C.cinzaChumbo}}>Status</span><Badge variant="atencao" dot>Pendente</Badge></div>
         </div>
       </Modal>
@@ -164,7 +834,7 @@ export default function DialogDoc(){
       </Modal>
 
       {/* 4. INFORMATIVO */}
-      <Modal open={m==="info"} onClose={close} title="Sobre os Fipcoins" subtitle="Sistema de gamificação FIPS" icon={Ic.infoI(28,C.azulProfundo)} iconBg={`color-mix(in srgb, ${C.azulProfundo} 4%, transparent)`} width={440}
+      <Modal open={m==="info"} onClose={close} title="Sobre os Fipcoins" subtitle="Sistema de gamificação FIPS" icon={Ic.infoI(28,C.azulProfundo)} iconBg={`${C.azulProfundo}0A`} width={440}
         footer={<Btn label="Entendi" color={C.azulProfundo} onClick={close}/>}>
         <div style={{display:"flex",flexDirection:"column",gap:14}}>
           <p style={{fontSize:13,color:C.cinzaChumbo,margin:0,lineHeight:1.6}}>Fipcoins são moedas virtuais que você ganha ao submeter ideias aprovadas, completar treinamentos e participar de boas práticas. Acumule pontos e troque por benefícios.</p>
@@ -180,7 +850,7 @@ export default function DialogDoc(){
       </Modal>
 
       {/* 5. FORMULÁRIO — body #fafafa */}
-      <Modal open={m==="form"} onClose={close} title="Atribuir responsável" subtitle="Selecione o colaborador e tipo de atribuição." icon={Ic.pessoaLg(28,C.azulCeu)} iconBg={`color-mix(in srgb, ${C.azulProfundo} 4%, transparent)`} bodyBg="#fafafa" width={480}
+      <Modal open={m==="form"} onClose={close} title="Atribuir responsável" subtitle="Selecione o colaborador e tipo de atribuição." icon={Ic.pessoaLg(28,C.azulCeu)} iconBg={`${C.azulProfundo}0A`} bodyBg="#fafafa" width={480}
         footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Salvar atribuição" color={C.verdeFloresta} onClick={close}/></>}>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
           <FInput label="Responsável" placeholder="Nome do colaborador" required icon={Ic.pessoa(14)}/>
@@ -196,7 +866,7 @@ export default function DialogDoc(){
 
       {/* 6. LISTA — body #f5f6f8 */}
       <Modal open={m==="list"} onClose={close} title="Itens da requisição" subtitle="REQ-4025 · 3 itens · R$ 2.450,00" icon={Ic.docLg(28,C.cinzaChumbo)} iconBg={`${C.cinzaChumbo}0A`} bodyBg="#f5f6f8" width={520} noPadBody
-        footer={<><span style={{fontSize:11,color:C.textMuted,marginRight:"auto",fontWeight:600}}>Total: <span style={{color:C.cinzaEscuro,fontSize:13}}>R$ 2.450,00</span></span><Btn label="Fechar" outline onClick={close}/><Btn label="Aprovar tudo" color={C.verdeFloresta} onClick={close}/></>}>
+        footer={<><span style={{fontSize:11,color:C.textMuted,marginRight:"auto",fontWeight:600}}>Total: <span style={{color:C.azulProfundo,fontSize:13}}>R$ 2.450,00</span></span><Btn label="Fechar" outline onClick={close}/><Btn label="Aprovar tudo" color={C.verdeFloresta} onClick={close}/></>}>
         <div>
           {[
             {item:"Extintor PQS 6kg",qty:3,val:"R$ 450,00",status:"sucesso",sl:"Cotado"},
@@ -209,11 +879,42 @@ export default function DialogDoc(){
                 <span style={{fontSize:11,color:C.textMuted}}>Qtd: {r.qty}</span>
               </div>
               <Badge variant={r.status} dot>{r.sl}</Badge>
-              <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.mono,minWidth:85,textAlign:"right"}}>{r.val}</span>
+              <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.mono,minWidth:85,textAlign:"right"}}>{r.val}</span>
             </div>
           ))}
         </div>
       </Modal>
+
+      {/* 7. POPUP — Resizable */}
+      <PopupModal open={m==="popup"} onClose={close} title="Atribuir responsável" subtitle="Selecione o colaborador e tipo de atribuição para a tarefa." icon={Ic.popup(28,C.azulProfundo)} iconBg={`${C.azulProfundo}0A`}
+        footer={<><Btn label="Cancelar" outline onClick={close}/><Btn label="Salvar atribuição" color={C.verdeFloresta} onClick={close}/></>}>
+        {({size,isWide,isFullscreen})=>(
+          <div style={{display:"grid",gridTemplateColumns:isWide?"1fr 1fr":"1fr",gap:isFullscreen?20:14}}>
+            <FInput label="Responsável" placeholder="Nome do colaborador" required icon={Ic.pessoa(14)}/>
+            <FSelect label="Tipo" options={["Interno","Externo","Terceiro"]} icon={Ic.tag(14)}/>
+            <FSelect label="Prioridade" options={["Baixa","Média","Alta","Urgente"]} icon={Ic.doc(14)}/>
+            <FInput label="Prazo" placeholder="dd/mm/aaaa" icon={Ic.cal(14)}/>
+            {isWide&&<>
+              <FSelect label="Departamento" options={["Operações","Logística","Administrativo","Financeiro"]}/>
+              <FInput label="Observação" placeholder="Notas sobre a atribuição..."/>
+            </>}
+            {isFullscreen&&<>
+              <FInput label="E-mail" placeholder="email@empresa.com"/>
+              <FInput label="Telefone" placeholder="(00) 00000-0000"/>
+              <FSelect label="Turno" options={["Manhã","Tarde","Noite","Integral"]}/>
+              <FSelect label="Nível de acesso" options={["Visualização","Edição","Aprovação","Administrador"]}/>
+            </>}
+            <div style={{gridColumn:isWide?"1 / -1":"auto",padding:"10px 14px",background:`${C.azulCeuClaro}30`,borderRadius:8,display:"flex",alignItems:"center",gap:8}}>
+              <span style={{fontSize:11,color:C.azulProfundo,fontWeight:600,fontFamily:Fn.body}}>Tamanho atual:</span>
+              <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.mono,textTransform:"uppercase"}}>{size}</span>
+              <span style={{fontSize:11,color:C.cinzaChumbo,marginLeft:4}}>— Clique no botão no header para alternar</span>
+            </div>
+          </div>
+        )}
+      </PopupModal>
+
+      {/* 8. TUTORIAL CONTEXTUAL */}
+      <TutorialModal open={m==="tutorial"} onClose={close} title="Como usar esta página" subtitle="Tour guiado pelos recursos do Modal (Dialog)" steps={tutorialSteps}/>
 
       {/* ══════════════════════════════════════════════
           PAGE CONTENT
@@ -222,12 +923,12 @@ export default function DialogDoc(){
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
-          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Modal (Dialog)</h1>
+          <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Modal</h1>
           <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Janela sobreposta para confirmações, alertas, formulários e decisões. Overlay com blur, animação spring, ESC fecha, border-radius do Brandbook, aria-modal para acessibilidade.</p>
         </div>
       </header>
 
-      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
+      <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
 
         {/* ═══════════════════ 01 — PLAYGROUND ═══════════════════ */}
         <Section n="01" title="Playground interativo" desc="Clique para abrir cada tipo de modal. ESC ou overlay para fechar. Hover nos botões para ver feedback visual.">
@@ -239,8 +940,10 @@ export default function DialogDoc(){
               <Btn label="ℹ Informativo" color={C.azulProfundo} onClick={()=>open("info")}/>
               <Btn label="📝 Formulário" color={C.azulCeu} onClick={()=>open("form")}/>
               <Btn label="📋 Lista" color={C.cinzaChumbo} onClick={()=>open("list")}/>
+              <Btn label="🖥 Popup" color={C.azulClaro} onClick={()=>open("popup")}/>
+              <Btn label="❓ Tutorial" color={C.azulEscuro} onClick={()=>open("tutorial")}/>
             </div>
-            <p style={{fontSize:11,color:C.textMuted,marginTop:14,lineHeight:1.6}}>6 variantes com overlay blur, botões com hover glow, inputs com focus ring, lista com row hover. Todos fecham com ESC, clique no overlay ou botão X.</p>
+            <p style={{fontSize:11,color:C.textMuted,marginTop:14,lineHeight:1.6}}>8 variantes: confirmação, destrutivo, alerta, informativo, formulário, lista, popup redimensionável e tutorial step-by-step. Todos fecham com ESC, clique no overlay ou botão X.</p>
           </DSCard>
         </Section>
 
@@ -256,7 +959,7 @@ export default function DialogDoc(){
               {name:"Lista de itens",c:C.cinzaChumbo,desc:"Itens em rows com hover. Body #f5f6f8. Total no footer à esquerda.",cta:"Total + Fechar + Ação contextual.",ex:"'Itens da requisição'; 'Pendências'; checklist de aprovação."},
             ].map(t=>(
               <div key={t.name} style={{...gc,borderLeft:`4px solid ${t.c}`}}>
-                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
+                <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>{t.name}</span></div>
                 <div style={gb}>
                   <p style={gt}>{t.desc}</p>
                   <div style={gl}>Botões (CTA)</div><p style={gt}>{t.cta}</p>
@@ -288,7 +991,7 @@ export default function DialogDoc(){
               <div style={{background:"rgba(0,42,104,.12)",padding:mob?12:20}}>
                 <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:mob?8:12}}>
                   <span style={{width:8,height:8,borderRadius:"50%",background:C.azulEscuro}}/>
-                  <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.cinzaEscuro,fontFamily:Fn.title}}>① Overlay</span>
+                  <span style={{fontSize:10,fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",color:C.azulEscuro,fontFamily:Fn.title}}>① Overlay</span>
                   <code style={{fontSize:10,fontFamily:Fn.mono,color:C.textMuted,marginLeft:4}}>rgba(0,42,104,.45) + blur(2px)</code>
                 </div>
 
@@ -302,7 +1005,7 @@ export default function DialogDoc(){
                         {Ic.check(22,C.verdeFloresta)}
                       </div>
                       <div>
-                        <div style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Título do modal</div>
+                        <div style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Título do modal</div>
                         <div style={{fontSize:11,color:C.cinzaChumbo}}>Subtítulo descritivo</div>
                       </div>
                     </div>
@@ -377,7 +1080,7 @@ export default function DialogDoc(){
             <DSCard mob={mob}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
                 {Ic.keyboard(22,C.azulProfundo)}
-                <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Atalhos de teclado</span>
+                <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Atalhos de teclado</span>
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:12}}>
                 {[
@@ -403,7 +1106,7 @@ export default function DialogDoc(){
             <DSCard mob={mob}>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke={C.verdeFloresta} strokeWidth="1.8"/><path d="M12 7v0M9 10h6M10 10v7M14 10v7" stroke={C.verdeFloresta} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <span style={{fontSize:14,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Atributos ARIA</span>
+                <span style={{fontSize:14,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title}}>Atributos ARIA</span>
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:10}}>
                 {[
@@ -414,7 +1117,7 @@ export default function DialogDoc(){
                   {attr:'tabIndex={0}',desc:"Botão X recebe foco via Tab e responde a Enter."},
                 ].map((a,i)=>(
                   <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",padding:"8px 12px",background:C.bg,borderRadius:6}}>
-                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,flexShrink:0,whiteSpace:"nowrap"}}>{a.attr}</code>
+                    <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600,flexShrink:0,whiteSpace:"nowrap"}}>{a.attr}</code>
                     <span style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.5}}>{a.desc}</span>
                   </div>
                 ))}
@@ -498,7 +1201,7 @@ export default function DialogDoc(){
               ].map(s=>(
                 <div key={s.name} style={{display:"flex",flexDirection:"column",gap:12}}>
                   <div style={{textAlign:"center"}}>
-                    <span style={{fontSize:15,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title,display:"block"}}>{s.name}</span>
+                    <span style={{fontSize:15,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>{s.name}</span>
                     <code style={{fontSize:13,fontFamily:Fn.mono,color:s.color,fontWeight:600}}>{s.w}</code>
                   </div>
                   {/* Visual bar */}
@@ -517,7 +1220,7 @@ export default function DialogDoc(){
             </div>
 
             <div style={{marginTop:20,padding:"12px 16px",background:`${C.azulCeuClaro}30`,borderRadius:8,display:"flex",gap:10,alignItems:"center"}}>
-              <code style={{fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro,fontWeight:600,flexShrink:0}}>maxWidth: 95vw</code>
+              <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulProfundo,fontWeight:600,flexShrink:0}}>maxWidth: 95vw</code>
               <span style={{fontSize:12,color:C.cinzaChumbo}}>Todos os modais respeitam 95vw como máximo, garantindo margens laterais de 2.5% em qualquer tela.</span>
             </div>
           </DSCard>
@@ -585,34 +1288,271 @@ export default function DialogDoc(){
           </DSCard>
         </Section>
 
-        {/* ═══════════════════ 09 — MODO DARK ═══════════════════ */}
-        <Section n="09" title="Modo Dark" desc="Tokens e comportamento do componente no tema escuro. Consistência visual garantida em ambos os modos.">
-          <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,padding:mob?16:24}}>
-            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
-              {[
-                {token:"Overlay",light:"rgba(0,42,104,0.45)",dark:"rgba(0,0,0,0.65)"},
-                {token:"Panel bg",light:"#FFFFFF",dark:"#1A2332"},
-                {token:"Panel border",light:"#E2E8F0",dark:"#2A3A4A"},
-                {token:"Panel shadow",light:"rgba(0,42,104,0.2)",dark:"rgba(0,0,0,0.5)"},
-                {token:"Title color",light:"#333B41",dark:"#D1D9E0"},
-                {token:"Subtitle color",light:"#7B8C96",dark:"#8A9BA7"},
-                {token:"Footer bg",light:"#F2F4F8",dark:"#0F1923"},
-                {token:"Footer destructive",light:"#FEF8F8",dark:"#2A1215"},
-                {token:"Body form bg",light:"#FAFAFA",dark:"#141E2B"},
-                {token:"Input border",light:"#CBD5E1",dark:"#2A3A4A"},
-              ].map((r,i)=>(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",borderRadius:8,border:`1px solid ${C.cardBorder}`,background:C.bg}}>
-                  <div style={{display:"flex",gap:4,flexShrink:0}}>
-                    <span style={{width:16,height:16,borderRadius:4,background:r.light,border:"1px solid rgba(0,0,0,0.1)"}}/>
-                    <span style={{width:16,height:16,borderRadius:4,background:r.dark,border:"1px solid rgba(255,255,255,0.1)"}}/>
-                  </div>
+        {/* ═══════════════════ 09 — TUTORIAL MODAL ═══════════════════ */}
+        <Section n="09" title="Modal de Tutorial" desc="Walkthrough step-by-step contextual para guiar o usuário em cada página do sistema. Padrão obrigatório em todas as DocPages e módulos operacionais.">
+          <DSCard mob={mob}>
+            <div style={{display:"flex",gap:16,alignItems:mob?"stretch":"flex-start",flexDirection:mob?"column":"row"}}>
+              {/* Preview visual */}
+              <div style={{flex:"0 0 260px",background:`linear-gradient(135deg,${C.azulProfundo}08,${C.azulCeuClaro}20)`,borderRadius:12,border:`1px solid ${C.cardBorder}`,padding:20,display:"flex",flexDirection:"column",gap:12}}>
+                <div style={{display:"flex",alignItems:"center",gap:10}}>
+                  <div style={{width:40,height:40,borderRadius:12,background:`${C.azulProfundo}10`,display:"flex",alignItems:"center",justifyContent:"center",border:`1px solid ${C.azulCeu}30`}}>{Ic.helpCircle(22,C.azulProfundo)}</div>
                   <div>
-                    <span style={{fontSize:12,fontWeight:600,color:C.cinzaEscuro,display:"block"}}>{r.token}</span>
-                    <span style={{fontSize:10,fontFamily:"'Fira Code',monospace",color:C.cinzaChumbo}}>{r.light} → {r.dark}</span>
+                    <span style={{fontSize:13,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block"}}>Tutorial contextual</span>
+                    <span style={{fontSize:11,color:C.cinzaChumbo}}>4 passos · Barra de progresso</span>
                   </div>
                 </div>
-              ))}
+                {/* Mini progress */}
+                <div style={{height:3,background:C.bg,borderRadius:2,overflow:"hidden"}}>
+                  <div style={{height:"100%",width:"50%",background:`linear-gradient(90deg,${C.azulProfundo},${C.azulCeu})`,borderRadius:2}}/>
+                </div>
+                {/* Mini step preview */}
+                <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                  {["Playground interativo","Guia de uso por tipo","Anatomia do modal","Acessibilidade e tokens"].map((s,i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 10px",borderRadius:6,background:i===1?`${C.azulProfundo}10`:C.branco,border:i===1?`1px solid ${C.azulProfundo}20`:`1px solid ${C.cardBorder}`}}>
+                      <div style={{width:22,height:22,borderRadius:6,background:i===1?`linear-gradient(135deg,${C.azulProfundo},${C.azulCeu})`:i<1?`${C.verdeFloresta}15`:C.bg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                        <span style={{fontSize:10,fontWeight:700,color:i===1?C.branco:i<1?C.verdeFloresta:C.cinzaChumbo,fontFamily:Fn.mono}}>{i<1?"✓":i+1}</span>
+                      </div>
+                      <span style={{fontSize:11,color:i===1?C.azulEscuro:C.cinzaChumbo,fontWeight:i===1?600:400}}>{s}</span>
+                    </div>
+                  ))}
+                </div>
+                <Btn label="❓ Abrir tutorial" color={C.azulEscuro} onClick={()=>open("tutorial")} full/>
+              </div>
+
+              {/* Specs */}
+              <div style={{flex:1,display:"flex",flexDirection:"column",gap:16}}>
+                {/* Estrutura */}
+                <div>
+                  <div style={gl}>Estrutura</div>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    {[
+                      {part:"Header",desc:"Ícone ❓ em container azul 48×48 + título + subtítulo + contador de passos (ex: 2/4). Fundo com gradiente sutil azul.",color:C.azulProfundo},
+                      {part:"Barra de progresso",desc:"Barra de 3px com gradiente azulProfundo→azulCeu. Largura proporcional ao passo atual. Transição suave 350ms.",color:C.azulCeu},
+                      {part:"Body (passo ativo)",desc:"Número do passo em círculo gradiente 36×36 + título + referência ao elemento (com ícone ⊕). Descrição + card visual opcional + box de dicas.",color:C.amareloEscuro},
+                      {part:"Footer",desc:"Dots de navegação clicáveis + hints de teclado (← →) + botões Anterior/Próximo. Último passo mostra 'Concluir' em verde.",color:C.verdeFloresta},
+                    ].map(p=>(
+                      <div key={p.part} style={{display:"flex",gap:10,padding:"8px 12px",background:C.bg,borderRadius:6,borderLeft:`3px solid ${p.color}`}}>
+                        <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,minWidth:80}}>{p.part}</span>
+                        <span style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.5}}>{p.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Comportamento */}
+                <div>
+                  <div style={gl}>Comportamento</div>
+                  <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:8}}>
+                    {[
+                      {icon:"⌨",title:"Teclado",desc:"← → para navegar entre passos, ESC para fechar"},
+                      {icon:"●",title:"Dots clicáveis",desc:"Pular para qualquer passo diretamente"},
+                      {icon:"↑",title:"Scroll automático",desc:"Body retorna ao topo ao mudar de passo"},
+                      {icon:"✓",title:"Último passo",desc:"Botão muda de 'Próximo' para 'Concluir' (verde)"},
+                    ].map(b=>(
+                      <div key={b.title} style={{padding:"10px 12px",background:`${C.azulCeuClaro}20`,borderRadius:8,border:`1px solid ${C.azulCeuClaro}`}}>
+                        <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+                          <span style={{fontSize:14}}>{b.icon}</span>
+                          <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro}}>{b.title}</span>
+                        </div>
+                        <span style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.4}}>{b.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Como implementar */}
+                <div style={{background:`${C.verdeFloresta}08`,border:`1px solid ${C.verdeFloresta}30`,borderRadius:10,padding:"14px 18px"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
+                    {Ic.check(18,C.verdeFloresta)}
+                    <span style={{fontSize:13,fontWeight:700,color:C.verdeEscuro,fontFamily:Fn.title}}>Como implementar</span>
+                  </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:4}}>
+                    {[
+                      "Cada página define um array de steps com: title, ref (referência visual), description, tips[] e visual (JSX opcional)",
+                      "Use 3 a 5 passos por página — menos é superficial, mais cansa",
+                      "O campo 'ref' mostra a seção/componente referenciado (ex: 'Seção 02 — Guia de uso')",
+                      "O campo 'visual' aceita JSX — use para mini-previews, badges ou diagramas inline",
+                      "Botão de trigger: ❓ no header da página ou no playground",
+                    ].map((t,i)=>(
+                      <div key={i} style={{display:"flex",gap:6,alignItems:"flex-start"}}>
+                        <span style={{color:C.verdeFloresta,fontWeight:700,fontSize:12,flexShrink:0}}>✓</span>
+                        <span style={{fontSize:11,color:C.cinzaEscuro,lineHeight:1.5}}>{t}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
+          </DSCard>
+
+          {/* Tokens do tutorial modal */}
+          <div style={{marginTop:16}}>
+            <DSCard mob={mob} s={{display:"flex",gap:mob?24:40,flexWrap:"wrap"}}>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Estrutura</span>
+                <TokenRow label="Largura" value="540px (max 95vw)"/>
+                <TokenRow label="Overlay" value="rgba(0,42,104,.50) + blur(3px)"/>
+                <TokenRow label="Header bg" value="gradient azul sutil"/>
+                <TokenRow label="Body bg" value="#fafafa"/>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Progresso</span>
+                <TokenRow label="Barra height" value="3px"/>
+                <TokenRow label="Barra gradient" value="azulProfundo → azulCeu" color={C.azulProfundo}/>
+                <TokenRow label="Step circle" value="36×36 radius 10"/>
+                <TokenRow label="Dot ativo" value="20×8 (pill) azulProfundo" color={C.azulProfundo}/>
+                <TokenRow label="Dot inativo" value="8×8 (circle) cinzaClaro" color={C.cinzaClaro}/>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Navegação</span>
+                <TokenRow label="← →" value="Navegar passos"/>
+                <TokenRow label="ESC" value="Fechar tutorial"/>
+                <TokenRow label="Último CTA" value="'Concluir' verde"/>
+                <TokenRow label="Transição" value=".35s ease"/>
+              </div>
+            </DSCard>
+          </div>
+        </Section>
+
+        {/* ═══════════════════ 10 — MODAL POPUP ═══════════════════ */}
+        <Section n="10" title="Modal Popup" desc="Modal redimensionável com 3 tamanhos: Normal, Grande e Tela Cheia. Botão no header alterna entre tamanhos ciclicamente. Padrão usado em formulários operacionais (Coleta, Expedição, Produção).">
+          <DSCard mob={mob}>
+            <div style={{display:"flex",gap:16,alignItems:mob?"stretch":"flex-start",flexDirection:mob?"column":"row"}}>
+              {/* Preview + trigger */}
+              <div style={{flex:"0 0 280px",display:"flex",flexDirection:"column",gap:14}}>
+                {/* Size cards */}
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {[
+                    {size:"normal",w:"480px",maxH:"85vh",desc:"Formulários simples, decisões rápidas",c:C.azulProfundo,pct:45},
+                    {size:"grande",w:"720px",maxH:"90vh",desc:"Formulários com mais campos, grid 2 colunas",c:C.verdeFloresta,pct:70},
+                    {size:"tela-cheia",w:"92vw",maxH:"95vh",desc:"Operações completas, todos os campos visíveis",c:C.amareloEscuro,pct:100},
+                  ].map(s=>(
+                    <div key={s.size} style={{borderRadius:10,border:`1px solid ${C.cardBorder}`,overflow:"hidden"}}>
+                      <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",background:`${s.c}06`}}>
+                        <div style={{width:28,height:28,borderRadius:8,background:`${s.c}12`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                          {s.size==="tela-cheia"?Ic.minimize(14,s.c):Ic.maximize(14,s.c)}
+                        </div>
+                        <div style={{flex:1}}>
+                          <span style={{fontSize:12,fontWeight:700,color:C.azulEscuro,fontFamily:Fn.title,display:"block",textTransform:"capitalize"}}>{s.size.replace("-"," ")}</span>
+                          <span style={{fontSize:10,color:C.cinzaChumbo}}>{s.desc}</span>
+                        </div>
+                      </div>
+                      <div style={{padding:"0 14px 10px 14px",display:"flex",alignItems:"center",gap:8}}>
+                        <div style={{flex:1,height:4,background:C.bg,borderRadius:2,overflow:"hidden"}}>
+                          <div style={{height:"100%",width:`${s.pct}%`,background:s.c,borderRadius:2}}/>
+                        </div>
+                        <code style={{fontSize:10,fontFamily:Fn.mono,color:s.c,fontWeight:600}}>{s.w}</code>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Btn label="🖥 Abrir popup" color={C.azulClaro} onClick={()=>open("popup")} full/>
+              </div>
+
+              {/* Specs */}
+              <div style={{flex:1,display:"flex",flexDirection:"column",gap:16}}>
+                {/* Ciclo de tamanho */}
+                <div>
+                  <div style={gl}>Ciclo de tamanho</div>
+                  <div style={{display:"flex",alignItems:"center",gap:8,padding:"14px 16px",background:C.bg,borderRadius:10}}>
+                    {POPUP_ORDER.map((s,i)=>(
+                      <div key={s} style={{display:"flex",alignItems:"center",gap:8}}>
+                        <div style={{padding:"6px 14px",borderRadius:8,background:i===0?`${C.azulProfundo}12`:i===1?`${C.verdeFloresta}12`:`${C.amareloEscuro}12`,border:`1px solid ${i===0?`${C.azulProfundo}30`:i===1?`${C.verdeFloresta}30`:`${C.amareloEscuro}30`}`}}>
+                          <span style={{fontSize:11,fontWeight:700,color:i===0?C.azulProfundo:i===1?C.verdeFloresta:C.amareloEscuro,textTransform:"capitalize",fontFamily:Fn.title}}>{s.replace("-"," ")}</span>
+                        </div>
+                        {i<2&&<span style={{fontSize:14,color:C.cinzaClaro}}>→</span>}
+                      </div>
+                    ))}
+                    <span style={{fontSize:14,color:C.cinzaClaro,marginLeft:4}}>↻</span>
+                  </div>
+                </div>
+
+                {/* Comportamento por tamanho */}
+                <div>
+                  <div style={gl}>Comportamento adaptativo</div>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    {[
+                      {part:"Layout do body",desc:"Normal: 1 coluna. Grande: grid 2 colunas. Tela cheia: grid 2 colunas com campos extras (NF, peso, motorista).",color:C.azulProfundo},
+                      {part:"Botão toggle",desc:"No header, ao lado do X. Mostra ícone Maximize/Minimize + label do tamanho atual. Click alterna ciclicamente.",color:C.verdeFloresta},
+                      {part:"Transição",desc:"width e max-width animam com .25s ease. Scale spring na entrada. Border-radius muda para 8px em tela cheia.",color:C.amareloEscuro},
+                      {part:"Render props",desc:"Body recebe função children({size, isWide, isFullscreen}) para adaptar conteúdo condicionalmente por tamanho.",color:C.cinzaChumbo},
+                    ].map(p=>(
+                      <div key={p.part} style={{display:"flex",gap:10,padding:"8px 12px",background:C.bg,borderRadius:6,borderLeft:`3px solid ${p.color}`}}>
+                        <span style={{fontSize:12,fontWeight:700,color:C.cinzaEscuro,minWidth:80}}>{p.part}</span>
+                        <span style={{fontSize:11,color:C.cinzaChumbo,lineHeight:1.5}}>{p.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quando usar */}
+                <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+                  <div style={{padding:"12px 16px",background:`${C.verdeFloresta}08`,border:`1px solid ${C.verdeFloresta}30`,borderRadius:10}}>
+                    <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
+                      {Ic.check(16,C.verdeFloresta)}
+                      <span style={{fontSize:12,fontWeight:700,color:C.verdeEscuro}}>Quando usar</span>
+                    </div>
+                    <div style={{display:"flex",flexDirection:"column",gap:3}}>
+                      {["Formulários operacionais (Coleta, Expedição, Produção)","Cadastros que variam em complexidade","Quando o usuário quer mais espaço sem sair do contexto","Modais com grid de dados ou listas longas"].map((t,i)=>(
+                        <div key={i} style={{display:"flex",gap:6,alignItems:"flex-start"}}>
+                          <span style={{color:C.verdeFloresta,fontSize:11,flexShrink:0}}>✓</span>
+                          <span style={{fontSize:11,color:C.cinzaEscuro,lineHeight:1.4}}>{t}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{padding:"12px 16px",background:`${C.danger}06`,border:`1px solid ${C.danger}20`,borderRadius:10}}>
+                    <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
+                      {Ic.ban(16,C.danger)}
+                      <span style={{fontSize:12,fontWeight:700,color:"#B91C1C"}}>Evite</span>
+                    </div>
+                    <div style={{display:"flex",flexDirection:"column",gap:3}}>
+                      {["Confirmações simples (use modal padrão)","Modais informativos de apenas leitura","Alertas e avisos rápidos","Conteúdo que não muda entre tamanhos"].map((t,i)=>(
+                        <div key={i} style={{display:"flex",gap:6,alignItems:"flex-start"}}>
+                          <span style={{color:C.danger,fontSize:11,flexShrink:0}}>✕</span>
+                          <span style={{fontSize:11,color:C.cinzaEscuro,lineHeight:1.4}}>{t}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DSCard>
+
+          {/* Tokens */}
+          <div style={{marginTop:16}}>
+            <DSCard mob={mob} s={{display:"flex",gap:mob?24:40,flexWrap:"wrap"}}>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Tamanhos</span>
+                <TokenRow label="Normal" value="480px · max-h 85vh"/>
+                <TokenRow label="Grande" value="720px · max-h 90vh"/>
+                <TokenRow label="Tela cheia" value="92vw · max-h 95vh"/>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Toggle button</span>
+                <TokenRow label="Posição" value="Header, top-right"/>
+                <TokenRow label="Ícone" value="Maximize2 / Minimize2"/>
+                <TokenRow label="Label" value="Normal / Grande / Tela cheia"/>
+                <TokenRow label="Border" value="1px fips-border"/>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <span style={{fontSize:11,fontWeight:700,letterSpacing:".5px",color:C.textLight,textTransform:"uppercase",fontFamily:Fn.title,marginBottom:4}}>Transição</span>
+                <TokenRow label="Width" value=".25s ease"/>
+                <TokenRow label="Entrada" value="scale(.96→1) spring"/>
+                <TokenRow label="Radius full" value="8px (tela cheia)"/>
+                <TokenRow label="Radius normal" value="12 12 12 24"/>
+              </div>
+            </DSCard>
+          </div>
+        </Section>
+
+        {/* ═══════════════════ 11 — EXPORTAR CÓDIGO ═══════════════════ */}
+        <Section n="11" title="Exportar Código" desc="Código copy-paste ready de cada componente. Inclui tokens, ícones, helpers e exemplo de uso. Cole direto no seu projeto.">
+          <div style={{display:"flex",flexDirection:"column",gap:14}}>
+            <CodeExport label="Modal" description="Modal base — confirmação, destrutivo, alerta, informativo, formulário, lista" code={MODAL_CODE}/>
+            <CodeExport label="TutorialModal" description="Walkthrough step-by-step contextual com barra de progresso e navegação por teclado" code={TUTORIAL_MODAL_CODE}/>
+            <CodeExport label="PopupModal" description="Modal redimensionável — Normal (480px), Grande (720px), Tela Cheia (92vw)" code={POPUP_MODAL_CODE}/>
           </div>
         </Section>
 

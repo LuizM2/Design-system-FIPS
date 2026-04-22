@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
+import { CodeExportSection } from '../../components/CodeExport'
 import { LuLayoutGrid, LuCircleCheck, LuClock, LuTriangleAlert, LuFileText, LuList, LuChartColumnIncreasing, LuArrowUp, LuArrowDown, LuX, LuBuilding2, LuCalendar, LuUser, LuFlag, LuFileSpreadsheet, LuFileDown, LuChevronDown, LuCheck } from "react-icons/lu";
 import { PieChart, Pie, Cell } from "recharts";
 import { useFipsTheme } from '../../../hooks/useFipsTheme';
@@ -986,6 +987,96 @@ export default function DSFIPSDashboard(){
             </div>
           </div>
         </div>
+
+        <CodeExportSection items={[
+          {
+            label: 'Dashboard KPI Cards',
+            description: 'Grid de 4 KPI cards com sparkline, delta e ícone. Padrão obrigatório do Dashboard FIPS.',
+            code: `/* Dashboard KPI Cards — DS-FIPS
+   4 cards em grid, cada um com:
+   - Ícone em container 48x48 r14
+   - Valor principal (Saira Expanded 28px 700)
+   - Label (Open Sans 12px muted)
+   - Delta % com seta (verde/vermelho)
+   - Sparkline area chart
+
+   CSS vars: --color-primary, --color-success, --color-accent-strong, --color-danger
+*/
+
+const kpis = [
+  { label: 'Total', value: '1.247', delta: '+12%', up: true, color: 'var(--color-primary)' },
+  { label: 'Aprovados', value: '892', delta: '+8%', up: true, color: 'var(--color-success)' },
+  { label: 'Pendentes', value: '234', delta: '-3%', up: false, color: 'var(--color-accent-strong)' },
+  { label: 'Urgentes', value: '121', delta: '+5%', up: true, color: 'var(--color-danger)' },
+]
+
+function KPIGrid() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+      {kpis.map(kpi => (
+        <div key={kpi.label} style={{
+          background: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '12px 12px 12px 24px',
+          padding: 20,
+        }}>
+          <p style={{ fontSize: 12, color: 'var(--color-fg-muted)' }}>{kpi.label}</p>
+          <p style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Saira Expanded', sans-serif", color: kpi.color }}>
+            {kpi.value}
+          </p>
+          <span style={{ fontSize: 11, color: kpi.up ? 'var(--color-success)' : 'var(--color-danger)' }}>
+            {kpi.delta}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}`,
+          },
+          {
+            label: 'Dashboard Layout Completo',
+            description: 'Estrutura PageHero + filtros + KPIs + charts + tabela resumo.',
+            code: `/* Dashboard Layout — DS-FIPS
+   Ordem obrigatória: Header Navy > KPIs > Filtros > Charts > Tabela
+
+   Tokens:
+   --color-gov-gradient-from / --color-gov-gradient-to (header navy)
+   --color-surface-muted (background)
+   --color-surface (cards)
+   --color-border (bordas)
+   Fontes: Saira Expanded (titulos), Open Sans (corpo), Fira Code (valores)
+*/
+
+function DashboardPage() {
+  return (
+    <div style={{ background: 'var(--color-surface-muted)', minHeight: '100vh' }}>
+      {/* Header Navy — gradiente azul com titulo do modulo */}
+      <div style={{
+        background: 'linear-gradient(135deg, var(--color-gov-gradient-from), var(--color-gov-gradient-to))',
+        borderRadius: '12px 12px 12px 24px',
+        padding: '22px 26px', color: '#fff',
+      }}>
+        <h2 style={{ fontFamily: "'Saira Expanded', sans-serif", fontSize: 21, fontWeight: 700 }}>
+          Painel de Requisicoes
+        </h2>
+      </div>
+
+      {/* KPI Grid — sempre 4 cards, 2x2 no mobile */}
+      {/* <KPIGrid /> */}
+
+      {/* Toolbar — Filtros esquerda, Export direita */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0' }}>
+        <div>{/* Filtros + Busca + Periodo */}</div>
+        <div>{/* Excel + PDF */}</div>
+      </div>
+
+      {/* Charts area — grid flex */}
+      {/* Tabela com header proprio (icone 48x48 + titulo Saira 16/700) */}
+    </div>
+  )
+}`,
+          },
+        ]} />
 
         <div style={{textAlign:"center",padding:"24px 0 0",marginTop:24}}>
           <span style={{fontSize:11,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
