@@ -8,6 +8,7 @@ import { DocHeaderPageTrail } from '../components/layout/DocHeaderPageTrail'
 import { DocHeaderSectionNav } from '../components/layout/DocHeaderSectionNav'
 import { DocsNeuSidebar } from '../components/layout/DocsNeuSidebar'
 import { SearchPill } from '../components/layout/SearchPill'
+import { TutorialOverlay, routeToPageName } from '../components/domain/TutorialContextual'
 import { UserChip } from '../components/layout/UserChip'
 import { Button } from '../components/ui/button'
 import { Toaster } from 'sonner'
@@ -21,6 +22,7 @@ export function DocLayout() {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [_sidebarAutoMenu, setSidebarAutoMenu] = useState(false)
+  const [tutorialOpen, setTutorialOpen] = useState(false)
   const [isLg, setIsLg] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false,
   )
@@ -170,7 +172,7 @@ export function DocLayout() {
                 <DocHeaderNeuIconButton ariaLabel="Notificações" dark={dark}>
                   <Bell className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
                 </DocHeaderNeuIconButton>
-                <DocHeaderNeuIconButton ariaLabel="Tutorial" dark={dark}>
+                <DocHeaderNeuIconButton ariaLabel="Tutorial" dark={dark} onClick={() => setTutorialOpen(true)}>
                   <GraduationCap className="h-[17px] w-[17px]" aria-hidden strokeWidth={1.9} />
                 </DocHeaderNeuIconButton>
                 <DocHeaderNeuIconButton
@@ -208,6 +210,7 @@ export function DocLayout() {
       </div>
 
       <Toaster richColors position="top-right" closeButton />
+      <TutorialOverlay open={tutorialOpen} onClose={() => setTutorialOpen(false)} pageName={routeToPageName(location.pathname)} />
     </div>
   )
 }
