@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Bell, ChevronDown, ShieldCheck, AlertTriangle, ArrowUpFromLine, Sparkles, LayoutGrid } from 'lucide-react'
+import { ShieldCheck, AlertTriangle, ArrowUpFromLine, LayoutGrid } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
 import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'

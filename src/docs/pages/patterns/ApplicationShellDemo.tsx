@@ -98,8 +98,6 @@ const groupedItems: ShellGroup[] = [
   },
 ]
 
-const footerItems: ShellItem[] = [{ icon: Settings, label: 'Ajustes' }]
-
 const shellSectionTabs: Array<{ id: string; label: string; active: boolean; icon: LucideIcon }> = [
   { id: 'start', label: 'Início', active: false, icon: Home },
   { id: 'patterns', label: 'Padrões', active: true, icon: LayoutDashboard },

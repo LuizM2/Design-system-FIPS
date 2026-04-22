@@ -5,8 +5,8 @@ import { Button } from "../../components/ui/button";
 import { Progress } from "../../components/ui/progress";
 import {
   Sparkles, Palette, Component, LayoutDashboard, ShieldCheck, BookOpen,
-  ArrowRight, Users, FileInput, Cog, PackageCheck, AlertTriangle,
-  ClipboardList, BarChart3, Compass,
+  ArrowRight, Users, FileInput, Cog,
+  BarChart3,
 } from "lucide-react";
 
 const HOME_BACKGROUND = '/backgrounds/app-shell-home-trains.png';
@@ -162,7 +162,7 @@ export default function HomePage(){
                     <span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>{p.label}</span>
                     <span style={{fontSize:11,fontWeight:600,color:C.cinzaChumbo,fontFamily:Fn.mono}}>{p.pct}%</span>
                   </div>
-                  <Progress value={p.pct} size="sm"/>
+                  <Progress value={p.pct}/>
                   <p style={{fontSize:12,color:C.cinzaChumbo,margin:"4px 0 0",lineHeight:1.5,fontFamily:Fn.body}}>{p.desc}</p>
                 </div>
               ))}

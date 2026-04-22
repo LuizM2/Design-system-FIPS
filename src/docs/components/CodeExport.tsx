@@ -1,28 +1,9 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 
 /* ═══════════════════════════════════════════
    CodeExport — Botão de copiar código + painel colapsável
    Padrão DS-FIPS para todas as DocPages
    ═══════════════════════════════════════════ */
-
-function CopyIcon({ size = 14, color = '#fff' }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-      <rect x="5" y="3" width="10" height="2" rx="1" stroke={color} strokeWidth="1.4" />
-      <rect x="3" y="5" width="14" height="13" rx="2" stroke={color} strokeWidth="1.4" />
-      <path d="M7 10h6M7 13h4" stroke={color} strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function CheckIcon({ size = 14, color = '#fff' }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-      <circle cx="10" cy="10" r="8" stroke={color} strokeWidth="1.5" />
-      <path d="M6.5 10l2.5 2.5 5-5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
 
 function BracesIcon({ size = 20, color = '#93BDE4' }: { size?: number; color?: string }) {
   return (
@@ -33,20 +14,6 @@ function BracesIcon({ size = 20, color = '#93BDE4' }: { size?: number; color?: s
         strokeWidth="1.4"
         strokeLinecap="round"
       />
-    </svg>
-  )
-}
-
-function ChevIcon({ size = 10, color = '#fff', up = false }: { size?: number; color?: string; up?: boolean }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 16 16"
-      fill="none"
-      style={{ transform: up ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}
-    >
-      <path d="M4 6l4 4 4-4" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

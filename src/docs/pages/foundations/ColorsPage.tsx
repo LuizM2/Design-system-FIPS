@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
 import { fipsPalette, semanticColors, darkSemanticColors } from '../../../tokens/colors'
-import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
 const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulCeuClaro: '#D3E3F4', amareloOuro: '#FDC24E', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', branco: '#FFFFFF', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', textLight: 'var(--color-fg-muted)' }
 const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif" }
@@ -162,7 +161,7 @@ export default function ColorsPage() {
                   { token: 'badge-success-bg', light: 'rgba(0,198,76,0.14)', dark: 'rgba(0,198,76,0.14)' },
                   { token: 'badge-warning-bg', light: 'rgba(246,146,30,0.14)', dark: 'rgba(246,146,30,0.14)' },
                   { token: 'badge-danger-bg', light: 'rgba(239,68,68,0.14)', dark: 'rgba(239,68,68,0.14)' },
-                ].map((r, i) => (
+                ].map((r) => (
                   <tr key={r.token} style={{ borderBottom: `1px solid ${C.cardBorder}` }}>
                     <td style={{ padding: '8px 16px', fontFamily: "'Fira Code', monospace", fontWeight: 600, color: C.cinzaEscuro }}>{r.token}</td>
                     <td style={{ padding: '8px 16px' }}>
