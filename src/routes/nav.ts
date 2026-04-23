@@ -24,6 +24,7 @@ import {
   TableProperties,
   Type,
   MonitorSmartphone,
+  Cpu,
 } from 'lucide-react'
 
 export type NavItem = {
@@ -48,6 +49,7 @@ export const navGroups: NavGroup[] = [
     collapsible: false,
     items: [
       { label: 'Home', to: '/docs/home', icon: Home },
+      { label: 'Stacks', to: '/docs/stacks', icon: Cpu },
       { label: 'Visão geral', to: '/docs', icon: Sparkles },
       { label: 'Governança', to: '/docs/governance', icon: ShieldCheck },
     ],

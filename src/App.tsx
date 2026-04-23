@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { DocLayout } from './app/DocLayout'
 
 const HomePage = lazy(() => import('./docs/pages/HomePage'))
+const StacksPage = lazy(() => import('./docs/pages/StacksPage'))
 const OverviewPage = lazy(() => import('./docs/pages/Overview'))
 const GovernancePage = lazy(() => import('./docs/pages/GovernancePage'))
 const ChangelogPage = lazy(() => import('./docs/pages/ChangelogPage'))
@@ -55,6 +56,7 @@ export default function App() {
       <Route path="/docs" element={<DocLayout />}>
         <Route index element={renderLazyRoute(<OverviewPage />)} />
         <Route path="home" element={renderLazyRoute(<HomePage />)} />
+        <Route path="stacks" element={renderLazyRoute(<StacksPage />)} />
         <Route path="governance" element={renderLazyRoute(<GovernancePage />)} />
         <Route path="foundations/colors" element={renderLazyRoute(<ColorsPage />)} />
         <Route path="foundations/typography" element={renderLazyRoute(<TypographyPage />)} />
