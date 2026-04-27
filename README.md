@@ -2,7 +2,7 @@
 
 Biblioteca oficial de componentes para construir interfaces do sistema FIPS (Ferrovia Interna do Porto de Santos).
 
-## Versão atual: `v0.4.0`
+## Versão atual: `v0.4.1`
 
 ## Versionamento
 
@@ -24,6 +24,7 @@ O projeto segue **Semantic Versioning (SemVer)**. Toda alteração deve atualiza
 
 | Versão | Data | Descrição |
 |---|---|---|
+| 0.4.1 | 2026-04-27 | Documentação de versionamento e changelog |
 | 0.4.0 | 2026-04-23 | Stacks, tutorial contextual, modal colorido, exports |
 
 ## Stack
