@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+# Design System FIPS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Biblioteca oficial de componentes para construir interfaces do sistema FIPS (Ferrovia Interna do Porto de Santos).
 
-Currently, two official plugins are available:
+## Versão atual: `v0.4.0`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Versionamento
 
-## React Compiler
+O projeto segue **Semantic Versioning (SemVer)**. Toda alteração deve atualizar a versão em `package.json` antes do commit.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Tipo de alteração | Incremento | Exemplo |
+|---|---|---|
+| **Correção / patch** (bugfix, ajuste visual, refactor) | `+0.0.1` | 0.4.0 → 0.4.1 |
+| **Nova feature / tela** | `+0.1.0` | 0.4.0 → 0.5.0 |
+| **Breaking change** (mudança incompatível) | `+1.0.0` | 0.4.0 → 1.0.0 |
 
-## Expanding the ESLint configuration
+### Como atualizar a versão
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Edite o campo `"version"` no `package.json`
+2. Atualize a seção "Versão atual" neste README
+3. Commit com mensagem no padrão: `chore: bump version to X.Y.Z`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Histórico de versões
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Versão | Data | Descrição |
+|---|---|---|
+| 0.4.0 | 2026-04-23 | Stacks, tutorial contextual, modal colorido, exports |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React + TypeScript
+- Vite
+- Tailwind CSS
