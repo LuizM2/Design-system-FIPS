@@ -37,6 +37,8 @@ const FormWorkspaceDemo = lazy(() => import('./docs/pages/patterns/FormWorkspace
 const ModalWorkflowDemo = lazy(() => import('./docs/pages/patterns/ModalWorkflowDemo'))
 const HeroHeaderDoc = lazy(() => import('./docs/pages/patterns/HeroHeaderDoc'))
 const HeroBannerDoc = lazy(() => import('./docs/pages/patterns/HeroBannerDoc'))
+const LoginDesktopTest = lazy(() => import('./docs/pages/LoginDesktopTest'))
+const LoginClaudeLab = lazy(() => import('./docs/pages/LoginClaudeLab'))
 function RouteFallback() {
   return (
     <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm font-medium text-[var(--color-fg-muted)]">
@@ -53,6 +55,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/docs/home" replace />} />
+      <Route path="/login-desktop-test" element={renderLazyRoute(<LoginDesktopTest />)} />
+      <Route path="/login-claude-lab" element={renderLazyRoute(<LoginClaudeLab />)} />
       <Route path="/docs" element={<DocLayout />}>
         <Route index element={renderLazyRoute(<OverviewPage />)} />
         <Route path="home" element={renderLazyRoute(<HomePage />)} />

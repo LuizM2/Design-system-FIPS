@@ -570,7 +570,7 @@ export default function ProgressDoc() {
       {/* HEADER */}
       <header style={{ background: `linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`, padding: mob ? "32px 20px 30px" : xl ? "56px 56px 52px" : "48px 40px 44px", position: "relative", overflow: "hidden" }}>
         <JunctionLines style={{ position: "absolute", top: -10, right: -20, width: mob ? 250 : 400, height: 250 }} />
-        <JunctionLines style={{ position: "absolute", bottom: -30, left: "30%", width: mob ? 300 : 500, height: 200, transform: "scaleX(-1)" }} />
+        <JunctionLines style={{ position: 'absolute', bottom: -40, left: -60, width: 300, height: 200, transform: 'scaleX(-1)' }} />
         <div style={{ position: "relative" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: `${C.branco}10`, border: `1px solid ${C.branco}18`, borderRadius: 20, padding: "5px 14px", fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.amareloOuro, fontFamily: F.title, marginBottom: 16 }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill={C.amareloOuro} /><rect x="9" y="1" width="6" height="6" rx="1.5" fill={C.amareloOuro} opacity=".5" /><rect x="1" y="9" width="6" height="6" rx="1.5" fill={C.amareloOuro} opacity=".5" /><rect x="9" y="9" width="6" height="6" rx="1.5" fill={C.amareloOuro} opacity=".3" /></svg>

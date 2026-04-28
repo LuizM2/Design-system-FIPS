@@ -624,9 +624,7 @@ export default function TextareaDoc() {
         }}
       >
         <JunctionLines style={{ position: 'absolute', top: -10, right: -20, width: mob ? 250 : 400, height: 250 }} />
-        <JunctionLines
-          style={{ position: 'absolute', bottom: -30, left: '30%', width: mob ? 300 : 500, height: 200, transform: 'scaleX(-1)' }}
-        />
+        <JunctionLines style={{ position: 'absolute', bottom: -40, left: -60, width: 300, height: 200, transform: 'scaleX(-1)' }} />
         <div style={{ position: 'relative' }}>
           <div
             style={{

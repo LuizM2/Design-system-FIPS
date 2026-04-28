@@ -386,7 +386,7 @@ export default function FieldDoc(){
       {/* ══════ HEADER ══════ */}
       <header style={{background:`linear-gradient(135deg,${C.azulProfundo} 0%,${C.azulEscuro} 100%)`,padding:"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:400,height:250}}/>
-        <JunctionLines style={{position:"absolute",bottom:-30,left:"30%",width:500,height:200,transform:"scaleX(-1)"}}/>
+        <JunctionLines style={{ position: 'absolute', bottom: -40, left: -60, width: 300, height: 200, transform: 'scaleX(-1)' }} />
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:F.title,marginBottom:16}}>
             {I.grid(14,C.amareloOuro)} Design System FIPS

@@ -108,7 +108,6 @@ export function Copyable({
 export function CodePlayground() {
   const { code, preview } = usePlayground()
   const [running, setRunning] = useState(false)
-  const [copied, setCopied] = useState(false)
   const prevCodeRef = useRef(code)
 
   // Auto-run quando um novo elemento é clicado
@@ -128,15 +127,6 @@ export function CodePlayground() {
 
   const handleClear = () => {
     setRunning(false)
-  }
-
-  const handleCopy = () => {
-    if (displayCode) {
-      navigator.clipboard.writeText(displayCode).then(() => {
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      })
-    }
   }
 
   if (!code) {
@@ -270,11 +260,6 @@ export function CodePlayground() {
             {displayCode.split('\n').length} linhas · TSX · Código copiado
           </span>
           <div style={{ display: 'flex', gap: 8 }}>
-            <PlayBtn
-              label={copied ? '✓ Copiado' : '📋 Copiar'}
-              color={copied ? '#00C64C' : '#004B9B'}
-              onClick={handleCopy}
-            />
             {running ? (
               <PlayBtn label="✕ Limpar" color="#546E7A" onClick={handleClear} />
             ) : (
@@ -421,9 +406,9 @@ export function CopyableInline({
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
+          alignItems: 'stretch',
           gap: 12,
-          flexWrap: 'wrap',
           padding: '12px 16px',
           borderRadius: expanded ? '12px 12px 0 0' : '12px 12px 12px 18px',
           border: '1px solid var(--color-border)',
@@ -431,8 +416,8 @@ export function CopyableInline({
           background: 'var(--color-surface)',
         }}
       >
-        <div style={{ flex: 1, minWidth: 200 }}>{children}</div>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+        <div style={{ width: '100%', minWidth: 0 }}>{children}</div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           <PlayBtn
             label={expanded ? '{ } Ocultar' : '{ } Ver código'}
             color="#546E7A"
@@ -440,11 +425,6 @@ export function CopyableInline({
               setExpanded((e) => !e)
               if (!expanded) setRunning(false)
             }}
-          />
-          <PlayBtn
-            label={copied ? '✓ Copiado!' : '📋 Copiar'}
-            color={copied ? '#00C64C' : '#004B9B'}
-            onClick={doCopy}
           />
         </div>
       </div>

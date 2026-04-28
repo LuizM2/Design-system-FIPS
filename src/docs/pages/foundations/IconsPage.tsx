@@ -8,6 +8,7 @@ import {
   LuTriangleAlert, LuShield, LuLock, LuCircleCheck, LuInfo,
   LuFileText, LuFolder, LuBell, LuTag, LuClock, LuCalendar,
   LuUser, LuBuilding2, LuMail,
+  LuMapPin, LuTruck, LuPackage, LuWrench,
 } from "react-icons/lu";
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
@@ -17,26 +18,59 @@ const alpha=(c:string,a:number)=>`color-mix(in srgb, ${c} ${Math.round(a*100)}%,
 const iconMap: Record<string, IconType> = {
   home: LuHouse, grid: LuLayoutGrid, list: LuList, chart: LuChartColumnIncreasing,
   filter: LuFilter, settings: LuSettings, busca: LuSearch,
+  dashboard: LuLayoutGrid, menu: LuList, modulo: LuSettings,
   x: LuX, check: LuCheck, edit: LuPencil, trash: LuTrash2,
   eye: LuEye, clip: LuPaperclip,
+  approve: LuCheck, reject: LuX, remove: LuTrash2, attach: LuPaperclip,
   alert: LuTriangleAlert, shield: LuShield, lock: LuLock,
   status: LuCircleCheck, info: LuInfo,
+  warning: LuTriangleAlert, secure: LuShield, done: LuCircleCheck, blocked: LuLock, details: LuInfo,
   doc: LuFileText, folder: LuFolder, bell: LuBell, tag: LuTag,
   clock: LuClock, calendar: LuCalendar,
+  report: LuFileText, notify: LuBell, schedule: LuCalendar, labels: LuTag,
   pessoa: LuUser, building: LuBuilding2, email: LuMail,
+  team: LuUser, manager: LuUser, company: LuBuilding2, contact: LuMail,
+  profile: LuUser, org: LuBuilding2, support: LuMail,
+  map: LuMapPin, truck: LuTruck, package: LuPackage, wrench: LuWrench,
+  route: LuMapPin, delivery: LuTruck, cargo: LuPackage, maintenance: LuWrench, yard: LuBuilding2, inspection: LuEye,
 };
 
 const iconImportName: Record<string, string> = {
   home: "LuHouse", grid: "LuLayoutGrid", list: "LuList", chart: "LuChartColumnIncreasing",
   filter: "LuFilter", settings: "LuSettings", busca: "LuSearch",
+  dashboard: "LuLayoutGrid", menu: "LuList", modulo: "LuSettings",
   x: "LuX", check: "LuCheck", edit: "LuPencil", trash: "LuTrash2",
   eye: "LuEye", clip: "LuPaperclip",
+  approve: "LuCheck", reject: "LuX", remove: "LuTrash2", attach: "LuPaperclip",
   alert: "LuTriangleAlert", shield: "LuShield", lock: "LuLock",
   status: "LuCircleCheck", info: "LuInfo",
+  warning: "LuTriangleAlert", secure: "LuShield", done: "LuCircleCheck", blocked: "LuLock", details: "LuInfo",
   doc: "LuFileText", folder: "LuFolder", bell: "LuBell", tag: "LuTag",
   clock: "LuClock", calendar: "LuCalendar",
+  report: "LuFileText", notify: "LuBell", schedule: "LuCalendar", labels: "LuTag",
   pessoa: "LuUser", building: "LuBuilding2", email: "LuMail",
+  team: "LuUser", manager: "LuUser", company: "LuBuilding2", contact: "LuMail",
+  profile: "LuUser", org: "LuBuilding2", support: "LuMail",
+  map: "LuMapPin", truck: "LuTruck", package: "LuPackage", wrench: "LuWrench",
+  route: "LuMapPin", delivery: "LuTruck", cargo: "LuPackage", maintenance: "LuWrench", yard: "LuBuilding2", inspection: "LuEye",
 };
+const iconImportSource: Record<string, string> = {
+  home: "react-icons/lu", grid: "react-icons/lu", list: "react-icons/lu", chart: "react-icons/lu",
+  filter: "react-icons/lu", settings: "react-icons/lu", busca: "react-icons/lu", x: "react-icons/lu",
+  check: "react-icons/lu", edit: "react-icons/lu", trash: "react-icons/lu", eye: "react-icons/lu",
+  clip: "react-icons/lu", alert: "react-icons/lu", shield: "react-icons/lu", lock: "react-icons/lu",
+  status: "react-icons/lu", info: "react-icons/lu", doc: "react-icons/lu", folder: "react-icons/lu",
+  bell: "react-icons/lu", tag: "react-icons/lu", clock: "react-icons/lu", calendar: "react-icons/lu",
+  pessoa: "react-icons/lu", building: "react-icons/lu", email: "react-icons/lu", map: "react-icons/lu",
+  profile: "react-icons/lu", org: "react-icons/lu", support: "react-icons/lu",
+  truck: "react-icons/lu", package: "react-icons/lu", wrench: "react-icons/lu",
+  dashboard: "react-icons/lu", menu: "react-icons/lu", modulo: "react-icons/lu",
+  approve: "react-icons/lu", reject: "react-icons/lu", remove: "react-icons/lu", attach: "react-icons/lu",
+  warning: "react-icons/lu", secure: "react-icons/lu", done: "react-icons/lu", blocked: "react-icons/lu", details: "react-icons/lu",
+  report: "react-icons/lu", notify: "react-icons/lu", schedule: "react-icons/lu", labels: "react-icons/lu",
+  team: "react-icons/lu", manager: "react-icons/lu", company: "react-icons/lu", contact: "react-icons/lu",
+  route: "react-icons/lu", delivery: "react-icons/lu", cargo: "react-icons/lu", maintenance: "react-icons/lu", yard: "react-icons/lu", inspection: "react-icons/lu",
+}
 
 function Ic({ id, size, color }: { id: string; size: number; color: string }) {
   const Icon = iconMap[id];
@@ -50,11 +84,12 @@ function DSCard({children,s,mob:m}:{children:ReactNode,s?:React.CSSProperties,mo
 function TokenRow({label,value}:{label:string,value:string}){return(<div style={{display:"flex",alignItems:"center",gap:10,fontSize:12,fontFamily:Fn.body}}><span style={{color:C.cinzaChumbo,minWidth:140}}>{label}</span><code style={{background:C.neutro,padding:"2px 8px",borderRadius:4,fontSize:11,fontFamily:Fn.mono,color:C.cinzaEscuro}}>{value}</code></div>)}
 
 const categories=[
-  {name:"Navegação",icons:[{id:"home",label:"Home"},{id:"grid",label:"Grid"},{id:"list",label:"Lista"},{id:"chart",label:"Gráfico"},{id:"filter",label:"Filtro"},{id:"settings",label:"Configuração"},{id:"busca",label:"Busca"}]},
-  {name:"Ações",icons:[{id:"x",label:"Fechar"},{id:"check",label:"Confirmar"},{id:"edit",label:"Editar"},{id:"trash",label:"Excluir"},{id:"eye",label:"Visualizar"},{id:"clip",label:"Anexar"}]},
-  {name:"Status",icons:[{id:"alert",label:"Alerta"},{id:"shield",label:"Segurança"},{id:"lock",label:"Bloqueado"},{id:"status",label:"Concluído"},{id:"info",label:"Informação"}]},
-  {name:"Objetos",icons:[{id:"doc",label:"Documento"},{id:"folder",label:"Pasta"},{id:"bell",label:"Notificação"},{id:"tag",label:"Tag"},{id:"clock",label:"Relógio"},{id:"calendar",label:"Calendário"}]},
-  {name:"Entidades",icons:[{id:"pessoa",label:"Pessoa"},{id:"building",label:"Empresa"},{id:"email",label:"E-mail"}]},
+  {name:"Navegação",icons:[{id:"home",label:"Home"},{id:"grid",label:"Grid"},{id:"list",label:"Lista"},{id:"chart",label:"Gráfico"},{id:"filter",label:"Filtro"},{id:"settings",label:"Configuração"},{id:"busca",label:"Busca"},{id:"dashboard",label:"Dashboard"},{id:"menu",label:"Menu"},{id:"modulo",label:"Módulo"}]},
+  {name:"Ações",icons:[{id:"x",label:"Fechar"},{id:"check",label:"Confirmar"},{id:"edit",label:"Editar"},{id:"trash",label:"Excluir"},{id:"eye",label:"Visualizar"},{id:"clip",label:"Anexar"},{id:"approve",label:"Aprovar"},{id:"reject",label:"Rejeitar"},{id:"remove",label:"Remover"},{id:"attach",label:"Anexo"}]},
+  {name:"Status",icons:[{id:"alert",label:"Alerta"},{id:"shield",label:"Segurança"},{id:"lock",label:"Bloqueado"},{id:"status",label:"Concluído"},{id:"info",label:"Informação"},{id:"warning",label:"Atenção"},{id:"secure",label:"Protegido"},{id:"done",label:"Finalizado"},{id:"blocked",label:"Restrito"},{id:"details",label:"Detalhes"}]},
+  {name:"Objetos",icons:[{id:"doc",label:"Documento"},{id:"folder",label:"Pasta"},{id:"bell",label:"Notificação"},{id:"tag",label:"Tag"},{id:"clock",label:"Relógio"},{id:"calendar",label:"Calendário"},{id:"report",label:"Relatório"},{id:"notify",label:"Alarme"},{id:"schedule",label:"Agenda"},{id:"labels",label:"Rótulos"}]},
+  {name:"Entidades",icons:[{id:"pessoa",label:"Pessoa"},{id:"building",label:"Empresa"},{id:"email",label:"E-mail"},{id:"team",label:"Equipe"},{id:"manager",label:"Gestor"},{id:"company",label:"Corporação"},{id:"contact",label:"Contato"},{id:"profile",label:"Perfil"},{id:"org",label:"Organização"},{id:"support",label:"Suporte"}]},
+  {name:"Operação",icons:[{id:"map",label:"Mapa"},{id:"truck",label:"Transporte"},{id:"package",label:"Pacote"},{id:"wrench",label:"Manutenção"},{id:"route",label:"Rota"},{id:"delivery",label:"Entrega"},{id:"cargo",label:"Carga"},{id:"maintenance",label:"Manutenção 2"},{id:"yard",label:"Pátio"},{id:"inspection",label:"Verificação"}]},
 ];
 const sizes=[
   {px:12,use:"Dentro de tabs sm, badges, elementos compactos"},
@@ -89,14 +124,14 @@ export default function DSFIPSIconography(){
       <header style={{background:`linear-gradient(135deg,var(--color-gov-gradient-from) 0%,var(--color-gov-gradient-to) 100%)`,padding:mob?"32px 20px":"48px 40px 44px",position:"relative",overflow:"hidden"}}>
         <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?250:400,height:250}}/>
         <div style={{position:"relative"}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}><LuLayoutGrid size={14} color={C.amareloOuro} /> Design System FIPS</div>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}><Ic id="grid" size={14} color={C.amareloOuro} /> Design System FIPS</div>
           <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Iconografia</h1>
           <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Biblioteca baseada em <strong style={{color:C.amareloOuro}}>React Icons</strong> — usando <strong style={{color:`${C.branco}D0`}}>Lucide (lu)</strong> como família padrão, stroke consistente e tree-shakeable.</p>
         </div>
       </header>
 
       <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
-        <Section n="01" title="Biblioteca de ícones" desc={`Seleção de ${categories.reduce((a,c)=>a+c.icons.length,0)} ícones React Icons (Lucide) aplicados no DS-FIPS. Troque o tamanho no seletor.`}>
+        <Section n="01" title="Biblioteca de ícones" desc={`Seleção de ${categories.reduce((a,c)=>a+c.icons.length,0)} ícones com várias bibliotecas React Icons. Visual compacto (ícone + nome) para caber muito mais itens.`}>
           <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:20,flexWrap:"wrap"}}>
             <span style={{fontSize:12,fontWeight:600,color:C.cinzaChumbo,fontFamily:Fn.body}}>Tamanho:</span>
             {[14,16,20,24].map(s=>(
@@ -107,31 +142,31 @@ export default function DSFIPSIconography(){
             {categories.map(cat=>(
               <div key={cat.name}>
                 <span style={{fontSize:11,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:10}}>{cat.name}</span>
-                <div style={{display:"grid",gridTemplateColumns:mob?"repeat(3,1fr)":"repeat(6,1fr)",gap:8}}>
-                  {cat.icons.map(ic=>{const isHov=hovIcon===ic.id;const importName=iconImportName[ic.id]||ic.id;const codeSnippet=`// DS-FIPS — Icone: ${ic.label}\nimport { ${importName} } from "react-icons/lu";\n\n<${importName} size={${selSize}} color="#004B9B" />`;return(
-                    <Copyable
-                      key={ic.id}
-                      label={`icon-${ic.id}`}
-                      code={codeSnippet}
-                      preview={
-                        <div style={{display:"flex",alignItems:"center",gap:14}}>
-                          <div style={{width:48,height:48,borderRadius:12,background:"#F3F6FB",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                            <Ic id={ic.id} size={24} color="#004B9B" />
+                <div style={{display:"grid",gridTemplateColumns:mob?"repeat(4,minmax(0,1fr))":"repeat(10,minmax(0,1fr))",gap:6}}>
+                  {cat.icons.map(ic=>{const isHov=hovIcon===ic.id;const importName=iconImportName[ic.id]||ic.id;const source=iconImportSource[ic.id]||"react-icons/lu";const codeSnippet=`// DS-FIPS — Icone: ${ic.label}\nimport { ${importName} } from "${source}";\n\n<${importName} size={${selSize}} color="#004B9B" />`;return(
+                    <div onMouseEnter={()=>setHovIcon(ic.id)} onMouseLeave={()=>setHovIcon(null)} style={{background:C.cardBg,border:`1px solid ${isHov?C.azulProfundo:C.cardBorder}`,borderRadius:8,padding:"8px 4px 6px",display:"flex",flexDirection:"column",alignItems:"center",gap:5,transition:"all .15s",boxShadow:isHov?"0 2px 8px rgba(0,75,155,.08)":"none"}}>
+                      <Copyable
+                        key={ic.id}
+                        label={`icon-${ic.id}`}
+                        code={codeSnippet}
+                        preview={
+                          <div style={{display:"flex",alignItems:"center",gap:14}}>
+                            <div style={{width:48,height:48,borderRadius:12,background:"#F3F6FB",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                              <Ic id={ic.id} size={24} color="#004B9B" />
+                            </div>
+                            <div>
+                              <div style={{fontSize:14,fontWeight:700,fontFamily:"'Saira Expanded', sans-serif",color:"#333B41"}}>{ic.label}</div>
+                              <code style={{fontSize:11,fontFamily:"'Fira Code', monospace",color:"#6B7784"}}>{importName}</code>
+                            </div>
                           </div>
-                          <div>
-                            <div style={{fontSize:14,fontWeight:700,fontFamily:"'Saira Expanded', sans-serif",color:"#333B41"}}>{ic.label}</div>
-                            <code style={{fontSize:11,fontFamily:"'Fira Code', monospace",color:"#6B7784"}}>{importName}</code>
-                          </div>
+                        }
+                      >
+                        <div style={{width:selSize+10,height:selSize+10,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:6,background:isHov?alpha(C.azulProfundo,0.03):C.bg,transition:"background .15s"}}>
+                          <Ic id={ic.id} size={selSize} color={isHov?C.azulProfundo:C.cinzaEscuro} />
                         </div>
-                      }
-                    >
-                    <div onMouseEnter={()=>setHovIcon(ic.id)} onMouseLeave={()=>setHovIcon(null)} style={{background:C.cardBg,border:`1px solid ${isHov?C.azulProfundo:C.cardBorder}`,borderRadius:10,padding:"16px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:8,cursor:"pointer",transition:"all .15s",boxShadow:isHov?"0 4px 12px rgba(0,75,155,.08)":"none"}}>
-                      <div style={{width:selSize+16,height:selSize+16,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:8,background:isHov?alpha(C.azulProfundo,0.03):C.bg,transition:"background .15s"}}>
-                        <Ic id={ic.id} size={selSize} color={isHov?C.azulProfundo:C.cinzaEscuro} />
-                      </div>
-                      <span style={{fontSize:10,fontWeight:600,color:isHov?C.azulProfundo:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",transition:"color .15s"}}>{ic.label}</span>
+                      </Copyable>
+                      <span style={{fontSize:9,fontWeight:600,color:isHov?C.azulProfundo:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",transition:"color .15s",lineHeight:1.15}}>{ic.label}</span>
                     </div>
-                    </Copyable>
                   )})}
                 </div>
               </div>
@@ -281,6 +316,25 @@ export default function DSFIPSIconography(){
               ))}
             </div>
           </div>
+        </Section>
+
+        <Section n="08" title="Bibliotecas e links" desc="Referências oficiais das bibliotecas usadas no catálogo de ícones do DS-FIPS.">
+          <DSCard mob={mob}>
+            <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:12}}>
+              {[
+                {name:"React Icons",link:"https://react-icons.github.io/react-icons/",desc:"Catálogo unificado e pacote usado no projeto."},
+                {name:"Lucide (coleção lu)",link:"https://lucide.dev/icons/",desc:"Família de ícones padrão adotada no DS-FIPS."},
+                {name:"Pacote npm react-icons",link:"https://www.npmjs.com/package/react-icons",desc:"Versões, instalação e notas técnicas do pacote."},
+                {name:"Guia de acessibilidade de ícones",link:"https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/",desc:"Boas práticas para ícones com texto alternativo e labels."},
+              ].map((item)=>(
+                <a key={item.name} href={item.link} target="_blank" rel="noreferrer" style={{display:"block",textDecoration:"none",border:`1px solid ${C.cardBorder}`,borderRadius:10,padding:"12px 14px",background:C.bg}}>
+                  <div style={{fontSize:13,fontWeight:700,color:C.azulProfundo,fontFamily:Fn.title,marginBottom:4}}>{item.name}</div>
+                  <div style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.body,lineHeight:1.5,marginBottom:6}}>{item.desc}</div>
+                  <code style={{fontSize:11,fontFamily:Fn.mono,color:C.azulEscuro,wordBreak:"break-all"}}>{item.link}</code>
+                </a>
+              ))}
+            </div>
+          </DSCard>
         </Section>
 
         <CodePlayground />

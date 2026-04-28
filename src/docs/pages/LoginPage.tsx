@@ -825,7 +825,7 @@ export default function LoginDesktop() {
         <div className="login-left">
           <div className="train-runner"><img src="/brand/hero-train-silhouette.svg" alt="" /></div>
           <div style={{position:'relative',zIndex:10,maxWidth:380,animation:mounted?'slideInLeft 0.8s ease-out forwards':'none',opacity:mounted?1:0}}>
-            <h1 style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:36,fontWeight:800,color:'#FFFFFF',lineHeight:1.1,margin:'0 0 16px'}}>
+            <h1 style={{fontFamily:"'Saira Expanded',sans-serif",fontSize:28,fontWeight:800,color:'#FFFFFF',lineHeight:1.15,margin:'0 0 14px'}}>
               Excelencia<br/><span style={{color:'#FDC24E'}}>sobre trilhos</span>
             </h1>
             <p style={{fontFamily:"'Open Sans',sans-serif",fontSize:15,color:'rgba(255,255,255,0.45)',lineHeight:1.7,margin:'12px 0 16px',maxWidth:320}}>
