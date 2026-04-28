@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { CodeExportSection } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
@@ -95,14 +96,14 @@ const tooltipExportCode = `// DS-FIPS — Tooltip — Copy-paste ready
 import { useState, useRef } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaEscuro: "var(--color-fg)",
-  cinzaChumbo: "var(--color-fg-muted)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  cinzaEscuro: "#333B41",
+  cinzaChumbo: "#7B8C96",
   azulCeu: "#93BDE4",
   verdeEscuro: "#00904C",
   branco: "#FFFFFF",
-  cardBorder: "var(--color-border)",
+  cardBorder: "#E2E8F0",
 };
 
 const Fn = {
@@ -174,6 +175,45 @@ export function Tooltip({
 // </Tooltip>
 `;
 
+/* ═══════════════════════════════════════════ COPYABLE HELPERS ═══════════════════════════════════════════ */
+function tooltipCode(variant: string, text: string, position = 'top', extra = '') {
+  const colorMap: Record<string, { bg: string; color: string; border: string }> = {
+    dark: { bg: "#333B41", color: "#FFFFFF", border: "#333B41" },
+    light: { bg: "#FFFFFF", color: "#333B41", border: "#E2E8F0" },
+    info: { bg: "#EFF6FF", color: "#002A68", border: "#93BDE4" },
+    atencao: { bg: "#FFF7ED", color: "#C2410C", border: "#FDBA74" },
+    erro: { bg: "#FEF2F2", color: "#B91C1C", border: "#FECACA" },
+    sucesso: { bg: "#ECFDF5", color: "#00904C", border: "#A7F3D0" },
+  };
+  const v = colorMap[variant] || colorMap.dark;
+  return `// DS-FIPS — Tooltip "${variant}" (${position}) — Copy-paste ready
+import { useState, useRef } from "react";
+
+export function TooltipExample() {
+  const [show, setShow] = useState(false);
+  const timer = useRef(null);
+
+  const enter = () => { timer.current = setTimeout(() => setShow(true), 200); };
+  const leave = () => { clearTimeout(timer.current); setShow(false); };
+
+  return (
+    <span onMouseEnter={enter} onMouseLeave={leave}
+      style={{ position: "relative", display: "inline-flex", cursor: "default" }}>
+      <button style={{ padding: "8px 20px", fontSize: 12, fontWeight: 600, background: "#F2F4F8", color: "#333B41", border: "1px solid #E2E8F0", borderRadius: 8, cursor: "default", fontFamily: "'Open Sans', sans-serif" }}>
+        Hover aqui
+      </button>
+      {show && (
+        <span style={{ position: "absolute", ${position === 'top' ? 'bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8' : position === 'bottom' ? 'top: "100%", left: "50%", transform: "translateX(-50%)", marginTop: 8' : position === 'left' ? 'right: "100%", top: "50%", transform: "translateY(-50%)", marginRight: 8' : 'left: "100%", top: "50%", transform: "translateY(-50%)", marginLeft: 8'}, zIndex: 50, pointerEvents: "none" }}>
+          <span style={{ display: "block", background: "${v.bg}", color: "${v.color}", border: "1px solid ${v.border}", borderRadius: 6, padding: "6px 10px", fontSize: 12, fontFamily: "'Open Sans', sans-serif", lineHeight: 1.4, maxWidth: 240, boxShadow: "0 4px 12px rgba(0,0,0,.12)", whiteSpace: "normal" }}>
+            ${text}
+          </span>
+        </span>
+      )}
+    </span>
+  );
+}`;
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function TooltipDoc(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
@@ -181,6 +221,7 @@ export default function TooltipDoc(){
   const mob=w<640;
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -200,13 +241,21 @@ export default function TooltipDoc(){
       <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
 
         {/* 01 — PLAYGROUND POSIÇÕES */}
-        <Section n="01" title="Posições" desc="Passe o mouse sobre cada elemento para ver o tooltip na posição indicada. Seta aponta para o elemento de origem.">
+        <Section n="01" title="Posições" desc="Passe o mouse para ver o tooltip. Clique em qualquer elemento para copiar o código pronto para uso.">
           <DSCard mob={mob}>
             <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:mob?20:40,flexWrap:"wrap",padding:"40px 20px"}}>
-              <Tooltip text="Tooltip posicionado acima do elemento." position="top"><DemoPill>↑ Top</DemoPill></Tooltip>
-              <Tooltip text="Tooltip posicionado abaixo do elemento." position="bottom"><DemoPill>↓ Bottom</DemoPill></Tooltip>
-              <Tooltip text="Tooltip à esquerda." position="left"><DemoPill>← Left</DemoPill></Tooltip>
-              <Tooltip text="Tooltip à direita." position="right"><DemoPill>→ Right</DemoPill></Tooltip>
+              <Copyable label="Tooltip Top" code={tooltipCode("dark","Tooltip posicionado acima do elemento.","top")} preview={<Tooltip text="Tooltip posicionado acima do elemento." position="top"><DemoPill>↑ Top</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip posicionado acima do elemento." position="top"><DemoPill>↑ Top</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Bottom" code={tooltipCode("dark","Tooltip posicionado abaixo do elemento.","bottom")} preview={<Tooltip text="Tooltip posicionado abaixo do elemento." position="bottom"><DemoPill>↓ Bottom</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip posicionado abaixo do elemento." position="bottom"><DemoPill>↓ Bottom</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Left" code={tooltipCode("dark","Tooltip à esquerda.","left")} preview={<Tooltip text="Tooltip à esquerda." position="left"><DemoPill>← Left</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip à esquerda." position="left"><DemoPill>← Left</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Right" code={tooltipCode("dark","Tooltip à direita.","right")} preview={<Tooltip text="Tooltip à direita." position="right"><DemoPill>→ Right</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip à direita." position="right"><DemoPill>→ Right</DemoPill></Tooltip>
+              </Copyable>
             </div>
             <div style={{textAlign:"center",marginTop:8}}>
               <span style={{fontSize:11,color:C.textMuted}}>★ Posição padrão: <strong>top</strong>. Use outras posições quando top for cortado pelo viewport.</span>
@@ -215,15 +264,27 @@ export default function TooltipDoc(){
         </Section>
 
         {/* 02 — VARIANTES */}
-        <Section n="02" title="Variantes visuais" desc="Seis estilos para diferentes contextos. Passe o mouse para testar cada um.">
+        <Section n="02" title="Variantes visuais" desc="Seis estilos para diferentes contextos. Passe o mouse para testar, clique para copiar o código.">
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center",padding:"30px 0"}}>
-              <Tooltip text="Tooltip padrão com fundo escuro." variant="dark"><DemoPill bg={C.cinzaEscuro} color={C.branco}>Escuro ★</DemoPill></Tooltip>
-              <Tooltip text="Tooltip claro com borda sutil." variant="light"><DemoPill>Claro</DemoPill></Tooltip>
-              <Tooltip text="Tooltip informativo para dicas de contexto." variant="info"><DemoPill bg="#EFF6FF" color={C.azulEscuro}>Info</DemoPill></Tooltip>
-              <Tooltip text="Tooltip de atenção para alertas leves." variant="atencao"><DemoPill bg="#FFF7ED" color="#C2410C">Atenção</DemoPill></Tooltip>
-              <Tooltip text="Tooltip de erro para campos inválidos." variant="erro"><DemoPill bg="#FEF2F2" color="#B91C1C">Erro</DemoPill></Tooltip>
-              <Tooltip text="Tooltip de sucesso para confirmações." variant="sucesso"><DemoPill bg="#ECFDF5" color={C.verdeEscuro}>Sucesso</DemoPill></Tooltip>
+              <Copyable label="Tooltip Dark" code={tooltipCode("dark","Tooltip padrão com fundo escuro.")} preview={<Tooltip text="Tooltip padrão com fundo escuro." variant="dark"><DemoPill bg={C.cinzaEscuro} color={C.branco}>Escuro ★</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip padrão com fundo escuro." variant="dark"><DemoPill bg={C.cinzaEscuro} color={C.branco}>Escuro ★</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Light" code={tooltipCode("light","Tooltip claro com borda sutil.")} preview={<Tooltip text="Tooltip claro com borda sutil." variant="light"><DemoPill>Claro</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip claro com borda sutil." variant="light"><DemoPill>Claro</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Info" code={tooltipCode("info","Tooltip informativo para dicas de contexto.")} preview={<Tooltip text="Tooltip informativo para dicas de contexto." variant="info"><DemoPill bg="#EFF6FF" color={C.azulEscuro}>Info</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip informativo para dicas de contexto." variant="info"><DemoPill bg="#EFF6FF" color={C.azulEscuro}>Info</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Atenção" code={tooltipCode("atencao","Tooltip de atenção para alertas leves.")} preview={<Tooltip text="Tooltip de atenção para alertas leves." variant="atencao"><DemoPill bg="#FFF7ED" color="#C2410C">Atenção</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip de atenção para alertas leves." variant="atencao"><DemoPill bg="#FFF7ED" color="#C2410C">Atenção</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Erro" code={tooltipCode("erro","Tooltip de erro para campos inválidos.")} preview={<Tooltip text="Tooltip de erro para campos inválidos." variant="erro"><DemoPill bg="#FEF2F2" color="#B91C1C">Erro</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip de erro para campos inválidos." variant="erro"><DemoPill bg="#FEF2F2" color="#B91C1C">Erro</DemoPill></Tooltip>
+              </Copyable>
+              <Copyable label="Tooltip Sucesso" code={tooltipCode("sucesso","Tooltip de sucesso para confirmações.")} preview={<Tooltip text="Tooltip de sucesso para confirmações." variant="sucesso"><DemoPill bg="#ECFDF5" color={C.verdeEscuro}>Sucesso</DemoPill></Tooltip>}>
+                <Tooltip text="Tooltip de sucesso para confirmações." variant="sucesso"><DemoPill bg="#ECFDF5" color={C.verdeEscuro}>Sucesso</DemoPill></Tooltip>
+              </Copyable>
             </div>
           </DSCard>
         </Section>
@@ -541,6 +602,8 @@ export default function TooltipDoc(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label: "Tooltip",
           description: "Tooltip com 6 variantes, 4 posicoes, seta indicativa, delay de 200ms e suporte a titulo rico.",
@@ -552,5 +615,6 @@ export default function TooltipDoc(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

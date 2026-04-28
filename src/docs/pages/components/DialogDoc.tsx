@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from "react";
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)",inputBorder:"var(--color-border)",focusRing:"rgba(147,189,228,0.35)"};
@@ -309,21 +310,21 @@ const MODAL_CODE=`// ═══════════════════�
 import { useState, useEffect } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   cinzaClaro: "#C0CCD2",
   azulCeu: "#93BDE4",
   verdeFloresta: "#00C64C",
   verdeEscuro: "#00904C",
   danger: "#DC3545",
   branco: "#FFFFFF",
-  bg: "var(--color-surface-muted)",
-  cardBg: "var(--color-surface)",
-  cardBorder: "var(--color-border)",
-  textMuted: "var(--color-fg-muted)",
-  inputBorder: "var(--color-border)",
+  bg: "#F8FAFC",
+  cardBg: "#FFFFFF",
+  cardBorder: "#E2E8F0",
+  textMuted: "#7B8C96",
+  inputBorder: "#E2E8F0",
   focusRing: "rgba(147,189,228,0.35)",
 };
 
@@ -439,20 +440,20 @@ const TUTORIAL_MODAL_CODE=`// ════════════════�
 import { useState, useEffect, useRef } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  azulClaro: "var(--color-gov-azul-claro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  azulClaro: "#0090D0",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   cinzaClaro: "#C0CCD2",
   azulCeu: "#93BDE4",
   azulCeuClaro: "#D3E3F4",
   verdeFloresta: "#00C64C",
   branco: "#FFFFFF",
-  bg: "var(--color-surface-muted)",
-  cardBg: "var(--color-surface)",
-  cardBorder: "var(--color-border)",
-  textMuted: "var(--color-fg-muted)",
+  bg: "#F8FAFC",
+  cardBg: "#FFFFFF",
+  cardBorder: "#E2E8F0",
+  textMuted: "#7B8C96",
 };
 
 const Fn = {
@@ -623,16 +624,16 @@ const POPUP_MODAL_CODE=`// ═════════════════�
 import { useState, useEffect } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   cinzaClaro: "#C0CCD2",
   azulCeu: "#93BDE4",
   branco: "#FFFFFF",
-  bg: "var(--color-surface-muted)",
-  cardBg: "var(--color-surface)",
-  cardBorder: "var(--color-border)",
+  bg: "#F8FAFC",
+  cardBg: "#FFFFFF",
+  cardBorder: "#E2E8F0",
 };
 
 const Fn = {
@@ -758,6 +759,209 @@ export function PopupModal({ open, onClose, title, subtitle, children, footer, i
 // </PopupModal>
 // ═══════════════════════════════════════════`;
 
+/* ═══════════════════════════════════════════ COPYABLE HELPERS ═══════════════════════════════════════════ */
+function modalCode(variant: string, title: string, subtitle: string, width: number) {
+  const headerMap: Record<string,string> = {
+    confirm: '#00904C',
+    delete: '#B91C1C',
+    alert: '#C2410C',
+    info: '#002A68',
+    form: '#002A68',
+    list: '#002A68',
+    popup: '#002A68',
+    tutorial: '#002A68',
+  };
+  const headerBg = headerMap[variant] || '#002A68';
+
+  if (variant === 'popup') {
+    return `// DS-FIPS — Popup Modal "${title}" — Copy-paste ready
+import { useState, useEffect } from "react";
+
+export function PopupModalExample() {
+  const [open, setOpen] = useState(false);
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+
+  useEffect(() => {
+    if (open) { setVis(true); requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true))); }
+    else { setAnimIn(false); const t = setTimeout(() => setVis(false), 280); return () => clearTimeout(t); }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open]);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}
+        style={{ padding: "8px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontFamily: "'Open Sans', sans-serif" }}>
+        Abrir Popup
+      </button>
+      {vis && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div onClick={() => setOpen(false)} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.45)", backdropFilter: "blur(2px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+          <div style={{ position: "relative", zIndex: 1, width: ${width}, maxWidth: "95vw", maxHeight: "90vh", background: "#FFFFFF", borderRadius: "12px 12px 12px 24px", boxShadow: "0 12px 48px rgba(0,42,104,.2)", display: "flex", flexDirection: "column", transform: animIn ? "scale(1)" : "scale(.96)", opacity: animIn ? 1 : 0, transition: "all .28s cubic-bezier(.32,.72,.37,1.1)", overflow: "hidden" }}>
+            <div style={{ padding: "20px 24px", paddingRight: 56, background: "${headerBg}", display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
+              <div>
+                <h2 style={{ fontSize: 17, fontWeight: 700, color: "#FFFFFF", margin: 0, fontFamily: "'Saira Expanded', sans-serif" }}>${title}</h2>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", margin: "3px 0 0", fontFamily: "'Open Sans', sans-serif" }}>${subtitle}</p>
+              </div>
+            </div>
+            <div onClick={() => setOpen(false)} style={{ position: "absolute", top: 14, right: 14, zIndex: 2, width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", background: "rgba(255,255,255,0.08)" }}>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="rgba(255,255,255,0.75)" strokeWidth="1.8" strokeLinecap="round"/></svg>
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                <input placeholder="Campo 1" style={{ height: 35, padding: "0 12px", border: "1.5px solid #CBD5E1", borderRadius: 8, fontFamily: "'Open Sans', sans-serif", fontSize: 13 }} />
+                <input placeholder="Campo 2" style={{ height: 35, padding: "0 12px", border: "1.5px solid #CBD5E1", borderRadius: 8, fontFamily: "'Open Sans', sans-serif", fontSize: 13 }} />
+              </div>
+            </div>
+            <div style={{ padding: "14px 24px", borderTop: "1px solid #E2E8F0", background: "#F2F4F8", display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <button onClick={() => setOpen(false)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "transparent", color: "#7B8C96", border: "1.5px solid #C0CCD2", borderRadius: 6, cursor: "pointer" }}>Cancelar</button>
+              <button onClick={() => setOpen(false)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer" }}>Salvar</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`;
+  }
+  if (variant === 'tutorial') {
+    return `// DS-FIPS — Tutorial Modal "${title}" — Copy-paste ready
+import { useState, useEffect } from "react";
+
+export function TutorialModalExample() {
+  const [open, setOpen] = useState(false);
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+  const [step, setStep] = useState(0);
+
+  const steps = [
+    { title: "Passo 1", description: "Descricao do primeiro passo.", tips: ["Dica 1"] },
+    { title: "Passo 2", description: "Descricao do segundo passo." },
+  ];
+
+  useEffect(() => {
+    if (open) { setStep(0); setVis(true); requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true))); }
+    else { setAnimIn(false); const t = setTimeout(() => setVis(false), 280); return () => clearTimeout(t); }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => {
+      if (e.key === "Escape") setOpen(false);
+      if (e.key === "ArrowRight" && step < steps.length - 1) setStep((s) => s + 1);
+      if (e.key === "ArrowLeft" && step > 0) setStep((s) => s - 1);
+    };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open, step]);
+
+  const cur = steps[step];
+  const total = steps.length;
+  const pct = ((step + 1) / total) * 100;
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}
+        style={{ padding: "8px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontFamily: "'Open Sans', sans-serif" }}>
+        Abrir Tutorial
+      </button>
+      {vis && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div onClick={() => setOpen(false)} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.50)", backdropFilter: "blur(3px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+          <div style={{ position: "relative", zIndex: 1, width: 540, maxWidth: "95vw", maxHeight: "90vh", background: "#FFFFFF", borderRadius: "12px 12px 12px 24px", boxShadow: "0 12px 48px rgba(0,42,104,.22)", display: "flex", flexDirection: "column", transform: animIn ? "scale(1)" : "scale(.96)", opacity: animIn ? 1 : 0, transition: "all .28s cubic-bezier(.32,.72,.37,1.1)", overflow: "hidden" }}>
+            <div style={{ padding: "20px 24px", borderBottom: "1px solid #E2E8F0", display: "flex", alignItems: "center", gap: 16 }}>
+              <h2 style={{ fontSize: 17, fontWeight: 700, color: "#002A68", margin: 0, fontFamily: "'Saira Expanded', sans-serif", flex: 1 }}>${title}</h2>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "#004B9B", fontFamily: "'Fira Code', monospace" }}>{step + 1}/{total}</span>
+              <span onClick={() => setOpen(false)} style={{ cursor: "pointer", opacity: 0.5 }}>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="#7B8C96" strokeWidth="1.8" strokeLinecap="round"/></svg>
+              </span>
+            </div>
+            <div style={{ height: 3, background: "#F2F4F8" }}>
+              <div style={{ height: "100%", width: pct + "%", background: "linear-gradient(90deg,#004B9B,#93BDE4)", borderRadius: 2, transition: "width .35s" }} />
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: "#002A68", margin: "0 0 12px", fontFamily: "'Saira Expanded', sans-serif" }}>{cur.title}</h3>
+              <p style={{ fontSize: 13, color: "#333B41", lineHeight: 1.7, margin: "0 0 16px", fontFamily: "'Open Sans', sans-serif" }}>{cur.description}</p>
+              {cur.tips && cur.tips.map((t, i) => (
+                <div key={i} style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                  <span style={{ color: "#004B9B", fontSize: 12 }}>→</span>
+                  <span style={{ fontSize: 12, color: "#333B41", lineHeight: 1.5 }}>{t}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: "14px 24px", borderTop: "1px solid #E2E8F0", background: "#F2F4F8", display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              {step > 0 && <button onClick={() => setStep((s) => s - 1)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "transparent", color: "#7B8C96", border: "1.5px solid #C0CCD2", borderRadius: 6, cursor: "pointer" }}>Anterior</button>}
+              {step < total - 1
+                ? <button onClick={() => setStep((s) => s + 1)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer" }}>Próximo</button>
+                : <button onClick={() => setOpen(false)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "#00C64C", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer" }}>Concluir</button>}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`;
+  }
+  return `// DS-FIPS — Modal "${title}" — Copy-paste ready
+import { useState, useEffect } from "react";
+
+export function ModalExample() {
+  const [open, setOpen] = useState(false);
+  const [vis, setVis] = useState(false);
+  const [animIn, setAnimIn] = useState(false);
+
+  useEffect(() => {
+    if (open) { setVis(true); requestAnimationFrame(() => requestAnimationFrame(() => setAnimIn(true))); }
+    else { setAnimIn(false); const t = setTimeout(() => setVis(false), 280); return () => clearTimeout(t); }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, [open]);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}
+        style={{ padding: "8px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontFamily: "'Open Sans', sans-serif" }}>
+        Abrir Modal
+      </button>
+      {vis && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div onClick={() => setOpen(false)} style={{ position: "absolute", inset: 0, background: "rgba(0,42,104,.45)", backdropFilter: "blur(2px)", opacity: animIn ? 1 : 0, transition: "opacity .28s", cursor: "pointer" }} />
+          <div style={{ position: "relative", zIndex: 1, width: ${width}, maxWidth: "95vw", maxHeight: "90vh", background: "#FFFFFF", borderRadius: "12px 12px 12px 24px", boxShadow: "0 12px 48px rgba(0,42,104,.2)", display: "flex", flexDirection: "column", transform: animIn ? "scale(1)" : "scale(.96)", opacity: animIn ? 1 : 0, transition: "all .28s cubic-bezier(.32,.72,.37,1.1)", overflow: "hidden" }}>
+            <div style={{ padding: "20px 24px", paddingRight: 56, background: "${headerBg}", display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
+              <div>
+                <h2 style={{ fontSize: 17, fontWeight: 700, color: "#FFFFFF", margin: 0, fontFamily: "'Saira Expanded', sans-serif" }}>${title}</h2>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", margin: "3px 0 0", fontFamily: "'Open Sans', sans-serif" }}>${subtitle}</p>
+              </div>
+            </div>
+            <div onClick={() => setOpen(false)} style={{ position: "absolute", top: 14, right: 14, zIndex: 2, width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", background: "rgba(255,255,255,0.08)" }}>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="rgba(255,255,255,0.75)" strokeWidth="1.8" strokeLinecap="round"/></svg>
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px" }}>
+              <p style={{ fontSize: 13, color: "#333B41", fontFamily: "'Open Sans', sans-serif" }}>Conteudo do modal aqui.</p>
+            </div>
+            <div style={{ padding: "14px 24px", borderTop: "1px solid #E2E8F0", background: "#F2F4F8", display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <button onClick={() => setOpen(false)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "transparent", color: "#7B8C96", border: "1.5px solid #C0CCD2", borderRadius: 6, cursor: "pointer" }}>Cancelar</button>
+              <button onClick={() => setOpen(false)} style={{ padding: "7px 18px", fontSize: 12, fontWeight: 600, background: "#004B9B", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer" }}>Confirmar</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`;
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DialogDoc(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
@@ -789,6 +993,7 @@ export default function DialogDoc(){
   ];
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');`}</style>
 
@@ -934,17 +1139,33 @@ export default function DialogDoc(){
       <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100}}>
 
         {/* ═══════════════════ 01 — PLAYGROUND ═══════════════════ */}
-        <Section n="01" title="Playground interativo" desc="Clique para abrir cada tipo de modal. ESC ou overlay para fechar. Hover nos botões para ver feedback visual.">
+        <Section n="01" title="Playground interativo" desc="Clique em qualquer botão para abrir o modal e copiar o código correspondente. ESC ou overlay para fechar. Hover nos botões para ver feedback visual.">
           <DSCard mob={mob}>
             <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
-              <Btn label="✓ Confirmação" color={C.verdeFloresta} onClick={()=>open("confirm")}/>
-              <Btn label="✕ Destrutivo" danger onClick={()=>open("delete")}/>
-              <Btn label="⚠ Alerta" color={C.amareloEscuro} onClick={()=>open("alert")}/>
-              <Btn label="ℹ Informativo" color={C.azulProfundo} onClick={()=>open("info")}/>
-              <Btn label="📝 Formulário" color={C.azulCeu} onClick={()=>open("form")}/>
-              <Btn label="📋 Lista" color={C.cinzaChumbo} onClick={()=>open("list")}/>
-              <Btn label="🖥 Popup" color={C.azulClaro} onClick={()=>open("popup")}/>
-              <Btn label="❓ Tutorial" color={C.azulEscuro} onClick={()=>open("tutorial")}/>
+              <Copyable label="Modal Confirmação" code={modalCode("confirm","Aprovar requisição?","Encaminhará REQ-4025 para o departamento de compras.",440)} preview={<Btn label="✓ Confirmação" color={C.verdeFloresta} onClick={()=>open("confirm")}/>}>
+                <Btn label="✓ Confirmação" color={C.verdeFloresta} onClick={()=>open("confirm")}/>
+              </Copyable>
+              <Copyable label="Modal Destrutivo" code={modalCode("delete","Excluir fornecedor?","Esta ação é irreversível e afetará contratos ativos.",420)} preview={<Btn label="✕ Destrutivo" danger onClick={()=>open("delete")}/>}>
+                <Btn label="✕ Destrutivo" danger onClick={()=>open("delete")}/>
+              </Copyable>
+              <Copyable label="Modal Alerta" code={modalCode("alert","Sessão expirando","Sessões inativas são encerradas por segurança.",400)} preview={<Btn label="⚠ Alerta" color={C.amareloEscuro} onClick={()=>open("alert")}/>}>
+                <Btn label="⚠ Alerta" color={C.amareloEscuro} onClick={()=>open("alert")}/>
+              </Copyable>
+              <Copyable label="Modal Informativo" code={modalCode("info","Sobre os Fipcoins","Sistema de gamificação FIPS",440)} preview={<Btn label="ℹ Informativo" color={C.azulProfundo} onClick={()=>open("info")}/>}>
+                <Btn label="ℹ Informativo" color={C.azulProfundo} onClick={()=>open("info")}/>
+              </Copyable>
+              <Copyable label="Modal Formulário" code={modalCode("form","Atribuir responsável","Selecione o colaborador e tipo de atribuição.",480)} preview={<Btn label="📝 Formulário" color={C.azulCeu} onClick={()=>open("form")}/>}>
+                <Btn label="📝 Formulário" color={C.azulCeu} onClick={()=>open("form")}/>
+              </Copyable>
+              <Copyable label="Modal Lista" code={modalCode("list","Itens da requisição","REQ-4025 · 3 itens · R$ 2.450,00",520)} preview={<Btn label="📋 Lista" color={C.cinzaChumbo} onClick={()=>open("list")}/>}>
+                <Btn label="📋 Lista" color={C.cinzaChumbo} onClick={()=>open("list")}/>
+              </Copyable>
+              <Copyable label="Modal Popup" code={modalCode("popup","Atribuir responsável","Selecione o colaborador e tipo de atribuição para a tarefa.",480)} preview={<Btn label="🖥 Popup" color={C.azulClaro} onClick={()=>open("popup")}/>}>
+                <Btn label="🖥 Popup" color={C.azulClaro} onClick={()=>open("popup")}/>
+              </Copyable>
+              <Copyable label="Modal Tutorial" code={modalCode("tutorial","Como usar esta página","Tour guiado pelos recursos do Modal (Dialog)",540)} preview={<Btn label="❓ Tutorial" color={C.azulEscuro} onClick={()=>open("tutorial")}/>}>
+                <Btn label="❓ Tutorial" color={C.azulEscuro} onClick={()=>open("tutorial")}/>
+              </Copyable>
             </div>
             <p style={{fontSize:11,color:C.textMuted,marginTop:14,lineHeight:1.6}}>8 variantes: confirmação, destrutivo, alerta, informativo, formulário, lista, popup redimensionável e tutorial step-by-step. Todos fecham com ESC, clique no overlay ou botão X.</p>
           </DSCard>
@@ -1550,6 +1771,8 @@ export default function DialogDoc(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         {/* ═══════════════════ 11 — EXPORTAR CÓDIGO ═══════════════════ */}
         <Section n="11" title="Exportar Código" desc="Código copy-paste ready de cada componente. Inclui tokens, ícones, helpers e exemplo de uso. Cole direto no seu projeto.">
           <div style={{display:"flex",flexDirection:"column",gap:14}}>
@@ -1564,5 +1787,6 @@ export default function DialogDoc(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

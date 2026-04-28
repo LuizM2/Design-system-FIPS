@@ -66,7 +66,7 @@ export default function CertificadosDemo() {
             {kpis.map((k) => (
               <Card
                 key={k.label}
-                className={`border-[var(--color-border)] border-l-4 ${k.border} shadow-[var(--shadow-card)]`}
+                className={`border-[#E2E8F0] border-l-4 ${k.border} shadow-[var(--shadow-card)]`}
               >
                 <CardContent className="space-y-1 pt-5">
                   <p className="text-xs font-medium text-[var(--color-fg-muted)]">{k.label}</p>

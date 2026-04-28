@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { LayoutGrid, FileDown, Send, Plus, ShieldCheck, AlertTriangle, ArrowUpFromLine } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { RuleCards } from '../../components/RuleCards'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
@@ -164,6 +165,157 @@ function BannerConteudo2() {
   )
 }
 
+/* ─── Copyable code helpers (hardcoded hex, self-contained) ─── */
+
+function codeBannerPagina() {
+  return `// DS-FIPS — Banner de Pagina — Copy-paste ready
+
+export function BannerDePagina() {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 100%)',
+      padding: '48px 40px 44px',
+      position: 'relative', overflow: 'hidden', borderRadius: 12,
+    }}>
+      <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+        <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 120H60C80 120 80 120 100 100L160 100H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 120H60C80 120 80 120 100 140L160 140H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+      <div style={{ position: 'relative' }}>
+        <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: '0 0 10px' }}>
+          Design System <span style={{ color: '#FDC24E' }}>FIPS</span>
+        </h1>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', maxWidth: 700, lineHeight: 1.6, fontFamily: "'Open Sans', sans-serif", margin: 0 }}>
+          Sistema de design unificado da Ferrovia Interna do Porto de Santos.
+        </p>
+      </div>
+    </div>
+  );
+}`
+}
+
+function codeBannerPaginaBadges() {
+  return `// DS-FIPS — Banner de Pagina com Badges — Copy-paste ready
+
+export function BannerPaginaComBadges() {
+  const badges = [
+    { label: 'primario', hex: '#004B9B' },
+    { label: 'destaque', hex: '#F6921E' },
+    { label: 'sucesso', hex: '#00C64C' },
+    { label: 'perigo', hex: '#DC3545' },
+  ];
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 100%)',
+      padding: '48px 40px 44px',
+      position: 'relative', overflow: 'hidden', borderRadius: 12,
+    }}>
+      <svg viewBox="0 0 320 200" fill="none" style={{ opacity: 0.12, position: 'absolute', top: -10, right: -20, width: 400, height: 250 }}>
+        <path d="M0 60H100C120 60 120 60 140 40L200 40H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M0 60H100C120 60 120 60 140 80L200 80H320" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+      <div style={{ position: 'relative' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#FDC24E', fontFamily: "'Saira Expanded', sans-serif", marginBottom: 16 }}>
+          Modulo Suprimentos
+        </div>
+        <h1 style={{ fontSize: 44, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: '0 0 10px' }}>
+          Painel de <span style={{ color: '#FDC24E' }}>Requisicoes</span>
+        </h1>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.69)', maxWidth: 700, lineHeight: 1.6, fontFamily: "'Open Sans', sans-serif", margin: '0 0 16px' }}>
+          Gestao completa de compras e requisicoes do modulo Suprimentos FIPS.
+        </p>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {badges.map(b => (
+            <span key={b.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 20, fontFamily: "'Open Sans', sans-serif" }}>
+              <span style={{ width: 8, height: 8, borderRadius: 2, background: b.hex }} />
+              {b.label} <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 10, color: 'rgba(255,255,255,0.50)' }}>{b.hex}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}`
+}
+
+function codeBannerConteudo() {
+  return `// DS-FIPS — Banner de Conteudo Compacto — Copy-paste ready
+
+export function BannerConteudo() {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 60%, #001A4A 100%)',
+      borderRadius: '12px 12px 12px 24px',
+      padding: '22px 26px',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ width: 44, height: 44, borderRadius: 11, background: 'rgba(253,194,78,0.18)', border: '1px solid rgba(253,194,78,0.30)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FDC24E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div style={{ flex: 1 }}>
+          <h2 style={{ fontSize: 21, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0 }}>Sistema de Requisicoes</h2>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', margin: '4px 0 0', fontFamily: "'Open Sans', sans-serif" }}>Gestao de compras e requisicoes</p>
+        </div>
+        <button style={{ background: '#F6921E', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+          + Nova Solicitacao
+        </button>
+      </div>
+    </div>
+  );
+}`
+}
+
+function codeBannerFluxo() {
+  return `// DS-FIPS — Banner de Fluxo com Status — Copy-paste ready
+
+export function BannerFluxo() {
+  const stats = [
+    { label: 'TOTAL', value: '1012', color: '#00C64C' },
+    { label: 'AGUARDANDO', value: '1004', color: '#F6921E' },
+    { label: 'APROVADOS', value: '8', color: '#00C64C' },
+    { label: 'ENTREGUES', value: '2', color: '#DC3545' },
+  ];
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 60%, #001A4A 100%)',
+      borderRadius: '12px 12px 12px 24px',
+      padding: '22px 26px',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 10 }}>
+            <div style={{ width: 44, height: 44, borderRadius: 11, background: 'rgba(253,194,78,0.18)', border: '1px solid rgba(253,194,78,0.30)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FDC24E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <div>
+              <h2 style={{ fontSize: 21, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0 }}>Pedidos</h2>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', margin: '4px 0 0' }}>Solicitacao &rarr; Analise &rarr; Aprovacao &rarr; Execucao &rarr; Entrega</p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', paddingLeft: 58 }}>
+            {stats.map(s => (
+              <span key={s.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 6 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.color }} />
+                {s.label} <strong style={{ color: '#fff' }}>{s.value}</strong>
+              </span>
+            ))}
+          </div>
+        </div>
+        <button style={{ background: '#F6921E', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+          + Novo pedido
+        </button>
+      </div>
+    </div>
+  );
+}`
+}
+
 /* ─── Página ─── */
 export default function HeroBannerDoc() {
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -171,6 +323,7 @@ export default function HeroBannerDoc() {
   const mob = w < 640
 
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: '100vh', background: "var(--color-surface-muted)", fontFamily: Fn.body, color: C.cinzaEscuro }}>
 
       {/* HEADER HERO */}
@@ -198,32 +351,42 @@ export default function HeroBannerDoc() {
         </div>
 
         {/* 01 — Banner de Página (sem badges) */}
-        <Section n="01" title="Banner de Página" desc="Versão limpa do hero principal. Badge de seção no topo, título em Saira Expanded 44px, descrição em Open Sans e junction lines decorativas. Sem badges informativos no rodapé. Usado em páginas internas, documentação de padrões e fundamentos.">
-          <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
-            <BannerPadrao />
-          </DSCard>
+        <Section n="01" title="Banner de Página" desc="Versão limpa do hero principal. Badge de seção no topo, título em Saira Expanded 44px, descrição em Open Sans e junction lines decorativas. Clique no banner para copiar o código.">
+          <Copyable label="Banner de Página" code={codeBannerPagina()} preview={<BannerPadrao />}>
+            <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
+              <BannerPadrao />
+            </DSCard>
+          </Copyable>
         </Section>
 
         {/* 02 — Banner de Página com Badges */}
-        <Section n="02" title="Banner de Página com Badges" desc="Variante do hero com badges informativos no rodapé (versão, contagem, stack, cores). Ideal para landing pages, visões gerais de módulo e páginas que precisam exibir metadados resumidos logo no topo — como Overview, catálogos de componentes e painéis de status.">
-          <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
-            <BannerPaginaComBadges />
-          </DSCard>
+        <Section n="02" title="Banner de Página com Badges" desc="Variante do hero com badges informativos no rodapé (versão, contagem, stack, cores). Clique no banner para copiar o código.">
+          <Copyable label="Banner com Badges" code={codeBannerPaginaBadges()} preview={<BannerPaginaComBadges />}>
+            <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
+              <BannerPaginaComBadges />
+            </DSCard>
+          </Copyable>
         </Section>
 
         {/* 03 — Banner de Conteúdo */}
-        <Section n="03" title="Banner de Conteúdo" desc="Faixa compacta para cabeçalhos de módulos operacionais. Ícone em container 44×44 com fundo amarelo semitransparente à esquerda, título Saira 21px + subtítulo descritivo ao centro, e botão CTA accent (#F6921E) à direita. Uma linha de altura, ideal para telas como Requisições, Cadastros ou qualquer módulo com ação primária.">
-          <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
-            <BannerConteudo1 />
-          </DSCard>
+        <Section n="03" title="Banner de Conteúdo" desc="Faixa compacta para cabeçalhos de módulos operacionais. Ícone 44x44, título Saira 21px e botão CTA accent (#F6921E). Clique para copiar o código.">
+          <Copyable label="Banner de Conteúdo" code={codeBannerConteudo()} preview={<BannerConteudo1 />}>
+            <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
+              <BannerConteudo1 />
+            </DSCard>
+          </Copyable>
         </Section>
 
         {/* 04 — Banner de Fluxo */}
-        <Section n="04" title="Banner de Fluxo" desc="Variante com cadeia de etapas visível e badges de status. Ícone + título + fluxo sequencial (ex: Solicitação → Análise → Aprovação → Execução → Entrega) na primeira linha, badges com dot colorido e contagem na segunda. Botão CTA à direita. Para módulos com workflow e KPIs por etapa, como Pedidos, Produção e Aprovações.">
-          <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
-            <BannerConteudo2 />
-          </DSCard>
+        <Section n="04" title="Banner de Fluxo" desc="Variante com cadeia de etapas visível e badges de status com KPIs por etapa. Clique para copiar o código.">
+          <Copyable label="Banner de Fluxo" code={codeBannerFluxo()} preview={<BannerConteudo2 />}>
+            <DSCard mob={mob} s={{ padding: 0, overflow: 'hidden' }}>
+              <BannerConteudo2 />
+            </DSCard>
+          </Copyable>
         </Section>
+
+        <CodePlayground />
 
         <CodeExportSection items={[
           {
@@ -325,5 +488,6 @@ function BannerConteudo({ icon, title, subtitle, ctaLabel, onCta }: {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

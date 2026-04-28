@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, CopyableInline, CodePlayground } from '../../components/CodePlayground'
 import type { CSSProperties } from 'react'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 
@@ -89,6 +90,135 @@ const DENSITY={
   normal:{rowH:42,fs:12,padX:16},
   comfortable:{rowH:56,fs:13,padX:20},
 };
+
+/* ── Helper: código copy-paste-ready para o Playground ── */
+function dlCode(part: string) {
+  if (part === 'header') return `// DS-FIPS — Data Listing Header Navy — Copy-paste ready
+
+export function DataListingHeader() {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 60%, #001A4A 100%)',
+      borderRadius: '12px 12px 12px 24px', padding: '22px 26px',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      color: '#fff', boxShadow: '0 4px 20px rgba(0,42,104,0.12)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ width: 44, height: 44, borderRadius: 11, background: 'rgba(253,194,78,0.18)', border: '1px solid rgba(253,194,78,0.30)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FDC24E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div>
+          <h2 style={{ fontFamily: "'Saira Expanded',sans-serif", fontSize: 21, fontWeight: 700, margin: 0 }}>Sistema de Requisicoes</h2>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', margin: '4px 0 0' }}>Gestao de compras e requisicoes do modulo Suprimentos</p>
+        </div>
+      </div>
+      <button style={{ background: '#F6921E', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>+ Nova Solicitacao</button>
+    </div>
+  );
+}`
+
+  if (part === 'kpi') return `// DS-FIPS — Data Listing KPI Cards — Copy-paste ready
+
+export function DataListingKPIs() {
+  const kpis = [
+    { label: 'Total registros', value: '60', color: '#004B9B' },
+    { label: 'Pendentes', value: '15', color: '#F6921E' },
+    { label: 'Aprovadas', value: '18', color: '#00C64C' },
+    { label: 'Volume total', value: 'R$ 482k', color: '#00904C' },
+  ];
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+      {kpis.map(kpi => (
+        <div key={kpi.label} style={{
+          background: '#fff', border: '1px solid #E2E8F0',
+          borderRadius: '10px 10px 10px 18px', overflow: 'hidden',
+        }}>
+          <div style={{ padding: '16px 18px 12px' }}>
+            <span style={{ fontSize: 11, fontWeight: 600, color: '#7B8C96' }}>{kpi.label}</span>
+            <p style={{ fontSize: 24, fontWeight: 800, fontFamily: "'Saira Expanded',sans-serif", color: '#333B41', marginTop: 6, margin: '6px 0 0' }}>{kpi.value}</p>
+          </div>
+          <div style={{ height: 32, padding: '0 18px 8px' }}>
+            <svg viewBox="0 0 120 24" style={{ width: '100%', height: '100%' }}>
+              <path d="M0 20 L20 14 L40 16 L60 8 L80 12 L100 6 L120 10 L120 24 L0 24Z" fill={kpi.color} fillOpacity="0.12" />
+              <path d="M0 20 L20 14 L40 16 L60 8 L80 12 L100 6 L120 10" fill="none" stroke={kpi.color} strokeWidth="1.5" />
+            </svg>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}`
+
+  return `// DS-FIPS — Data Listing Table — Copy-paste ready
+
+export function DataListingTable() {
+  const rows = [
+    { id: 'RC-001', solicitante: 'Ana Silva', status: 'Aprovada', statusColor: '#00C64C', prioridade: 'Alta', prioridadeColor: '#F6921E', valor: 'R$ 12.500' },
+    { id: 'RC-002', solicitante: 'Carlos Lima', status: 'Pendente', statusColor: '#F6921E', prioridade: 'Media', prioridadeColor: '#004B9B', valor: 'R$ 8.200' },
+    { id: 'RC-003', solicitante: 'Julia Santos', status: 'Em analise', statusColor: '#004B9B', prioridade: 'Baixa', prioridadeColor: '#7B8C96', valor: 'R$ 3.400' },
+  ];
+
+  return (
+    <div style={{
+      background: '#fff', border: '1px solid #E2E8F0',
+      borderRadius: '10px 10px 10px 18px', overflow: 'hidden',
+    }}>
+      <div style={{ padding: '12px 20px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <input type="text" placeholder="Buscar..." style={{ height: 32, padding: '0 12px', borderRadius: 8, border: '1px solid #E2E8F0', fontSize: 12, outline: 'none', width: 180 }} />
+          <button style={{ height: 32, padding: '0 12px', borderRadius: 8, border: '1px solid #E2E8F0', background: '#fff', fontSize: 11, fontWeight: 600, color: '#333B41', cursor: 'pointer' }}>Filtros</button>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button style={{ height: 32, padding: '0 12px', borderRadius: 8, border: '1px solid #E2E8F0', background: '#fff', fontSize: 11, fontWeight: 600, color: '#333B41', cursor: 'pointer' }}>Excel</button>
+          <button style={{ height: 32, padding: '0 12px', borderRadius: 8, border: '1px solid #E2E8F0', background: '#fff', fontSize: 11, fontWeight: 600, color: '#333B41', cursor: 'pointer' }}>PDF</button>
+        </div>
+      </div>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr style={{ background: '#F3F6FB' }}>
+            <th style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: '#333B41', textAlign: 'left' }}>Codigo</th>
+            <th style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: '#333B41', textAlign: 'left' }}>Solicitante</th>
+            <th style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: '#333B41', textAlign: 'left' }}>Status</th>
+            <th style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: '#333B41', textAlign: 'left' }}>Prioridade</th>
+            <th style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: '#333B41', textAlign: 'right' }}>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={row.id} style={{ background: i % 2 === 1 ? '#D3E3F440' : '#fff' }}>
+              <td style={{ padding: '8px 16px', fontSize: 13, fontWeight: 600, color: '#004B9B' }}>{row.id}</td>
+              <td style={{ padding: '8px 16px', fontSize: 13, color: '#333B41' }}>{row.solicitante}</td>
+              <td style={{ padding: '8px 16px' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 600, color: row.statusColor, background: row.statusColor + '15' }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: row.statusColor }} />
+                  {row.status}
+                </span>
+              </td>
+              <td style={{ padding: '8px 16px' }}>
+                <span style={{ fontSize: 11, fontWeight: 600, color: row.prioridadeColor }}>{row.prioridade}</span>
+              </td>
+              <td style={{ padding: '8px 16px', fontSize: 13, fontWeight: 600, color: '#333B41', textAlign: 'right' }}>{row.valor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}`
+}
+
+function dlPreview(part: string) {
+  const labels = { header: 'Header Navy + CTA', kpi: 'KPI Cards + Sparkline', toolbar: 'Toolbar + Table' }
+  return (
+    <div style={{ padding: 12, textAlign: 'center' }}>
+      <div style={{ background: 'linear-gradient(135deg, #002A68, #004B9B)', borderRadius: 8, padding: '14px 12px', color: '#fff', fontSize: 11, fontFamily: "'Saira Expanded', sans-serif" }}>
+        <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#FDC24E', marginBottom: 4 }}>Data Listing</div>
+        <strong>{labels[part] || part}</strong>
+      </div>
+    </div>
+  )
+}
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function DataListingDemo() {
@@ -185,6 +315,7 @@ export default function DataListingDemo() {
   );
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -200,7 +331,7 @@ export default function DataListingDemo() {
         <div style={{position:"relative"}}>
           <div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${C.branco}10`,border:`1px solid ${C.branco}18`,borderRadius:20,padding:"5px 14px",fontSize:11,fontWeight:600,letterSpacing:"1.5px",textTransform:"uppercase",color:C.amareloOuro,fontFamily:Fn.title,marginBottom:16}}>{Ic.grid(14,C.amareloOuro)} Design System FIPS</div>
           <h1 style={{fontSize:mob?30:44,fontWeight:700,color:C.branco,margin:"0 0 10px",fontFamily:Fn.title}}>Data Listing</h1>
-          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Padrão completo para painéis de relatórios e ações: Header → KPIs → Toolbar → Table. Sequência fixa e elementos documentados para listagem de dados administrativos.</p>
+          <p style={{fontSize:16,color:`${C.branco}B0`,lineHeight:1.6,maxWidth:700,margin:0,fontFamily:Fn.body}}>Padrão completo para painéis de relatórios e ações: Header, KPIs, Toolbar, Table. Clique em qualquer seção para copiar o código.</p>
         </div>
       </header>
 
@@ -210,6 +341,7 @@ export default function DataListingDemo() {
         <Section n="01" title="Painel de Relatório completo" desc="Padrão completo de Painel de Relatório seguindo a ordem obrigatória: Header → KPIs → Toolbar → Table. Use esse padrão sempre que precisar exibir dados administrativos com ações principais, métricas e listagem.">
 
           {/* HEADER DO PAINEL — navy com ícone + título/subtítulo + CTA */}
+          <CopyableInline label="Header Navy" code={dlCode('header')} preview={dlPreview('header')}>
           <div style={{background:dark?`linear-gradient(135deg,#1e2a3a 0%,#162030 50%,#1a2840 100%)`:`linear-gradient(135deg,${C.gradFrom} 0%,${C.gradTo} 60%,#001A4A 100%)`,borderRadius:"12px 12px 12px 24px",padding:mob?"18px 18px":"22px 26px",position:"relative",overflow:"hidden",marginBottom:mob?12:16,boxShadow:dark?"0 4px 20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04)":"0 4px 20px rgba(0,42,104,.12)",border:dark?"1px solid rgba(147,189,228,0.08)":"none"}}>
             <JunctionLines style={{position:"absolute",top:-10,right:-20,width:mob?180:360,height:200,opacity:dark?.04:.06}}/>
             <div style={{position:"relative",display:"flex",alignItems:"center",gap:mob?12:16,flexWrap:"wrap"}}>
@@ -225,8 +357,10 @@ export default function DataListingDemo() {
               </span>
             </div>
           </div>
+          </CopyableInline>
 
           {/* KPIs com sparkline area chart */}
+          <CopyableInline label="KPI Cards" code={dlCode('kpi')} preview={dlPreview('kpi')}>
           {(()=>{
             const total=allData.length;
             const pendentes=allData.filter(r=>r.status==="Pendente").length;
@@ -293,7 +427,9 @@ export default function DataListingDemo() {
               </div>
             );
           })()}
+          </CopyableInline>
           {/* TOOLBAR SEPARADA — card próprio acima do Table */}
+          <CopyableInline label="Toolbar + Table" code={dlCode('toolbar')} preview={dlPreview('toolbar')}>
           <div style={{background:C.cardBg,borderRadius:"10px 10px 10px 18px",border:`1px solid ${C.cardBorder}`,overflow:"visible",boxShadow:"0 1px 3px rgba(0,75,155,.04)",marginBottom:14}}>
             <div style={{padding:"14px 18px",display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
               {/* Filtros */}
@@ -335,7 +471,7 @@ export default function DataListingDemo() {
                   </div>
                 </div>}
               </div>
-              <div onClick={e=>e.currentTarget.querySelector("input")?.focus()} style={{display:"flex",alignItems:"center",gap:8,height:35,padding:"0 12px",background:"var(--color-surface)",border:`1.5px solid ${searchFocused?C.azulProfundo:"var(--color-border)"}`,borderRadius:8,boxShadow:searchFocused?`0 0 0 3px ${accentRing}`:"none",transition:"all 0.18s ease",cursor:"text",flex:1,minWidth:200,maxWidth:320}}>
+              <div onClick={e=>e.currentTarget.querySelector("input")?.focus()} style={{display:"flex",alignItems:"center",gap:8,height:35,padding:"0 12px",background:"var(--color-surface)",border:`1.5px solid ${searchFocused?C.azulProfundo:"#E2E8F0"}`,borderRadius:8,boxShadow:searchFocused?`0 0 0 3px ${accentRing}`:"none",transition:"all 0.18s ease",cursor:"text",flex:1,minWidth:200,maxWidth:320}}>
                 <span style={{display:"flex",flexShrink:0,opacity:.7}}>{Ic.search(15)}</span>
                 <input value={search} onChange={e=>setSearch(e.target.value)} onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)} placeholder="Buscar requisições..." style={{flex:1,border:"none",outline:"none",background:"transparent",fontFamily:Fn.body,fontSize:13,color:C.cinzaEscuro,minWidth:0}}/>
                 {search&&<span onClick={e=>{e.stopPropagation();setSearch("")}} style={{display:"flex",cursor:"pointer",opacity:.5,flexShrink:0}}>{Ic.x(14,C.cinzaChumbo)}</span>}
@@ -547,6 +683,7 @@ export default function DataListingDemo() {
               </div>
             </div>
           </div>
+          </CopyableInline>
         </Section>
 
         {/* ═══ 02 — Header do Painel ═══ */}
@@ -834,6 +971,8 @@ export default function DataListingDemo() {
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Data Listing Pattern',
@@ -852,7 +991,7 @@ export default function DataListingDemo() {
 
 function DataListingPage() {
   return (
-    <div style={{ background: 'var(--color-surface-muted)', minHeight: '100vh' }}>
+    <div style={{ background: '#F8FAFC', minHeight: '100vh' }}>
       {/* Header Navy — icone + titulo + subtitulo + CTA */}
       <div style={{
         background: 'linear-gradient(135deg, var(--color-gov-gradient-from), var(--color-gov-gradient-to))',
@@ -878,8 +1017,8 @@ function DataListingPage() {
 
       {/* Toolbar — Filtros | Busca | Periodo || Excel | PDF */}
       <div style={{
-        background: 'var(--color-surface)',
-        border: '1px solid var(--color-border)',
+        background: '#FFFFFF',
+        border: '1px solid #E2E8F0',
         borderRadius: '12px 12px 12px 24px',
         padding: '12px 20px', margin: '16px 0',
         display: 'flex', justifyContent: 'space-between',
@@ -894,8 +1033,8 @@ function DataListingPage() {
 
       {/* Table — border-radius caixa, header proprio */}
       <div style={{
-        background: 'var(--color-surface)',
-        border: '1px solid var(--color-border)',
+        background: '#FFFFFF',
+        border: '1px solid #E2E8F0',
         borderRadius: '12px 12px 12px 24px',
         overflow: 'hidden',
       }}>
@@ -921,5 +1060,6 @@ function DataListingPage() {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

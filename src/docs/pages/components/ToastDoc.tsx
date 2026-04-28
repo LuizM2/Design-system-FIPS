@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { CodeExportSection } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
@@ -90,17 +91,17 @@ const toastExportCode = `// DS-FIPS — Toast Notification — Copy-paste ready
 import { useState, useEffect, useRef } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   verdeFloresta: "#00C64C",
   verdeEscuro: "#00904C",
   amareloEscuro: "#F6921E",
   danger: "#DC3545",
   branco: "#FFFFFF",
-  bg: "var(--color-surface-muted)",
-  cardBorder: "var(--color-border)",
+  bg: "#F8FAFC",
+  cardBorder: "#E2E8F0",
 };
 
 const Fn = {
@@ -178,6 +179,77 @@ export function useToast() {
 // }
 `;
 
+/* ═══════════════════════════════════════════ COPYABLE HELPERS ═══════════════════════════════════════════ */
+function toastCode(variant: string, title: string, message: string, extra = '') {
+  const colorMap: Record<string, { bg: string; border: string; color: string; accent: string }> = {
+    sucesso: { bg: "#ECFDF5", border: "#A7F3D0", color: "#00904C", accent: "#00C64C" },
+    erro: { bg: "#FEF2F2", border: "#FECACA", color: "#B91C1C", accent: "#DC3545" },
+    atencao: { bg: "#FFF7ED", border: "#FDBA74", color: "#C2410C", accent: "#F6921E" },
+    info: { bg: "#D3E3F4", border: "#93BDE4", color: "#002A68", accent: "#004B9B" },
+    neutro: { bg: "#F2F4F8", border: "#E2E8F0", color: "#333B41", accent: "#7B8C96" },
+  };
+  const v = colorMap[variant] || colorMap.info;
+  const hasAction = extra.includes('actionLabel');
+  const actionLabel = extra.match(/"([^"]+)"/)?.[1] || 'Ação';
+  return `// DS-FIPS — Toast "${variant}" — Copy-paste ready
+import { useState, useEffect, useRef } from "react";
+
+export function ToastExample() {
+  const [toasts, setToasts] = useState([]);
+  const nextId = useRef(0);
+
+  const addToast = () => {
+    const id = ++nextId.current;
+    setToasts((prev) => [{ id, out: false }, ...prev].slice(0, 5));
+  };
+
+  const removeToast = (id) => {
+    setToasts((prev) => prev.map((t) => t.id === id ? { ...t, out: true } : t));
+    setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 300);
+  };
+
+  return (
+    <>
+      <style>{\`@keyframes toastTimer{from{width:100%}to{width:0%}}\`}</style>
+      <button onClick={addToast}
+        style={{ padding: "8px 18px", fontSize: 12, fontWeight: 600, background: "${v.accent}", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontFamily: "'Open Sans', sans-serif" }}>
+        Disparar Toast
+      </button>
+      <div style={{ position: "fixed", top: 16, right: 16, zIndex: 9999, display: "flex", flexDirection: "column", gap: 8 }}>
+        {toasts.map((t) => (
+          <ToastItem key={t.id} id={t.id} out={t.out} onClose={removeToast} />
+        ))}
+      </div>
+    </>
+  );
+}
+
+function ToastItem({ id, out, onClose }) {
+  const timerId = useRef(null);
+  useEffect(() => {
+    timerId.current = setTimeout(() => onClose(id), 5000);
+    return () => { if (timerId.current) clearTimeout(timerId.current); };
+  }, [id, onClose]);
+
+  return (
+    <div style={{ background: "${v.bg}", border: "1px solid ${v.border}", borderRadius: 10, borderLeft: "4px solid ${v.accent}", padding: "12px 16px", width: 360, maxWidth: "calc(100vw - 32px)", boxShadow: "0 4px 20px rgba(0,0,0,.1)", display: "flex", gap: 12, alignItems: "center", position: "relative", overflow: "hidden", opacity: out ? 0 : 1, transform: out ? "translateX(110%)" : "translateX(0)", transition: "all .3s ease" }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "${v.color}", fontFamily: "'Open Sans', sans-serif", marginBottom: 2 }}>${title}</div>
+        <div style={{ fontSize: 12, color: "${v.color}", fontFamily: "'Open Sans', sans-serif", opacity: 0.85, lineHeight: 1.4 }}>${message}</div>${hasAction ? `
+        <button onClick={() => onClose(id)}
+          style={{ marginTop: 6, padding: "3px 10px", fontSize: 11, fontWeight: 700, color: "${v.accent}", background: "transparent", border: "1px solid ${v.accent}", borderRadius: 4, cursor: "pointer", fontFamily: "'Open Sans', sans-serif" }}>${actionLabel}</button>` : ''}
+      </div>
+      <span onClick={() => onClose(id)} style={{ display: "flex", cursor: "pointer", opacity: 0.5, flexShrink: 0 }}>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="${v.color}" strokeWidth="1.8" strokeLinecap="round"/></svg>
+      </span>
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3 }}>
+        <div style={{ height: 3, background: "${v.accent}", opacity: 0.35, animation: "toastTimer 5000ms linear forwards" }} />
+      </div>
+    </div>
+  );
+}`;
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function ToastDoc(){
   const [w,setW]=useState(typeof window!=="undefined"?window.innerWidth:1200);
@@ -190,6 +262,7 @@ export default function ToastDoc(){
   const removeToast=(id)=>{setToasts(prev=>prev.filter(t=>t.id!==id))};
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -230,13 +303,23 @@ export default function ToastDoc(){
         </Section>
 
         {/* 02 — VARIANTES */}
-        <Section n="02" title="Variantes" desc="Cinco variantes semânticas com cor de fundo, borda lateral, ícone e timer.">
+        <Section n="02" title="Variantes" desc="Cinco variantes semânticas com cor de fundo, borda lateral, ícone e timer. Clique em qualquer toast para copiar o código.">
           <div style={{display:"flex",flexDirection:"column",gap:12,maxWidth:420}}>
-            <ToastPreview variant="sucesso" title="Salvo com sucesso" message="Requisição #4025 aprovada e encaminhada para compra."/>
-            <ToastPreview variant="erro" title="Erro ao salvar" message="Não foi possível conectar ao servidor. Tente novamente." timer={85}/>
-            <ToastPreview variant="atencao" title="Sessão expirando" message="Sua sessão expira em 5 minutos." actionLabel="Renovar" timer={40}/>
-            <ToastPreview variant="info" title="Novo registro" message="Fornecedor 'Brado Logística' cadastrado por Carlos Santos." timer={55}/>
-            <ToastPreview variant="neutro" title="Dados sincronizados" message="Último sync: agora. 47 registros atualizados." timer={30}/>
+            <Copyable label="Toast Sucesso" code={toastCode("sucesso","Salvo com sucesso","Requisição #4025 aprovada e encaminhada para compra.")} preview={<ToastPreview variant="sucesso" title="Salvo com sucesso" message="Requisição #4025 aprovada e encaminhada para compra."/>}>
+              <ToastPreview variant="sucesso" title="Salvo com sucesso" message="Requisição #4025 aprovada e encaminhada para compra."/>
+            </Copyable>
+            <Copyable label="Toast Erro" code={toastCode("erro","Erro ao salvar","Não foi possível conectar ao servidor. Tente novamente.")} preview={<ToastPreview variant="erro" title="Erro ao salvar" message="Não foi possível conectar ao servidor. Tente novamente." timer={85}/>}>
+              <ToastPreview variant="erro" title="Erro ao salvar" message="Não foi possível conectar ao servidor. Tente novamente." timer={85}/>
+            </Copyable>
+            <Copyable label="Toast Atenção" code={toastCode("atencao","Sessão expirando","Sua sessão expira em 5 minutos.",'\n        actionLabel: "Renovar",')} preview={<ToastPreview variant="atencao" title="Sessão expirando" message="Sua sessão expira em 5 minutos." actionLabel="Renovar" timer={40}/>}>
+              <ToastPreview variant="atencao" title="Sessão expirando" message="Sua sessão expira em 5 minutos." actionLabel="Renovar" timer={40}/>
+            </Copyable>
+            <Copyable label="Toast Info" code={toastCode("info","Novo registro","Fornecedor 'Brado Logística' cadastrado por Carlos Santos.")} preview={<ToastPreview variant="info" title="Novo registro" message="Fornecedor 'Brado Logística' cadastrado por Carlos Santos." timer={55}/>}>
+              <ToastPreview variant="info" title="Novo registro" message="Fornecedor 'Brado Logística' cadastrado por Carlos Santos." timer={55}/>
+            </Copyable>
+            <Copyable label="Toast Neutro" code={toastCode("neutro","Dados sincronizados","Último sync: agora. 47 registros atualizados.")} preview={<ToastPreview variant="neutro" title="Dados sincronizados" message="Último sync: agora. 47 registros atualizados." timer={30}/>}>
+              <ToastPreview variant="neutro" title="Dados sincronizados" message="Último sync: agora. 47 registros atualizados." timer={30}/>
+            </Copyable>
           </div>
         </Section>
 
@@ -442,6 +525,8 @@ export default function ToastDoc(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label: "Toast Notification",
           description: "Notificacoes temporarias com variantes semanticas, timer visual, empilhamento e hook useToast.",
@@ -453,5 +538,6 @@ export default function ToastDoc(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

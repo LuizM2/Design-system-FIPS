@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import { DemoSection, DocPage } from '../../components/DocPage'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { RuleCards } from '../../components/RuleCards'
 import { Button } from '../../../components/ui/button'
 import {
@@ -57,6 +58,138 @@ const taskTypes = [
   { id: 'meeting', label: 'Reunião' },
 ]
 
+/* ═══ Copyable code helper (hardcoded hex, self-contained) ═══ */
+function codeModalWorkflow() {
+  return `// DS-FIPS — Modal Workflow com Tabs — Copy-paste ready
+import { useState } from "react";
+
+export function TaskModalWorkflow() {
+  const [open, setOpen] = useState(false);
+  const [activeType, setActiveType] = useState("service");
+  const [priority, setPriority] = useState("medium");
+  const [progress, setProgress] = useState(0);
+
+  const priorityConfig = {
+    low:    { label: 'Baixa',   border: '#CBD5E1', bg: '#F8FAFC', text: '#64748B', dot: '#94A3B8' },
+    medium: { label: 'Media',   border: '#60A5FA', bg: '#EFF6FF', text: '#2563EB', dot: '#3B82F6' },
+    high:   { label: 'Alta',    border: '#FBBF24', bg: '#FFFBEB', text: '#D97706', dot: '#F59E0B' },
+    urgent: { label: 'Urgente', border: '#F87171', bg: '#FEF2F2', text: '#DC2626', dot: '#EF4444' },
+  };
+
+  const taskTypes = [
+    { id: 'service', label: 'Atendimento' },
+    { id: 'internal_task', label: 'Tarefa' },
+    { id: 'meeting', label: 'Reuniao' },
+  ];
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)} style={{ background: '#004B9B', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+        Nova Tarefa
+      </button>
+
+      {open && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div onClick={() => setOpen(false)} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
+          <div style={{ position: 'relative', width: '95vw', maxWidth: 900, maxHeight: '90vh', background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,0.18)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '16px 24px', borderBottom: '1px solid #E2E8F0' }}>
+              <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#E8F0FE', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004B9B" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div>
+                <h2 style={{ fontSize: 18, fontWeight: 700, color: '#333B41', margin: 0 }}>Novo Item</h2>
+                <p style={{ fontSize: 12, color: '#7B8C96', margin: '2px 0 0' }}>Crie uma nova tarefa ou agende uma reuniao.</p>
+              </div>
+            </div>
+
+            <div style={{ padding: '16px 24px', maxHeight: 'calc(90vh - 140px)', overflowY: 'auto' }}>
+              <div style={{ display: 'flex', gap: 4, padding: 4, background: '#F1F5F9', borderRadius: 12, marginBottom: 16 }}>
+                {taskTypes.map(t => (
+                  <button key={t.id} onClick={() => setActiveType(t.id)} style={{ flex: 1, padding: '8px 12px', borderRadius: 8, fontSize: 13, fontWeight: 600, border: 'none', background: activeType === t.id ? '#fff' : 'transparent', color: activeType === t.id ? '#004B9B' : '#7B8C96', boxShadow: activeType === t.id ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', cursor: 'pointer' }}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Titulo <span style={{ color: '#DC3545' }}>*</span></label>
+                    <input placeholder="Ex: Consultoria Fiscal" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Cliente</label>
+                    <input placeholder="Buscar empresa..." style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Data Inicio</label>
+                      <input type="date" defaultValue="2026-04-01" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Fim do Prazo</label>
+                      <input type="date" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Status</label>
+                    <select defaultValue="backlog" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box', background: '#fff' }}>
+                      <option value="backlog">Backlog</option>
+                      <option value="afazer">A Fazer</option>
+                      <option value="em-progresso">Em Progresso</option>
+                      <option value="concluido">Concluido</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Prioridade</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
+                      {Object.entries(priorityConfig).map(([key, cfg]) => (
+                        <button key={key} onClick={() => setPriority(key)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, padding: '6px 8px', borderRadius: 8, border: \`2px solid \${priority === key ? cfg.border : '#E2E8F0'}\`, background: priority === key ? cfg.bg : '#fff', color: priority === key ? cfg.text : '#7B8C96', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+                          <span style={{ width: 6, height: 6, borderRadius: '50%', background: priority === key ? cfg.dot : '#CBD5E1' }} />
+                          {cfg.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Progresso</label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <input type="range" min="0" max="100" step="5" value={progress} onChange={e => setProgress(parseInt(e.target.value))} style={{ flex: 1 }} />
+                      <span style={{ fontSize: 12, fontWeight: 600, color: '#7B8C96', minWidth: 32, textAlign: 'right' }}>{progress}%</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Descricao</label>
+                    <textarea placeholder="Detalhes, contexto, links..." rows={3} style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', resize: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Documentos</label>
+                    <div style={{ borderRadius: 10, border: '1px dashed #E2E8F0', background: '#F8FAFC', padding: '12px 16px', textAlign: 'center' }}>
+                      <p style={{ fontSize: 12, color: '#7B8C96', margin: 0 }}>Nenhum documento anexado</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 24px', borderTop: '1px solid #E2E8F0' }}>
+              <span style={{ fontSize: 11, color: '#7B8C96' }}>Cmd+Enter para salvar</span>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => setOpen(false)} style={{ height: 36, padding: '0 16px', fontSize: 14, fontWeight: 600, borderRadius: 12, border: '1px solid #E2E8F0', background: '#fff', color: '#333B41', cursor: 'pointer' }}>Cancelar</button>
+                <button style={{ height: 36, padding: '0 16px', fontSize: 14, fontWeight: 600, borderRadius: 12, border: 'none', background: '#00C64C', color: '#fff', cursor: 'pointer' }}>Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`
+}
+
 /* ═══ Component ═══ */
 export default function ModalWorkflowDemo() {
   const [open, setOpen] = useState(false)
@@ -68,9 +201,21 @@ export default function ModalWorkflowDemo() {
   return (
     <DocPage
       title="Padrão: Modal Workflow"
-      description="Modal operacional extraído do TaskModal.tsx (CONTPIX). Reprodução fiel do design-system.md — tabs segmentadas, grid de campos com ícones, prioridade com dots, slider de progresso, chips de responsável e área de anexos."
+      description="Modal operacional extraído do TaskModal.tsx (CONTPIX). Tabs segmentadas, grid de campos com ícones, prioridade com dots, slider de progresso, chips de responsável e área de anexos. Clique no demo para copiar o código."
     >
+      <PlaygroundProvider>
       <DemoSection title="Interativo">
+        <Copyable label="Modal Workflow" code={codeModalWorkflow()} preview={
+          <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E2E8F0', fontFamily: "'Open Sans', sans-serif", fontSize: 13, maxWidth: 300 }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#333B41', marginBottom: 8 }}>Novo Item</div>
+            <div style={{ fontSize: 12, color: '#7B8C96', marginBottom: 12 }}>Modal Workflow com Tabs + Grid 2 colunas + Priority dots</div>
+            <div style={{ display: 'flex', gap: 4, padding: 4, background: '#F1F5F9', borderRadius: 8 }}>
+              <span style={{ flex: 1, padding: '4px 8px', borderRadius: 6, background: '#fff', color: '#004B9B', fontSize: 11, fontWeight: 600, textAlign: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>Atendimento</span>
+              <span style={{ flex: 1, padding: '4px 8px', borderRadius: 6, color: '#7B8C96', fontSize: 11, textAlign: 'center' }}>Tarefa</span>
+              <span style={{ flex: 1, padding: '4px 8px', borderRadius: 6, color: '#7B8C96', fontSize: 11, textAlign: 'center' }}>Reuniao</span>
+            </div>
+          </div>
+        }>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
@@ -112,8 +257,8 @@ export default function ModalWorkflowDemo() {
                     onClick={() => setActiveType(type.id)}
                     className={`flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 ${
                       activeType === type.id
-                        ? 'bg-[var(--color-surface)] text-[var(--color-primary)] shadow-sm'
-                        : 'text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]'
+                        ? 'bg-[#FFFFFF] text-[#004B9B] shadow-sm'
+                        : 'text-[#7B8C96] hover:text-[#333B41]'
                     }`}
                   >
                     {taskTypeIcons[type.id] || <Zap className="h-3.5 w-3.5" />}
@@ -286,11 +431,11 @@ export default function ModalWorkflowDemo() {
                             className={`flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border-2 text-xs font-medium transition-all duration-200 ${
                               isActive
                                 ? cfg.color
-                                : 'border-[var(--color-border)]/60 bg-[var(--color-surface)] text-[var(--color-fg-muted)] hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)]/30'
+                                : 'border-[#E2E8F0]/60 bg-[#FFFFFF] text-[#7B8C96] hover:border-[#E2E8F0] hover:bg-[#F8FAFC]/30'
                             }`}
                           >
                             <span
-                              className={`w-1.5 h-1.5 rounded-full ${isActive ? cfg.dotColor : 'bg-[var(--color-fg-muted)]/40'}`}
+                              className={`w-1.5 h-1.5 rounded-full ${isActive ? cfg.dotColor : 'bg-[#7B8C96]/40'}`}
                             />
                             {cfg.label}
                           </button>
@@ -384,7 +529,10 @@ export default function ModalWorkflowDemo() {
             </div>
           </DialogContent>
         </Dialog>
+        </Copyable>
       </DemoSection>
+
+      <CodePlayground />
 
       <RuleCards cards={[
         { icon: <ShieldCheck size={20} color="var(--color-gov-azul-profundo)" />, color: 'var(--color-gov-azul-profundo)', bg: 'color-mix(in srgb, var(--color-gov-azul-profundo) 3%, transparent)', tag: 'REGRA 1', title: 'Modal estruturado com abas', desc: 'O Modal Workflow é um diálogo modal com abas segmentadas que organiza formulários de criação e edição em etapas claras. As abas permitem dividir campos relacionados sem sobrecarregar a tela.' },
@@ -431,12 +579,12 @@ function TaskModal() {
       <DialogContent className="max-w-[900px] max-h-[90vh] p-0">
         {/* Header */}
         <div className="flex items-start gap-3 px-6 pt-4 pb-4 border-b">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)]/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#004B9B]/10">
             {/* Icon */}
           </div>
           <div>
             <h2 className="text-lg font-bold">Novo Item</h2>
-            <p className="text-xs text-[var(--color-fg-muted)]">Subtitulo</p>
+            <p className="text-xs text-[#7B8C96]">Subtitulo</p>
           </div>
         </div>
 
@@ -448,7 +596,7 @@ function TaskModal() {
 
         {/* Footer */}
         <div className="flex justify-between px-6 py-4 border-t">
-          <span className="text-xs text-[var(--color-fg-muted)]">Cmd+Enter para salvar</span>
+          <span className="text-xs text-[#7B8C96]">Cmd+Enter para salvar</span>
           <div className="flex gap-2">
             <Button variant="secondary">Cancelar</Button>
             <Button variant="success">Salvar</Button>
@@ -460,6 +608,7 @@ function TaskModal() {
 }`,
         },
       ]} />
+      </PlaygroundProvider>
     </DocPage>
   )
 }

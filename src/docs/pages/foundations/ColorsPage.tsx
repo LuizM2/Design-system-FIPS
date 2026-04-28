@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { fipsPalette, semanticColors, darkSemanticColors } from '../../../tokens/colors'
 
 const C = { azulProfundo: 'var(--color-gov-azul-profundo)', azulEscuro: 'var(--color-gov-azul-escuro)', azulCeuClaro: '#D3E3F4', amareloOuro: '#FDC24E', cinzaChumbo: 'var(--color-fg-muted)', cinzaEscuro: 'var(--color-fg)', branco: '#FFFFFF', bg: 'var(--color-surface-muted)', cardBg: 'var(--color-surface)', cardBorder: 'var(--color-border)', textLight: 'var(--color-fg-muted)' }
@@ -69,6 +70,7 @@ export default function ColorsPage() {
   const mob = w < 640
 
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: '100vh', background: "var(--color-surface-muted)", fontFamily: Fn.body, color: C.cinzaEscuro }}>
 
       <header style={{ background: `linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)`, padding: mob ? '32px 20px' : '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
@@ -84,20 +86,39 @@ export default function ColorsPage() {
 
         <Section n="01" title="Paleta principal" desc="Cores primárias e secundárias do Brandbook FIPS.">
           <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(3, 1fr)', gap: 16 }}>
-            {swatches.map(([name, hex]) => (
-              <div key={name} style={{ background: C.cardBg, borderRadius: '10px 10px 10px 18px', border: `1px solid ${C.cardBorder}`, overflow: 'hidden' }}>
+            {swatches.map(([name, hex]) => {
+              const displayName = name.replace(/([a-z])([A-Z])/g, '$1 $2')
+              const codeSnippet = `// DS-FIPS — ${displayName}\nconst ${name} = "${hex}";\n// CSS: var(--color-fips-${name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()})`
+              return (
+              <Copyable
+                key={name}
+                label={`color-${name}`}
+                code={codeSnippet}
+                preview={
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                    <div style={{ width: 64, height: 64, borderRadius: 12, background: hex, border: '1px solid rgba(0,0,0,0.1)' }} />
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, fontFamily: "'Saira Expanded', sans-serif", color: '#333B41' }}>{displayName}</div>
+                      <code style={{ fontSize: 12, fontFamily: "'Fira Code', monospace", color: '#6B7784' }}>{hex}</code>
+                    </div>
+                  </div>
+                }
+              >
+              <div style={{ background: C.cardBg, borderRadius: '10px 10px 10px 18px', border: `1px solid ${C.cardBorder}`, overflow: 'hidden' }}>
                 <div style={{ height: 96, width: '100%', background: hex }} />
                 <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 600, color: C.cinzaEscuro, margin: '0 0 4px', fontFamily: Fn.title, textTransform: 'capitalize' }}>
-                      {name.replace(/([a-z])([A-Z])/g, '$1 $2')}
+                      {displayName}
                     </p>
                     <p style={{ fontSize: 12, fontFamily: "'Fira Code', monospace", color: C.cinzaChumbo, margin: 0, textTransform: 'uppercase' }}>{hex}</p>
                   </div>
                   <CopyHex hex={hex} />
                 </div>
               </div>
-            ))}
+              </Copyable>
+              )
+            })}
           </div>
         </Section>
 
@@ -182,6 +203,8 @@ export default function ColorsPage() {
             </table>
           </div>
         </Section>
+
+        <CodePlayground />
 
         {/* CodeExportSection removido — cores são tokens, não componentes */}
         {false && <CodeExportSection items={[
@@ -294,5 +317,6 @@ export const fipsColors = {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

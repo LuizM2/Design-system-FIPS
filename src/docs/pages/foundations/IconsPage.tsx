@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import type { IconType } from "react-icons";
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import {
   LuHouse, LuLayoutGrid, LuList, LuChartColumnIncreasing, LuFilter, LuSettings, LuSearch,
   LuX, LuCheck, LuPencil, LuTrash2, LuEye, LuPaperclip,
@@ -23,6 +24,18 @@ const iconMap: Record<string, IconType> = {
   doc: LuFileText, folder: LuFolder, bell: LuBell, tag: LuTag,
   clock: LuClock, calendar: LuCalendar,
   pessoa: LuUser, building: LuBuilding2, email: LuMail,
+};
+
+const iconImportName: Record<string, string> = {
+  home: "LuHouse", grid: "LuLayoutGrid", list: "LuList", chart: "LuChartColumnIncreasing",
+  filter: "LuFilter", settings: "LuSettings", busca: "LuSearch",
+  x: "LuX", check: "LuCheck", edit: "LuPencil", trash: "LuTrash2",
+  eye: "LuEye", clip: "LuPaperclip",
+  alert: "LuTriangleAlert", shield: "LuShield", lock: "LuLock",
+  status: "LuCircleCheck", info: "LuInfo",
+  doc: "LuFileText", folder: "LuFolder", bell: "LuBell", tag: "LuTag",
+  clock: "LuClock", calendar: "LuCalendar",
+  pessoa: "LuUser", building: "LuBuilding2", email: "LuMail",
 };
 
 function Ic({ id, size, color }: { id: string; size: number; color: string }) {
@@ -69,6 +82,7 @@ export default function DSFIPSIconography(){
   const [selSize,setSelSize]=useState(20);
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
@@ -94,13 +108,30 @@ export default function DSFIPSIconography(){
               <div key={cat.name}>
                 <span style={{fontSize:11,fontWeight:700,letterSpacing:"1.2px",textTransform:"uppercase",color:C.textLight,fontFamily:Fn.title,display:"block",marginBottom:10}}>{cat.name}</span>
                 <div style={{display:"grid",gridTemplateColumns:mob?"repeat(3,1fr)":"repeat(6,1fr)",gap:8}}>
-                  {cat.icons.map(ic=>{const isHov=hovIcon===ic.id;return(
-                    <div key={ic.id} onMouseEnter={()=>setHovIcon(ic.id)} onMouseLeave={()=>setHovIcon(null)} style={{background:C.cardBg,border:`1px solid ${isHov?C.azulProfundo:C.cardBorder}`,borderRadius:10,padding:"16px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:8,cursor:"default",transition:"all .15s",boxShadow:isHov?"0 4px 12px rgba(0,75,155,.08)":"none"}}>
+                  {cat.icons.map(ic=>{const isHov=hovIcon===ic.id;const importName=iconImportName[ic.id]||ic.id;const codeSnippet=`// DS-FIPS — Icone: ${ic.label}\nimport { ${importName} } from "react-icons/lu";\n\n<${importName} size={${selSize}} color="#004B9B" />`;return(
+                    <Copyable
+                      key={ic.id}
+                      label={`icon-${ic.id}`}
+                      code={codeSnippet}
+                      preview={
+                        <div style={{display:"flex",alignItems:"center",gap:14}}>
+                          <div style={{width:48,height:48,borderRadius:12,background:"#F3F6FB",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                            <Ic id={ic.id} size={24} color="#004B9B" />
+                          </div>
+                          <div>
+                            <div style={{fontSize:14,fontWeight:700,fontFamily:"'Saira Expanded', sans-serif",color:"#333B41"}}>{ic.label}</div>
+                            <code style={{fontSize:11,fontFamily:"'Fira Code', monospace",color:"#6B7784"}}>{importName}</code>
+                          </div>
+                        </div>
+                      }
+                    >
+                    <div onMouseEnter={()=>setHovIcon(ic.id)} onMouseLeave={()=>setHovIcon(null)} style={{background:C.cardBg,border:`1px solid ${isHov?C.azulProfundo:C.cardBorder}`,borderRadius:10,padding:"16px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:8,cursor:"pointer",transition:"all .15s",boxShadow:isHov?"0 4px 12px rgba(0,75,155,.08)":"none"}}>
                       <div style={{width:selSize+16,height:selSize+16,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:8,background:isHov?alpha(C.azulProfundo,0.03):C.bg,transition:"background .15s"}}>
                         <Ic id={ic.id} size={selSize} color={isHov?C.azulProfundo:C.cinzaEscuro} />
                       </div>
                       <span style={{fontSize:10,fontWeight:600,color:isHov?C.azulProfundo:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",transition:"color .15s"}}>{ic.label}</span>
                     </div>
+                    </Copyable>
                   )})}
                 </div>
               </div>
@@ -252,6 +283,8 @@ export default function DSFIPSIconography(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Icon Set FIPS (Lucide/react-icons)',
@@ -301,5 +334,6 @@ const entities   = ['LuUser', 'LuBuilding2', 'LuMail']
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

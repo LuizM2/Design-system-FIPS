@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -69,6 +70,7 @@ export default function DSFIPSTypography(){
   const mob=w<640;
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500;600&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
@@ -118,8 +120,22 @@ export default function DSFIPSTypography(){
         <Section n="02" title="Escala de tamanhos" desc="11 tamanhos definidos — do hero 44px ao micro 10px. Cada um com família, peso e line-height fixos.">
           <DSCard mob={mob}>
             <div style={{display:"flex",flexDirection:"column",gap:0}}>
-              {sizeScale.map((s,i)=>(
-                <div key={s.token} style={{display:"flex",alignItems:mob?"flex-start":"center",gap:mob?8:16,padding:mob?"10px 0":"8px 0",borderBottom:i<sizeScale.length-1?`1px solid ${C.cardBorder}`:"none",flexDirection:mob?"column":"row"}}>
+              {sizeScale.map((s,i)=>{
+                const familyName = s.family === Fn.title ? "Saira Expanded" : s.family === Fn.body ? "Open Sans" : "Fira Code";
+                const codeSnippet = `// DS-FIPS — ${s.token} (${s.use})\nfontFamily: "'${familyName}', ${familyName==="Fira Code"?"monospace":"sans-serif"}"\nfontSize: ${s.px}\nfontWeight: ${s.weight}\nlineHeight: ${s.lh}`;
+                return (
+                <Copyable
+                  key={s.token}
+                  label={`type-${s.token}`}
+                  code={codeSnippet}
+                  preview={
+                    <div>
+                      <span style={{fontSize:Math.min(s.px,24),fontWeight:s.weight,fontFamily:s.family,color:"#333B41",lineHeight:s.lh,display:"block",marginBottom:8}}>{s.sample}</span>
+                      <code style={{fontSize:10,fontFamily:"'Fira Code', monospace",color:"#6B7784"}}>{s.token} - {familyName} {s.weight} {s.px}px</code>
+                    </div>
+                  }
+                >
+                <div style={{display:"flex",alignItems:mob?"flex-start":"center",gap:mob?8:16,padding:mob?"10px 0":"8px 0",borderBottom:i<sizeScale.length-1?`1px solid ${C.cardBorder}`:"none",flexDirection:mob?"column":"row",cursor:"pointer"}}>
                   <div style={{display:"flex",alignItems:"center",gap:8,minWidth:mob?"auto":200,flexShrink:0}}>
                     <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro,minWidth:32,textAlign:"right"}}>{s.px}px</code>
                     <code style={{fontSize:9,fontFamily:Fn.mono,color:C.textMuted,background:C.bg,padding:"1px 6px",borderRadius:3}}>{s.token}</code>
@@ -129,7 +145,9 @@ export default function DSFIPSTypography(){
                   </div>
                   {!mob&&<span style={{fontSize:10,color:C.textMuted,fontFamily:Fn.body,minWidth:160,textAlign:"right",flexShrink:0}}>{s.use}</span>}
                 </div>
-              ))}
+                </Copyable>
+                )
+              })}
             </div>
           </DSCard>
         </Section>
@@ -270,6 +288,8 @@ export default function DSFIPSTypography(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Escala Tipografica FIPS',
@@ -320,5 +340,6 @@ export default function DSFIPSTypography(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

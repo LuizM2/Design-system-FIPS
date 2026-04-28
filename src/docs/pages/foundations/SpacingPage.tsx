@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
@@ -84,6 +85,7 @@ export default function DSFIPSSpacing(){
   const [playGap,setPlayGap]=useState(12);
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -105,7 +107,18 @@ export default function DSFIPSSpacing(){
           <DSCard mob={mob}>
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {scale.map((s,i)=>(
-                <div key={s.token} style={{display:"flex",alignItems:"center",gap:mob?8:16,animation:`fadeUp .3s ease ${i*0.04}s both`}}>
+                <Copyable
+                  key={s.token}
+                  label={`spacing-${s.px}`}
+                  code={`// DS-FIPS — Spacing ${s.px}\npadding: ${s.px} // or "${s.px}px"\n// Token: --${s.token}`}
+                  preview={
+                    <div style={{display:"flex",alignItems:"center",gap:12}}>
+                      <div style={{background:"#004B9B",borderRadius:4,width:s.px*3,height:s.px*3,minWidth:12,minHeight:12,transition:"all .3s"}}/>
+                      <div style={{fontSize:12,fontFamily:"'Fira Code',monospace",color:"#1B2A4A"}}>{s.px}px — {s.token}</div>
+                    </div>
+                  }
+                >
+                <div style={{display:"flex",alignItems:"center",gap:mob?8:16,animation:`fadeUp .3s ease ${i*0.04}s both`}}>
                   <code style={{fontSize:12,fontWeight:700,fontFamily:Fn.mono,color:C.cinzaEscuro,minWidth:mob?36:44,textAlign:"right"}}>{s.px}px</code>
                   <div style={{width:s.px*(mob?2.5:4),height:mob?18:22,borderRadius:4,background:`linear-gradient(90deg,${s.color},${s.color}88)`,flexShrink:0,transition:"width .3s"}}/>
                   <div style={{flex:1,minWidth:0}}>
@@ -113,6 +126,7 @@ export default function DSFIPSSpacing(){
                     {!mob&&<span style={{fontSize:11,color:C.cinzaChumbo,fontFamily:Fn.body,marginLeft:8}}>{s.use}</span>}
                   </div>
                 </div>
+                </Copyable>
               ))}
             </div>
           </DSCard>
@@ -325,6 +339,8 @@ export default function DSFIPSSpacing(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Escala de Espacamento FIPS',
@@ -373,5 +389,6 @@ export default function DSFIPSSpacing(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C = {
@@ -444,18 +445,18 @@ const textareaExportCode = `// DS-FIPS — Textarea — Copy-paste ready
 import { useState, useEffect, useRef, useCallback } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   cinzaClaro: "#C0CCD2",
   amareloEscuro: "#F6921E",
   danger: "#DC3545",
   dangerBg: "#FEF2F2",
-  textMuted: "var(--color-fg-muted)",
-  textLight: "var(--color-fg-muted)",
-  inputBorder: "var(--color-border)",
-  inputBg: "var(--color-surface)",
-  inputBgDisabled: "var(--color-surface-muted)",
+  textMuted: "#7B8C96",
+  textLight: "#7B8C96",
+  inputBorder: "#E2E8F0",
+  inputBg: "#FFFFFF",
+  inputBgDisabled: "#F8FAFC",
   focusRing: "rgba(147,189,228,0.35)",
 };
 
@@ -537,6 +538,47 @@ export function DSTextarea({
 // <DSTextarea label="Descricao" autoResize />
 `;
 
+/* ═══════════════════════════════════════════ COPYABLE CODE GEN ═══════════════════════════════════════════ */
+function textareaVariantCode(opts: {
+  label?: string
+  placeholder?: string
+  rows?: number
+  required?: boolean
+  maxLength?: number
+  autoResize?: boolean
+  helper?: string
+  compact?: boolean
+  error?: boolean
+  errorMsg?: string
+  disabled?: boolean
+  readOnly?: boolean
+  value?: string
+  defaultValue?: string
+}): string {
+  const props: string[] = []
+  if (opts.label) props.push(`label="${opts.label}"`)
+  if (opts.placeholder) props.push(`placeholder="${opts.placeholder}"`)
+  if (opts.rows && opts.rows !== 3) props.push(`rows={${opts.rows}}`)
+  if (opts.required) props.push('required')
+  if (opts.maxLength) props.push(`maxLength={${opts.maxLength}}`)
+  if (opts.autoResize) props.push('autoResize')
+  if (opts.helper) props.push(`helper="${opts.helper}"`)
+  if (opts.compact) props.push('compact')
+  if (opts.error) props.push('error')
+  if (opts.errorMsg) props.push(`errorMsg="${opts.errorMsg}"`)
+  if (opts.disabled) props.push('disabled')
+  if (opts.readOnly) props.push('readOnly')
+  if (opts.value) props.push(`value="${opts.value}"`)
+  if (opts.defaultValue) props.push(`defaultValue="${opts.defaultValue}"`)
+
+  return `// DS-FIPS — Textarea "${opts.label || 'Textarea'}" — Copy-paste ready
+import { DSTextarea } from "@design-system-fips/textarea";
+
+<DSTextarea
+  ${props.join('\n  ')}
+/>`
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function TextareaDoc() {
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -558,6 +600,7 @@ export default function TextareaDoc() {
   const tokenCols = mob ? '1fr' : tab ? '1fr 1fr' : xl ? '1fr 1fr 1fr 1fr' : '1fr 1fr 1fr 1fr'
 
   return (
+    <PlaygroundProvider>
     <div
       style={{
         minHeight: '100vh',
@@ -661,38 +704,56 @@ export default function TextareaDoc() {
         <Section
           n="01"
           title="Tipos de textarea"
-          desc="Todas as variantes em um só lugar. Digite nos campos para testar — resize, auto-resize e contador funcionam em tempo real."
+          desc="Todas as variantes em um só lugar. Clique em qualquer textarea para copiar o código. Digite nos campos para testar — resize, auto-resize e contador funcionam em tempo real."
         >
           <Card mob={mob}>
             <div style={{ display: 'grid', gridTemplateColumns: vitrineCols, gap: 24 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <DotLabel color={C.azulProfundo} label="Padrão" badge="resize manual" />
-                <DSTextarea
-                  label="Observação"
-                  placeholder="Descreva o contexto da solicitação, premissas e pontos de atenção..."
-                  rows={4}
-                  required
-                  helper="Use para detalhes que não cabem nos campos estruturados."
-                />
+                <Copyable
+                  label="Textarea Padrão"
+                  code={textareaVariantCode({ label: 'Observação', placeholder: 'Descreva o contexto da solicitação, premissas e pontos de atenção...', rows: 4, required: true, helper: 'Use para detalhes que não cabem nos campos estruturados.' })}
+                  preview={<DSTextarea label="Observação" placeholder="Descreva o contexto da solicitação, premissas e pontos de atenção..." rows={4} required helper="Use para detalhes que não cabem nos campos estruturados." />}
+                >
+                  <DSTextarea
+                    label="Observação"
+                    placeholder="Descreva o contexto da solicitação, premissas e pontos de atenção..."
+                    rows={4}
+                    required
+                    helper="Use para detalhes que não cabem nos campos estruturados."
+                  />
+                </Copyable>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <DotLabel color={C.amareloEscuro} label="Com contador" badge="maxLength" />
-                <DSTextarea
-                  label="Justificativa"
-                  placeholder="Descreva a justificativa da aprovação ou rejeição..."
-                  rows={4}
-                  maxLength={200}
-                  helper="Mínimo 20 caracteres para submissão."
-                />
+                <Copyable
+                  label="Textarea com Contador"
+                  code={textareaVariantCode({ label: 'Justificativa', placeholder: 'Descreva a justificativa da aprovação ou rejeição...', rows: 4, maxLength: 200, helper: 'Mínimo 20 caracteres para submissão.' })}
+                  preview={<DSTextarea label="Justificativa" placeholder="Descreva a justificativa da aprovação ou rejeição..." rows={4} maxLength={200} helper="Mínimo 20 caracteres para submissão." />}
+                >
+                  <DSTextarea
+                    label="Justificativa"
+                    placeholder="Descreva a justificativa da aprovação ou rejeição..."
+                    rows={4}
+                    maxLength={200}
+                    helper="Mínimo 20 caracteres para submissão."
+                  />
+                </Copyable>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <DotLabel color={C.verdeFloresta} label="Auto-resize" badge="cresce ao digitar" />
-                <DSTextarea
-                  label="Descrição da ideia"
-                  placeholder="Escreva livremente... o campo cresce conforme você digita."
-                  autoResize
-                  helper="Altura se ajusta automaticamente ao conteúdo."
-                />
+                <Copyable
+                  label="Textarea Auto-resize"
+                  code={textareaVariantCode({ label: 'Descrição da ideia', placeholder: 'Escreva livremente... o campo cresce conforme você digita.', autoResize: true, helper: 'Altura se ajusta automaticamente ao conteúdo.' })}
+                  preview={<DSTextarea label="Descrição da ideia" placeholder="Escreva livremente... o campo cresce conforme você digita." autoResize helper="Altura se ajusta automaticamente ao conteúdo." />}
+                >
+                  <DSTextarea
+                    label="Descrição da ideia"
+                    placeholder="Escreva livremente... o campo cresce conforme você digita."
+                    autoResize
+                    helper="Altura se ajusta automaticamente ao conteúdo."
+                  />
+                </Copyable>
               </div>
             </div>
           </Card>
@@ -1325,6 +1386,8 @@ export default function TextareaDoc() {
           </Card>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label: "Textarea",
           description: "Area de texto com resize, auto-resize, contador de caracteres e estados (error, disabled, readOnly).",
@@ -1338,5 +1401,6 @@ export default function TextareaDoc() {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

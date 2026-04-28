@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { ShieldCheck, AlertTriangle, ArrowUpFromLine, LayoutGrid } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { RuleCards } from '../../components/RuleCards'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
@@ -91,12 +92,105 @@ function HeroHeaderDemo() {
   )
 }
 
-// ─── Código de referência ────────────────────────────────────────────────────
+// ─── Copyable code helpers (hardcoded hex, self-contained) ──────────────────
+
+function codeHeroHeaderGlass() {
+  return `// DS-FIPS — Hero Header Glass-to-White — Copy-paste ready
+import { useState, useRef, useEffect } from 'react'
+
+export function HeroWithAdaptiveHeader() {
+  const [scrolled, setScrolled] = useState(false)
+  const scrollRef = useRef(null)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const onScroll = () => setScrolled(el.scrollTop > 60)
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <div ref={scrollRef} style={{ height: '100vh', overflowY: 'auto' }}>
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        height: 56, padding: '0 24px',
+        display: 'flex', alignItems: 'center',
+        transition: 'all 300ms ease',
+        ...(scrolled ? {
+          background: 'rgba(255,255,255,0.95)',
+          backdropFilter: 'blur(4px)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+          color: '#333B41',
+        } : {
+          background: 'rgba(255,255,255,0.07)',
+          backdropFilter: 'blur(12px)',
+          color: '#fff',
+        }),
+      }}>
+        <span style={{ fontFamily: "'Saira Expanded', sans-serif", fontWeight: 700, fontSize: 14 }}>App FIPS</span>
+      </header>
+
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(118deg, rgba(0,19,56,0.94) 0%, rgba(0,63,138,0.84) 44%, rgba(0,144,208,0.60) 100%)' }} />
+        <div style={{ position: 'relative', zIndex: 10, padding: '40px 24px 56px', textAlign: 'center' }}>
+          <span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: 20, background: 'rgba(246,146,30,0.95)', color: '#fff', fontSize: 12, fontWeight: 600 }}>
+            Sistema de Exemplo
+          </span>
+          <h2 style={{ fontSize: 28, fontWeight: 700, color: '#fff', marginTop: 16, fontFamily: "'Saira Expanded', sans-serif" }}>
+            Hero com <span style={{ color: '#FDC24E' }}>Header Adaptativo</span>
+          </h2>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', marginTop: 12, maxWidth: 320, margin: '12px auto 0' }}>
+            Role a pagina para ver o cabecalho transicionar de vidro para branco.
+          </p>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 24 }}>
+            <button style={{ background: '#F6921E', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Acao Primaria</button>
+            <button style={{ background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.5)', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Secundaria</button>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ background: '#f3f6fb', padding: 24, minHeight: 300 }}>
+        <div style={{ background: '#fff', borderRadius: 16, padding: 16, marginBottom: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ height: 12, width: '33%', borderRadius: 6, background: '#E2E8F0', marginBottom: 8 }} />
+          <div style={{ height: 8, width: '66%', borderRadius: 6, background: '#F1F5F9' }} />
+        </div>
+        <div style={{ background: '#fff', borderRadius: 16, padding: 16, marginBottom: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ height: 12, width: '40%', borderRadius: 6, background: '#E2E8F0', marginBottom: 8 }} />
+          <div style={{ height: 8, width: '55%', borderRadius: 6, background: '#F1F5F9' }} />
+        </div>
+      </div>
+    </div>
+  )
+}`
+}
+
+function codePageHeroFaixa() {
+  return `// DS-FIPS — PageHero Faixa de Modulo — Copy-paste ready
+
+export function PageHeroFaixa() {
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #002A68 0%, #004B9B 100%)',
+      position: 'relative', overflow: 'hidden', borderRadius: 12,
+    }}>
+      <div style={{ padding: '32px 24px' }}>
+        <p style={{ fontSize: 11, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'rgba(255,255,255,0.70)', margin: 0 }}>Exemplo</p>
+        <h3 style={{ fontSize: 20, fontWeight: 600, color: '#fff', marginTop: 4, fontFamily: "'Saira Expanded', sans-serif", margin: '4px 0 0' }}>Faixa de modulo (PageHero)</h3>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.80)', marginTop: 8, maxWidth: 448, margin: '8px 0 0' }}>
+          Gradiente institucional + imagem sutil a direita.
+        </p>
+      </div>
+    </div>
+  );
+}`
+}
 
 // ─── Página ──────────────────────────────────────────────────────────────────
 
 export default function HeroHeaderDoc() {
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
       <header style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
@@ -130,25 +224,37 @@ export default function HeroHeaderDoc() {
         <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>PageHero — faixa de módulo (não é este padrão)</h2>
         <p style={{ fontSize: 14, color: '#7B8C96', marginBottom: 16, lineHeight: 1.55 }}>
           Produção, Governança e demais telas internas usam esta faixa azul padrão — não o header glass da
-          Home. O trem/trilhos vêm da mesma arte base ({PAGE_HERO_DEFAULT_DECORATION}).
+          Home. O trem/trilhos vêm da mesma arte base ({PAGE_HERO_DEFAULT_DECORATION}). Clique para copiar o código.
         </p>
-        <div className="max-w-3xl overflow-hidden rounded-xl border border-[var(--color-border)] shadow-sm">
-          <PageHero>
-            <div className="px-6 py-8">
-              <p className="text-xs font-medium uppercase tracking-wide text-white/70">Exemplo</p>
-              <h3 className="mt-1 font-heading text-xl font-semibold text-white">Faixa de módulo (PageHero)</h3>
-              <p className="mt-2 max-w-md text-sm text-white/80">
-                Gradiente institucional + imagem sutil à direita. Detalhes em Padrão: Dashboard.
-              </p>
-            </div>
-          </PageHero>
-        </div>
+        <Copyable label="PageHero Faixa" code={codePageHeroFaixa()} preview={
+          <div style={{ background: 'linear-gradient(135deg, #002A68 0%, #004B9B 100%)', borderRadius: 12, padding: '24px 20px', color: '#fff', fontFamily: "'Saira Expanded', sans-serif", fontSize: 14 }}>
+            Faixa de Modulo (PageHero)
+          </div>
+        }>
+          <div className="max-w-3xl overflow-hidden rounded-xl border border-[var(--color-border)] shadow-sm">
+            <PageHero>
+              <div className="px-6 py-8">
+                <p className="text-xs font-medium uppercase tracking-wide text-white/70">Exemplo</p>
+                <h3 className="mt-1 font-heading text-xl font-semibold text-white">Faixa de módulo (PageHero)</h3>
+                <p className="mt-2 max-w-md text-sm text-white/80">
+                  Gradiente institucional + imagem sutil à direita. Detalhes em Padrão: Dashboard.
+                </p>
+              </div>
+            </PageHero>
+          </div>
+        </Copyable>
       </section>
 
       {/* Demo interativa */}
       <section style={{ marginTop: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Demo interativa — role o conteúdo</h2>
-        <HeroHeaderDemo />
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-gov-azul-escuro)', margin: '0 0 12px', fontFamily: "'Saira Expanded', sans-serif" }}>Demo interativa — role o conteúdo. Clique para copiar o código.</h2>
+        <Copyable label="Hero Header Glass" code={codeHeroHeaderGlass()} preview={
+          <div style={{ background: 'linear-gradient(135deg, #002A68, #004B9B)', borderRadius: 12, padding: '20px 16px', color: '#fff', fontFamily: "'Saira Expanded', sans-serif", fontSize: 13, textAlign: 'center' }}>
+            <span style={{ color: '#FDC24E' }}>Glass-to-White</span> Header
+          </div>
+        }>
+          <HeroHeaderDemo />
+        </Copyable>
       </section>
 
 
@@ -193,6 +299,8 @@ export default function HeroHeaderDoc() {
         </div>
       </section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Hero Header Glass-to-White',
@@ -229,7 +337,7 @@ function AdaptiveHeader() {
         background: 'rgba(255,255,255,0.95)',
         backdropFilter: 'blur(4px)',
         boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-        color: 'var(--color-fg)',
+        color: '#333B41',
       } : {
         background: 'rgba(255,255,255,0.07)',
         backdropFilter: 'blur(12px)',
@@ -254,5 +362,6 @@ function AdaptiveHeader() {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

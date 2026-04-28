@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { InlineCodeCopy } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════ TOKENS ═══════════════════════════════════════════ */
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"#00904C",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
@@ -185,14 +186,14 @@ const TABS_UNDERLINE_CODE = `// DS-FIPS — Tabs (Underline) — Copy-paste read
 import { useState, useEffect, useRef } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  cinzaChumbo: "#7B8C96",
+  cinzaEscuro: "#333B41",
   amareloEscuro: "#F6921E",
   branco: "#FFFFFF",
-  cardBorder: "var(--color-border)",
-  textLight: "var(--color-fg-muted)",
+  cardBorder: "#E2E8F0",
+  textLight: "#7B8C96",
 };
 
 const Fn = {
@@ -273,7 +274,7 @@ export function TabsUnderline({
 
 const TABS_FILLED_CODE = `// DS-FIPS — Tabs (Filled) — Copy-paste ready
 import { useState } from "react";
-const C={azulProfundo:"var(--color-gov-azul-profundo)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",branco:"#FFFFFF",bg:"var(--color-surface-muted)",textLight:"var(--color-fg-muted)"};
+const C={azulProfundo:"#004B9B",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",branco:"#FFFFFF",bg:"#F8FAFC",textLight:"#7B8C96"};
 const Fn={body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 export function TabsFilled({tabs=[],active=0,onChange,size="md"}){
@@ -299,7 +300,7 @@ export function TabsFilled({tabs=[],active=0,onChange,size="md"}){
 
 const TABS_GUIA_CODE = `// DS-FIPS — Tabs (Guia) — Copy-paste ready
 import { useState } from "react";
-const C={azulEscuro:"var(--color-gov-azul-escuro)",azulProfundo:"var(--color-gov-azul-profundo)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",branco:"#FFFFFF",cardBg:"var(--color-surface)",textLight:"var(--color-fg-muted)",verdeFloresta:"#00C64C"};
+const C={azulEscuro:"#002A68",azulProfundo:"#004B9B",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",branco:"#FFFFFF",cardBg:"#FFFFFF",textLight:"#7B8C96",verdeFloresta:"#00C64C"};
 const Fn={body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 export function TabsGuia({tabs=[],active=0,onChange,size="md"}){
@@ -326,7 +327,7 @@ export function TabsGuia({tabs=[],active=0,onChange,size="md"}){
 
 const TABS_BORDERED_CODE = `// DS-FIPS — Tabs (Bordered) — Copy-paste ready
 import { useState } from "react";
-const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",amareloEscuro:"#F6921E",branco:"#FFFFFF",cardBorder:"var(--color-border)",textLight:"var(--color-fg-muted)",verdeFloresta:"#00C64C"};
+const C={azulProfundo:"#004B9B",azulEscuro:"#002A68",cinzaChumbo:"#7B8C96",cinzaEscuro:"#333B41",cinzaClaro:"#C0CCD2",amareloEscuro:"#F6921E",branco:"#FFFFFF",cardBorder:"#E2E8F0",textLight:"#7B8C96",verdeFloresta:"#00C64C"};
 const Fn={body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
 
 export function TabsBordered({tabs=[],active=0,onChange,size="md",vertical=false}){
@@ -350,6 +351,86 @@ export function TabsBordered({tabs=[],active=0,onChange,size="md",vertical=false
 }
 // USO: <TabsBordered tabs={[{label:"Perfil"},{label:"Segurança"},{label:"Notificações",count:3}]} active={0} onChange={setActive} vertical />
 `;
+
+/* ═══════════════════════════════════════════ COPYABLE HELPERS ═══════════════════════════════════════════ */
+function tabsCopyCode(variant: string, tabs: string) {
+  const styles: Record<string, { bg: string; activeBg: string; activeColor: string; inactiveColor: string; border: string; indicator: string }> = {
+    underline: { bg: "transparent", activeBg: "transparent", activeColor: "#002A68", inactiveColor: "#7B8C96", border: "none", indicator: "underline" },
+    filled: { bg: "#F1F5F9", activeBg: "#004B9B", activeColor: "#FFFFFF", inactiveColor: "#333B41", border: "none", indicator: "fill" },
+    guia: { bg: "transparent", activeBg: "#004B9B10", activeColor: "#004B9B", inactiveColor: "#7B8C96", border: "1px solid #E2E8F0", indicator: "border" },
+    bordered: { bg: "transparent", activeBg: "#FFFFFF", activeColor: "#333B41", inactiveColor: "#7B8C96", border: "1px solid #E2E8F0", indicator: "top-border" },
+  };
+  const s = styles[variant] || styles.underline;
+  const label = variant.charAt(0).toUpperCase() + variant.slice(1);
+
+  return `// DS-FIPS — Tabs ${label} — Copy-paste ready
+import { useState } from "react";
+
+const TABS = ${tabs};
+
+export function Tabs${label}() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div style={{ position: "relative" }}>
+      <div style={{
+        display: "flex", gap: ${variant === 'filled' ? 4 : 0},
+        ${s.border !== 'none' ? `border: "${s.border}",` : ''}
+        ${variant === 'filled' ? 'background: "#F1F5F9", borderRadius: 8, padding: 3,' : ''}
+        ${variant === 'underline' ? 'borderBottom: "2px solid #E2E8F0",' : ''}
+      }}>
+        {TABS.map((tab, i) => {
+          const isActive = i === active;
+          const isDisabled = tab.disabled;
+          return (
+            <button
+              key={i}
+              onClick={() => !isDisabled && setActive(i)}
+              disabled={isDisabled}
+              style={{
+                padding: "8px 20px",
+                fontSize: 13,
+                fontWeight: isActive ? 600 : 400,
+                fontFamily: "'Open Sans', sans-serif",
+                color: isDisabled ? "#C0CCD2" : isActive ? "${s.activeColor}" : "${s.inactiveColor}",
+                background: isActive ? "${s.activeBg}" : "${s.bg}",
+                border: "none",
+                ${variant === 'bordered' ? 'borderTop: isActive ? "2px solid #F6921E" : "2px solid transparent",' : ''}
+                ${variant === 'filled' ? 'borderRadius: 6,' : ''}
+                cursor: isDisabled ? "not-allowed" : "pointer",
+                transition: "all 0.15s",
+                opacity: isDisabled ? 0.5 : 1,
+                position: "relative",
+              }}
+            >
+              {tab.label}
+              {tab.count != null && (
+                <span style={{
+                  marginLeft: 6, fontSize: 10, fontWeight: 700,
+                  padding: "1px 6px", borderRadius: 10,
+                  background: isActive ? "rgba(255,255,255,0.2)" : "#E2E8F0",
+                  color: isActive ? "${s.activeColor}" : "#7B8C96",
+                }}>
+                  {tab.count}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      ${variant === 'underline' ? `{/* Underline indicator */}
+      <div style={{
+        position: "absolute", bottom: -2, height: 3,
+        background: "#F6921E", borderRadius: "3px 3px 0 0",
+        transition: "left 0.3s, width 0.3s",
+      }} />` : ''}
+    </div>
+  );
+}
+
+// Uso: <Tabs${label} />
+`;
+}
 
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function TabsDoc(){
@@ -379,6 +460,7 @@ export default function TabsDoc(){
   ];
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -408,9 +490,10 @@ export default function TabsDoc(){
         </Section>
 
         {/* 02 — VARIANTES */}
-        <Section n="02" title="Variantes visuais" desc="Quatro estilos com hover, transição e destaque forte. Clique para testar a interação.">
+        <Section n="02" title="Variantes visuais" desc="Quatro estilos com hover, transição e destaque forte. Clique em qualquer variante para copiar o código e visualizar no playground abaixo.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16,alignItems:"start"}}>
             {/* Underline */}
+            <Copyable label="Tabs Underline" code={tabsCopyCode("underline",'[{label:"Geral"},{label:"Detalhes"},{label:"Histórico"},{label:"Off",disabled:true}]')} preview={<TabsUnderline tabs={[{label:"Geral"},{label:"Detalhes"},{label:"Histórico"},{label:"Off",disabled:true}]} active={0} onChange={()=>{}} size="sm"/>}>
             <div style={{...gc,borderLeft:`4px solid ${C.azulProfundo}`}}>
               <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Underline</span><code style={gk}>★ padrão</code></div>
               <div style={gb}>
@@ -424,8 +507,10 @@ export default function TabsDoc(){
                 <InlineCodeCopy label="Underline" code={TABS_UNDERLINE_CODE}/>
               </div>
             </div>
+            </Copyable>
 
             {/* Filled */}
+            <Copyable label="Tabs Filled" code={tabsCopyCode("filled",'[{label:"Todas",count:23},{label:"Inovação",count:8},{label:"Operações",count:9},{label:"Off",disabled:true}]')} preview={<TabsFilled tabs={[{label:"Todas",count:23},{label:"Inovação",count:8},{label:"Operações",count:9}]} active={0} onChange={()=>{}} size="sm"/>}>
             <div style={{...gc,borderLeft:`4px solid ${C.verdeFloresta}`}}>
               <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Filled</span><code style={gk}>destaque forte</code></div>
               <div style={gb}>
@@ -439,8 +524,10 @@ export default function TabsDoc(){
                 <InlineCodeCopy label="Filled" code={TABS_FILLED_CODE}/>
               </div>
             </div>
+            </Copyable>
 
             {/* Guia */}
+            <Copyable label="Tabs Guia" code={tabsCopyCode("guia",'[{label:"Todos"},{label:"Pendentes"},{label:"Aprovados"},{label:"Rejeitados"}]')} preview={<TabsGuia tabs={[{label:"Todos"},{label:"Pendentes"},{label:"Aprovados"},{label:"Rejeitados"}]} active={0} onChange={()=>{}} size="sm"/>}>
             <div style={{...gc,borderLeft:`4px solid ${C.amareloEscuro}`}}>
               <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Guia</span><code style={gk}>filtro de tabela</code></div>
               <div style={gb}>
@@ -454,8 +541,10 @@ export default function TabsDoc(){
                 <InlineCodeCopy label="Guia" code={TABS_GUIA_CODE}/>
               </div>
             </div>
+            </Copyable>
 
             {/* Bordered */}
+            <Copyable label="Tabs Bordered" code={tabsCopyCode("bordered",'[{label:"Perfil"},{label:"Segurança"},{label:"Notificações",count:3},{label:"Admin",disabled:true}]')} preview={<TabsBordered tabs={[{label:"Perfil"},{label:"Segurança"},{label:"Notificações",count:3}]} active={0} onChange={()=>{}} size="sm"/>}>
             <div style={{...gc,borderLeft:`4px solid ${C.azulCeu}`}}>
               <div style={gh}><span style={{fontSize:13,fontWeight:700,color:C.cinzaEscuro,fontFamily:Fn.title}}>Bordered</span><code style={gk}>borda + vertical</code></div>
               <div style={gb}>
@@ -469,6 +558,7 @@ export default function TabsDoc(){
                 <InlineCodeCopy label="Bordered" code={TABS_BORDERED_CODE}/>
               </div>
             </div>
+            </Copyable>
           </div>
         </Section>
 
@@ -665,10 +755,13 @@ export default function TabsDoc(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
           <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v2.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

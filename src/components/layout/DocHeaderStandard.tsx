@@ -129,7 +129,7 @@ export function DocHeaderStandardPreview({
       </div>
       <div
         className={cn(
-          'relative z-10 hidden px-4 sm:px-6 lg:block',
+          'relative z-10 hidden lg:block',
           dark ? '!bg-transparent' : docHeaderBarTabs,
         )}
       >

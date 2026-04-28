@@ -192,7 +192,7 @@ export function DocLayout() {
           <div
             className={cn(
               'relative z-10 hidden lg:block',
-              dark ? '!bg-transparent !px-0' : cn(docHeaderBarTabs, 'px-4 sm:px-6'),
+              dark ? '!bg-transparent !px-0' : docHeaderBarTabs,
             )}
           >
             <DocHeaderSectionNav

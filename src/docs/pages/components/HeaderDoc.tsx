@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { BookOpen, Component, Home, LayoutDashboard, Palette } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { DocHeaderSectionNavDemo } from '../../../components/layout/DocHeaderSectionNav'
 import { DocHeaderStandardPreview } from '../../../components/layout/DocHeaderStandard'
 import { SHELL_HERO_ART_SRC } from '../../../lib/shellHeroArt'
@@ -124,6 +125,114 @@ const gk = {
   border: `1px solid ${C.cardBorder}`,
 }
 
+/* ── Helper: código copy-paste por variante do Header ── */
+const HEADER_FULL_CODE = `// DS-FIPS — Header completo (breadcrumb + busca + ações + section nav) — Copy-paste ready
+import { useState } from "react";
+
+const SECTIONS = [
+  { label: "Início", icon: "🏠", active: false },
+  { label: "Padrões", icon: "📐", active: false },
+  { label: "Fundamentos", icon: "🎨", active: false },
+  { label: "Componentes", icon: "✨", active: true },
+  { label: "Projeto", icon: "📖", active: false },
+];
+
+export function AppHeader({
+  breadcrumb = ["Componentes", "Header"],
+  userName = "Usuário",
+  activeSection = "Componentes",
+  onSectionChange,
+  onToggleDark,
+}) {
+  const [search, setSearch] = useState("");
+
+  return (
+    <header style={{ borderBottom: "1px solid #E2E8F0" }}>
+      {/* Top bar: breadcrumb + busca + ações */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: 16,
+        padding: "12px 24px", background: "#FFFFFF",
+      }}>
+        <nav style={{ display: "flex", alignItems: "center", gap: 6, flex: 1 }}>
+          {breadcrumb.map((item, i) => (
+            <span key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              {i > 0 && <span style={{ color: "#7B8C96", fontSize: 12 }}>/</span>}
+              <span style={{
+                fontSize: i === breadcrumb.length - 1 ? 16 : 13,
+                fontWeight: i === breadcrumb.length - 1 ? 700 : 400,
+                color: i === breadcrumb.length - 1 ? "#333B41" : "#7B8C96",
+                fontFamily: i === breadcrumb.length - 1 ? "'Saira Expanded', sans-serif" : "'Open Sans', sans-serif",
+              }}>{item}</span>
+            </span>
+          ))}
+        </nav>
+        <div style={{
+          display: "flex", alignItems: "center", gap: 8, padding: "6px 14px",
+          borderRadius: 8, border: "1px solid #E2E8F0", background: "#F8FAFC", minWidth: 200,
+        }}>
+          <span style={{ fontSize: 14, color: "#7B8C96" }}>🔍</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar..."
+            style={{ border: "none", outline: "none", background: "transparent", fontSize: 13, color: "#333B41", fontFamily: "'Open Sans', sans-serif", flex: 1 }} />
+        </div>
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <button style={{ width: 36, height: 36, borderRadius: 10, border: "1px solid #E2E8F0", background: "#F8FAFC", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🔔</button>
+          {onToggleDark && <button onClick={onToggleDark} style={{ width: 36, height: 36, borderRadius: 10, border: "1px solid #E2E8F0", background: "#F8FAFC", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🌙</button>}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 10, border: "1px solid #E2E8F0", background: "#F8FAFC" }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: "#004B9B", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: "'Saira Expanded', sans-serif" }}>{userName.charAt(0).toUpperCase()}</div>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#333B41", fontFamily: "'Open Sans', sans-serif" }}>{userName}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Section nav tabs */}
+      <nav style={{
+        display: "flex", alignItems: "center", height: 39,
+        background: "#FFFFFF", borderTop: "1px solid #F1F5F9",
+        position: "relative",
+      }}>
+        {SECTIONS.map((s, i) => {
+          const isActive = s.label === activeSection;
+          return (
+            <button key={i}
+              onClick={() => onSectionChange?.(s.label)}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 7,
+                padding: "8px 24px", height: "100%",
+                fontSize: 13, fontWeight: isActive ? 600 : 400,
+                fontFamily: "'Open Sans', sans-serif",
+                color: isActive ? "#002A68" : "#7B8C96",
+                background: "transparent", border: "none", cursor: "pointer",
+                position: "relative",
+                transition: "color 0.15s",
+              }}
+            >
+              <span style={{ fontSize: 14 }}>{s.icon}</span>
+              {s.label}
+              {isActive && (
+                <span style={{
+                  position: "absolute", bottom: -1, left: 0, right: 0,
+                  height: 3, background: "#F6921E",
+                  borderRadius: "3px 3px 0 0",
+                }} />
+              )}
+            </button>
+          );
+        })}
+      </nav>
+    </header>
+  );
+}
+
+// Uso:
+// <AppHeader
+//   breadcrumb={["Componentes", "Button"]}
+//   userName="Admin"
+//   activeSection="Componentes"
+//   onSectionChange={(section) => navigate(section)}
+//   onToggleDark={() => toggleDark()}
+// />
+`;
+
 const HEADER_DOC_DEMO_TABS = [
   { id: 'start', label: 'Início', active: false, icon: Home },
   { id: 'patterns', label: 'Padrões', active: false, icon: LayoutDashboard },
@@ -142,6 +251,7 @@ export default function HeaderDoc() {
   const mob = w < 640
 
   return (
+    <PlaygroundProvider>
     <div
       style={{
         minHeight: '100vh',
@@ -207,20 +317,34 @@ export default function HeaderDoc() {
         <Section
           n="02"
           title="Anatomia"
-          desc="Da esquerda para a direita: controle de menu (mobile), ícone de painel, coluna de título (eyebrow + badge opcional + H2), busca (md+), botões neumórficos (notificações, tutorial) e chip de conta (sm+). Abaixo, trilho de tabs alinhado ao grupo ativo (lg+)."
+          desc="Da esquerda para a direita: controle de menu (mobile), ícone de painel, coluna de título (eyebrow + badge opcional + H2), busca (md+), botões neumórficos (notificações, tutorial) e chip de conta (sm+). Clique em qualquer variante para copiar o código."
         >
           <DSCard mob={mob}>
-            <div style={gl}>Referência viva</div>
+            <div style={gl}>Header completo</div>
             <p style={{ ...gt, marginBottom: 16 }}>
-              Bloco abaixo usa <code style={gk}>DocHeaderStandardPreview</code> — mesmas peças e classes que{' '}
-              <code style={gk}>DocLayout</code>.
+              Preview real do header padrão DS-FIPS com breadcrumb, busca, notificações, dark mode e avatar. Clique para copiar o código pronto para uso.
             </p>
-            <DocHeaderStandardPreview
-              groupLabel="Componentes"
-              pageTitle="Header"
-              sectionNav={<DocHeaderSectionNavDemo tabs={HEADER_DOC_DEMO_TABS} />}
-              withCardChrome={false}
-            />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <Copyable
+                label="DocHeader completo"
+                code={HEADER_FULL_CODE}
+                preview={
+                  <DocHeaderStandardPreview
+                    groupLabel="Componentes"
+                    pageTitle="Header"
+                    sectionNav={<DocHeaderSectionNavDemo tabs={HEADER_DOC_DEMO_TABS} />}
+                    withCardChrome={false}
+                  />
+                }
+              >
+                <DocHeaderStandardPreview
+                  groupLabel="Componentes"
+                  pageTitle="Header"
+                  sectionNav={<DocHeaderSectionNavDemo tabs={HEADER_DOC_DEMO_TABS} />}
+                  withCardChrome={false}
+                />
+              </Copyable>
+            </div>
           </DSCard>
         </Section>
 
@@ -332,63 +456,15 @@ export default function HeaderDoc() {
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label:"DocHeader",
-          description:"Header padrão DS-FIPS com breadcrumb, busca, notificações, dark mode toggle e user chip",
-          code:`// ═══════════════════════════════════════════
-// DS-FIPS — DocHeader — Copy-paste ready
-// Requer: React 18+, Saira Expanded + Open Sans + Fira Code
-// CSS vars: --color-surface, --color-fg, --color-border, --color-fg-muted,
-//           --color-gov-azul-profundo, --color-gov-azul-escuro
-// ═══════════════════════════════════════════
-import { useState } from "react";
-
-const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  cinzaChumbo: "var(--color-fg-muted)",
-  cinzaEscuro: "var(--color-fg)",
-  bg: "var(--color-surface-muted)",
-  cardBg: "var(--color-surface)",
-  cardBorder: "var(--color-border)",
-};
-const Fn = { title: "'Saira Expanded', sans-serif", body: "'Open Sans', sans-serif" };
-
-export function DocHeader({ breadcrumb = [], userName = "Usuário", onSearch, onToggleDark }) {
-  const [search, setSearch] = useState("");
-  return (
-    <header style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 24px", borderBottom: \`1px solid \${C.cardBorder}\`, background: C.cardBg }}>
-      {/* Breadcrumb */}
-      <nav style={{ display: "flex", alignItems: "center", gap: 6, flex: 1 }}>
-        {breadcrumb.map((item, i) => (
-          <span key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            {i > 0 && <span style={{ color: C.cinzaChumbo, fontSize: 12 }}>/</span>}
-            <span style={{ fontSize: i === breadcrumb.length - 1 ? 16 : 13, fontWeight: i === breadcrumb.length - 1 ? 700 : 400, color: i === breadcrumb.length - 1 ? C.cinzaEscuro : C.cinzaChumbo, fontFamily: i === breadcrumb.length - 1 ? Fn.title : Fn.body }}>{item}</span>
-          </span>
-        ))}
-      </nav>
-      {/* Search */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 8, border: \`1px solid \${C.cardBorder}\`, background: C.bg, minWidth: 200 }}>
-        <span style={{ fontSize: 14, color: C.cinzaChumbo }}>🔍</span>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar..." style={{ border: "none", outline: "none", background: "transparent", fontSize: 13, color: C.cinzaEscuro, fontFamily: Fn.body, flex: 1 }} />
-      </div>
-      {/* Actions */}
-      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <button style={{ width: 36, height: 36, borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🔔</button>
-        {onToggleDark && <button onClick={onToggleDark} style={{ width: 36, height: 36, borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🌙</button>}
-        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 10, border: \`1px solid \${C.cardBorder}\`, background: C.bg }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, background: C.azulProfundo, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: Fn.title }}>{userName.charAt(0).toUpperCase()}</div>
-          <span style={{ fontSize: 12, fontWeight: 600, color: C.cinzaEscuro, fontFamily: Fn.body }}>{userName}</span>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-// USO:
-// <DocHeader breadcrumb={["Componentes", "Modal"]} userName="Admin" onToggleDark={() => toggle()} />`
+          description:"Header padrão DS-FIPS com breadcrumb, busca, notificações, dark mode toggle e user chip. Clique no header acima para copiar.",
+          code: HEADER_FULL_CODE,
         }]}/>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

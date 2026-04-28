@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CodeExportSection } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════
    FIPS DESIGN SYSTEM — BRAND TOKENS
@@ -215,13 +216,13 @@ const progressExportCode = `// DS-FIPS — Progress — Copy-paste ready
 import { useState, useEffect } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  fg: "var(--color-fg)",
-  fgMuted: "var(--color-fg-muted)",
-  surface: "var(--color-surface)",
-  surfaceMuted: "var(--color-surface-muted)",
-  border: "var(--color-border)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  fg: "#333B41",
+  fgMuted: "#7B8C96",
+  surface: "#FFFFFF",
+  surfaceMuted: "#F8FAFC",
+  border: "#E2E8F0",
   branco: "#FFFFFF",
   danger: "#DC3545",
   verdeFloresta: "#00C64C",
@@ -345,6 +346,197 @@ export function ProgressRing({ value = 0, size = 80, strokeWidth = 6, color, lab
 // <ProgressRing value={92} size={80} label="SLA" />
 `;
 
+/* ═══════════════════════════════════════════ CODE HELPERS ═══════════════════════════════════════════ */
+
+function progressBarCode(value: number, label: string, opts?: { size?: string; color?: string; helper?: string; indeterminate?: boolean }): string {
+  const props: string[] = [];
+  if (opts?.indeterminate) {
+    props.push(`indeterminate`);
+  } else {
+    props.push(`value={${value}}`);
+  }
+  props.push(`label="${label}"`);
+  if (opts?.helper) props.push(`helper="${opts.helper}"`);
+  if (opts?.size && opts.size !== "md") props.push(`size="${opts.size}"`);
+  if (opts?.color) props.push(`color="${opts.color}"`);
+
+  return `// DS-FIPS — ProgressBar "${label}" — Copy-paste ready
+import { useState, useEffect } from "react";
+
+function autoColor(v: number) {
+  if (v >= 100) return "#00904C";
+  if (v >= 90)  return "#00C64C";
+  if (v >= 60)  return "#FDC24E";
+  if (v >= 30)  return "#F6921E";
+  if (v >= 1)   return "#DC3545";
+  return "#E2E8F0";
+}
+
+export function ProgressBar({ value = 0, label, helper, size = "md", color, showPercent = true, indeterminate = false, animated = true }: {
+  value?: number; label?: string; helper?: string; size?: "sm"|"md"|"lg"; color?: string; showPercent?: boolean; indeterminate?: boolean; animated?: boolean;
+}) {
+  const [animVal, setAnimVal] = useState(0);
+  useEffect(() => {
+    if (!indeterminate && animated) {
+      const t = setTimeout(() => setAnimVal(value), 100);
+      return () => clearTimeout(t);
+    } else { setAnimVal(value); }
+  }, [value, indeterminate, animated]);
+
+  const sizeMap = { sm: { h: 4, r: 2 }, md: { h: 8, r: 4 }, lg: { h: 12, r: 6 } };
+  const s = sizeMap[size] || sizeMap.md;
+  const barColor = color || autoColor(animVal);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+      {(label || showPercent) && (
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          {label && <span style={{ fontSize: 13, fontWeight: 600, color: "#333B41", fontFamily: "'Open Sans',sans-serif" }}>{label}</span>}
+          {showPercent && !indeterminate && <span style={{ fontSize: 12, fontWeight: 600, color: "#7B8C96", fontFamily: "'Fira Code',monospace" }}>{Math.round(animVal)}%</span>}
+        </div>
+      )}
+      <div style={{ width: "100%", height: s.h, borderRadius: s.r, background: "#E2E8F0", overflow: "hidden", position: "relative" }}>
+        {indeterminate ? (
+          <div style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "40%", borderRadius: s.r, background: barColor, animation: "dsIndeterminate 1.5s ease-in-out infinite" }} />
+        ) : (
+          <div style={{ height: "100%", width: \`\${animVal}%\`, borderRadius: s.r, background: barColor, transition: animated ? "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)" : "none" }} />
+        )}
+      </div>
+      {helper && <span style={{ fontSize: 11, color: "#7B8C96", fontFamily: "'Open Sans',sans-serif" }}>{helper}</span>}
+    </div>
+  );
+}
+
+// Usage:
+<ProgressBar ${props.join(" ")} />`;
+}
+
+function progressRingCode(value: number, label: string, opts?: { size?: number; strokeWidth?: number; color?: string }): string {
+  const props: string[] = [`value={${value}}`];
+  if (opts?.size && opts.size !== 80) props.push(`size={${opts.size}}`);
+  if (opts?.strokeWidth && opts.strokeWidth !== 6) props.push(`strokeWidth={${opts.strokeWidth}}`);
+  if (opts?.color) props.push(`color="${opts.color}"`);
+  if (label) props.push(`label="${label}"`);
+
+  return `// DS-FIPS — ProgressRing "${label}" — Copy-paste ready
+import { useState, useEffect } from "react";
+
+function autoColor(v: number) {
+  if (v >= 100) return "#00904C";
+  if (v >= 90)  return "#00C64C";
+  if (v >= 60)  return "#FDC24E";
+  if (v >= 30)  return "#F6921E";
+  if (v >= 1)   return "#DC3545";
+  return "#E2E8F0";
+}
+
+export function ProgressRing({ value = 0, size = 80, strokeWidth = 6, color, label, animated = true }: {
+  value?: number; size?: number; strokeWidth?: number; color?: string; label?: string; animated?: boolean;
+}) {
+  const [animVal, setAnimVal] = useState(0);
+  useEffect(() => {
+    if (animated) {
+      const t = setTimeout(() => setAnimVal(value), 100);
+      return () => clearTimeout(t);
+    } else { setAnimVal(value); }
+  }, [value, animated]);
+
+  const r = (size - strokeWidth) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (animVal / 100) * circ;
+  const barColor = color || autoColor(animVal);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+      <div style={{ position: "relative", width: size, height: size }}>
+        <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#E2E8F0" strokeWidth={strokeWidth} />
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={barColor} strokeWidth={strokeWidth}
+            strokeDasharray={circ} strokeDashoffset={offset} strokeLinecap="round"
+            style={{ transition: animated ? "stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1)" : "none" }} />
+        </svg>
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span style={{ fontSize: size * 0.22, fontWeight: 700, color: "#333B41", fontFamily: "'Fira Code',monospace" }}>{Math.round(animVal)}%</span>
+        </div>
+      </div>
+      {label && <span style={{ fontSize: 12, fontWeight: 600, color: "#333B41", fontFamily: "'Open Sans',sans-serif", textAlign: "center" }}>{label}</span>}
+    </div>
+  );
+}
+
+// Usage:
+<ProgressRing ${props.join(" ")} />`;
+}
+
+function progressStepsCode(steps: string[], current: number): string {
+  const stepsStr = `["${steps.join('", "')}"]`;
+  return `// DS-FIPS — ProgressSteps — Copy-paste ready
+import React from "react";
+
+export function ProgressSteps({ steps = [], current = 0 }: { steps?: string[]; current?: number }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 0, width: "100%" }}>
+      {steps.map((step, i) => {
+        const done = i < current;
+        const active = i === current;
+        const dotColor = done ? "#00904C" : active ? "#004B9B" : "#E2E8F0";
+        const textColor = done ? "#00904C" : active ? "#004B9B" : "#7B8C96";
+        return (
+          <div key={i} style={{ display: "flex", alignItems: "center", flex: i < steps.length - 1 ? 1 : "none" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, minWidth: 60, flexShrink: 0 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: dotColor, display: "flex", alignItems: "center", justifyContent: "center", border: active ? "2px solid #004B9B" : "2px solid transparent" }}>
+                {done ? (
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                ) : (
+                  <span style={{ fontSize: 12, fontWeight: 700, color: active ? "#fff" : "#7B8C96", fontFamily: "'Fira Code',monospace" }}>{i + 1}</span>
+                )}
+              </div>
+              <span style={{ fontSize: 11, fontWeight: active ? 700 : 500, color: textColor, fontFamily: "'Open Sans',sans-serif", textAlign: "center" }}>{step}</span>
+            </div>
+            {i < steps.length - 1 && (
+              <div style={{ flex: 1, height: 2, minWidth: 12, background: done ? "#00904C" : "#E2E8F0", margin: "0 4px", marginBottom: 20 }} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Usage:
+<ProgressSteps steps={${stepsStr}} current={${current}} />`;
+}
+
+function microProgressCode(value: number, width?: number): string {
+  const wProp = width && width !== 60 ? ` width={${width}}` : '';
+  return `// DS-FIPS — MicroProgress — Copy-paste ready
+import React from "react";
+
+function autoColor(v: number) {
+  if (v >= 100) return "#00904C";
+  if (v >= 90)  return "#00C64C";
+  if (v >= 60)  return "#FDC24E";
+  if (v >= 30)  return "#F6921E";
+  if (v >= 1)   return "#DC3545";
+  return "#E2E8F0";
+}
+
+export function MicroProgress({ value = 0, width = 60 }: { value?: number; width?: number }) {
+  const color = autoColor(value);
+  return (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+      <div style={{ width, height: 4, borderRadius: 2, background: "#E2E8F0", overflow: "hidden" }}>
+        <div style={{ height: "100%", width: \`\${value}%\`, borderRadius: 2, background: color, transition: "width .5s ease" }} />
+      </div>
+      <span style={{ fontSize: 11, fontWeight: 600, color, fontFamily: "'Fira Code',monospace" }}>{value}%</span>
+    </div>
+  );
+}
+
+// Usage:
+<MicroProgress value={${value}}${wProp} />`;
+}
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function ProgressDoc() {
   const [demoVal, setDemoVal] = useState(55);
@@ -363,6 +555,7 @@ export default function ProgressDoc() {
   const xxl = w >= 1800;
 
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: "100vh", background: "var(--color-surface-muted)", fontFamily: F.body, color: C.cinzaEscuro }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -432,13 +625,15 @@ export default function ProgressDoc() {
         </Section>
 
         {/* 02 — VARIANTES */}
-        <Section n="02" title="Variantes do sistema" desc="Quatro variantes de progresso para contextos diferentes. Cada uma otimizada para um tipo de interface.">
+        <Section n="02" title="Variantes do sistema" desc="Quatro variantes de progresso para contextos diferentes. Clique em qualquer demo para copiar o código pronto para uso.">
           <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : xl ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: 16 }}>
             {/* LINEAR */}
             <div style={{ ...gc, borderLeft: `4px solid ${C.azulProfundo}` }}>
               <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Linear (barra)</span><code style={gk}>&#9733; padrão</code></div>
               <div style={gb}>
-                <ProgressBar value={68} label="Conferência" helper="Maior parte do fluxo já preenchida." />
+                <Copyable label="ProgressBar Linear" code={progressBarCode(68, "Conferência", { helper: "Maior parte do fluxo já preenchida." })} preview={<ProgressBar value={68} label="Conferência" helper="Maior parte do fluxo já preenchida." />}>
+                  <ProgressBar value={68} label="Conferência" helper="Maior parte do fluxo já preenchida." />
+                </Copyable>
                 <div style={{ ...gl, marginTop: 14, color: C.cinzaEscuro }}>&#9733; VARIANTE PADRÃO</div>
                 <p style={gt}>Barra horizontal com trilho, preenchimento animado, label e porcentagem. A mais versátil e usada.</p>
                 <div style={gl}>Quando usar</div>
@@ -453,8 +648,12 @@ export default function ProgressDoc() {
               <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Circular (ring)</span><code style={gk}>dashboards</code></div>
               <div style={{ ...gb, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", gap: 16, marginBottom: 12 }}>
-                  <ProgressRing value={22} size={64} strokeWidth={5} label="Preparação" />
-                  <ProgressRing value={100} size={64} strokeWidth={5} label="Finalizado" />
+                  <Copyable label="ProgressRing Preparação" code={progressRingCode(22, "Preparação", { size: 64, strokeWidth: 5 })} preview={<ProgressRing value={22} size={64} strokeWidth={5} label="Preparação" />}>
+                    <ProgressRing value={22} size={64} strokeWidth={5} label="Preparação" />
+                  </Copyable>
+                  <Copyable label="ProgressRing Finalizado" code={progressRingCode(100, "Finalizado", { size: 64, strokeWidth: 5 })} preview={<ProgressRing value={100} size={64} strokeWidth={5} label="Finalizado" />}>
+                    <ProgressRing value={100} size={64} strokeWidth={5} label="Finalizado" />
+                  </Copyable>
                 </div>
                 <div style={gl}>Significado</div>
                 <p style={gt}>Ring compacto com porcentagem centralizada. Forte impacto visual em espaço pequeno.</p>
@@ -469,7 +668,9 @@ export default function ProgressDoc() {
             <div style={gc}>
               <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Steps (wizard)</span><code style={gk}>fluxos multi-etapa</code></div>
               <div style={gb}>
-                <ProgressSteps compact={mob} steps={["Dados", "Revisão", "Aprovação", "Concluído"]} current={2} />
+                <Copyable label="ProgressSteps Wizard" code={progressStepsCode(["Dados", "Revisão", "Aprovação", "Concluído"], 2)} preview={<ProgressSteps steps={["Dados", "Revisão", "Aprovação", "Concluído"]} current={2} />}>
+                  <ProgressSteps compact={mob} steps={["Dados", "Revisão", "Aprovação", "Concluído"]} current={2} />
+                </Copyable>
                 <div style={{ ...gl, marginTop: 16 }}>Significado</div>
                 <p style={gt}>Navegação por etapas com indicador de etapa atual, concluídas (check verde) e pendentes.</p>
                 <div style={gl}>Quando usar</div>
@@ -483,6 +684,7 @@ export default function ProgressDoc() {
             <div style={gc}>
               <div style={gh}><span style={{ fontSize: 13, fontWeight: 700, color: C.cinzaEscuro, fontFamily: F.title }}>Micro (inline)</span><code style={gk}>tabelas e cards</code></div>
               <div style={gb}>
+                <Copyable label="MicroProgress Inline" code={microProgressCode(85)} preview={<MicroProgress value={85} />}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span style={{ fontSize: 13, color: C.cinzaEscuro }}>Requisição #4021</span>
@@ -497,6 +699,7 @@ export default function ProgressDoc() {
                     <MicroProgress value={100} />
                   </div>
                 </div>
+                </Copyable>
                 <div style={{ ...gl, marginTop: 14 }}>Significado</div>
                 <p style={gt}>Mini barra com porcentagem inline. Mínimo impacto visual, máxima densidade de informação.</p>
                 <div style={gl}>Quando usar</div>
@@ -767,6 +970,8 @@ export default function ProgressDoc() {
           </Card>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label: "Progress",
           description: "ProgressBar linear com tamanhos e cores automaticas, e ProgressRing circular com animacao.",
@@ -781,5 +986,6 @@ export default function ProgressDoc() {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

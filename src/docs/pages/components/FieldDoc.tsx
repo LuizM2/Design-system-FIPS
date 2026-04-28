@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { CodeExportSection } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════
    FIPS DESIGN SYSTEM — BRAND TOKENS
@@ -114,13 +115,13 @@ const fieldExportCode = `// DS-FIPS — Field + FieldLabel + FieldHint — Copy-
 import { useState, useRef } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  fg: "var(--color-fg)",
-  fgMuted: "var(--color-fg-muted)",
-  surface: "var(--color-surface)",
-  surfaceMuted: "var(--color-surface-muted)",
-  border: "var(--color-border)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  fg: "#333B41",
+  fgMuted: "#7B8C96",
+  surface: "#FFFFFF",
+  surfaceMuted: "#F8FAFC",
+  border: "#E2E8F0",
   branco: "#FFFFFF",
   danger: "#DC3545",
   dangerBg: "#FEF2F2",
@@ -251,10 +252,129 @@ export function FieldInput({ label, placeholder, icon, required, error, errorMsg
 // <FieldInput label="CNPJ" error errorMsg="CNPJ invalido." value="123" />
 `;
 
+/* ═══════════════════════════════════════════ PLAYGROUND HELPERS ═══════════════════════════════════════════ */
+const fieldIconSvgs: Record<string, string> = {
+  pessoa: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="currentColor" strokeWidth="1.5"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>`,
+  email: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M2 6l8 5 8-5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg>`,
+  busca: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5"/><path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>`,
+  calendario: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M2.5 8h15M7 2v3M13 2v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>`,
+  cadeado: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="4" y="9" width="12" height="8" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M7 9V6a3 3 0 016 0v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>`,
+  grid: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/></svg>`,
+};
+
+interface FieldVariant {
+  label: string;
+  placeholder: string;
+  iconName: string;
+  required?: boolean;
+  helper?: string;
+  showToggle?: boolean;
+  onClear?: boolean;
+  iconRight?: string;
+  type?: "input" | "select";
+  options?: string[];
+}
+
+function fieldVariantCode(v: FieldVariant): string {
+  const iconSvg = fieldIconSvgs[v.iconName] || fieldIconSvgs.pessoa;
+
+  if (v.type === "select") {
+    const opts = v.options || ["Selecione"];
+    return `// DS-FIPS — Field Select "${v.label}" — Copy-paste ready
+// Self-contained: cole no seu projeto React e funciona direto.
+
+export function Field${v.label.replace(/\s+/g, "")}() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 200 }}>
+      <label style={{
+        fontSize: 13, fontWeight: 600, color: "#333B41",
+        fontFamily: "'Open Sans', sans-serif",
+      }}>
+        ${v.label}
+      </label>
+      <div style={{
+        display: "flex", alignItems: "center", gap: 8, height: 35, padding: "0 12px",
+        borderRadius: 8, border: "1.5px solid #CBD5E1",
+        background: "#FFFFFF", fontFamily: "'Open Sans', sans-serif", fontSize: 13,
+      }}>
+        <span style={{ display: "flex", flexShrink: 0, opacity: .55 }}>${iconSvg}</span>
+        <select style={{
+          flex: 1, border: "none", outline: "none", background: "transparent",
+          fontFamily: "'Open Sans', sans-serif", fontSize: 13, color: "#333B41",
+          cursor: "pointer", minWidth: 0,
+        }}>
+          ${opts.map(o => `<option>${o}</option>`).join("\n          ")}
+        </select>
+      </div>
+    </div>
+  );
+}`;
+  }
+
+  return `// DS-FIPS — Field Input "${v.label}" — Copy-paste ready
+// Self-contained: cole no seu projeto React e funciona direto.
+import { useState } from "react";
+
+export function Field${v.label.replace(/\s+/g, "")}() {
+  const [value, setValue] = useState("");
+  const [focused, setFocused] = useState(false);${v.showToggle ? '\n  const [showPwd, setShowPwd] = useState(false);' : ''}
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 200 }}>
+      <label style={{
+        fontSize: 13, fontWeight: 600, color: "#333B41",
+        fontFamily: "'Open Sans', sans-serif",
+      }}>
+        ${v.label}${v.required ? ' <span style={{ color: "#DC3545" }}>*</span>' : ''}
+      </label>
+      <div style={{
+        display: "flex", alignItems: "center", gap: 8, height: 35, padding: "0 12px",
+        borderRadius: 8, border: focused ? "1.5px solid #004B9B" : "1.5px solid #CBD5E1",
+        background: "#FFFFFF", fontFamily: "'Open Sans', sans-serif", fontSize: 13,
+        transition: "border-color 0.15s",
+      }}>
+        <span style={{ display: "flex", flexShrink: 0, opacity: .55 }}>${iconSvg}</span>
+        <input
+          ${v.showToggle ? 'type={showPwd ? "text" : "password"}' : 'type="text"'}
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          placeholder="${v.placeholder}"
+          style={{
+            flex: 1, border: "none", outline: "none", background: "transparent",
+            fontFamily: "'Open Sans', sans-serif", fontSize: 13, color: "#333B41",
+          }}
+        />${v.showToggle ? `
+        <button onClick={() => setShowPwd(p => !p)} style={{ background: "none", border: "none", cursor: "pointer", opacity: .5, fontSize: 14, padding: 0 }}>
+          {showPwd ? "🙈" : "👁"}
+        </button>` : ''}${v.onClear ? `
+        {value && (
+          <button onClick={() => setValue("")} style={{ background: "none", border: "none", cursor: "pointer", opacity: .5, fontSize: 14, padding: 0 }}>✕</button>
+        )}` : ''}
+      </div>${v.helper ? `
+      <span style={{ fontSize: 11, color: "#7B8C96", fontFamily: "'Open Sans', sans-serif" }}>
+        ${v.helper}
+      </span>` : ''}
+    </div>
+  );
+}`;
+}
+
+const FIELD_VARIANTS: FieldVariant[] = [
+  { label: "Nome do cliente", placeholder: "Nome completo", iconName: "pessoa", required: true, helper: "Use o nome juridico ou comercial principal." },
+  { label: "Email", placeholder: "email@fips.app.br", iconName: "email", helper: "Este campo e obrigatorio no cadastro completo." },
+  { label: "Busca global", placeholder: "Buscar empresa, CNPJ ou responsavel...", iconName: "busca", onClear: true },
+  { label: "Data de vencimento", placeholder: "30/03/2026", iconName: "calendario", iconRight: "calendario" },
+  { label: "Senha do certificado", placeholder: "Senha", iconName: "cadeado", showToggle: true, required: true },
+  { label: "Segmento", placeholder: "", iconName: "grid", type: "select", options: ["Selecione","Graos","Conteiner","Granel liquido"] },
+];
+
 /* ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ */
 export default function FieldDoc(){
   const [s1,setS1]=useState("");const [errEmail,setErrEmail]=useState("consultoriafiscal");
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:F.body,color:C.cinzaEscuro}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -398,15 +518,27 @@ export default function FieldDoc(){
         </Section>
 
         {/* 03 — COMPOSIÇÃO PADRÃO */}
-        <Section n="03" title="Composição padrão" desc="Field = Label + Componente base + Helper. Cada tipo de componente base tem seu ícone e regras.">
+        <Section n="03" title="Composição padrão" desc="Field = Label + Componente base + Helper. Clique em qualquer campo para copiar o código pronto para uso.">
           <Card>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px 20px"}}>
-              <FInput label="Nome do cliente" placeholder="Nome completo" icon={I.pessoa()} required helper="Use o nome jurídico ou comercial principal." />
-              <FInput label="Email" placeholder="email@fips.app.br" icon={I.email()} helper="Este campo é obrigatório no cadastro completo." />
-              <FInput label="Busca global" placeholder="Buscar empresa, CNPJ ou responsável..." icon={I.busca()} value={s1} onChange={setS1} onClear={()=>setS1("")} />
-              <FInput label="Data de vencimento" placeholder="30/03/2026" icon={I.calendario()} iconRight={I.calendario(16,C.azulClaro)} />
-              <FInput label="Senha do certificado" placeholder="Senha" icon={I.cadeado()} showToggle required />
-              <FSelect label="Segmento" icon={I.grid(16,C.cinzaChumbo)} options={["Selecione","Grãos","Contêiner","Granel líquido"]} />
+              <Copyable label={FIELD_VARIANTS[0].label} code={fieldVariantCode(FIELD_VARIANTS[0])} preview={<FInput label="Nome do cliente" placeholder="Nome completo" icon={I.pessoa()} required helper="Use o nome jurídico ou comercial principal." />}>
+                <FInput label="Nome do cliente" placeholder="Nome completo" icon={I.pessoa()} required helper="Use o nome jurídico ou comercial principal." />
+              </Copyable>
+              <Copyable label={FIELD_VARIANTS[1].label} code={fieldVariantCode(FIELD_VARIANTS[1])} preview={<FInput label="Email" placeholder="email@fips.app.br" icon={I.email()} helper="Este campo é obrigatório no cadastro completo." />}>
+                <FInput label="Email" placeholder="email@fips.app.br" icon={I.email()} helper="Este campo é obrigatório no cadastro completo." />
+              </Copyable>
+              <Copyable label={FIELD_VARIANTS[2].label} code={fieldVariantCode(FIELD_VARIANTS[2])} preview={<FInput label="Busca global" placeholder="Buscar empresa, CNPJ ou responsável..." icon={I.busca()} onClear={()=>{}} />}>
+                <FInput label="Busca global" placeholder="Buscar empresa, CNPJ ou responsável..." icon={I.busca()} value={s1} onChange={setS1} onClear={()=>setS1("")} />
+              </Copyable>
+              <Copyable label={FIELD_VARIANTS[3].label} code={fieldVariantCode(FIELD_VARIANTS[3])} preview={<FInput label="Data de vencimento" placeholder="30/03/2026" icon={I.calendario()} iconRight={I.calendario(16,C.azulClaro)} />}>
+                <FInput label="Data de vencimento" placeholder="30/03/2026" icon={I.calendario()} iconRight={I.calendario(16,C.azulClaro)} />
+              </Copyable>
+              <Copyable label={FIELD_VARIANTS[4].label} code={fieldVariantCode(FIELD_VARIANTS[4])} preview={<FInput label="Senha do certificado" placeholder="Senha" icon={I.cadeado()} showToggle required />}>
+                <FInput label="Senha do certificado" placeholder="Senha" icon={I.cadeado()} showToggle required />
+              </Copyable>
+              <Copyable label={FIELD_VARIANTS[5].label} code={fieldVariantCode(FIELD_VARIANTS[5])} preview={<FSelect label="Segmento" icon={I.grid(16,C.cinzaChumbo)} options={["Selecione","Grãos","Contêiner","Granel líquido"]} />}>
+                <FSelect label="Segmento" icon={I.grid(16,C.cinzaChumbo)} options={["Selecione","Grãos","Contêiner","Granel líquido"]} />
+              </Copyable>
             </div>
           </Card>
         </Section>
@@ -629,6 +761,8 @@ export default function FieldDoc(){
           </Card>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
           label: "Field + FieldLabel + FieldHint",
           description: "Composicao oficial de label + input + helper/erro para formularios. Inclui FieldInput com icone e estados.",
@@ -641,5 +775,6 @@ export default function FieldDoc(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

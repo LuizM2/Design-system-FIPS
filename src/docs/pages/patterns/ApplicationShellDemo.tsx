@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { useFipsTheme } from '../../../hooks/useFipsTheme'
 import {
   AppWindow,
@@ -793,6 +794,149 @@ function ShellCanvas({
   )
 }
 
+/* ── Helper: código copy-paste-ready para o Playground ── */
+function shellCode(variant: 'desktop' | 'tablet' | 'mobile') {
+  const labels: Record<string, string> = {
+    desktop: 'Desktop — sidebar persistente + hero + content',
+    tablet: 'Tablet — sidebar rail (solo icones) + hero',
+    mobile: 'Mobile — drawer overlay + hero compacto',
+  }
+
+  if (variant === 'mobile') return `// DS-FIPS — Application Shell Mobile — Copy-paste ready
+import { useState } from 'react'
+
+export function AppShellMobile() {
+  const [drawerOpen, setDrawerOpen] = useState(false)
+
+  const menuItems = [
+    { label: 'Home', active: true },
+    { label: 'Requisicoes' },
+    { label: 'Cadastros' },
+    { label: 'Relatorios' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#F3F6FB' }}>
+      {drawerOpen && (
+        <>
+          <div onClick={() => setDrawerOpen(false)}
+            style={{ position: 'fixed', inset: 0, background: 'rgba(4,19,39,0.48)', zIndex: 30 }} />
+          <aside style={{ position: 'fixed', top: 0, left: 0, bottom: 0, width: 252, background: '#002A68', color: '#fff', zIndex: 40, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ height: 59, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 16px', display: 'flex', alignItems: 'center' }}>
+              <span style={{ fontFamily: "'Saira Expanded', sans-serif", fontWeight: 700, fontSize: 16, color: '#fafafa' }}>App FIPS</span>
+            </div>
+            <nav style={{ flex: 1, padding: '12px 8px' }}>
+              {menuItems.map(item => (
+                <div key={item.label} style={{ padding: '10px 12px', borderRadius: 8, marginBottom: 4, background: item.active ? 'rgba(246,146,30,0.15)' : 'transparent', color: item.active ? '#FDC24E' : 'rgba(255,255,255,0.75)', fontSize: 13, fontWeight: item.active ? 600 : 400, cursor: 'pointer' }}>
+                  {item.label}
+                </div>
+              ))}
+            </nav>
+          </aside>
+        </>
+      )}
+      <header style={{ height: 48, padding: '0 16px', borderBottom: '1px solid #E2E8F0', background: '#F5F5F5', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button onClick={() => setDrawerOpen(true)} style={{ background: 'none', border: '1px solid #E2E8F0', borderRadius: 8, width: 36, height: 36, cursor: 'pointer', fontSize: 16 }}>&#9776;</button>
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#333B41' }}>Home</span>
+      </header>
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(118deg, rgba(0,19,56,0.92) 0%, rgba(0,63,138,0.82) 44%, rgba(0,144,208,0.58) 100%)' }} />
+        <div style={{ position: 'relative', padding: '40px 16px', textAlign: 'left' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 600, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0 }}>
+            Home do <span style={{ color: '#F6921E' }}>Aplicativo FIPS</span>
+          </h2>
+        </div>
+      </div>
+      <div style={{ flex: 1, overflow: 'auto', padding: 16 }}>
+        <p style={{ color: '#7B8C96', fontSize: 14 }}>Conteudo da pagina aqui.</p>
+      </div>
+    </div>
+  )
+}`
+
+  return `// DS-FIPS — Application Shell ${variant === 'tablet' ? 'Tablet' : 'Desktop'} — Copy-paste ready
+import { useState } from 'react'
+
+export function AppShell${variant === 'tablet' ? 'Tablet' : 'Desktop'}() {
+  const [collapsed, setCollapsed] = useState(${variant === 'tablet' ? 'true' : 'false'})
+
+  const menuItems = [
+    { label: 'Home', active: true },
+    { label: 'Requisicoes' },
+    { label: 'Cadastros' },
+    { label: 'Relatorios' },
+  ]
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', background: '#F3F6FB' }}>
+      <aside style={{
+        width: ${variant === 'tablet' ? '76' : 'collapsed ? 76 : 256'},
+        background: '#002A68', color: '#fff',
+        display: 'flex', flexDirection: 'column',
+        transition: 'width 0.2s ease',
+        flexShrink: 0,
+      }}>
+        <div style={{ height: 59, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 16px', display: 'flex', alignItems: 'center' }}>
+          <span style={{ fontFamily: "'Saira Expanded', sans-serif", fontWeight: 700, fontSize: ${variant === 'tablet' ? '0' : 'collapsed ? 0 : 16'}, color: '#fafafa', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+            ${variant === 'tablet' ? '' : '{!collapsed && "App FIPS"}'}
+          </span>
+        </div>
+        <nav style={{ flex: 1, overflow: 'auto', padding: '12px 8px' }}>
+          {menuItems.map(item => (
+            <div key={item.label} style={{
+              padding: ${variant === 'tablet' ? "'10px 0'" : "'10px 12px'"},
+              borderRadius: 8, marginBottom: 4,
+              background: item.active ? 'rgba(246,146,30,0.15)' : 'transparent',
+              color: item.active ? '#FDC24E' : 'rgba(255,255,255,0.75)',
+              fontSize: 13, fontWeight: item.active ? 600 : 400,
+              textAlign: ${variant === 'tablet' ? "'center'" : "'left'"},
+              cursor: 'pointer',
+            }}>
+              ${variant === 'tablet' ? "item.label.charAt(0)" : "item.label"}
+            </div>
+          ))}
+        </nav>
+      </aside>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <header style={{ height: 48, padding: '0 16px', borderBottom: '1px solid #E2E8F0', background: '#F5F5F5', display: 'flex', alignItems: 'center', gap: 12 }}>
+          ${variant === 'tablet' ? '' : '<button onClick={() => setCollapsed(c => !c)} style={{ background: "none", border: "1px solid #E2E8F0", borderRadius: 8, width: 32, height: 32, cursor: "pointer", fontSize: 14 }}>&#9776;</button>'}
+          <span style={{ fontSize: 14, color: '#7B8C96' }}>Padroes</span>
+          <span style={{ color: '#CBD5E1' }}>/</span>
+          <span style={{ fontSize: 14, fontWeight: 600, color: '#333B41' }}>Home</span>
+        </header>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(118deg, rgba(0,19,56,0.92) 0%, rgba(0,63,138,0.82) 44%, rgba(0,144,208,0.58) 100%)' }} />
+          <div style={{ position: 'relative', padding: '64px 32px', textAlign: 'center' }}>
+            <h2 style={{ fontSize: 36, fontWeight: 600, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0 }}>
+              Home do <span style={{ color: '#F6921E' }}>Aplicativo FIPS</span>
+            </h2>
+          </div>
+        </div>
+        <div style={{ flex: 1, overflow: 'auto', padding: 24 }}>
+          <p style={{ color: '#7B8C96', fontSize: 14 }}>Conteudo da pagina aqui.</p>
+        </div>
+      </div>
+    </div>
+  )
+}`
+}
+
+function shellPreview(variant: 'desktop' | 'tablet' | 'mobile') {
+  const labels: Record<string, string> = {
+    desktop: 'Desktop — sidebar + hero + cards',
+    tablet: 'Tablet — rail + hero compacto',
+    mobile: 'Mobile — drawer + hero empilhado',
+  }
+  return (
+    <div style={{ padding: 12, textAlign: 'center' }}>
+      <div style={{ background: 'linear-gradient(135deg, #002A68, #004B9B)', borderRadius: 8, padding: '16px 12px', color: '#fff', fontSize: 11, fontFamily: "'Saira Expanded', sans-serif" }}>
+        <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: '#FDC24E', marginBottom: 4 }}>App Shell</div>
+        <strong>{labels[variant]}</strong>
+      </div>
+    </div>
+  )
+}
+
 export default function ApplicationShellDemo() {
   const [desktopCollapsed, setDesktopCollapsed] = useState(false)
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
@@ -808,6 +952,7 @@ export default function ApplicationShellDemo() {
   }
 
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: '100vh', background: 'var(--color-surface-muted)', fontFamily: "'Open Sans', sans-serif", color: 'var(--color-fg)' }}>
       {/* HEADER HERO */}
       <header style={{ background: 'linear-gradient(135deg, var(--color-gov-gradient-from) 0%, var(--color-gov-gradient-to) 100%)', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden' }}>
@@ -850,12 +995,13 @@ export default function ApplicationShellDemo() {
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <h2 style={{ fontSize: 21, fontWeight: 700, color: '#fff', fontFamily: "'Saira Expanded', sans-serif", margin: 0, lineHeight: 1.15, letterSpacing: '-0.2px' }}>Preview interativo</h2>
-            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', fontFamily: "'Open Sans', sans-serif", margin: '4px 0 0', lineHeight: 1.4 }}>Família responsiva com mockups para desktop, tablet e celular</p>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.67)', fontFamily: "'Open Sans', sans-serif", margin: '4px 0 0', lineHeight: 1.4 }}>Clique em qualquer mockup para copiar o código. Família responsiva para desktop, tablet e celular</p>
           </div>
         </div>
       </div>
 
         <div className="space-y-8">
+          <Copyable label="Shell Desktop" code={shellCode('desktop')} preview={shellPreview('desktop')}>
           <MockupFrame
             viewport="desktop"
             label="Desktop"
@@ -873,7 +1019,9 @@ export default function ApplicationShellDemo() {
               />
             </div>
           </MockupFrame>
+          </Copyable>
 
+          <Copyable label="Shell Tablet" code={shellCode('tablet')} preview={shellPreview('tablet')}>
           <MockupFrame
             viewport="tablet"
             label="Tablet"
@@ -891,7 +1039,9 @@ export default function ApplicationShellDemo() {
               />
             </div>
           </MockupFrame>
+          </Copyable>
 
+          <Copyable label="Shell Mobile" code={shellCode('mobile')} preview={shellPreview('mobile')}>
           <MockupFrame
             viewport="mobile"
             label="Celular"
@@ -909,7 +1059,10 @@ export default function ApplicationShellDemo() {
               />
             </div>
           </MockupFrame>
+          </Copyable>
         </div>
+
+        <CodePlayground />
 
         <CodeExportSection items={[
           {
@@ -964,15 +1117,15 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <header style={{
           height: 48, padding: '0 16px',
-          borderBottom: '1px solid var(--color-border)',
-          background: 'var(--color-surface)',
+          borderBottom: '1px solid #E2E8F0',
+          background: '#FFFFFF',
           display: 'flex', alignItems: 'center', gap: 12,
         }}>
           {/* Toggle sidebar + Breadcrumb + Search + Actions */}
         </header>
 
         {/* Section Nav (tabs) */}
-        <div style={{ borderBottom: '1px solid var(--color-border)' }}>
+        <div style={{ borderBottom: '1px solid #E2E8F0' }}>
           {/* DocHeaderSectionNav */}
         </div>
 
@@ -1012,5 +1165,6 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   )
 }

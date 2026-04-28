@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -65,6 +66,7 @@ export default function DSFIPSRadius(){
   const [hovRadius,setHovRadius]=useState<any>(null);
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
@@ -80,14 +82,26 @@ export default function DSFIPSRadius(){
       <div style={{padding:mob?"24px 16px 40px":"36px 40px 60px",maxWidth:1100,margin:"0 auto"}}>
         <Section n="01" title="Escala simétrica" desc="Raios uniformes para elementos menores. Do zero ao circular.">
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":w<900?"repeat(4,1fr)":"repeat(8,1fr)",gap:mob?10:14}}>
-            {symmetricScale.map((r,i)=>{const isHov=hovRadius===r.token;const isCircle=r.px==="50%";return(
-              <div key={r.token} onMouseEnter={()=>setHovRadius(r.token)} onMouseLeave={()=>setHovRadius(null)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,animation:`fadeUp .35s ease ${i*0.04}s both`}}>
+            {symmetricScale.map((r,i)=>{const isHov=hovRadius===r.token;const isCircle=r.px==="50%";const radiusVal=typeof r.px==="number"?r.px+"px":r.px;return(
+              <Copyable
+                key={r.token}
+                label={`radius-${r.label}`}
+                code={`// DS-FIPS — Radius ${r.label}\nborderRadius: ${typeof r.px==="number"?r.px:'"'+r.px+'"'} // or "${radiusVal}"\n// Token: --${r.token}`}
+                preview={
+                  <div style={{display:"flex",alignItems:"center",gap:14}}>
+                    <div style={{width:56,height:56,background:"#004B9B",borderRadius:typeof r.px==="number"?r.px:r.px,transition:"all .3s"}}/>
+                    <div style={{fontSize:12,fontFamily:"'Fira Code',monospace",color:"#1B2A4A"}}>{r.label} — {r.token}</div>
+                  </div>
+                }
+              >
+              <div onMouseEnter={()=>setHovRadius(r.token)} onMouseLeave={()=>setHovRadius(null)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,animation:`fadeUp .35s ease ${i*0.04}s both`}}>
                 <div style={{width:isCircle?72:80,height:isCircle?72:56,background:C.cardBg,borderRadius:typeof r.px==="number"?r.px:r.px,border:`2px solid ${isHov?C.azulProfundo:C.cardBorder}`,boxShadow:isHov?"0 4px 12px rgba(0,75,155,.08)":"none",transition:"all .2s",display:"flex",alignItems:"center",justifyContent:"center"}}>
                   <code style={{fontSize:isCircle?11:13,fontWeight:700,fontFamily:Fn.mono,color:isHov?C.azulProfundo:C.cinzaChumbo,transition:"color .2s"}}>{r.label}</code>
                 </div>
                 <span style={{fontSize:10,color:C.cinzaChumbo,fontFamily:Fn.body,textAlign:"center",lineHeight:1.3}}>{r.use}</span>
                 <code style={{fontSize:9,fontFamily:Fn.mono,color:C.textLight}}>{r.token}</code>
               </div>
+              </Copyable>
             )})}
           </div>
         </Section>
@@ -243,6 +257,8 @@ export default function DSFIPSRadius(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Border Radius Tokens FIPS',
@@ -291,5 +307,6 @@ export default function DSFIPSRadius(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

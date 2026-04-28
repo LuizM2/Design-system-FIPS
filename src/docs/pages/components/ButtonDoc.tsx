@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CodeExportSection } from '../../components/CodeExport';
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground';
 
 /* ═══════════════════════════════════════════
    FIPS DESIGN SYSTEM — OFFICIAL BRAND TOKENS
@@ -247,14 +248,14 @@ const buttonExportCode = `// DS-FIPS — Button — Copy-paste ready
 import { useState } from "react";
 
 const C = {
-  azulProfundo: "var(--color-gov-azul-profundo)",
-  azulEscuro: "var(--color-gov-azul-escuro)",
-  azulClaro: "var(--color-gov-azul-claro)",
-  fg: "var(--color-fg)",
-  fgMuted: "var(--color-fg-muted)",
-  surface: "var(--color-surface)",
-  surfaceMuted: "var(--color-surface-muted)",
-  border: "var(--color-border)",
+  azulProfundo: "#004B9B",
+  azulEscuro: "#002A68",
+  azulClaro: "#0090D0",
+  fg: "#333B41",
+  fgMuted: "#7B8C96",
+  surface: "#FFFFFF",
+  surfaceMuted: "#F8FAFC",
+  border: "#E2E8F0",
   branco: "#FFFFFF",
   danger: "#DC3545",
   dangerDark: "#C82333",
@@ -363,8 +364,78 @@ function Spinner({ size = 14, color = "#fff" }: { size?: number; color?: string 
 // <Button variant="primary" disabled>Desabilitado</Button>
 `;
 
+/* ── Código por variante (copy-paste ready) ── */
+function variantCode(variant: string, label: string): string {
+  return `// DS-FIPS — Button "${label}" — Copy-paste ready
+import { useState } from "react";
+
+export function Button({ children = "${label}", onClick }: { children?: React.ReactNode; onClick?: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const isDark = document.documentElement.classList.contains("dark");
+
+  const variants: Record<string, { bg: string; bgH: string; color: string; border: string }> = {
+    primary:   { bg: isDark ? "#0090D0" : "#004B9B",  bgH: isDark ? "#007AB1" : "#002A68", color: "#FFFFFF", border: "transparent" },
+    secondary: { bg: "#F1F5F9", bgH: "#F8FAFC", color: "#333B41", border: "#E2E8F0" },
+    outline:   { bg: "transparent", bgH: isDark ? "rgba(147,189,228,0.15)" : "#D3E3F4", color: isDark ? "#93BDE4" : "#004B9B", border: isDark ? "#93BDE4" : "#004B9B" },
+    inverse:   { bg: isDark ? "#333B41" : "#002A68", bgH: isDark ? "#444" : "#333B41", color: "#FFFFFF", border: isDark ? "#444" : "#002A68" },
+    ghost:     { bg: "transparent", bgH: isDark ? "rgba(147,189,228,0.12)" : "rgba(211,227,244,0.5)", color: "#7B8C96", border: "transparent" },
+    accent:    { bg: "#F6921E", bgH: "#E0820A", color: "#FFFFFF", border: "transparent" },
+    ouro:      { bg: "#FDC24E", bgH: "#F6921E", color: "#002A68", border: "transparent" },
+    save:      { bg: "#00C64C", bgH: "#00904C", color: "#FFFFFF", border: "transparent" },
+    danger:    { bg: "#DC3545", bgH: "#C82333", color: "#FFFFFF", border: "transparent" },
+    link:      { bg: "transparent", bgH: "transparent", color: isDark ? "#93BDE4" : "#004B9B", border: "transparent" },
+  };
+
+  const v = variants["${variant}"];
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { setHovered(false); setPressed(false); }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      style={{
+        display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 7,
+        padding: "8px 20px", height: 36, fontSize: 13,
+        fontWeight: 600, fontFamily: "'Open Sans', sans-serif", borderRadius: 6,
+        border: \`1.5px solid \${v.border}\`,
+        background: hovered ? v.bgH : v.bg,
+        color: v.color,
+        cursor: "pointer",
+        transition: "all 0.18s ease",
+        transform: pressed ? "scale(0.97)" : "scale(1)",
+        letterSpacing: "0.01em", whiteSpace: "nowrap", outline: "none",
+        boxShadow: hovered ? "0 2px 8px rgba(0,75,155,0.18)" : "none",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+// Uso:
+// <Button>Primário</Button>
+`;
+}
+
+const VARIANT_MAP: { variant: string; label: string }[] = [
+  { variant: "primary", label: "Primário" },
+  { variant: "secondary", label: "Secundário" },
+  { variant: "outline", label: "Contorno" },
+  { variant: "inverse", label: "Inverso" },
+  { variant: "ghost", label: "Fantasma" },
+  { variant: "accent", label: "Destaque" },
+  { variant: "ouro", label: "Realce" },
+  { variant: "save", label: "Salvar" },
+  { variant: "danger", label: "Perigo" },
+  { variant: "link", label: "Link" },
+];
+
 export default function DSFIPSButtons() {
   return (
+    <PlaygroundProvider>
     <div style={{ minHeight: "100vh", background: "var(--color-surface-muted)", fontFamily: FONTS.body, color: C.cinzaEscuro }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -412,20 +483,19 @@ export default function DSFIPSButtons() {
       {/* BODY */}
       <div style={{ padding: "36px 40px 60px", maxWidth: 1100, margin: "0 auto" }}>
 
-        <Section number="01" title="Variantes do sistema" desc="Cada variante comunica uma intenção diferente. Passe o mouse para ver o estado hover.">
+        <Section number="01" title="Variantes do sistema" desc="Cada variante comunica uma intenção diferente. Clique em qualquer botão para copiar o código.">
           <Card>
             <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-              <DSButton variant="primary">Primário</DSButton>
-              <DSButton variant="secondary">Secundário</DSButton>
-              <DSButton variant="outline">Contorno</DSButton>
-              <DSButton variant="inverse">Inverso</DSButton>
-              <DSButton variant="ghost">Fantasma</DSButton>
-              <Divider />
-              <DSButton variant="accent">Destaque</DSButton>
-              <DSButton variant="ouro">Realce</DSButton>
-              <DSButton variant="save">Salvar</DSButton>
-              <DSButton variant="danger">Perigo</DSButton>
-              <DSButton variant="link">Link</DSButton>
+              {VARIANT_MAP.map(({ variant, label }) => (
+                <Copyable
+                  key={variant}
+                  label={label}
+                  code={variantCode(variant, label)}
+                  preview={<DSButton variant={variant}>{label}</DSButton>}
+                >
+                  <DSButton variant={variant}>{label}</DSButton>
+                </Copyable>
+              ))}
             </div>
           </Card>
         </Section>
@@ -836,9 +906,11 @@ export default function DSFIPSButtons() {
           </Card>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[{
-          label: "Button",
-          description: "Botao com variantes (primary, secondary, outline, ghost, accent, ouro, save, danger, link, inverse), tamanhos e estados.",
+          label: "Button (completo)",
+          description: "Componente completo com todas as variantes, tamanhos e estados. Para copiar uma variante individual, clique nela acima.",
           code: buttonExportCode,
         }]} />
 
@@ -849,5 +921,6 @@ export default function DSFIPSButtons() {
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }

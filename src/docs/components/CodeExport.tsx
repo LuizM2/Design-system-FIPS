@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 
 /* ═══════════════════════════════════════════
    CodeExport — Botão de copiar código + painel colapsável
@@ -66,6 +66,7 @@ export interface CodeExportItem {
   label: string
   description: string
   code: string
+  preview?: ReactNode
 }
 
 export function CodeExportSection({ items }: { items: CodeExportItem[] }) {
@@ -117,9 +118,10 @@ export function CodeExportSection({ items }: { items: CodeExportItem[] }) {
   )
 }
 
-function CodeExportCard({ label, description, code }: CodeExportItem) {
+function CodeExportCard({ label, description, code, preview }: CodeExportItem) {
   const [copied, setCopied] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [previewVisible, setPreviewVisible] = useState(false)
 
   const doCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -213,24 +215,102 @@ function CodeExportCard({ label, description, code }: CodeExportItem) {
               onClick={doCopy}
             />
           </div>
-          <pre
-            style={{
-              margin: 0,
-              padding: '18px 20px',
-              background: '#0F172A',
-              color: '#E2E8F0',
-              fontFamily: "'Fira Code', monospace",
-              fontSize: 11.5,
-              lineHeight: 1.7,
-              overflowX: 'auto',
-              maxHeight: 420,
-              overflowY: 'auto',
-              whiteSpace: 'pre',
-              tabSize: 2,
-            }}
-          >
-            <code>{code}</code>
-          </pre>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {/* Code panel */}
+            <pre
+              style={{
+                margin: 0,
+                padding: '18px 20px',
+                background: '#0F172A',
+                color: '#E2E8F0',
+                fontFamily: "'Fira Code', monospace",
+                fontSize: 11.5,
+                lineHeight: 1.7,
+                overflowX: 'auto',
+                maxHeight: 420,
+                overflowY: 'auto',
+                whiteSpace: 'pre',
+                tabSize: 2,
+                flex: preview ? '1 1 400px' : '1 1 100%',
+                minWidth: 0,
+              }}
+            >
+              <code>{code}</code>
+            </pre>
+
+            {/* Preview panel */}
+            {preview && (
+              <div
+                style={{
+                  flex: '1 1 400px',
+                  minWidth: 0,
+                  maxHeight: 420,
+                  overflowY: 'auto',
+                  borderLeft: '1px solid var(--color-border)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: 'var(--color-surface-muted)',
+                }}
+              >
+                {!previewVisible ? (
+                  <div
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 14,
+                      padding: 24,
+                      margin: 16,
+                      borderRadius: 10,
+                      border: '2px dashed var(--color-border)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: 11,
+                        color: 'var(--color-fg-muted)',
+                        fontFamily: "'Open Sans', sans-serif",
+                        textAlign: 'center',
+                      }}
+                    >
+                      Clique em Rodar para visualizar o componente
+                    </span>
+                    <ExportBtn label="▶ Rodar" color="#00904C" onClick={() => setPreviewVisible(true)} />
+                  </div>
+                ) : (
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '8px 16px',
+                        borderBottom: '1px solid var(--color-border)',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: '1px',
+                          textTransform: 'uppercase',
+                          color: 'var(--color-fg-muted)',
+                          fontFamily: "'Saira Expanded', sans-serif",
+                        }}
+                      >
+                        Preview
+                      </span>
+                      <ExportBtn label="✕ Limpar" color="#546E7A" onClick={() => setPreviewVisible(false)} />
+                    </div>
+                    <div style={{ padding: 16, flex: 1, overflow: 'auto' }}>{preview}</div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

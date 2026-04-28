@@ -18,6 +18,7 @@ import {
 import { useState } from 'react'
 import { DocPage, DemoSection } from '../../components/DocPage'
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 import { Button } from '../../../components/ui/button'
 import {
   Dialog,
@@ -90,6 +91,115 @@ function OwnerChip({ name, onRemove }: { name: string; onRemove: () => void }) {
   )
 }
 
+/* ─── Copyable code helper (hardcoded hex, self-contained) ─── */
+function codeModalForm() {
+  return `// DS-FIPS — Modal Form com Tabs — Copy-paste ready
+import { useState } from "react";
+
+export function ModalFormDemo() {
+  const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("atendimento");
+  const [priority, setPriority] = useState("media");
+
+  const priorityConfig = {
+    baixa:   { label: 'Baixa',   border: '#94A3B8', bg: '#F1F5F9', text: '#64748B', dot: '#94A3B8' },
+    media:   { label: 'Media',   border: '#004B9B', bg: '#E8F0FE', text: '#004B9B', dot: '#004B9B' },
+    alta:    { label: 'Alta',    border: '#F6921E', bg: '#FFF3E0', text: '#F6921E', dot: '#F6921E' },
+    urgente: { label: 'Urgente', border: '#DC3545', bg: '#FDE8EA', text: '#DC3545', dot: '#DC3545' },
+  };
+
+  const tabs = [
+    { id: 'atendimento', label: 'Atendimento' },
+    { id: 'tarefa', label: 'Tarefa' },
+    { id: 'reuniao', label: 'Reuniao' },
+  ];
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)} style={{ background: '#004B9B', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+        Nova Tarefa
+      </button>
+
+      {open && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div onClick={() => setOpen(false)} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
+          <div style={{ position: 'relative', width: '95vw', maxWidth: 900, maxHeight: '90vh', background: '#fff', borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,0.18)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '16px 24px', borderBottom: '1px solid #E2E8F0' }}>
+              <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#E8F0FE', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004B9B" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div>
+                <h2 style={{ fontSize: 18, fontWeight: 700, color: '#333B41', margin: 0 }}>Novo Item</h2>
+                <p style={{ fontSize: 12, color: '#7B8C96', margin: '2px 0 0' }}>Crie uma nova tarefa ou agende uma reuniao.</p>
+              </div>
+            </div>
+
+            <div style={{ padding: '16px 24px', overflowY: 'auto', flex: 1 }}>
+              <div style={{ display: 'flex', gap: 4, padding: 4, background: '#F1F5F9', borderRadius: 12, marginBottom: 16 }}>
+                {tabs.map(t => (
+                  <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ flex: 1, padding: '8px 12px', borderRadius: 8, fontSize: 13, fontWeight: 600, border: 'none', background: activeTab === t.id ? '#fff' : 'transparent', color: activeTab === t.id ? '#004B9B' : '#7B8C96', boxShadow: activeTab === t.id ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', cursor: 'pointer' }}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Titulo <span style={{ color: '#DC3545' }}>*</span></label>
+                    <input placeholder="Ex: Consultoria Fiscal" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Cliente</label>
+                    <input placeholder="Buscar empresa..." style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Data Inicio</label>
+                      <input type="date" defaultValue="2026-04-01" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Fim do Prazo</label>
+                      <input type="date" style={{ width: '100%', height: 36, padding: '0 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Prioridade</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
+                      {Object.entries(priorityConfig).map(([key, cfg]) => (
+                        <button key={key} onClick={() => setPriority(key)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, padding: '6px 8px', borderRadius: 8, border: \`2px solid \${priority === key ? cfg.border : '#E2E8F0'}\`, background: priority === key ? cfg.bg : '#fff', color: priority === key ? cfg.text : '#7B8C96', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+                          <span style={{ width: 6, height: 6, borderRadius: '50%', background: priority === key ? cfg.dot : '#CBD5E1' }} />
+                          {cfg.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: '#333B41', display: 'block', marginBottom: 4 }}>Descricao</label>
+                    <textarea placeholder="Detalhes, contexto, links..." rows={3} style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '1px solid #E2E8F0', fontSize: 13, outline: 'none', resize: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 24px', borderTop: '1px solid #E2E8F0' }}>
+              <span style={{ fontSize: 11, color: '#7B8C96' }}>Cmd+Enter para salvar</span>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => setOpen(false)} style={{ height: 36, padding: '0 16px', fontSize: 14, fontWeight: 600, borderRadius: 12, border: '1px solid #E2E8F0', background: '#fff', color: '#333B41', cursor: 'pointer' }}>Cancelar</button>
+                <button style={{ height: 36, padding: '0 16px', fontSize: 14, fontWeight: 600, borderRadius: 12, border: 'none', background: '#00C64C', color: '#fff', cursor: 'pointer' }}>Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`
+}
+
 /* ─── Component ─── */
 export default function ModalFormDemo() {
   const [open, setOpen] = useState(false)
@@ -100,9 +210,21 @@ export default function ModalFormDemo() {
   return (
     <DocPage
       title="Padrão: Modal de formulário"
-      description="Formulário em duas colunas com abas superiores, seletor de prioridade com dots, barra de progresso, chips de responsável e upload de documentos — referência oficial baseada no padrão CONTPIX, composta apenas com primitivas do DS-FIPS."
+      description="Formulário em duas colunas com abas superiores, seletor de prioridade com dots, barra de progresso, chips de responsável e upload de documentos. Clique no demo para copiar o código."
     >
+      <PlaygroundProvider>
       <DemoSection title="Interativo — Novo Item">
+        <Copyable label="Modal Form" code={codeModalForm()} preview={
+          <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E2E8F0', fontFamily: "'Open Sans', sans-serif", fontSize: 13, maxWidth: 300 }}>
+            <div style={{ fontWeight: 700, fontSize: 16, color: '#333B41', marginBottom: 8 }}>Novo Item</div>
+            <div style={{ fontSize: 12, color: '#7B8C96', marginBottom: 12 }}>Modal com Tabs + Grid 2 colunas + Prioridade dots</div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <span style={{ padding: '3px 10px', borderRadius: 6, background: '#E8F0FE', color: '#004B9B', fontSize: 11, fontWeight: 600 }}>Atendimento</span>
+              <span style={{ padding: '3px 10px', borderRadius: 6, background: '#F1F5F9', color: '#64748B', fontSize: 11 }}>Tarefa</span>
+              <span style={{ padding: '3px 10px', borderRadius: 6, background: '#F1F5F9', color: '#64748B', fontSize: 11 }}>Reuniao</span>
+            </div>
+          </div>
+        }>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -275,11 +397,11 @@ export default function ModalFormDemo() {
                                 className={`flex items-center justify-center gap-1 rounded-lg border-2 px-2 py-1.5 text-xs font-medium transition-all duration-200 ${
                                   isActive
                                     ? cfg.active
-                                    : 'border-[var(--color-border)]/60 bg-[var(--color-surface)] text-[var(--color-fg-muted)] hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)]'
+                                    : 'border-[#E2E8F0]/60 bg-[#FFFFFF] text-[#7B8C96] hover:border-[#E2E8F0] hover:bg-[#F8FAFC]'
                                 }`}
                               >
                                 <span
-                                  className={`h-1.5 w-1.5 rounded-full ${isActive ? cfg.dot : 'bg-[var(--color-fg-muted)]/40'}`}
+                                  className={`h-1.5 w-1.5 rounded-full ${isActive ? cfg.dot : 'bg-[#7B8C96]/40'}`}
                                 />
                                 {cfg.label}
                               </button>
@@ -371,7 +493,10 @@ export default function ModalFormDemo() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        </Copyable>
       </DemoSection>
+
+      <CodePlayground />
 
       <CodeExportSection items={[
         {
@@ -398,7 +523,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 
 const priorityConfig = {
-  baixa:   { label: 'Baixa',   dot: 'bg-[var(--color-fg-muted)]/60' },
+  baixa:   { label: 'Baixa',   dot: 'bg-[#7B8C96]/60' },
   media:   { label: 'Media',   dot: 'bg-[var(--color-secondary)]' },
   alta:    { label: 'Alta',    dot: 'bg-[var(--color-accent-strong)]' },
   urgente: { label: 'Urgente', dot: 'bg-[var(--color-danger)]' },
@@ -442,6 +567,7 @@ function ModalForm() {
 }`,
         },
       ]} />
+      </PlaygroundProvider>
     </DocPage>
   )
 }

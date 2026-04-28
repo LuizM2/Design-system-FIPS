@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CodeExportSection } from '../../components/CodeExport'
+import { PlaygroundProvider, Copyable, CodePlayground } from '../../components/CodePlayground'
 
 const C={azulProfundo:"var(--color-gov-azul-profundo)",azulEscuro:"var(--color-gov-azul-escuro)",azulClaro:"var(--color-gov-azul-claro)",cinzaChumbo:"var(--color-fg-muted)",cinzaEscuro:"var(--color-fg)",cinzaClaro:"#C0CCD2",azulCeu:"#93BDE4",azulCeuClaro:"#D3E3F4",amareloOuro:"#FDC24E",amareloEscuro:"#F6921E",verdeFloresta:"#00C64C",verdeEscuro:"var(--color-gov-verde-escuro)",danger:"#DC3545",neutro:"var(--color-surface-soft)",branco:"#FFFFFF",bg:"var(--color-surface-muted)",cardBg:"var(--color-surface)",cardBorder:"var(--color-border)",textMuted:"var(--color-fg-muted)",textLight:"var(--color-fg-muted)"};
 const Fn={title:"'Saira Expanded',sans-serif",body:"'Open Sans',sans-serif",mono:"'Fira Code',monospace"};
@@ -56,6 +57,7 @@ export default function DSFIPSShadows(){
   const [playgroundShadow,setPlaygroundShadow]=useState("card");
 
   return(
+    <PlaygroundProvider>
     <div style={{minHeight:"100vh",background:"var(--color-surface-muted)",fontFamily:Fn.body,color:C.cinzaEscuro}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Saira+Expanded:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
@@ -72,7 +74,18 @@ export default function DSFIPSShadows(){
         <Section n="01" title="Escala visual" desc="6 níveis de sombra do mais sutil ao mais profundo. Compare lado a lado.">
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":w<900?"repeat(3,1fr)":"repeat(6,1fr)",gap:mob?12:16}}>
             {shadowOrder.map((key,i)=>{const sh=shadows[key as keyof typeof shadows];return(
-              <div key={key} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,animation:`fadeUp .35s ease ${i*0.06}s both`}}>
+              <Copyable
+                key={key}
+                label={`shadow-${key}`}
+                code={`// DS-FIPS — Shadow ${sh.label}\nboxShadow: "${sh.value}"\n// Token: --${sh.token}`}
+                preview={
+                  <div style={{display:"flex",alignItems:"center",gap:16}}>
+                    <div style={{width:64,height:64,background:"#FFFFFF",borderRadius:"12px 12px 12px 20px",boxShadow:sh.value,border:key==="none"?"1px solid #D7E0EA":"1px solid transparent"}}/>
+                    <div style={{fontSize:12,fontFamily:"'Fira Code',monospace",color:"#1B2A4A"}}>{sh.label} — {sh.token}</div>
+                  </div>
+                }
+              >
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,animation:`fadeUp .35s ease ${i*0.06}s both`}}>
                 <div style={{width:"100%",aspectRatio:"1",background:C.cardBg,borderRadius:"12px 12px 12px 20px",border:key==="none"?`1px solid ${C.cardBorder}`:"1px solid transparent",boxShadow:sh.value,display:"flex",alignItems:"center",justifyContent:"center",transition:"box-shadow .3s"}}>
                   <span style={{fontSize:24,fontWeight:800,fontFamily:Fn.title,color:alpha(C.azulProfundo,0.13)}}>{sh.level}</span>
                 </div>
@@ -81,6 +94,7 @@ export default function DSFIPSShadows(){
                   <code style={{fontSize:9,fontFamily:Fn.mono,color:C.textMuted}}>{sh.token}</code>
                 </div>
               </div>
+              </Copyable>
             )})}
           </div>
         </Section>
@@ -227,6 +241,8 @@ export default function DSFIPSShadows(){
           </div>
         </Section>
 
+        <CodePlayground />
+
         <CodeExportSection items={[
           {
             label: 'Shadow Tokens FIPS',
@@ -279,5 +295,6 @@ export default function DSFIPSShadows(){
         </div>
       </div>
     </div>
+    </PlaygroundProvider>
   );
 }
