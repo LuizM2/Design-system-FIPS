@@ -127,7 +127,7 @@ function exportPDF(data: Row[], filters: Record<string,string|null>, totals: {va
     const fy=tTop-14-((pRows.length+1)*rowH)-8;
     s+="0.886 0.906 0.937 rg\n";s+=`${mx} ${fy} ${pageW-mx*2} 0.5 re f\n`;
     s+="BT\n0.318 0.38 0.427 rg\n";
-    s+=`${mx} ${fy-12} Td /F1 7 Tf (Total: R$ ${totals.valor}  |  ${data.length} requisicoes  |  DS-FIPS v0.4.0 - Ferrovia Interna do Porto de Santos) Tj\n`;
+    s+=`${mx} ${fy-12} Td /F1 7 Tf (Total: R$ ${totals.valor}  |  ${data.length} requisicoes  |  DS-FIPS v0.4.2 - Ferrovia Interna do Porto de Santos) Tj\n`;
     s+="ET\n";
 
     const streamRef=addObj(`<< /Length ${s.length} >>\nstream\n${s}endstream`);
@@ -1300,7 +1300,7 @@ function DashboardPage() {
         ]} />
 
         <div style={{textAlign:"center",padding:"24px 0 0",marginTop:24}}>
-          <span style={{fontSize:11,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{fontSize:11,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>

@@ -468,7 +468,7 @@ export default function StacksPage(){
 
         {/* Footer */}
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:"0.5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelencia sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:"0.5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelencia sobre trilhos · {new Date().getFullYear()}</span>
         </div>
 
       </div>

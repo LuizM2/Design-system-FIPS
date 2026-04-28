@@ -57,7 +57,7 @@ function BannerPadrao() {
         </p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', fontSize: 12, fontWeight: 600, color: '#fff', background: 'rgba(0,198,76,0.18)', border: '1px solid rgba(0,198,76,0.30)', borderRadius: 20, fontFamily: Fn.body }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.verdeFloresta }} />v0.4.0
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: C.verdeFloresta }} />v0.4.2
           </span>
           {['14 componentes', 'React + Tailwind'].map(t => (
             <span key={t} style={{ padding: '4px 12px', fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, fontFamily: Fn.body }}>{t}</span>
@@ -484,7 +484,7 @@ function BannerConteudo({ icon, title, subtitle, ctaLabel, onCta }: {
         ]} />
 
         <div style={{ textAlign: 'center', padding: '20px 0 0', borderTop: `1px solid ${C.cardBorder}`, marginTop: 20 }}>
-          <span style={{ fontSize: 12, color: C.cinzaChumbo, letterSpacing: '0.5px', fontFamily: Fn.title, fontWeight: 400 }}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{ fontSize: 12, color: C.cinzaChumbo, letterSpacing: '0.5px', fontFamily: Fn.title, fontWeight: 400 }}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>

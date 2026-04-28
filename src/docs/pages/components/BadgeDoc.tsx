@@ -374,7 +374,7 @@ export default function BadgeDoc(){
         <Section n="02" title="Guia de uso por variante" desc="Significado, regras e exemplos FIPS para cada variante de badge.">
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
             {[
-              {name:"Padrão (default)",v:"default",badge:<Badge variant="default">Padrão</Badge>,desc:"Badge institucional azul. Destaque primário, identificador genérico.",when:"Identificação principal, versão, categoria padrão. Quando nenhum status semântico se aplica.",ex:"'Componentes' no menu; tag de versão 'v0.4.0'; identificador de módulo."},
+              {name:"Padrão (default)",v:"default",badge:<Badge variant="default">Padrão</Badge>,desc:"Badge institucional azul. Destaque primário, identificador genérico.",when:"Identificação principal, versão, categoria padrão. Quando nenhum status semântico se aplica.",ex:"'Componentes' no menu; tag de versão 'v0.4.2'; identificador de módulo."},
               {name:"Secundário",v:"secondary",badge:<Badge variant="secondary">Secundário</Badge>,desc:"Badge neutro com fundo cinza. Menor hierarquia visual, informação de suporte.",when:"Metadados, contadores discretos, informações auxiliares. Tags de categoria genérica.",ex:"Contagem de registros em listagens; metadata em cards; categoria 'Geral'."},
               {name:"Sucesso",v:"sucesso",badge:<Badge variant="sucesso" dot>Ativo</Badge>,desc:"Verde suave para status positivo. Comunica aprovação, conclusão, ativo.",when:"Status ativo, aprovado, concluído, online, verificado. Sempre com dot para status.",ex:"'Ativo' em tabelas do Suprimentos; 'Aprovado' em fluxos; 'Online' no sistema."},
               {name:"Atenção",v:"atencao",badge:<Badge variant="atencao" dot>Pendente</Badge>,desc:"Laranja suave para alerta moderado. Requer ação mas não é urgente.",when:"Pendente, aguardando, próximo do prazo, em revisão. Fluxos que precisam de atenção.",ex:"'Pendente' em requisições; 'Aguardando aprovação'; 'Prazo próximo' no SSMA."},
@@ -636,7 +636,7 @@ export default function BadgeDoc(){
         }]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>

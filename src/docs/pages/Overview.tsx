@@ -118,7 +118,7 @@ export default function DSFIPSOverview(){
           <h1 style={{fontSize:mob?32:52,fontWeight:800,color:C.branco,margin:"0 0 12px",fontFamily:Fn.title,lineHeight:1.1,letterSpacing:"-0.5px"}}>Design System<br/><span style={{color:C.amareloOuro}}>FIPS</span></h1>
           <p style={{fontSize:mob?15:18,color:alpha(C.branco,.72),lineHeight:1.65,margin:"0 0 24px",fontFamily:Fn.body,maxWidth:650}}>Sistema de design unificado da Ferrovia Interna do Porto de Santos. Componentes, tokens e padrões para construir aplicações consistentes, acessíveis e com identidade ferroviária.</p>
           <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
-            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.verdeFloresta,.19),border:`1px solid ${alpha(C.verdeFloresta,.31)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:600,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:6,height:6,borderRadius:"50%",background:C.verdeFloresta,animation:"pulse 2s infinite"}}/>v0.4.0</div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.verdeFloresta,.19),border:`1px solid ${alpha(C.verdeFloresta,.31)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:600,color:C.verdeFloresta,fontFamily:Fn.body}}><span style={{width:6,height:6,borderRadius:"50%",background:C.verdeFloresta,animation:"pulse 2s infinite"}}/>v0.4.2</div>
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>14 componentes</div>
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>React + Tailwind</div>
             <div style={{display:"inline-flex",alignItems:"center",gap:6,background:alpha(C.branco,.06),border:`1px solid ${alpha(C.branco,.09)}`,borderRadius:20,padding:"6px 14px",fontSize:12,fontWeight:500,color:alpha(C.branco,.80),fontFamily:Fn.body}}>Dark mode ✓</div>
@@ -344,7 +344,7 @@ export default function DSFIPSOverview(){
         </Section>
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>

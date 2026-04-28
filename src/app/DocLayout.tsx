@@ -15,7 +15,7 @@ import { Toaster } from 'sonner'
 import { docHeaderBarTabs, docHeaderBarTop, docHeaderShellBorder } from '../lib/docHeaderChrome'
 import { useFipsTheme } from '../hooks/useFipsTheme'
 
-const DOC_VERSION = 'v0.4.0'
+const DOC_VERSION = 'v0.4.2'
 
 export function DocLayout() {
   const { dark, toggle } = useFipsTheme()

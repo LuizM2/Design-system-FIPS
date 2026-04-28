@@ -270,6 +270,6 @@ export const PAGE_TUTORIALS: Record<string, PageTutorialStep[]> = {
   ],
 
   changelog: [
-    { title: "Changelog do DS-FIPS", description: "Histórico de evolução do Design System.\n\n• v0.4.0 (2026-04-07) — Catálogo expandido, 14+ componentes, Dashboard, distribuição para IA\n• v0.3.0 (2026-04-01) — Shell consolidado, PageHero, Field, governança\n\nConsulte antes de atualizar dependências." },
+    { title: "Changelog do DS-FIPS", description: "Histórico de evolução do Design System.\n\n• v0.4.2 (2026-04-07) — Catálogo expandido, 14+ componentes, Dashboard, distribuição para IA\n• v0.3.0 (2026-04-01) — Shell consolidado, PageHero, Field, governança\n\nConsulte antes de atualizar dependências." },
   ],
 };

@@ -188,7 +188,7 @@ export default function DSFIPSTypography(){
                   <code style={{fontSize:11,fontFamily:Fn.mono,fontWeight:500,color:C.cinzaChumbo}}>REQ-4025 <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.body,fontWeight:400}}>Fira Code 500</span></code>
                 </div>
               </div>
-              <div style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Excelência sobre trilhos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-xs · Saira 400 12px</span></div>
+              <div style={{fontSize:12,color:C.cinzaChumbo,fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Excelência sobre trilhos <span style={{fontSize:9,color:C.textLight,fontFamily:Fn.mono}}>text-xs · Saira 400 12px</span></div>
             </div>
           </DSCard>
         </Section>
@@ -336,7 +336,7 @@ export default function DSFIPSTypography(){
         ]} />
 
         <div style={{textAlign:"center",padding:"20px 0 0",borderTop:`1px solid ${C.cardBorder}`,marginTop:20}}>
-          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.0 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
+          <span style={{fontSize:12,color:C.cinzaChumbo,letterSpacing:".5px",fontFamily:Fn.title,fontWeight:400}}>DS-FIPS v0.4.2 · Ferrovia Interna do Porto de Santos · Excelência sobre trilhos · {new Date().getFullYear()}</span>
         </div>
       </div>
     </div>
