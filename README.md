@@ -4,7 +4,7 @@ Biblioteca oficial de componentes, tokens e estilos para construir interfaces
 do sistema FIPS (Ferrovia Interna do Porto de Santos), publicada no GitHub
 Packages.
 
-## Versão atual: `v0.4.3`
+## Versão atual: `v0.5.0`
 
 ## Consumindo a biblioteca
 
@@ -75,6 +75,7 @@ O projeto segue **Semantic Versioning (SemVer)**. Toda alteração deve atualiza
 
 | Versão | Data | Descrição |
 |---|---|---|
+| 0.5.0 | 2026-05-01 | Empacotamento como biblioteca npm publicável (`@fips-app/ds-fips`) com ESM/CJS/types/styles.css e workflow automático no GitHub Packages |
 | 0.4.3 | 2026-04-28 | Ajustes de iconografia, playground interativo e padronização visual dos headers/previews |
 | 0.4.2 | 2026-04-28 | Ampliação da documentação (componentes/patterns), playground de código e ajustes no login Tecnopano |
 | 0.4.1 | 2026-04-27 | Documentação de versionamento e changelog |
